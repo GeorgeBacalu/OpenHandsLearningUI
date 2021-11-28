@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/selectedItemCard"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="15dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/dark"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/selectedItemImage"
+            android:layout_width="150dp"
+            android:layout_height="130dp"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/selectedItemName"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/selectedItemImage"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="-10dp"
+            android:layout_marginTop="10dp"
+            android:text="Category Name"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
