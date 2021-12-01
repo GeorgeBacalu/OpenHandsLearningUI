@@ -1,10 +1,12 @@
 package com.example.llt_project_separate;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import java.util.ArrayList;
 
@@ -20,10 +22,24 @@ public class AllCategoriesActivity extends AppCompatActivity {
         categoriesRecyclerView = findViewById(R.id.categoriesRecyclerView);
         categoriesAdapter = new AllCategoriesRecyclerViewAdapter(this);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         categoriesRecyclerView.setAdapter(categoriesAdapter);
         categoriesRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
 
-        categoriesAdapter.setCategories(Utils.getInstance().getAllCategories());
+        categoriesAdapter.setCategories(Utils.getInstance(this).getAllCategories());
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

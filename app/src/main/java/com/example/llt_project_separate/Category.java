@@ -4,6 +4,7 @@ public class Category {
     private int id;
     private String name;
     private int imageSource;
+    private boolean isExpanded;
 
     public Category() {
         this.id = 0;
@@ -15,6 +16,15 @@ public class Category {
         this.id = id;
         this.name = name;
         this.imageSource = imageSource;
+        this.isExpanded = false;
+    }
+
+    public boolean isExpanded() {
+        return isExpanded;
+    }
+
+    public void setExpanded(boolean expanded) {
+        isExpanded = expanded;
     }
 
     public int getId() {

@@ -2,6 +2,7 @@ package com.example.llt_project_separate;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 
 public class FavoritesActivity extends AppCompatActivity {
     private RecyclerView favoriteRecyclerView;
-    private AllCategoriesRecyclerViewAdapter favoritesAdapter;
+    private CategoryRecyclerViewAdapter favoritesAdapter;
     private ImageView toPrevPageButton;
     private FloatingActionButton toHomePageFabButton;
 
@@ -25,7 +26,7 @@ public class FavoritesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_favorites);
 
         favoriteRecyclerView = findViewById(R.id.favoriteRecyclerView);
-        favoritesAdapter = new AllCategoriesRecyclerViewAdapter(this);
+        favoritesAdapter = new CategoryRecyclerViewAdapter(this, "favoriteCategories");
 
         toPrevPageButton = findViewById(R.id.toPrevPageButton);
         toHomePageFabButton = findViewById(R.id.toHomePageFabButton);
@@ -47,13 +48,15 @@ public class FavoritesActivity extends AppCompatActivity {
         });
 
         favoriteRecyclerView.setAdapter(favoritesAdapter);
-        favoriteRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        favoriteRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        ArrayList<Category> favorites = new ArrayList<>();
-        favorites.add(new Category(1, "CÂINE", R.drawable.caine));
-        favorites.add(new Category(2, "PISICĂ", R.drawable.pisica));
-        favorites.add(new Category(3, "URS POLAR", R.drawable.urs_polar));
-        favorites.add(new Category(4, "ELEFANT", R.drawable.elefant));
-        favoritesAdapter.setCategories(favorites);
+        favoritesAdapter.setCategories(Utils.getInstance(this).getFavoriteCategories());
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, VideoSectionActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }

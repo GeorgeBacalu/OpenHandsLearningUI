@@ -1,7 +1,5 @@
 package com.example.llt_project_separate;
 
-import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_ID_KEY;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -46,13 +44,12 @@ public class AllCategoriesRecyclerViewAdapter extends RecyclerView.Adapter<AllCa
         holder.categoryCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(categoriesContext, VideoPlayerActivity.class);
+                Intent intent = new Intent(categoriesContext, CategoryActivity.class);
                 if (categories.get(position).getId() < 0) {
                     throw new NullPointerException("Invalid Selection");
                 }
-                intent.putExtra(CATEGORY_ID_KEY, categories.get(position).getId());
-                intent.putExtra("name", categories.get(position).getName());
-                intent.putExtra("activity", "AllCategoriesActivity");
+                intent.putExtra("categoryId", categories.get(position).getId());
+                intent.putExtra("categoryName", categories.get(position).getName());
                 categoriesContext.startActivity(intent);
             }
         });

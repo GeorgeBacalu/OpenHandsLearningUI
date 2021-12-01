@@ -1,11 +1,13 @@
 package com.example.llt_project_separate;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -34,6 +36,8 @@ public class VideoSectionActivity extends AppCompatActivity {
         toPrevPageButton = findViewById(R.id.toPrevPageButton);
         toHomePageFabButton = findViewById(R.id.toHomePageFabButton);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         toPrevPageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,6 +54,14 @@ public class VideoSectionActivity extends AppCompatActivity {
             }
         });
 
+        allCategoriesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(VideoSectionActivity.this, AllCategoriesActivity.class);
+                startActivity(intent);
+            }
+        });
+
         showFavoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,13 +70,7 @@ public class VideoSectionActivity extends AppCompatActivity {
             }
         });
 
-        allCategoriesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(VideoSectionActivity.this, AllCategoriesActivity.class);
-                startActivity(intent);
-            }
-        });
+        Utils.getInstance(this);
 
         mainCategoriesRecyclerView.setAdapter(mainCategoriesAdapter);
         mainCategoriesRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
@@ -80,5 +86,17 @@ public class VideoSectionActivity extends AppCompatActivity {
         categories.add(new Category(8, "VERBE", R.drawable.animale));
         categories.add(new Category(9, "FORMULE DE ADRESARE", R.drawable.animale));
         mainCategoriesAdapter.setCategories(categories);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

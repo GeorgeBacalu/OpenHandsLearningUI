@@ -9,6 +9,7 @@
     app:cardElevation="10dp">
 
     <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/light_blue"

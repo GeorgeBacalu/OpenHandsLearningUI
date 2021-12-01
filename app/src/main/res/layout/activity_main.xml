@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/translucent_dark_blue"
-            android:layout_marginTop="140dp"
+            android:layout_marginTop="170dp"
             android:layout_marginLeft="40dp">
 
             <ImageButton
@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/translucent_dark_blue"
-            android:layout_marginTop="370dp"
+            android:layout_marginTop="410dp"
             android:layout_marginLeft="80dp">
 
             <ImageButton
@@ -47,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/translucent_dark_blue"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="140dp"
             android:layout_marginLeft="250dp">
 
             <ImageButton
@@ -62,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/translucent_dark_blue"
-            android:layout_marginTop="360dp"
+            android:layout_marginTop="390dp"
             android:layout_marginLeft="230dp">
 
             <ImageButton
@@ -77,7 +77,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/translucent_dark_blue"
-            android:layout_marginTop="345dp"
+            android:layout_marginTop="375dp"
             android:layout_marginLeft="250dp">
 
             <ImageButton
@@ -97,7 +97,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="30dp">
+                android:padding="50dp">
 
                 <ImageView
                     android:id="@+id/lltLogo"
@@ -121,16 +121,16 @@
                     app:layout_constraintTop_toTopOf="@+id/lltLogo"
                     app:tint="@color/white" />
 
-                <ImageView
-                    android:id="@+id/settings"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="20dp"
-                    android:src="@drawable/ic_settings"
-                    app:layout_constraintBottom_toBottomOf="@+id/hamburgerMenu"
-                    app:layout_constraintEnd_toStartOf="@+id/hamburgerMenu"
-                    app:layout_constraintTop_toTopOf="@+id/hamburgerMenu" />
+<!--                <ImageView-->
+<!--                    android:id="@+id/settings"-->
+<!--                    android:layout_width="40dp"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:layout_alignParentEnd="true"-->
+<!--                    android:layout_marginEnd="20dp"-->
+<!--                    android:src="@drawable/ic_settings"-->
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/hamburgerMenu"-->
+<!--                    app:layout_constraintEnd_toStartOf="@+id/hamburgerMenu"-->
+<!--                    app:layout_constraintTop_toTopOf="@+id/hamburgerMenu" />-->
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -147,11 +147,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="40dp"
                 android:fontFamily="@font/source_sans_pro_semibold"
                 android:text="Bine ai venit!"
                 android:textColor="@color/white"
-                android:textSize="18dp"
-                android:layout_marginTop="40dp"/>
+                android:textSize="18dp" />
 
             <TextView
                 android:id="@+id/projectTitle"

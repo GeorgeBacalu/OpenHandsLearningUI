@@ -1,57 +1,65 @@
 package com.example.llt_project_separate;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class VideoPlayerActivity extends AppCompatActivity {
-    public static final String CATEGORY_ID_KEY = "id";
+    public static final String CATEGORY_ID_KEY = "categoryId";
+    public static final String CATEGORY_NAME_KEY = "categoryName";
 
-    private Intent intent;
     private TextView selectedCategoryName;
+    private ImageView toVideoSectionPageButton, selectedCategoryImage;
+    private CardView selectedCategoryCard;
+
     private RecyclerView videoSubjectRecyclerView;
     private VideoPlayerRecyclerViewAdapter videoSubjectAdapter;
-    private ImageView toVideoSectionPageButton, selectedCategoryImage;
+
     private VideoView videoView;
+    private Button favoriteButton;
     private String videoSubject, videoSubjectFormatted, callingActivity;
+
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_player);
 
-        selectedCategoryName = findViewById(R.id.selectedCategoryName);
-        selectedCategoryImage = findViewById(R.id.selectedCategoryImage);
-        videoSubjectRecyclerView = findViewById(R.id.videoSubjectRecyclerView);
-        videoSubjectAdapter = new VideoPlayerRecyclerViewAdapter(this);
-        videoView = findViewById(R.id.videoView);
 
+        initializeViews();
+
+        /*
         intent = getIntent();
         if(intent != null) {
             int categoryId = intent.getIntExtra(CATEGORY_ID_KEY, -1);
             if(categoryId != -1) {
-                Category incomingCategory = Utils.getInstance().getCategoryById(categoryId);
+                Category incomingCategory = Utils.getInstance(this).getCategoryById(categoryId);
                 if(incomingCategory != null) {
                     setData(incomingCategory);
+                    handleAddToFavorite(incomingCategory);
                 }
             }
         }
+        */
 
         callingActivity = intent.getStringExtra("activity");
-        toVideoSectionPageButton = findViewById(R.id.toVideoSectionPageButton);
-
         toVideoSectionPageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,11 +106,56 @@ public class VideoPlayerActivity extends AppCompatActivity {
         videoView.start();
     }
 
+    /*
+    private void handleAddToFavorite(Category incomingCategory) {
+        ArrayList<Category> favoriteCategories = Utils.getInstance(this).getFavoriteCategories();
+
+        boolean existInFavoriteCategories = false;
+
+        for(Category category : favoriteCategories) {
+            if(category.getId() == incomingCategory.getId()) {
+                existInFavoriteCategories = true;
+            }
+        }
+
+        if(existInFavoriteCategories) {
+            addToFavoriteButton.setText("Elimina favorit");
+        } else {
+            addToFavoriteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(Utils.getInstance(VideoPlayerActivity.this).addedToFavorite(incomingCategory)) {
+                        Toast.makeText(VideoPlayerActivity.this, incomingCategory.getName() + " adăugat la favorite", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(VideoPlayerActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+    }
+     */
+
+    private void initializeViews() {
+        selectedCategoryName = findViewById(R.id.selectedCategoryName);
+        selectedCategoryName = findViewById(R.id.selectedCategoryName);
+        selectedCategoryCard = findViewById(R.id.selectedCategoryCard);
+
+        favoriteButton = findViewById(R.id.favoriteButton);
+        videoView = findViewById(R.id.videoView);
+
+        videoSubjectRecyclerView = findViewById(R.id.videoSubjectRecyclerView);
+        videoSubjectAdapter = new VideoPlayerRecyclerViewAdapter(this);
+
+        toVideoSectionPageButton = findViewById(R.id.toVideoSectionPageButton);
+    }
+
+    /*
     private void setData(Category category) {
             selectedCategoryName.setText(category.getName());
             Glide.with(this).asBitmap().load(category.getImageSource()).into(selectedCategoryImage);
 
     }
+     */
 
     private static String replaceDiacriticsAndSpaces(String str) {
         char[] charArray = str.toCharArray();
