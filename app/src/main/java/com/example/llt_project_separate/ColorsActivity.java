@@ -50,7 +50,7 @@ public class ColorsActivity extends AppCompatActivity {
         colorsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         ArrayList<Category> colors = new ArrayList<>();
-        colors.add(new Category(1, "ROSU", R.drawable.caine));
+        colors.add(new Category(1, "ROŞU", R.drawable.caine));
         colors.add(new Category(2, "PORTOCALIU", R.drawable.caine));
         colors.add(new Category(3, "GALBEN", R.drawable.caine));
         colors.add(new Category(4, "VERDE", R.drawable.caine));

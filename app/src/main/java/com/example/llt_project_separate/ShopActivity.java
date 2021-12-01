@@ -14,8 +14,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 
 public class ShopActivity extends AppCompatActivity {
-    private RecyclerView shopObjectsRecyclerView;
-    private ShopRecyclerViewAdapter shopObjectsAdapter;
+    private RecyclerView shopRecyclerView;
+    private ShopRecyclerViewAdapter shopAdapter;
     private ImageView toPrevPageButton;
     private FloatingActionButton toHomePageFabButton;
 
@@ -24,8 +24,8 @@ public class ShopActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop);
 
-        shopObjectsRecyclerView = findViewById(R.id.shopObjectsRecyclerView);
-        shopObjectsAdapter = new ShopRecyclerViewAdapter(this);
+        shopRecyclerView = findViewById(R.id.shopRecyclerView);
+        shopAdapter = new ShopRecyclerViewAdapter(this);
 
         toPrevPageButton = findViewById(R.id.toPrevPageButton);
         toHomePageFabButton = findViewById(R.id.toHomePageFabButton);
@@ -46,12 +46,12 @@ public class ShopActivity extends AppCompatActivity {
             }
         });
 
-        shopObjectsRecyclerView.setAdapter(shopObjectsAdapter);
-        shopObjectsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        shopRecyclerView.setAdapter(shopAdapter);
+        shopRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         ArrayList<Category> shopObjects = new ArrayList<>();
         shopObjects.add(new Category(1, "BANI", R.drawable.caine));
         shopObjects.add(new Category(2, "PRODUSE", R.drawable.caine));
-        shopObjectsAdapter.setShopObjects(shopObjects);
+        shopAdapter.setShopObjects(shopObjects);
     }
 }

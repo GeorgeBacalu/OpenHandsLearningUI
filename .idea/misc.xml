@@ -3,6 +3,40 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Let's Learn Together/LLT_PA_current/app/src/main/res/drawable/favorite_button.xml" value="0.1921875" />
+        <entry key="..\:/Let's Learn Together/LLT_PA_current/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1921875" />
+        <entry key="..\:/Let's Learn Together/LLT_PA_current/app/src/main/res/layout/activity_all_categories.xml" value="0.16302083333333334" />
+        <entry key="..\:/Let's Learn Together/LLT_PA_current/app/src/main/res/layout/activity_alphabet.xml" value="0.264" />
+        <entry key="..\:/Let's Learn Together/LLT_PA_current/app/src/main/res/layout/activity_animals.xml" value="0.22916666666666666" />
+        <entry key="..\:/Let's Learn Together/LLT_PA_current/app/src/main/res/layout/activity_city.xml" value="0.22916666666666666" />
+        <entry key="..\:/Let's Learn Together/LLT_PA_current/app/src/main/res/layout/activity_class.xml" value="0.22916666666666666" />
+        <entry key="..\:/Let's Learn Together/LLT_PA_current/app/src/main/res/layout/activity_colors.xml" value="0.22916666666666666" />
+        <entry key="..\:/Let's Learn Together/LLT_PA_current/app/src/main/res/layout/activity_emotions.xml" value="0.22916666666666666" />
+        <entry key="..\:/Let's Learn Together/LLT_PA_current/app/src/main/res/layout/activity_expressions_section.xml" value="0.22916666666666666" />
+        <entry key="..\:/Let's Learn Together/LLT_PA_current/app/src/main/res/layout/activity_family_members.xml" value="0.22916666666666666" />
+        <entry key="..\:/Let's Learn Together/LLT_PA_current/app/src/main/res/layout/activity_favorites.xml" value="0.25416666666666665" />
+        <entry key="..\:/Let's Learn Together/LLT_PA_current/app/src/main/res/layout/activity_forms_of_address.xml" value="0.264" />
+        <entry key="..\:/Let's Learn Together/LLT_PA_current/app/src/main/res/layout/activity_home.xml" value="0.22916666666666666" />
+        <entry key="..\:/Let's Learn Together/LLT_PA_current/app/src/main/res/layout/activity_household_animals.xml" value="0.22916666666666666" />
+        <entry key="..\:/Let's Learn Together/LLT_PA_current/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Let's Learn Together/LLT_PA_current/app/src/main/res/layout/activity_money.xml" value="0.22916666666666666" />
+        <entry key="..\:/Let's Learn Together/LLT_PA_current/app/src/main/res/layout/activity_numbers.xml" value="0.22916666666666666" />
+        <entry key="..\:/Let's Learn Together/LLT_PA_current/app/src/main/res/layout/activity_objects.xml" value="0.2125" />
+        <entry key="..\:/Let's Learn Together/LLT_PA_current/app/src/main/res/layout/activity_outside.xml" value="0.22916666666666666" />
+        <entry key="..\:/Let's Learn Together/LLT_PA_current/app/src/main/res/layout/activity_people.xml" value="0.22916666666666666" />
+        <entry key="..\:/Let's Learn Together/LLT_PA_current/app/src/main/res/layout/activity_products.xml" value="0.22916666666666666" />
+        <entry key="..\:/Let's Learn Together/LLT_PA_current/app/src/main/res/layout/activity_pronouns.xml" value="0.22916666666666666" />
+        <entry key="..\:/Let's Learn Together/LLT_PA_current/app/src/main/res/layout/activity_shop.xml" value="0.22916666666666666" />
+        <entry key="..\:/Let's Learn Together/LLT_PA_current/app/src/main/res/layout/activity_text_to_sign_section.xml" value="0.22916666666666666" />
+        <entry key="..\:/Let's Learn Together/LLT_PA_current/app/src/main/res/layout/activity_verbs.xml" value="0.22916666666666666" />
+        <entry key="..\:/Let's Learn Together/LLT_PA_current/app/src/main/res/layout/activity_video_player.xml" value="0.23229166666666667" />
+        <entry key="..\:/Let's Learn Together/LLT_PA_current/app/src/main/res/layout/activity_video_section.xml" value="0.264" />
+        <entry key="..\:/Let's Learn Together/LLT_PA_current/app/src/main/res/layout/activity_voice_to_sign_section.xml" value="0.22916666666666666" />
+        <entry key="..\:/Let's Learn Together/LLT_PA_current/app/src/main/res/layout/activity_wild_animals.xml" value="0.22916666666666666" />
+        <entry key="..\:/Let's Learn Together/LLT_PA_current/app/src/main/res/layout/category_item.xml" value="0.536" />
+        <entry key="..\:/Let's Learn Together/LLT_PA_current/app/src/main/res/layout/category_item_dark.xml" value="0.5518518518518518" />
+        <entry key="..\:/Let's Learn Together/LLT_PA_current/app/src/main/res/layout/list_item_section.xml" value="0.536" />
+        <entry key="..\:/Let's Learn Together/LLT_PA_current/app/src/main/res/layout/section_item.xml" value="0.23854166666666668" />
         <entry key="..\:/Projects/android/LLT_PA_alternative/app/src/main/res/drawable/border_button.xml" value="0.22870370370370371" />
         <entry key="..\:/Projects/android/LLT_PA_alternative/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Projects/android/LLT_PA_alternative/app/src/main/res/layout/list_item_section.xml" value="0.25416666666666665" />

@@ -26,12 +26,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/categoryImage"
             android:layout_centerHorizontal="true"
-            android:layout_marginLeft="-10dp"
             android:layout_marginTop="10dp"
             android:text="Category Name"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

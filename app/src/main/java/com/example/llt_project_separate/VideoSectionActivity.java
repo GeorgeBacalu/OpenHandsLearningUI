@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -14,8 +15,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 
 public class VideoSectionActivity extends AppCompatActivity {
-    private RecyclerView categoriesRecyclerView;
-    private VideoSectionRecyclerViewAdapter categoriesAdapter;
+    private RecyclerView mainCategoriesRecyclerView;
+    private VideoSectionRecyclerViewAdapter mainCategoriesAdapter;
+    private Button showFavoriteButton, allCategoriesButton;
     private ImageView toPrevPageButton;
     private FloatingActionButton toHomePageFabButton;
 
@@ -24,8 +26,10 @@ public class VideoSectionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_section);
 
-        categoriesRecyclerView = findViewById(R.id.categoriesRecyclerView);
-        categoriesAdapter = new VideoSectionRecyclerViewAdapter(this);
+        mainCategoriesRecyclerView = findViewById(R.id.mainCategoriesRecyclerView);
+        mainCategoriesAdapter = new VideoSectionRecyclerViewAdapter(this);
+        showFavoriteButton = findViewById(R.id.showFavoriteButton);
+        allCategoriesButton = findViewById(R.id.allCategoriesButton);
 
         toPrevPageButton = findViewById(R.id.toPrevPageButton);
         toHomePageFabButton = findViewById(R.id.toHomePageFabButton);
@@ -46,8 +50,24 @@ public class VideoSectionActivity extends AppCompatActivity {
             }
         });
 
-        categoriesRecyclerView.setAdapter(categoriesAdapter);
-        categoriesRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        showFavoriteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(VideoSectionActivity.this, FavoritesActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        allCategoriesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(VideoSectionActivity.this, AllCategoriesActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        mainCategoriesRecyclerView.setAdapter(mainCategoriesAdapter);
+        mainCategoriesRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         ArrayList<Category> categories = new ArrayList<>();
         categories.add(new Category(1, "ALFABET", R.drawable.alfabet));
@@ -56,8 +76,9 @@ public class VideoSectionActivity extends AppCompatActivity {
         categories.add(new Category(4, "ANIMALE", R.drawable.animale));
         categories.add(new Category(5, "OBIECTE", R.drawable.animale));
         categories.add(new Category(6, "PERSOANE", R.drawable.animale));
-        categories.add(new Category(7, "EMOTII", R.drawable.animale));
+        categories.add(new Category(7, "EMOŢII", R.drawable.animale));
         categories.add(new Category(8, "VERBE", R.drawable.animale));
-        categoriesAdapter.setCategories(categories);
+        categories.add(new Category(9, "FORMULE DE ADRESARE", R.drawable.animale));
+        mainCategoriesAdapter.setCategories(categories);
     }
 }

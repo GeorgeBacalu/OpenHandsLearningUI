@@ -20,7 +20,6 @@ import java.util.ArrayList;
 
 public class MoneyRecyclerViewAdapter extends RecyclerView.Adapter<MoneyRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "MoneyAdapter";
-
     private ArrayList<Category> moneyUnits = new ArrayList<>();
     private Context moneyContext;
 
@@ -40,9 +39,7 @@ public class MoneyRecyclerViewAdapter extends RecyclerView.Adapter<MoneyRecycler
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(moneyUnits.get(position).getName());
-
         Glide.with(moneyContext).asBitmap().load(moneyUnits.get(position).getImageSource()).into(holder.categoryImage);
-
         holder.categoryCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,7 +48,7 @@ public class MoneyRecyclerViewAdapter extends RecyclerView.Adapter<MoneyRecycler
                     throw new NullPointerException("Invalid Selection");
                 }
                 intent.putExtra("name", moneyUnits.get(position).getName());
-                intent.putExtra("intent", "MoneyActivity");
+                intent.putExtra("activity", "MoneyActivity");
                 moneyContext.startActivity(intent);
             }
         });

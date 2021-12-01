@@ -20,7 +20,6 @@ import java.util.ArrayList;
 
 public class PronounsRecyclerViewAdapter extends RecyclerView.Adapter<PronounsRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "PronounsAdapter";
-
     private ArrayList<Category> pronouns = new ArrayList<>();
     private Context pronounsContext;
 
@@ -40,9 +39,7 @@ public class PronounsRecyclerViewAdapter extends RecyclerView.Adapter<PronounsRe
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(pronouns.get(position).getName());
-
         Glide.with(pronounsContext).asBitmap().load(pronouns.get(position).getImageSource()).into(holder.categoryImage);
-
         holder.categoryCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,7 +48,7 @@ public class PronounsRecyclerViewAdapter extends RecyclerView.Adapter<PronounsRe
                     throw new NullPointerException("Invalid Selection");
                 }
                 intent.putExtra("name", pronouns.get(position).getName());
-                intent.putExtra("intent", "PronounsActivity");
+                intent.putExtra("activity", "PronounsActivity");
                 pronounsContext.startActivity(intent);
             }
         });

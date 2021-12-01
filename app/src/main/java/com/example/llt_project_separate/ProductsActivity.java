@@ -51,17 +51,17 @@ public class ProductsActivity extends AppCompatActivity {
 
         ArrayList<Category> products = new ArrayList<>();
         products.add(new Category(1, "SUC", R.drawable.caine));
-        products.add(new Category(2, "PRAJITURA", R.drawable.caine));
+        products.add(new Category(2, "PRĂJITURĂ", R.drawable.caine));
         products.add(new Category(3, "MORCOV", R.drawable.caine));
-        products.add(new Category(4, "CIOCOLATA", R.drawable.caine));
-        products.add(new Category(5, "PAINE", R.drawable.caine));
-        products.add(new Category(6, "CEAPA", R.drawable.caine));
+        products.add(new Category(4, "CIOCOLATĂ", R.drawable.caine));
+        products.add(new Category(5, "PÂINE", R.drawable.caine));
+        products.add(new Category(6, "CEAPĂ", R.drawable.caine));
         products.add(new Category(7, "ULEI", R.drawable.caine));
-        products.add(new Category(8, "CASTRAVETI", R.drawable.caine));
+        products.add(new Category(8, "CASTRAVEŢI", R.drawable.caine));
         products.add(new Category(9, "CARTOFI", R.drawable.caine));
-        products.add(new Category(10, "CASCAVAL", R.drawable.caine));
+        products.add(new Category(10, "CAŞCAVAL", R.drawable.caine));
         products.add(new Category(11, "ARDEI", R.drawable.caine));
-        products.add(new Category(12, "BRANZA", R.drawable.caine));
+        products.add(new Category(12, "BRÂNZĂ", R.drawable.caine));
         productsAdapter.setProducts(products);
     }
 }

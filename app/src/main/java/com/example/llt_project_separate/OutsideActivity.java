@@ -14,8 +14,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 
 public class OutsideActivity extends AppCompatActivity {
-    private RecyclerView outsideObjectsRecyclerView;
-    private OutsideRecyclerViewAdapter outsideObjectsAdapter;
+    private RecyclerView outsideRecyclerView;
+    private OutsideRecyclerViewAdapter outsideAdapter;
     private ImageView toPrevPageButton;
     private FloatingActionButton toHomePageFabButton;
 
@@ -24,8 +24,8 @@ public class OutsideActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_outside);
 
-        outsideObjectsRecyclerView = findViewById(R.id.outsideObjectsRecyclerView);
-        outsideObjectsAdapter = new OutsideRecyclerViewAdapter(this);
+        outsideRecyclerView = findViewById(R.id.outsideRecyclerView);
+        outsideAdapter = new OutsideRecyclerViewAdapter(this);
 
         toPrevPageButton = findViewById(R.id.toPrevPageButton);
         toHomePageFabButton = findViewById(R.id.toHomePageFabButton);
@@ -46,21 +46,21 @@ public class OutsideActivity extends AppCompatActivity {
             }
         });
 
-        outsideObjectsRecyclerView.setAdapter(outsideObjectsAdapter);
-        outsideObjectsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        outsideRecyclerView.setAdapter(outsideAdapter);
+        outsideRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         ArrayList<Category> outsideObjects = new ArrayList<>();
         outsideObjects.add(new Category(1, "TOPOR", R.drawable.caine));
-        outsideObjects.add(new Category(2, "POARTA", R.drawable.caine));
+        outsideObjects.add(new Category(2, "POARTĂ", R.drawable.caine));
         outsideObjects.add(new Category(3, "GEAM", R.drawable.caine));
-        outsideObjects.add(new Category(4, "FURCA", R.drawable.caine));
+        outsideObjects.add(new Category(4, "FURCĂ", R.drawable.caine));
         outsideObjects.add(new Category(5, "COPAC", R.drawable.caine));
         outsideObjects.add(new Category(6, "GARD", R.drawable.caine));
-        outsideObjects.add(new Category(7, "COASA", R.drawable.caine));
+        outsideObjects.add(new Category(7, "COASĂ", R.drawable.caine));
         outsideObjects.add(new Category(8, "BEC", R.drawable.caine));
-        outsideObjects.add(new Category(9, "LOPATA", R.drawable.caine));
-        outsideObjects.add(new Category(10, "USA", R.drawable.caine));
-        outsideObjectsAdapter.setOutsideObjects(outsideObjects);
+        outsideObjects.add(new Category(9, "LOPATĂ", R.drawable.caine));
+        outsideObjects.add(new Category(10, "UŞĂ", R.drawable.caine));
+        outsideAdapter.setOutsideObjects(outsideObjects);
 
     }
 }

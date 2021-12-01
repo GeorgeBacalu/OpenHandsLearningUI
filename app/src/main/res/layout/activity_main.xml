@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/translucent_dark_blue"
-            android:layout_marginTop="410dp"
+            android:layout_marginTop="370dp"
             android:layout_marginLeft="80dp">
 
             <ImageButton
@@ -62,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/translucent_dark_blue"
-            android:layout_marginTop="390dp"
+            android:layout_marginTop="360dp"
             android:layout_marginLeft="230dp">
 
             <ImageButton
@@ -77,7 +77,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/translucent_dark_blue"
-            android:layout_marginTop="370dp"
+            android:layout_marginTop="345dp"
             android:layout_marginLeft="250dp">
 
             <ImageButton
@@ -121,6 +121,17 @@
                     app:layout_constraintTop_toTopOf="@+id/lltLogo"
                     app:tint="@color/white" />
 
+                <ImageView
+                    android:id="@+id/settings"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="20dp"
+                    android:src="@drawable/ic_settings"
+                    app:layout_constraintBottom_toBottomOf="@+id/hamburgerMenu"
+                    app:layout_constraintEnd_toStartOf="@+id/hamburgerMenu"
+                    app:layout_constraintTop_toTopOf="@+id/hamburgerMenu" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
@@ -129,8 +140,7 @@
             android:id="@+id/headerText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/logoAndMenu"
-            android:layout_marginTop="20dp">
+            android:layout_below="@+id/logoAndMenu">
 
             <TextView
                 android:id="@+id/welcomeMessage"
@@ -138,9 +148,10 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:fontFamily="@font/source_sans_pro_semibold"
-                android:text="Welcome"
+                android:text="Bine ai venit!"
                 android:textColor="@color/white"
-                android:textSize="18dp" />
+                android:textSize="18dp"
+                android:layout_marginTop="40dp"/>
 
             <TextView
                 android:id="@+id/projectTitle"
@@ -161,7 +172,7 @@
                 android:layout_below="@+id/projectTitle"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
-                android:fontFamily="@font/source_sans_pro_regular"
+                android:fontFamily="@font/source_sans_pro_semibold"
                 android:paddingStart="10dp"
                 android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                 android:textAlignment="center"
@@ -170,43 +181,43 @@
 
         </RelativeLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/headerText"
-            android:layout_centerHorizontal="true">
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@+id/headerText"-->
+<!--            android:layout_centerHorizontal="true">-->
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/loginButton"
-                android:layout_width="110dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:backgroundTint="@color/white"
-                android:fontFamily="@font/source_sans_pro_bold"
-                android:text="Login"
-                android:textAllCaps="false"
-                android:textColor="@color/dark_blue"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.25"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+<!--            <com.google.android.material.button.MaterialButton-->
+<!--                android:id="@+id/loginButton"-->
+<!--                android:layout_width="110dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="12dp"-->
+<!--                android:backgroundTint="@color/white"-->
+<!--                android:fontFamily="@font/source_sans_pro_bold"-->
+<!--                android:text="Login"-->
+<!--                android:textAllCaps="false"-->
+<!--                android:textColor="@color/dark_blue"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintHorizontal_bias="0.25"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/signUpButton"
-                style="?attr/materialButtonOutlinedStyle"
-                android:layout_width="110dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/source_sans_pro_bold"
-                android:text="Sign Up"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="@+id/loginButton"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/loginButton"
-                app:layout_constraintTop_toTopOf="@+id/loginButton"
-                app:strokeColor="@color/white"
-                app:strokeWidth="2dp" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+<!--            <com.google.android.material.button.MaterialButton-->
+<!--                android:id="@+id/signUpButton"-->
+<!--                style="?attr/materialButtonOutlinedStyle"-->
+<!--                android:layout_width="110dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:fontFamily="@font/source_sans_pro_bold"-->
+<!--                android:text="Sign Up"-->
+<!--                android:textAllCaps="false"-->
+<!--                android:textColor="@color/white"-->
+<!--                app:layout_constraintBottom_toBottomOf="@+id/loginButton"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/loginButton"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/loginButton"-->
+<!--                app:strokeColor="@color/white"-->
+<!--                app:strokeWidth="2dp" />-->
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
 
         <RelativeLayout
             android:layout_width="wrap_content"

@@ -20,7 +20,6 @@ import java.util.ArrayList;
 
 public class NumbersRecyclerViewAdapter extends RecyclerView.Adapter<NumbersRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "NumbersAdapter";
-
     private ArrayList<Category> numbers = new ArrayList<>();
     private Context numbersContext;
 
@@ -40,9 +39,7 @@ public class NumbersRecyclerViewAdapter extends RecyclerView.Adapter<NumbersRecy
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(numbers.get(position).getName());
-
         Glide.with(numbersContext).asBitmap().load(numbers.get(position).getImageSource()).into(holder.categoryImage);
-
         holder.categoryCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,7 +48,7 @@ public class NumbersRecyclerViewAdapter extends RecyclerView.Adapter<NumbersRecy
                     throw new NullPointerException("Invalid Selection");
                 }
                 intent.putExtra("name", numbers.get(position).getName());
-                intent.putExtra("intent", "NumbersActivity");
+                intent.putExtra("activity", "NumbersActivity");
                 numbersContext.startActivity(intent);
             }
         });

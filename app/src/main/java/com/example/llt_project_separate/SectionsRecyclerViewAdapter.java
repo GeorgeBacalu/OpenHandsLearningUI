@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -20,8 +19,7 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 
 public class SectionsRecyclerViewAdapter extends RecyclerView.Adapter<SectionsRecyclerViewAdapter.ViewHolder> {
-    private static final String TAG = "SectionsRecViewAdapter";
-
+    private static final String TAG = "SectionsAdapter";
     private ArrayList<Section> sections = new ArrayList<>();
     private Context context;
 
@@ -32,7 +30,7 @@ public class SectionsRecyclerViewAdapter extends RecyclerView.Adapter<SectionsRe
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_section, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.section_item, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
@@ -41,10 +39,8 @@ public class SectionsRecyclerViewAdapter extends RecyclerView.Adapter<SectionsRe
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.sectionName.setText(sections.get(position).getName());
-
         Glide.with(context).asBitmap().load(sections.get(position).getImageSource()).into(holder.sectionImage);
         Glide.with(context).asBitmap().load(sections.get(position).getIcon()).into(holder.sectionIcon);
-
         holder.sectionCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

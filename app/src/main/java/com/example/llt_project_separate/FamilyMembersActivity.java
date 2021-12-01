@@ -50,14 +50,14 @@ public class FamilyMembersActivity extends AppCompatActivity {
         familyMembersRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         ArrayList<Category> familyMembers = new ArrayList<>();
-        familyMembers.add(new Category(1, "TATA", R.drawable.caine));
-        familyMembers.add(new Category(2, "MAMA", R.drawable.caine));
+        familyMembers.add(new Category(1, "TATĂ", R.drawable.caine));
+        familyMembers.add(new Category(2, "MAMĂ", R.drawable.caine));
         familyMembers.add(new Category(3, "FRATE", R.drawable.caine));
-        familyMembers.add(new Category(4, "SORA", R.drawable.caine));
+        familyMembers.add(new Category(4, "SORĂ", R.drawable.caine));
         familyMembers.add(new Category(5, "UNCHI", R.drawable.caine));
-        familyMembers.add(new Category(6, "MATUSA", R.drawable.caine));
+        familyMembers.add(new Category(6, "MĂTUŞĂ", R.drawable.caine));
         familyMembers.add(new Category(7, "BUNIC", R.drawable.caine));
-        familyMembers.add(new Category(8, "NASA", R.drawable.caine));
+        familyMembers.add(new Category(8, "NAŞĂ", R.drawable.caine));
         familyMembersAdapter.setFamilyMembers(familyMembers);
 
     }

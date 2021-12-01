@@ -14,8 +14,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 
 public class CityActivity extends AppCompatActivity {
-    private RecyclerView cityObjectsRecyclerView;
-    private CityRecyclerViewAdapter cityObjectsAdapter;
+    private RecyclerView cityRecyclerView;
+    private CityRecyclerViewAdapter cityAdapter;
     private ImageView toPrevPageButton;
     private FloatingActionButton toHomePageFabButton;
 
@@ -24,8 +24,8 @@ public class CityActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_city);
 
-        cityObjectsRecyclerView = findViewById(R.id.cityObjectsRecyclerView);
-        cityObjectsAdapter = new CityRecyclerViewAdapter(this);
+        cityRecyclerView = findViewById(R.id.cityRecyclerView);
+        cityAdapter = new CityRecyclerViewAdapter(this);
 
         toPrevPageButton = findViewById(R.id.toPrevPageButton);
         toHomePageFabButton = findViewById(R.id.toHomePageFabButton);
@@ -46,20 +46,20 @@ public class CityActivity extends AppCompatActivity {
             }
         });
 
-        cityObjectsRecyclerView.setAdapter(cityObjectsAdapter);
-        cityObjectsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        cityRecyclerView.setAdapter(cityAdapter);
+        cityRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         ArrayList<Category> cityObjects = new ArrayList<>();
-        cityObjects.add(new Category(1, "SCOALA", R.drawable.caine));
-        cityObjects.add(new Category(2, "LEAGAN", R.drawable.caine));
+        cityObjects.add(new Category(1, "ŞCOALĂ", R.drawable.caine));
+        cityObjects.add(new Category(2, "LEAGĂN", R.drawable.caine));
         cityObjects.add(new Category(3, "SPITAL", R.drawable.caine));
         cityObjects.add(new Category(4, "AUTOBUZ", R.drawable.caine));
-        cityObjects.add(new Category(5, "STALP", R.drawable.caine));
+        cityObjects.add(new Category(5, "STÂLP", R.drawable.caine));
         cityObjects.add(new Category(6, "BLOC", R.drawable.caine));
         cityObjects.add(new Category(7, "TAXI", R.drawable.caine));
         cityObjects.add(new Category(8, "LOC DE PARCARE", R.drawable.caine));
         cityObjects.add(new Category(9, "TRAMVAI", R.drawable.caine));
-        cityObjects.add(new Category(10, "POLITE", R.drawable.caine));
-        cityObjectsAdapter.setCityObjects(cityObjects);
+        cityObjects.add(new Category(10, "POLIŢIE", R.drawable.caine));
+        cityAdapter.setCityObjects(cityObjects);
     }
 }

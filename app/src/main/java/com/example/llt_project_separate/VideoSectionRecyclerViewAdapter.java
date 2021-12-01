@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,7 +21,6 @@ import java.util.ArrayList;
 
 public class VideoSectionRecyclerViewAdapter extends RecyclerView.Adapter<VideoSectionRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "VideoCategoriesAdapter";
-
     private ArrayList<Category> mainCategories = new ArrayList<>();
     private Context mainContext;
 
@@ -40,9 +40,7 @@ public class VideoSectionRecyclerViewAdapter extends RecyclerView.Adapter<VideoS
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(mainCategories.get(position).getName());
-
         Glide.with(mainContext).asBitmap().load(mainCategories.get(position).getImageSource()).into(holder.categoryImage);
-
         holder.categoryCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,6 +54,7 @@ public class VideoSectionRecyclerViewAdapter extends RecyclerView.Adapter<VideoS
                     case 6: intent = new Intent(mainContext, PeopleActivity.class); break;
                     case 7: intent = new Intent(mainContext, EmotionsActivity.class); break;
                     case 8: intent = new Intent(mainContext, VerbsActivity.class); break;
+                    case 9: intent = new Intent(mainContext, FormsOfAddressActivity.class); break;
                     default: throw new NullPointerException("Invalid Selection");
                 }
                 mainContext.startActivity(intent);

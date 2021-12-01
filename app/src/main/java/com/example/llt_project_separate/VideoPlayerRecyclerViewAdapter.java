@@ -2,9 +2,11 @@ package com.example.llt_project_separate;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,7 +18,6 @@ import com.bumptech.glide.Glide;
 
 public class VideoPlayerRecyclerViewAdapter extends RecyclerView.Adapter<VideoPlayerRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "VideoPlayerAdapter";
-
     private Category selectedCategory = new Category();
     private Context videoContext;
 
@@ -35,9 +36,8 @@ public class VideoPlayerRecyclerViewAdapter extends RecyclerView.Adapter<VideoPl
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: Called");
-        holder.selectedItemName.setText(selectedCategory.getName());
-
-        Glide.with(videoContext).asBitmap().load(selectedCategory.getImageSource()).into(holder.selectedItemImage);
+        holder.selectedCategoryName.setText(selectedCategory.getName());
+        Glide.with(videoContext).asBitmap().load(selectedCategory.getImageSource()).into(holder.selectedCategoryImage);
     }
 
     @Override
@@ -50,15 +50,18 @@ public class VideoPlayerRecyclerViewAdapter extends RecyclerView.Adapter<VideoPl
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private CardView selectedItemCard;
-        private ImageView selectedItemImage;
-        private TextView selectedItemName;
+        private CardView selectedCategoryCard;
+        private ImageView selectedCategoryImage;
+        private TextView selectedCategoryName;
+        private Button favoriteButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            selectedItemCard = itemView.findViewById(R.id.selectedItemCard);
-            selectedItemImage = itemView.findViewById(R.id.selectedItemImage);
-            selectedItemName = itemView.findViewById(R.id.selectedItemName);
+            selectedCategoryCard = itemView.findViewById(R.id.selectedCategoryCard);
+            selectedCategoryImage = itemView.findViewById(R.id.selectedCategoryImage);
+            selectedCategoryName = itemView.findViewById(R.id.selectedCategoryName);
+            favoriteButton = itemView.findViewById(R.id.favoriteButton);
+            favoriteButton.setGravity(Gravity.TOP);
         }
     }
 }

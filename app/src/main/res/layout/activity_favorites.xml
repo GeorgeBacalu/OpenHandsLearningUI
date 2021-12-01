@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FavoritesActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="-10dp"
+        android:paddingBottom="10dp">
+
+        <ImageView
+            android:id="@+id/toPrevPageButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_arrow_circle_left_black"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="40dp"/>
+
+        <TextView
+            android:id="@+id/favoriteHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/source_sans_pro_bold"
+            android:text="Favorite"
+            android:textColor="@color/light_blue"
+            android:textAllCaps="true"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:layout_below="@+id/toPrevPageButton"/>
+
+        <RelativeLayout
+            android:id="@+id/recyclerViewContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/favoriteHeader"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/favoriteRecyclerView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/toHomePageFabButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/recyclerViewContainer"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="35dp"
+            android:backgroundTint="@color/light_blue"
+            android:src="@drawable/ic_home"
+            app:backgroundTint="@color/white"
+            app:borderWidth="2dp"
+            app:rippleColor="@color/white"
+            app:tint="@color/white" />
+
+    </RelativeLayout>
+
+</ScrollView>

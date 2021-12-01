@@ -55,10 +55,10 @@ public class NumbersActivity extends AppCompatActivity {
         numbers.add(new Category(3, "TREI", R.drawable.caine));
         numbers.add(new Category(4, "PATRU", R.drawable.caine));
         numbers.add(new Category(5, "CINCI", R.drawable.caine));
-        numbers.add(new Category(6, "SASE", R.drawable.caine));
-        numbers.add(new Category(7, "SAPTE", R.drawable.caine));
+        numbers.add(new Category(6, "ŞASE", R.drawable.caine));
+        numbers.add(new Category(7, "ŞAPTE", R.drawable.caine));
         numbers.add(new Category(8, "OPT", R.drawable.caine));
-        numbers.add(new Category(9, "NOUA", R.drawable.caine));
+        numbers.add(new Category(9, "NOUĂ", R.drawable.caine));
         numbers.add(new Category(10, "ZERO", R.drawable.caine));
         numbersAdapter.setNumbers(numbers);
     }

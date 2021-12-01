@@ -62,7 +62,7 @@ public class AnimalsRecyclerViewAdapter extends RecyclerView.Adapter<AnimalsRecy
         return animals.size();
     }
 
-    public void setAnimalsCategories(ArrayList<Category> animals) {
+    public void setAnimals(ArrayList<Category> animals) {
         this.animals = animals;
         notifyDataSetChanged();
     }

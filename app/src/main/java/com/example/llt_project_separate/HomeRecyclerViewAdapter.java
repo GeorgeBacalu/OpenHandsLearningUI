@@ -20,12 +20,11 @@ import java.util.ArrayList;
 
 public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "HomeRecyclerViewAdapter";
-
     private ArrayList<Category> homeObjects = new ArrayList<>();
-    private Context homeObjectsContext;
+    private Context homeContext;
 
-    public HomeRecyclerViewAdapter(Context homeObjectsContext) {
-        this.homeObjectsContext = homeObjectsContext;
+    public HomeRecyclerViewAdapter(Context homeContext) {
+        this.homeContext = homeContext;
     }
 
     @NonNull
@@ -40,19 +39,17 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(homeObjects.get(position).getName());
-
-        Glide.with(homeObjectsContext).asBitmap().load(homeObjects.get(position).getImageSource()).into(holder.categoryImage);
-
+        Glide.with(homeContext).asBitmap().load(homeObjects.get(position).getImageSource()).into(holder.categoryImage);
         holder.categoryCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(homeObjectsContext, VideoPlayerActivity.class);
+                Intent intent = new Intent(homeContext, VideoPlayerActivity.class);
                 if (homeObjects.get(position).getId() < 0) {
                     throw new NullPointerException("Invalid Selection");
                 }
                 intent.putExtra("name", homeObjects.get(position).getName());
-                intent.putExtra("intent", "HomeActivity");
-                homeObjectsContext.startActivity(intent);
+                intent.putExtra("activity", "HomeActivity");
+                homeContext.startActivity(intent);
             }
         });
     }

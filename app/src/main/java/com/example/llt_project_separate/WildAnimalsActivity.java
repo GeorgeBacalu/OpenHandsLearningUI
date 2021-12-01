@@ -51,11 +51,10 @@ public class WildAnimalsActivity extends AppCompatActivity {
 
         ArrayList<Category> wildAnimals = new ArrayList<>();
         wildAnimals.add(new Category(1, "LUP", R.drawable.elefant));
-        wildAnimals.add(new Category(2, "URS", R.drawable.elefant));
         wildAnimals.add(new Category(3, "VULPE", R.drawable.elefant));
         wildAnimals.add(new Category(4, "ARICI", R.drawable.elefant));
         wildAnimals.add(new Category(5, "LEU", R.drawable.elefant));
-        wildAnimals.add(new Category(6, "VEVERITA", R.drawable.elefant));
+        wildAnimals.add(new Category(6, "VEVERIŢĂ", R.drawable.elefant));
         wildAnimals.add(new Category(7, "ZIMBRU", R.drawable.elefant));
         wildAnimals.add(new Category(8, "URS POLAR", R.drawable.urs_polar));
         wildAnimals.add(new Category(9, "ELEFANT", R.drawable.elefant));

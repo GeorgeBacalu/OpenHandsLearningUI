@@ -50,19 +50,19 @@ public class HouseholdAnimalsActivity extends AppCompatActivity {
         householdAnimalsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         ArrayList<Category> householdAnimals = new ArrayList<>();
-        householdAnimals.add(new Category(1, "CAINE", R.drawable.caine));
-        householdAnimals.add(new Category(2, "PISICA", R.drawable.pisica));
+        householdAnimals.add(new Category(1, "CÂINE", R.drawable.caine));
+        householdAnimals.add(new Category(2, "PISICĂ", R.drawable.pisica));
         householdAnimals.add(new Category(3, "PORC", R.drawable.caine));
-        householdAnimals.add(new Category(4, "CAPRA", R.drawable.pisica));
-        householdAnimals.add(new Category(5, "GAINA", R.drawable.caine));
+        householdAnimals.add(new Category(4, "CAPRĂ", R.drawable.pisica));
+        householdAnimals.add(new Category(5, "GĂINĂ", R.drawable.caine));
         householdAnimals.add(new Category(6, "IEPURE", R.drawable.pisica));
         householdAnimals.add(new Category(7, "PUI", R.drawable.caine));
-        householdAnimals.add(new Category(8, "VACA", R.drawable.pisica));
+        householdAnimals.add(new Category(8, "VACĂ", R.drawable.pisica));
         householdAnimals.add(new Category(9, "CAL", R.drawable.caine));
-        householdAnimals.add(new Category(10, "COCOS", R.drawable.pisica));
-        householdAnimals.add(new Category(11, "GASCA", R.drawable.caine));
+        householdAnimals.add(new Category(10, "COCOŞ", R.drawable.pisica));
+        householdAnimals.add(new Category(11, "GÂSCĂ", R.drawable.caine));
         householdAnimals.add(new Category(12, "OAIE", R.drawable.pisica));
-        householdAnimals.add(new Category(13, "RATA", R.drawable.pisica));
+        householdAnimals.add(new Category(13, "RAŢĂ", R.drawable.pisica));
         householdAnimalsAdapter.setHouseholdAnimals(householdAnimals);
 
     }

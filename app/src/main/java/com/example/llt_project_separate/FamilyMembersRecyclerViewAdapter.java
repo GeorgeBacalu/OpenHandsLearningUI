@@ -20,7 +20,6 @@ import java.util.ArrayList;
 
 public class FamilyMembersRecyclerViewAdapter extends RecyclerView.Adapter<FamilyMembersRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "FamilyMembersAdapter";
-
     private ArrayList<Category> familyMembers = new ArrayList<>();
     private Context familyMembersContext;
 
@@ -40,9 +39,7 @@ public class FamilyMembersRecyclerViewAdapter extends RecyclerView.Adapter<Famil
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(familyMembers.get(position).getName());
-
         Glide.with(familyMembersContext).asBitmap().load(familyMembers.get(position).getImageSource()).into(holder.categoryImage);
-
         holder.categoryCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,7 +48,7 @@ public class FamilyMembersRecyclerViewAdapter extends RecyclerView.Adapter<Famil
                     throw new NullPointerException("Invalid Selection");
                 }
                 intent.putExtra("name", familyMembers.get(position).getName());
-                intent.putExtra("intent", "FamilyMembersActivity");
+                intent.putExtra("activity", "FamilyMembersActivity");
                 familyMembersContext.startActivity(intent);
             }
         });

@@ -20,12 +20,11 @@ import java.util.ArrayList;
 
 public class ClassRecyclerViewAdapter extends RecyclerView.Adapter<ClassRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "ClassAdapter";
-
     private ArrayList<Category> classObjects = new ArrayList<>();
-    private Context classObjectsContext;
+    private Context classContext;
 
-    public ClassRecyclerViewAdapter(Context classObjectsContext) {
-        this.classObjectsContext = classObjectsContext;
+    public ClassRecyclerViewAdapter(Context classContext) {
+        this.classContext = classContext;
     }
 
     @NonNull
@@ -40,19 +39,17 @@ public class ClassRecyclerViewAdapter extends RecyclerView.Adapter<ClassRecycler
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(classObjects.get(position).getName());
-
-        Glide.with(classObjectsContext).asBitmap().load(classObjects.get(position).getImageSource()).into(holder.categoryImage);
-
+        Glide.with(classContext).asBitmap().load(classObjects.get(position).getImageSource()).into(holder.categoryImage);
         holder.categoryCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(classObjectsContext, VideoPlayerActivity.class);
+                Intent intent = new Intent(classContext, VideoPlayerActivity.class);
                 if (classObjects.get(position).getId() < 0) {
                     throw new NullPointerException("Invalid Selection");
                 }
                 intent.putExtra("name", classObjects.get(position).getName());
-                intent.putExtra("intent", "ClassActivity");
-                classObjectsContext.startActivity(intent);
+                intent.putExtra("activity", "ClassActivity");
+                classContext.startActivity(intent);
             }
         });
     }

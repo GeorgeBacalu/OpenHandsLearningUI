@@ -52,9 +52,9 @@ public class MoneyActivity extends AppCompatActivity {
         ArrayList<Category> moneyUnits = new ArrayList<>();
         moneyUnits.add(new Category(1, "EURO", R.drawable.caine));
         moneyUnits.add(new Category(2, "DOLAR", R.drawable.caine));
-        moneyUnits.add(new Category(3, "MONEDA", R.drawable.caine));
+        moneyUnits.add(new Category(3, "MONEDĂ", R.drawable.caine));
         moneyUnits.add(new Category(4, "BANI", R.drawable.caine));
-        moneyUnits.add(new Category(5, "BANCNOTA", R.drawable.caine));
+        moneyUnits.add(new Category(5, "BANCNOTĂ", R.drawable.caine));
         moneyAdapter.setMoneyUnits(moneyUnits);
     }
 }

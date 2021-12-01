@@ -20,7 +20,6 @@ import java.util.ArrayList;
 
 public class ColorsRecyclerViewAdapter extends RecyclerView.Adapter<ColorsRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "ColorsAdapter";
-
     private ArrayList<Category> colors = new ArrayList<>();
     private Context colorsContext;
 
@@ -40,9 +39,7 @@ public class ColorsRecyclerViewAdapter extends RecyclerView.Adapter<ColorsRecycl
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(colors.get(position).getName());
-
         Glide.with(colorsContext).asBitmap().load(colors.get(position).getImageSource()).into(holder.categoryImage);
-
         holder.categoryCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,7 +48,7 @@ public class ColorsRecyclerViewAdapter extends RecyclerView.Adapter<ColorsRecycl
                     throw new NullPointerException("Invalid Selection");
                 }
                 intent.putExtra("name", colors.get(position).getName());
-                intent.putExtra("intent", "ColorsActivity");
+                intent.putExtra("activity", "ColorsActivity");
                 colorsContext.startActivity(intent);
             }
         });

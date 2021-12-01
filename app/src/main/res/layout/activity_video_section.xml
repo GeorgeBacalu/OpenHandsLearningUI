@@ -13,7 +13,7 @@
         android:paddingBottom="10dp">
 
         <ImageView
-            android:id="@+id/videoSectionHeaderImage"
+            android:id="@+id/sectionHeaderImage"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:src="@drawable/video_section_header" />
@@ -43,7 +43,7 @@
                 android:layout_below="@id/toPrevPageButton"
                 android:layout_marginTop="25dp"
                 android:fontFamily="@font/source_sans_pro_black"
-                android:text="VIDEO SECTION"
+                android:text="SECŢIUNE VIDEO"
                 android:textColor="@color/white"
                 android:textSize="25sp" />
 
@@ -53,53 +53,90 @@
                 android:layout_below="@id/videoSectionHeaderText"
                 android:layout_marginTop="25dp"
                 android:fontFamily="@font/source_sans_pro_regular"
-                android:text="Select a category of your choice."
+                android:text="Selectează categoria dorită."
                 android:textColor="@color/white"
                 android:textSize="18sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/favoriteButtonContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sectionHeaderImage"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/showFavoriteButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/favorite_button"
+                android:gravity="center|bottom|top"
+                android:includeFontPadding="false"
+                android:padding="15dp"
+                android:text="Vizualizează favorite"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/allCategoriesButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/showFavoriteButton"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/favorite_button"
+                android:gravity="center|bottom|top"
+                android:includeFontPadding="false"
+                android:padding="15dp"
+                android:text="Vezi toate categoriile"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
 
         </RelativeLayout>
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/searchBar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/videoSectionHeaderImage"
-            android:layout_marginHorizontal="100dp"
+            android:layout_height="45dp"
+            android:layout_below="@+id/favoriteButtonContainer"
+            android:layout_marginHorizontal="80dp"
             android:layout_marginTop="40dp"
             app:cardCornerRadius="20dp"
             app:strokeColor="@color/gray_border"
-            app:strokeWidth="1dp">
+            app:strokeWidth="2dp">
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:paddingHorizontal="15dp"
-                android:hint="Cauta o categorie..."
-                android:textSize="14sp"
+                android:layout_marginTop="10dp"
                 android:background="@color/white"
-                android:layout_marginTop="8dp"/>
+                android:hint="Caută o subcategorie..."
+                android:paddingLeft="15dp"
+                android:textSize="16sp" />
 
             <ImageView
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:src="@drawable/ic_search"
                 android:layout_gravity="end"
-                android:padding="7dp"
-                />
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="7dp"
+                android:src="@drawable/ic_search" />
 
         </com.google.android.material.card.MaterialCardView>
 
         <RelativeLayout
+            android:id="@+id/recyclerViewContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/searchBar"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="100dp">
+            android:layout_marginTop="50dp">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/categoriesRecyclerView"
+                android:id="@+id/mainCategoriesRecyclerView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -109,8 +146,10 @@
             android:id="@+id/toHomePageFabButton"
             android:layout_width="wrap_content"
             android:layout_height="450dp"
+            android:layout_below="@+id/recyclerViewContainer"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
             android:backgroundTint="@color/light_blue"
             android:src="@drawable/ic_home"
             app:backgroundTint="@color/white"

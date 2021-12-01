@@ -20,7 +20,6 @@ import java.util.ArrayList;
 
 public class HouseholdAnimalsRecyclerViewAdapter extends RecyclerView.Adapter<HouseholdAnimalsRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "HouseholdAnimalsAdapter";
-
     private ArrayList<Category> householdAnimals = new ArrayList<>();
     private Context householdAnimalsContext;
 
@@ -40,9 +39,7 @@ public class HouseholdAnimalsRecyclerViewAdapter extends RecyclerView.Adapter<Ho
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(householdAnimals.get(position).getName());
-
         Glide.with(householdAnimalsContext).asBitmap().load(householdAnimals.get(position).getImageSource()).into(holder.categoryImage);
-
         holder.categoryCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,7 +48,7 @@ public class HouseholdAnimalsRecyclerViewAdapter extends RecyclerView.Adapter<Ho
                     throw new NullPointerException("Invalid Selection");
                 }
                 intent.putExtra("name", householdAnimals.get(position).getName());
-                intent.putExtra("intent", "HouseholdAnimalsActivity");
+                intent.putExtra("activity", "HouseholdAnimalsActivity");
                 householdAnimalsContext.startActivity(intent);
             }
         });

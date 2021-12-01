@@ -20,7 +20,6 @@ import java.util.ArrayList;
 
 public class AlphabetRecyclerViewAdapter extends RecyclerView.Adapter<AlphabetRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "AlphabetAdapter";
-
     private ArrayList<Category> letters = new ArrayList<>();
     private Context alphabetContext;
 
@@ -40,9 +39,7 @@ public class AlphabetRecyclerViewAdapter extends RecyclerView.Adapter<AlphabetRe
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(letters.get(position).getName());
-
         Glide.with(alphabetContext).asBitmap().load(letters.get(position).getImageSource()).into(holder.categoryImage);
-
         holder.categoryCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,7 +48,7 @@ public class AlphabetRecyclerViewAdapter extends RecyclerView.Adapter<AlphabetRe
                     throw new NullPointerException("Invalid Selection");
                 }
                 intent.putExtra("name", letters.get(position).getName());
-                intent.putExtra("intent", "AlphabetActivity");
+                intent.putExtra("activity", "AlphabetActivity");
                 alphabetContext.startActivity(intent);
             }
         });

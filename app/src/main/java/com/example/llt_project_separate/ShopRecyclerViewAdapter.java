@@ -20,12 +20,11 @@ import java.util.ArrayList;
 
 public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<ShopRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "ShopRecyclerViewAdapter";
-
     private ArrayList<Category> shopObjects = new ArrayList<>();
-    private Context shopObjectsContext;
+    private Context shopContext;
 
-    public ShopRecyclerViewAdapter(Context shopObjectsContext) {
-        this.shopObjectsContext = shopObjectsContext;
+    public ShopRecyclerViewAdapter(Context shopContext) {
+        this.shopContext = shopContext;
     }
 
     @NonNull
@@ -40,19 +39,17 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<ShopRecyclerVi
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(shopObjects.get(position).getName());
-
-        Glide.with(shopObjectsContext).asBitmap().load(shopObjects.get(position).getImageSource()).into(holder.categoryImage);
-
+        Glide.with(shopContext).asBitmap().load(shopObjects.get(position).getImageSource()).into(holder.categoryImage);
         holder.categoryCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent;
                 switch(shopObjects.get(position).getId()) {
-                    case 1: intent = new Intent(shopObjectsContext, MoneyActivity.class); break;
-                    case 2: intent = new Intent(shopObjectsContext, ProductsActivity.class); break;
+                    case 1: intent = new Intent(shopContext, MoneyActivity.class); break;
+                    case 2: intent = new Intent(shopContext, ProductsActivity.class); break;
                     default: throw new NullPointerException("Invalid Selection");
                 }
-                shopObjectsContext.startActivity(intent);
+                shopContext.startActivity(intent);
             }
         });
     }

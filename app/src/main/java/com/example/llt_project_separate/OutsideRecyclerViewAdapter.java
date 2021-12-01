@@ -20,12 +20,11 @@ import java.util.ArrayList;
 
 public class OutsideRecyclerViewAdapter extends RecyclerView.Adapter<OutsideRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "OutsideAdapter";
-
     private ArrayList<Category> outsideObjects = new ArrayList<>();
-    private Context outsideObjectsContext;
+    private Context outsideContext;
 
-    public OutsideRecyclerViewAdapter(Context outsideObjectsContext) {
-        this.outsideObjectsContext = outsideObjectsContext;
+    public OutsideRecyclerViewAdapter(Context outsideContext) {
+        this.outsideContext = outsideContext;
     }
 
     @NonNull
@@ -40,19 +39,17 @@ public class OutsideRecyclerViewAdapter extends RecyclerView.Adapter<OutsideRecy
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(outsideObjects.get(position).getName());
-
-        Glide.with(outsideObjectsContext).asBitmap().load(outsideObjects.get(position).getImageSource()).into(holder.categoryImage);
-
+        Glide.with(outsideContext).asBitmap().load(outsideObjects.get(position).getImageSource()).into(holder.categoryImage);
         holder.categoryCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(outsideObjectsContext, VideoPlayerActivity.class);
+                Intent intent = new Intent(outsideContext, VideoPlayerActivity.class);
                 if (outsideObjects.get(position).getId() < 0) {
                     throw new NullPointerException("Invalid Selection");
                 }
                 intent.putExtra("name", outsideObjects.get(position).getName());
-                intent.putExtra("intent", "OutsideActivity");
-                outsideObjectsContext.startActivity(intent);
+                intent.putExtra("activity", "OutsideActivity");
+                outsideContext.startActivity(intent);
             }
         });
     }

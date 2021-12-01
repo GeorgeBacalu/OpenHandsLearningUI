@@ -51,16 +51,18 @@ public class EmotionsActivity extends AppCompatActivity {
 
         ArrayList<Category> emotions = new ArrayList<>();
         emotions.add(new Category(1, "VESEL", R.drawable.caine));
-        emotions.add(new Category(2, "SATURAT", R.drawable.caine));
-        emotions.add(new Category(3, "INCRUNTAT", R.drawable.caine));
+        emotions.add(new Category(2, "SĂTURAT", R.drawable.caine));
+        emotions.add(new Category(3, "ÎNCRUNTAT", R.drawable.caine));
         emotions.add(new Category(4, "TRIST", R.drawable.caine));
-        emotions.add(new Category(5, "DEZAMAGIT", R.drawable.caine));
-        emotions.add(new Category(6, "MERVOS", R.drawable.caine));
+        emotions.add(new Category(5, "DEZAMĂGIT", R.drawable.caine));
+        emotions.add(new Category(6, "NERVOS", R.drawable.caine));
         emotions.add(new Category(7, "FERICIT", R.drawable.caine));
-        emotions.add(new Category(8, "SUPARAT", R.drawable.caine));
-        emotions.add(new Category(9, "INDURERAT", R.drawable.caine));
+        emotions.add(new Category(8, "SUPĂRAT", R.drawable.caine));
+        emotions.add(new Category(9, "ÎNDURERAT", R.drawable.caine));
         emotions.add(new Category(10, "ENTUZIASMAT", R.drawable.caine));
-        emotions.add(new Category(11, "INDRAGOSTIT", R.drawable.caine));
+        emotions.add(new Category(11, "ÎNDRĂGOSTIT", R.drawable.caine));
+        emotions.add(new Category(12, "LINIŞTIT", R.drawable.caine));
+        emotions.add(new Category(13, "CUMINTE", R.drawable.caine));
         emotionsAdapter.setEmotions(emotions);
     }
 }

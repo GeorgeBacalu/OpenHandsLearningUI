@@ -20,7 +20,6 @@ import java.util.ArrayList;
 
 public class ProductsRecyclerViewAdapter extends RecyclerView.Adapter<ProductsRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "ProductsAdapter";
-
     private ArrayList<Category> products = new ArrayList<>();
     private Context productsContext;
 
@@ -40,9 +39,7 @@ public class ProductsRecyclerViewAdapter extends RecyclerView.Adapter<ProductsRe
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(products.get(position).getName());
-
         Glide.with(productsContext).asBitmap().load(products.get(position).getImageSource()).into(holder.categoryImage);
-
         holder.categoryCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,7 +48,7 @@ public class ProductsRecyclerViewAdapter extends RecyclerView.Adapter<ProductsRe
                     throw new NullPointerException("Invalid Selection");
                 }
                 intent.putExtra("name", products.get(position).getName());
-                intent.putExtra("intent", "ProductsActivity");
+                intent.putExtra("activity", "ProductsActivity");
                 productsContext.startActivity(intent);
             }
         });

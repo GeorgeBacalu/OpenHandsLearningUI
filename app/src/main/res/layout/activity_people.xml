@@ -13,7 +13,7 @@
         android:paddingBottom="10dp">
 
         <ImageView
-            android:id="@+id/animalsSectionHeaderImage"
+            android:id="@+id/sectionHeaderImage"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:src="@drawable/animale" />
@@ -43,7 +43,7 @@
                 android:layout_below="@id/toPrevPageButton"
                 android:layout_marginTop="25dp"
                 android:fontFamily="@font/source_sans_pro_black"
-                android:text="PEOPLE CATEGORY"
+                android:text="PERSOANE"
                 android:textColor="@color/white"
                 android:textSize="25sp" />
 
@@ -53,19 +53,49 @@
                 android:layout_below="@id/animalsSectionHeaderText"
                 android:layout_marginTop="25dp"
                 android:fontFamily="@font/source_sans_pro_regular"
-                android:text="Select a subcategory of your choice."
+                android:text="Selectează subcategoria dorită."
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
         </RelativeLayout>
 
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/searchBar"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@+id/sectionHeaderImage"
+            android:layout_marginHorizontal="80dp"
+            android:layout_marginTop="40dp"
+            app:cardCornerRadius="20dp"
+            app:strokeColor="@color/gray_border"
+            app:strokeWidth="2dp">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:hint="Caută o subcategorie..."
+                android:paddingLeft="15dp"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="end"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="7dp"
+                android:src="@drawable/ic_search" />
+
+        </com.google.android.material.card.MaterialCardView>
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/animalsSectionHeaderImage"
+            android:layout_below="@+id/searchBar"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
-            android:layout_marginBottom="180dp">
+            android:layout_marginBottom="100dp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/peopleRecyclerView"

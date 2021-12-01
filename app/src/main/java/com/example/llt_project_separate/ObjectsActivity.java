@@ -50,11 +50,11 @@ public class ObjectsActivity extends AppCompatActivity {
         objectsRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
 
         ArrayList<Category> objects = new ArrayList<>();
-        objects.add(new Category(1, "ACASA", R.drawable.animale_domestice));
-        objects.add(new Category(2, "AFARA", R.drawable.animale_domestice));
-        objects.add(new Category(3, "CLASA", R.drawable.animale_domestice));
+        objects.add(new Category(1, "ACASĂ", R.drawable.animale_domestice));
+        objects.add(new Category(2, "AFARĂ", R.drawable.animale_domestice));
+        objects.add(new Category(3, "CLASĂ", R.drawable.animale_domestice));
         objects.add(new Category(4, "MAGAZIN", R.drawable.animale_domestice));
-        objects.add(new Category(5, "ORAS", R.drawable.animale_domestice));
+        objects.add(new Category(5, "ORAŞ", R.drawable.animale_domestice));
         objectsAdapter.setObjects(objects);
     }
 }

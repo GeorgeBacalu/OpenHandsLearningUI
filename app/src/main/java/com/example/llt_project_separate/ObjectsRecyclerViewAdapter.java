@@ -20,7 +20,6 @@ import java.util.ArrayList;
 
 public class ObjectsRecyclerViewAdapter extends RecyclerView.Adapter<ObjectsRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "ObjectsAdapter";
-
     private ArrayList<Category> objects = new ArrayList<>();
     private Context objectsContext;
 
@@ -40,9 +39,7 @@ public class ObjectsRecyclerViewAdapter extends RecyclerView.Adapter<ObjectsRecy
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(objects.get(position).getName());
-
         Glide.with(objectsContext).asBitmap().load(objects.get(position).getImageSource()).into(holder.categoryImage);
-
         holder.categoryCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

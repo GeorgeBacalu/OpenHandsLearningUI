@@ -52,22 +52,16 @@ public class VerbsActivity extends AppCompatActivity {
         ArrayList<Category> verbs = new ArrayList<>();
         verbs.add(new Category(1, "CONSTRUI", R.drawable.caine));
         verbs.add(new Category(2, "SCRIE", R.drawable.caine));
-        verbs.add(new Category(3, "VA ROG", R.drawable.caine));
-        verbs.add(new Category(4, "SCUZA", R.drawable.caine));
-        verbs.add(new Category(5, "TRAGE", R.drawable.caine));
-        verbs.add(new Category(6, "HAI", R.drawable.caine));
-        verbs.add(new Category(7, "MULTUMESC", R.drawable.caine));
-        verbs.add(new Category(8, "CITI", R.drawable.caine));
-        verbs.add(new Category(9, "FI LINISTIT", R.drawable.caine));
-        verbs.add(new Category(10, "JOS", R.drawable.caine));
-        verbs.add(new Category(11, "LASA", R.drawable.caine));
-        verbs.add(new Category(12, "CUMINTE", R.drawable.caine));
-        verbs.add(new Category(13, "APASA", R.drawable.caine));
-        verbs.add(new Category(14, "PUNE", R.drawable.caine));
-        verbs.add(new Category(15, "STRANGE", R.drawable.caine));
-        verbs.add(new Category(16, "SCOATE", R.drawable.caine));
-        verbs.add(new Category(17, "SPUNE", R.drawable.caine));
-        verbs.add(new Category(18, "UITE", R.drawable.caine));
+        verbs.add(new Category(3, "TRAGE", R.drawable.caine));
+        verbs.add(new Category(4, "CITI", R.drawable.caine));
+        verbs.add(new Category(5, "STA JOS", R.drawable.caine));
+        verbs.add(new Category(6, "LĂSA", R.drawable.caine));
+        verbs.add(new Category(7, "APĂSA", R.drawable.caine));
+        verbs.add(new Category(8, "PUNE", R.drawable.caine));
+        verbs.add(new Category(9, "STRÂNGE", R.drawable.caine));
+        verbs.add(new Category(10, "SCOATE", R.drawable.caine));
+        verbs.add(new Category(11, "SPUNE", R.drawable.caine));
+        verbs.add(new Category(12, "SE UITA", R.drawable.caine));
         verbsAdapter.setVerbs(verbs);
     }
 }

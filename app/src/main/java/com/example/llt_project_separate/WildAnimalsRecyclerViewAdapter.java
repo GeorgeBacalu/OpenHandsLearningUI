@@ -20,7 +20,6 @@ import java.util.ArrayList;
 
 public class  WildAnimalsRecyclerViewAdapter extends RecyclerView.Adapter<WildAnimalsRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "WildAnimalsAdapter";
-
     private ArrayList<Category> wildAnimals = new ArrayList<>();
     private Context wildAnimalsContext;
 
@@ -40,9 +39,7 @@ public class  WildAnimalsRecyclerViewAdapter extends RecyclerView.Adapter<WildAn
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(wildAnimals.get(position).getName());
-
         Glide.with(wildAnimalsContext).asBitmap().load(wildAnimals.get(position).getImageSource()).into(holder.categoryImage);
-
         holder.categoryCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,7 +48,7 @@ public class  WildAnimalsRecyclerViewAdapter extends RecyclerView.Adapter<WildAn
                     throw new NullPointerException("Invalid Selection");
                 }
                 intent.putExtra("name", wildAnimals.get(position).getName());
-                intent.putExtra("intent", "WildAnimalsActivity");
+                intent.putExtra("activity", "WildAnimalsActivity");
                 wildAnimalsContext.startActivity(intent);
             }
         });

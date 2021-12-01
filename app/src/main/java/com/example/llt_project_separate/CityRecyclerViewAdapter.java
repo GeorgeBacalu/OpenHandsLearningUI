@@ -20,12 +20,11 @@ import java.util.ArrayList;
 
 public class CityRecyclerViewAdapter extends RecyclerView.Adapter<CityRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "CityAdapter";
-
     private ArrayList<Category> cityObjects = new ArrayList<>();
-    private Context cityObjectsContext;
+    private Context cityContext;
 
-    public CityRecyclerViewAdapter(Context cityObjectsContext) {
-        this.cityObjectsContext = cityObjectsContext;
+    public CityRecyclerViewAdapter(Context cityContext) {
+        this.cityContext = cityContext;
     }
 
     @NonNull
@@ -40,19 +39,17 @@ public class CityRecyclerViewAdapter extends RecyclerView.Adapter<CityRecyclerVi
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(cityObjects.get(position).getName());
-
-        Glide.with(cityObjectsContext).asBitmap().load(cityObjects.get(position).getImageSource()).into(holder.categoryImage);
-
+        Glide.with(cityContext).asBitmap().load(cityObjects.get(position).getImageSource()).into(holder.categoryImage);
         holder.categoryCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(cityObjectsContext, VideoPlayerActivity.class);
+                Intent intent = new Intent(cityContext, VideoPlayerActivity.class);
                 if (cityObjects.get(position).getId() < 0) {
                     throw new NullPointerException("Invalid Selection");
                 }
                 intent.putExtra("name", cityObjects.get(position).getName());
-                intent.putExtra("intent", "CityActivity");
-                cityObjectsContext.startActivity(intent);
+                intent.putExtra("activity", "CityActivity");
+                cityContext.startActivity(intent);
             }
         });
     }

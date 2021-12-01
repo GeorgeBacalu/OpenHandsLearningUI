@@ -14,8 +14,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 
 public class ClassActivity extends AppCompatActivity {
-    private RecyclerView classObjectsRecyclerView;
-    private ClassRecyclerViewAdapter classObjectsAdapter;
+    private RecyclerView classRecyclerView;
+    private ClassRecyclerViewAdapter classAdapter;
     private ImageView toPrevPageButton;
     private FloatingActionButton toHomePageFabButton;
 
@@ -24,8 +24,8 @@ public class ClassActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_class);
 
-        classObjectsRecyclerView = findViewById(R.id.classObjectsRecyclerView);
-        classObjectsAdapter = new ClassRecyclerViewAdapter(this);
+        classRecyclerView = findViewById(R.id.classRecyclerView);
+        classAdapter = new ClassRecyclerViewAdapter(this);
 
         toPrevPageButton = findViewById(R.id.toPrevPageButton);
         toHomePageFabButton = findViewById(R.id.toHomePageFabButton);
@@ -46,25 +46,25 @@ public class ClassActivity extends AppCompatActivity {
             }
         });
 
-        classObjectsRecyclerView.setAdapter(classObjectsAdapter);
-        classObjectsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        classRecyclerView.setAdapter(classAdapter);
+        classRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         ArrayList<Category> classObjects = new ArrayList<>();
         classObjects.add(new Category(1, "MANUAL", R.drawable.caine));
         classObjects.add(new Category(2, "PIX", R.drawable.caine));
-        classObjects.add(new Category(3, "DICTIONAR", R.drawable.caine));
+        classObjects.add(new Category(3, "DICŢIONAR", R.drawable.caine));
         classObjects.add(new Category(4, "CARTE", R.drawable.caine));
-        classObjects.add(new Category(5, "BANCA", R.drawable.caine));
-        classObjects.add(new Category(6, "TEMA", R.drawable.caine));
+        classObjects.add(new Category(5, "BANCĂ", R.drawable.caine));
+        classObjects.add(new Category(6, "TEMĂ", R.drawable.caine));
         classObjects.add(new Category(7, "VIDEO PROIECTOR", R.drawable.caine));
         classObjects.add(new Category(8, "TEST", R.drawable.caine));
         classObjects.add(new Category(9, "STILOU", R.drawable.caine));
-        classObjects.add(new Category(10, "TEST GRILA", R.drawable.caine));
-        classObjects.add(new Category(11, "RADIERA", R.drawable.caine));
-        classObjects.add(new Category(12, "CRETA", R.drawable.caine));
-        classObjects.add(new Category(13, "CATEDRA", R.drawable.caine));
+        classObjects.add(new Category(10, "TEST GRILĂ", R.drawable.caine));
+        classObjects.add(new Category(11, "RADIERĂ", R.drawable.caine));
+        classObjects.add(new Category(12, "CRETĂ", R.drawable.caine));
+        classObjects.add(new Category(13, "CATEDRĂ", R.drawable.caine));
         classObjects.add(new Category(14, "CREION", R.drawable.caine));
         classObjects.add(new Category(15, "CAIET", R.drawable.caine));
-        classObjectsAdapter.setClassObjects(classObjects);
+        classAdapter.setClassObjects(classObjects);
     }
 }

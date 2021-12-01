@@ -10,7 +10,16 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.LLT_Project_Separate">
+        android:theme="@style/Theme.LLT_Project_Current">
+        <activity
+            android:name=".AllCategoriesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FavoritesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FormsOfAddressActivity"
+            android:exported="false" />
         <activity
             android:name=".PronounsActivity"
             android:exported="false" />

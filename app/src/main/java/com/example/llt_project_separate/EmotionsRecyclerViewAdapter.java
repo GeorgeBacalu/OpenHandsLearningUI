@@ -20,7 +20,6 @@ import java.util.ArrayList;
 
 public class EmotionsRecyclerViewAdapter extends RecyclerView.Adapter<EmotionsRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "EmotionsAdapter";
-
     private ArrayList<Category> emotions = new ArrayList<>();
     private Context emotionsContext;
 
@@ -40,9 +39,7 @@ public class EmotionsRecyclerViewAdapter extends RecyclerView.Adapter<EmotionsRe
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(emotions.get(position).getName());
-
         Glide.with(emotionsContext).asBitmap().load(emotions.get(position).getImageSource()).into(holder.categoryImage);
-
         holder.categoryCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,7 +48,7 @@ public class EmotionsRecyclerViewAdapter extends RecyclerView.Adapter<EmotionsRe
                     throw new NullPointerException("Invalid Selection");
                 }
                 intent.putExtra("name", emotions.get(position).getName());
-                intent.putExtra("intent", "EmotionsActivity");
+                intent.putExtra("activity", "EmotionsActivity");
                 emotionsContext.startActivity(intent);
             }
         });

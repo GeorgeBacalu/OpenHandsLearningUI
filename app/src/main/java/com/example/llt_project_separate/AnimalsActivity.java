@@ -14,8 +14,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 
 public class AnimalsActivity extends AppCompatActivity {
-    private RecyclerView animalsCategoriesRecyclerView;
-    private AnimalsRecyclerViewAdapter animalsCategoriesAdapter;
+    private RecyclerView animalsRecyclerView;
+    private AnimalsRecyclerViewAdapter animalsAdapter;
     private ImageView toPrevPageButton;
     private FloatingActionButton toHomePageFabButton;
 
@@ -24,8 +24,8 @@ public class AnimalsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_animals);
 
-        animalsCategoriesRecyclerView = findViewById(R.id.animalsCategoriesRecyclerView);
-        animalsCategoriesAdapter = new AnimalsRecyclerViewAdapter(this);
+        animalsRecyclerView = findViewById(R.id.animalsRecyclerView);
+        animalsAdapter = new AnimalsRecyclerViewAdapter(this);
 
         toPrevPageButton = findViewById(R.id.toPrevPageButton);
         toHomePageFabButton = findViewById(R.id.toHomePageFabButton);
@@ -46,12 +46,12 @@ public class AnimalsActivity extends AppCompatActivity {
             }
         });
 
-        animalsCategoriesRecyclerView.setAdapter(animalsCategoriesAdapter);
-        animalsCategoriesRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        animalsRecyclerView.setAdapter(animalsAdapter);
+        animalsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         ArrayList<Category> animalsCategories = new ArrayList<>();
         animalsCategories.add(new Category(1, "DOMESTICE", R.drawable.animale_domestice));
-        animalsCategories.add(new Category(2, "SALBATICE", R.drawable.animale_salbatice));
-        animalsCategoriesAdapter.setAnimalsCategories(animalsCategories);
+        animalsCategories.add(new Category(2, "SĂLBATICE", R.drawable.animale_salbatice));
+        animalsAdapter.setAnimals(animalsCategories);
     }
 }

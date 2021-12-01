@@ -20,7 +20,6 @@ import java.util.ArrayList;
 
 public class VerbsRecyclerViewAdapter extends RecyclerView.Adapter<VerbsRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "VerbsAdapter";
-
     private ArrayList<Category> verbs = new ArrayList<>();
     private Context verbsContext;
 
@@ -40,9 +39,7 @@ public class VerbsRecyclerViewAdapter extends RecyclerView.Adapter<VerbsRecycler
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(verbs.get(position).getName());
-
         Glide.with(verbsContext).asBitmap().load(verbs.get(position).getImageSource()).into(holder.categoryImage);
-
         holder.categoryCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,7 +48,7 @@ public class VerbsRecyclerViewAdapter extends RecyclerView.Adapter<VerbsRecycler
                     throw new NullPointerException("Invalid Selection");
                 }
                 intent.putExtra("name", verbs.get(position).getName());
-                intent.putExtra("intent", "VerbsActivity");
+                intent.putExtra("activity", "VerbsActivity");
                 verbsContext.startActivity(intent);
             }
         });
