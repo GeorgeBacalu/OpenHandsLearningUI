@@ -1,5 +1,8 @@
 package com.example.llt_project_separate;
 
+import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_ID;
+import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_NAME;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -47,8 +50,8 @@ public class AlphabetRecyclerViewAdapter extends RecyclerView.Adapter<AlphabetRe
                 if (letters.get(position).getId() < 0) {
                     throw new NullPointerException("Invalid Selection");
                 }
-                intent.putExtra("name", letters.get(position).getName());
-                intent.putExtra("activity", "AlphabetActivity");
+                intent.putExtra(CATEGORY_ID, letters.get(position).getId());
+                intent.putExtra(CATEGORY_NAME, letters.get(position).getName());
                 alphabetContext.startActivity(intent);
             }
         });

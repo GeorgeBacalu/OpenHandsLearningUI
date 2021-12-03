@@ -20,7 +20,6 @@ import java.util.ArrayList;
 
 public class AnimalsRecyclerViewAdapter extends RecyclerView.Adapter<AnimalsRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "AnimalsAdapter";
-
     private ArrayList<Category> animals = new ArrayList<>();
     private Context animalsContext;
 
@@ -40,16 +39,14 @@ public class AnimalsRecyclerViewAdapter extends RecyclerView.Adapter<AnimalsRecy
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(animals.get(position).getName());
-
         Glide.with(animalsContext).asBitmap().load(animals.get(position).getImageSource()).into(holder.categoryImage);
-
         holder.categoryCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent;
                 switch(animals.get(position).getId()) {
-                    case 1: intent = new Intent(animalsContext, HouseholdAnimalsActivity.class); break;
-                    case 2: intent = new Intent(animalsContext, WildAnimalsActivity.class); break;
+                    case 180: intent = new Intent(animalsContext, HouseholdAnimalsActivity.class); break;
+                    case 181: intent = new Intent(animalsContext, WildAnimalsActivity.class); break;
                     default: throw new NullPointerException("Invalid Selection");
                 }
                 animalsContext.startActivity(intent);

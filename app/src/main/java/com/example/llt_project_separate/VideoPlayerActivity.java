@@ -1,12 +1,16 @@
 package com.example.llt_project_separate;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -21,84 +25,41 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public class VideoPlayerActivity extends AppCompatActivity {
-    public static final String CATEGORY_ID_KEY = "categoryId";
-    public static final String CATEGORY_NAME_KEY = "categoryName";
+    public static final String CATEGORY_ID = "categoryId";
+    public static final String CATEGORY_NAME = "categoryName";
 
-    private TextView selectedCategoryName;
-    private ImageView toVideoSectionPageButton, selectedCategoryImage;
-    private CardView selectedCategoryCard;
-
-    private RecyclerView videoSubjectRecyclerView;
-    private VideoPlayerRecyclerViewAdapter videoSubjectAdapter;
-
-    private VideoView videoView;
+    private CardView categoryCard;
+    private TextView categoryName;
+    private ImageView categoryImage;
     private Button favoriteButton;
-    private String videoSubject, videoSubjectFormatted, callingActivity;
-
-    private Intent intent;
+    private VideoView videoView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_player);
-
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         initializeViews();
 
-        /*
-        intent = getIntent();
+        Intent intent = getIntent();
         if(intent != null) {
-            int categoryId = intent.getIntExtra(CATEGORY_ID_KEY, -1);
+            int categoryId = intent.getIntExtra(CATEGORY_ID, -1);
             if(categoryId != -1) {
                 Category incomingCategory = Utils.getInstance(this).getCategoryById(categoryId);
                 if(incomingCategory != null) {
                     setData(incomingCategory);
-                    handleAddToFavorite(incomingCategory);
+                    handleFavorite(incomingCategory);
                 }
             }
         }
-        */
 
-        callingActivity = intent.getStringExtra("activity");
-        toVideoSectionPageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (callingActivity) {
-                    case "AlphabetActivity": intent = new Intent(VideoPlayerActivity.this, AlphabetActivity.class); break;
-                    case "NumbersActivity": intent = new Intent(VideoPlayerActivity.this, NumbersActivity.class); break;
-                    case "ColorsActivity": intent = new Intent(VideoPlayerActivity.this, ColorsActivity.class); break;
-                    case "HouseholdAnimalsActivity": intent = new Intent(VideoPlayerActivity.this, HouseholdAnimalsActivity.class); break;
-                    case "WildAnimalsActivity": intent = new Intent(VideoPlayerActivity.this, WildAnimalsActivity.class); break;
-                    case "HomeActivity": intent = new Intent(VideoPlayerActivity.this, HomeActivity.class); break;
-                    case "OutsideActivity": intent = new Intent(VideoPlayerActivity.this, OutsideActivity.class); break;
-                    case "ClassActivity": intent = new Intent(VideoPlayerActivity.this, ClassActivity.class); break;
-                    case "MoneyActivity": intent = new Intent(VideoPlayerActivity.this, MoneyActivity.class); break;
-                    case "ProductsActivity": intent = new Intent(VideoPlayerActivity.this, ProductsActivity.class); break;
-                    case "CityActivity": intent = new Intent(VideoPlayerActivity.this, CityActivity.class); break;
-                    case "FamilyMembersActivity": intent = new Intent(VideoPlayerActivity.this, FamilyMembersActivity.class); break;
-                    case "PronounsActivity": intent = new Intent(VideoPlayerActivity.this, PronounsActivity.class); break;
-                    case "EmotionsActivity": intent = new Intent(VideoPlayerActivity.this, EmotionsActivity.class); break;
-                    case "VerbsActivity": intent = new Intent(VideoPlayerActivity.this, VerbsActivity.class); break;
-                    case "FormsOfAddressActivity": intent = new Intent(VideoPlayerActivity.this, FormsOfAddressActivity.class); break;
-                    default: throw new NullPointerException("Invalid Selection");
-                }
-                startActivity(intent);
-            }
-        });
-
-        videoSubjectRecyclerView.setAdapter(videoSubjectAdapter);
-        videoSubjectRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        videoSubject = getIntent().getStringExtra("name").toLowerCase();
-        videoSubjectFormatted = replaceDiacriticsAndSpaces(videoSubject);
+        String videoSubject = intent.getStringExtra(CATEGORY_NAME).toLowerCase();
+        String videoSubjectFormatted = replaceDiacriticsAndSpaces(videoSubject);
 
         String uriPath = "android.resource://" + getPackageName() + "/raw/" + videoSubjectFormatted;
-        String dynamicImageResource = "drawable/" + videoSubjectFormatted;
-        int imageKey = getResources().getIdentifier(dynamicImageResource, "drawable", getPackageName());
         videoView.setVideoPath(uriPath);
-
-        Category selectedCategory = new Category(1, videoSubject.toUpperCase(), imageKey);
-        videoSubjectAdapter.setSelectedCategory(selectedCategory);
+        // String dynamicImageResource = "drawable/" + videoSubjectFormatted;
+        // int imageKey = getResources().getIdentifier(dynamicImageResource, "drawable", getPackageName());
 
         MediaController mediaController = new MediaController(this);
         mediaController.setAnchorView(videoView);
@@ -106,26 +67,62 @@ public class VideoPlayerActivity extends AppCompatActivity {
         videoView.start();
     }
 
-    /*
-    private void handleAddToFavorite(Category incomingCategory) {
+    private void initializeViews() {
+        categoryName = findViewById(R.id.categoryName);
+        categoryImage = findViewById(R.id.categoryImage);
+        categoryCard = findViewById(R.id.categoryCard);
+        favoriteButton = findViewById(R.id.favoriteButton);
+        videoView = findViewById(R.id.videoView);
+    }
+
+    private void setData(Category category) {
+        categoryName.setText(category.getName());
+        Glide.with(this).asBitmap().load(category.getImageSource()).into(categoryImage);
+    }
+
+    private void handleFavorite(Category incomingCategory) {
         ArrayList<Category> favoriteCategories = Utils.getInstance(this).getFavoriteCategories();
 
         boolean existInFavoriteCategories = false;
-
         for(Category category : favoriteCategories) {
             if(category.getId() == incomingCategory.getId()) {
                 existInFavoriteCategories = true;
             }
         }
-
         if(existInFavoriteCategories) {
-            addToFavoriteButton.setText("Elimina favorit");
+            favoriteButton.setText("Elimină favorit");
+            favoriteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(VideoPlayerActivity.this);
+                    builder.setMessage("Eşti sigur că vrei să elimini " + incomingCategory.getName() + " de la favorite?");
+                    builder.setPositiveButton("DA", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            String chosenToBeRemoved = incomingCategory.getName();
+                            if(Utils.getInstance(VideoPlayerActivity.this).removedFromFavorite(incomingCategory)) {
+                                Toast.makeText(VideoPlayerActivity.this,  chosenToBeRemoved + " eliminat", Toast.LENGTH_SHORT).show();
+                                favoriteButton.setText("Adaugă la favorite");
+                                handleFavorite(incomingCategory);
+                            } else {
+                                Toast.makeText(VideoPlayerActivity.this, "Ceva nu e bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                    builder.setNegativeButton("NU", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {}
+                    });
+                    builder.create().show();
+                }
+            });
         } else {
-            addToFavoriteButton.setOnClickListener(new View.OnClickListener() {
+            favoriteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(Utils.getInstance(VideoPlayerActivity.this).addedToFavorite(incomingCategory)) {
                         Toast.makeText(VideoPlayerActivity.this, incomingCategory.getName() + " adăugat la favorite", Toast.LENGTH_SHORT).show();
+                        handleFavorite(incomingCategory);
                     } else {
                         Toast.makeText(VideoPlayerActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
                     }
@@ -133,29 +130,6 @@ public class VideoPlayerActivity extends AppCompatActivity {
             });
         }
     }
-     */
-
-    private void initializeViews() {
-        selectedCategoryName = findViewById(R.id.selectedCategoryName);
-        selectedCategoryName = findViewById(R.id.selectedCategoryName);
-        selectedCategoryCard = findViewById(R.id.selectedCategoryCard);
-
-        favoriteButton = findViewById(R.id.favoriteButton);
-        videoView = findViewById(R.id.videoView);
-
-        videoSubjectRecyclerView = findViewById(R.id.videoSubjectRecyclerView);
-        videoSubjectAdapter = new VideoPlayerRecyclerViewAdapter(this);
-
-        toVideoSectionPageButton = findViewById(R.id.toVideoSectionPageButton);
-    }
-
-    /*
-    private void setData(Category category) {
-            selectedCategoryName.setText(category.getName());
-            Glide.with(this).asBitmap().load(category.getImageSource()).into(selectedCategoryImage);
-
-    }
-     */
 
     private static String replaceDiacriticsAndSpaces(String str) {
         char[] charArray = str.toCharArray();
@@ -171,5 +145,17 @@ public class VideoPlayerActivity extends AppCompatActivity {
             }
         }
         return String.valueOf(charArray);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

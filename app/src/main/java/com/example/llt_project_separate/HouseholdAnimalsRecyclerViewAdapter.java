@@ -1,5 +1,8 @@
 package com.example.llt_project_separate;
 
+import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_ID;
+import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_NAME;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -47,8 +50,8 @@ public class HouseholdAnimalsRecyclerViewAdapter extends RecyclerView.Adapter<Ho
                 if (householdAnimals.get(position).getId() < 0) {
                     throw new NullPointerException("Invalid Selection");
                 }
-                intent.putExtra("name", householdAnimals.get(position).getName());
-                intent.putExtra("activity", "HouseholdAnimalsActivity");
+                intent.putExtra(CATEGORY_ID, householdAnimals.get(position).getId());
+                intent.putExtra(CATEGORY_NAME, householdAnimals.get(position).getName());
                 householdAnimalsContext.startActivity(intent);
             }
         });

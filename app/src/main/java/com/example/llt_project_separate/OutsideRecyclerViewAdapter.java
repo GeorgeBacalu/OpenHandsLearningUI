@@ -1,5 +1,8 @@
 package com.example.llt_project_separate;
 
+import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_ID;
+import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_NAME;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -47,8 +50,8 @@ public class OutsideRecyclerViewAdapter extends RecyclerView.Adapter<OutsideRecy
                 if (outsideObjects.get(position).getId() < 0) {
                     throw new NullPointerException("Invalid Selection");
                 }
-                intent.putExtra("name", outsideObjects.get(position).getName());
-                intent.putExtra("activity", "OutsideActivity");
+                intent.putExtra(CATEGORY_ID, outsideObjects.get(position).getId());
+                intent.putExtra(CATEGORY_NAME, outsideObjects.get(position).getName());
                 outsideContext.startActivity(intent);
             }
         });

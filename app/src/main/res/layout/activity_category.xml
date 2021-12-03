@@ -7,13 +7,13 @@
     tools:context=".CategoryActivity"
     android:background="#212121">
 
-    <ImageView
-        android:id="@+id/toVideoSectionPageButton"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="25dp"
-        android:src="@drawable/ic_arrow_circle_left" />
+<!--    <ImageView-->
+<!--        android:id="@+id/toVideoSectionPageButton"-->
+<!--        android:layout_width="40dp"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:layout_marginLeft="30dp"-->
+<!--        android:layout_marginTop="25dp"-->
+<!--        android:src="@drawable/ic_arrow_circle_left" />-->
 
     <FrameLayout
         android:id="@+id/videoViewContainer"
@@ -97,7 +97,7 @@
             <!--        </androidx.cardview.widget.CardView>-->
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/addToFavoriteButton"
+                android:id="@+id/favoriteButton"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:layout_below="@id/categoryName"

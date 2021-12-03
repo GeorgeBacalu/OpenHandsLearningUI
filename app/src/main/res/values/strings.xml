@@ -1,5 +1,33 @@
 <resources>
     <string name="app_name">LLT_PROJECT</string>
+    <string name="activity_video_section">Secţiune Video</string>
+    <string name="activity_text_to_sign_section">Secţiune Text to Sign</string>
+    <string name="activity_voice_to_sign_section">Secţiune Voice to Sign</string>
+    <string name="activity_expressions_section">Secţiune Expresii</string>
+
+    <string name="activity_alphabet">Alfabet</string>
+    <string name="activity_numbers">Numere</string>
+    <string name="activity_colors">Culori</string>
+    <string name="activity_animals">Animale</string>
+    <string name="activity_objects">Obiecte</string>
+    <string name="activity_people">Persoane</string>
+    <string name="activity_emotions">Emoţii</string>
+    <string name="activity_verbs">Verbe</string>
+    <string name="activity_forms_of_address">Formule de adresare</string>
+
+    <string name="activity_household_animals">Animale domestice</string>
+    <string name="activity_wild_animals">Animale sălbatice</string>
+    <string name="activity_home">Acasă</string>
+    <string name="activity_outside">Afară</string>
+    <string name="activity_class">Clasă</string>
+    <string name="activity_city">Oraş</string>
+    <string name="activity_shop">Magazin</string>
+    <string name="activity_money">Bani</string>
+    <string name="activity_products">Produse</string>
+    <string name="activity_family_members">Membrii familiei</string>
+    <string name="activity_pronouns">Pronume</string>
+
+    <string name="activity_video_player">Video Player</string>
     <string name="activity_all_categories">Toate Categoriile</string>
     <string name="activity_category">Detalii Categorie</string>
     <string name="activity_favorite_categories">Categorii Favorite</string>

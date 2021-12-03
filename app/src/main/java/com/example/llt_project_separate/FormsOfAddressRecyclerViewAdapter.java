@@ -1,5 +1,8 @@
 package com.example.llt_project_separate;
 
+import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_ID;
+import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_NAME;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -47,8 +50,8 @@ public class FormsOfAddressRecyclerViewAdapter extends RecyclerView.Adapter<Form
                 if (formsOfAddress.get(position).getId() < 0) {
                     throw new NullPointerException("Invalid Selection");
                 }
-                intent.putExtra("name", formsOfAddress.get(position).getName());
-                intent.putExtra("activity", "FormsOfAddressActivity");
+                intent.putExtra(CATEGORY_ID, formsOfAddress.get(position).getId());
+                intent.putExtra(CATEGORY_NAME, formsOfAddress.get(position).getName());
                 formsOfAddressContext.startActivity(intent);
             }
         });

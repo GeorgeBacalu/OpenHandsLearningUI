@@ -1,6 +1,7 @@
 package com.example.llt_project_separate;
 
-import static com.example.llt_project_separate.CategoryActivity.CATEGORY_ID_KEY;
+import static com.example.llt_project_separate.CategoryActivity.CATEGORY_ID;
+import static com.example.llt_project_separate.CategoryActivity.CATEGORY_NAME;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -29,7 +30,6 @@ import java.util.ArrayList;
 
 public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "CategoryAdapter";
-
     private ArrayList<Category> categories = new ArrayList<>();
     private Context categoryContext;
     private String parentActivity;
@@ -55,8 +55,9 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
         holder.categoryCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(categoryContext, CategoryActivity.class);
-                intent.putExtra(CATEGORY_ID_KEY, categories.get(position).getId());
+                Intent intent = new Intent(categoryContext, VideoPlayerActivity.class);
+                intent.putExtra(CATEGORY_ID, categories.get(position).getId());
+                intent.putExtra(CATEGORY_NAME, categories.get(position).getName());
                 categoryContext.startActivity(intent);
             }
         });
@@ -75,7 +76,7 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
                              @Override
                              public void onClick(DialogInterface dialog, int which) {
                                  String chosenToBeRemoved = categories.get(position).getName();
-                                 if(Utils.getInstance(categoryContext).removeFromFavorite(categories.get(position))) {
+                                 if(Utils.getInstance(categoryContext).removedFromFavorite(categories.get(position))) {
                                      Toast.makeText(categoryContext,  chosenToBeRemoved + " eliminat", Toast.LENGTH_SHORT).show();
                                      notifyDataSetChanged();
                                  } else {

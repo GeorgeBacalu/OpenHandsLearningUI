@@ -1,11 +1,13 @@
 package com.example.llt_project_separate;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -16,27 +18,17 @@ import java.util.ArrayList;
 public class ObjectsActivity extends AppCompatActivity {
     private RecyclerView objectsRecyclerView;
     private ObjectsRecyclerViewAdapter objectsAdapter;
-    private ImageView toPrevPageButton;
     private FloatingActionButton toHomePageFabButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_objects);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         objectsRecyclerView = findViewById(R.id.objectsRecyclerView);
         objectsAdapter = new ObjectsRecyclerViewAdapter(this);
-
-        toPrevPageButton = findViewById(R.id.toPrevPageButton);
         toHomePageFabButton = findViewById(R.id.toHomePageFabButton);
-
-        toPrevPageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ObjectsActivity.this, VideoSectionActivity.class);
-                startActivity(intent);
-            }
-        });
 
         toHomePageFabButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,11 +42,23 @@ public class ObjectsActivity extends AppCompatActivity {
         objectsRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
 
         ArrayList<Category> objects = new ArrayList<>();
-        objects.add(new Category(1, "ACASĂ", R.drawable.animale_domestice));
-        objects.add(new Category(2, "AFARĂ", R.drawable.animale_domestice));
-        objects.add(new Category(3, "CLASĂ", R.drawable.animale_domestice));
-        objects.add(new Category(4, "MAGAZIN", R.drawable.animale_domestice));
-        objects.add(new Category(5, "ORAŞ", R.drawable.animale_domestice));
+        objects.add(new Category(182, "ACASĂ", R.drawable.animale_domestice));
+        objects.add(new Category(183, "AFARĂ", R.drawable.animale_domestice));
+        objects.add(new Category(184, "CLASĂ", R.drawable.animale_domestice));
+        objects.add(new Category(185, "MAGAZIN", R.drawable.animale_domestice));
+        objects.add(new Category(186, "ORAŞ", R.drawable.animale_domestice));
         objectsAdapter.setObjects(objects);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

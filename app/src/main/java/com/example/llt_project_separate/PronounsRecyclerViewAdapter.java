@@ -1,5 +1,8 @@
 package com.example.llt_project_separate;
 
+import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_ID;
+import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_NAME;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -47,8 +50,8 @@ public class PronounsRecyclerViewAdapter extends RecyclerView.Adapter<PronounsRe
                 if (pronouns.get(position).getId() < 0) {
                     throw new NullPointerException("Invalid Selection");
                 }
-                intent.putExtra("name", pronouns.get(position).getName());
-                intent.putExtra("activity", "PronounsActivity");
+                intent.putExtra(CATEGORY_ID, pronouns.get(position).getId());
+                intent.putExtra(CATEGORY_NAME, pronouns.get(position).getName());
                 pronounsContext.startActivity(intent);
             }
         });

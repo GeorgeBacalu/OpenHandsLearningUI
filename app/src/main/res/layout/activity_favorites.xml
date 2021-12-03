@@ -12,33 +12,62 @@
         android:layout_marginTop="-10dp"
         android:paddingBottom="10dp">
 
-        <ImageView
-            android:id="@+id/toPrevPageButton"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_arrow_circle_left_black"
-            android:layout_marginTop="25dp"
-            android:layout_marginLeft="40dp"/>
+<!--        <ImageView-->
+<!--            android:id="@+id/toPrevPageButton"-->
+<!--            android:layout_width="40dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_marginLeft="40dp"-->
+<!--            android:layout_marginTop="25dp"-->
+<!--            android:src="@drawable/ic_arrow_circle_left_black" />-->
 
         <TextView
             android:id="@+id/favoriteHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="60dp"
             android:fontFamily="@font/source_sans_pro_bold"
             android:text="Favorite"
             android:textColor="@color/light_blue"
             android:textAllCaps="true"
             android:textSize="30sp"
-            android:textStyle="bold"
-            android:layout_below="@+id/toPrevPageButton"/>
+            android:textStyle="bold"/>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/searchBar"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@+id/favoriteHeader"
+            android:layout_marginHorizontal="80dp"
+            android:layout_marginTop="40dp"
+            app:cardCornerRadius="20dp"
+            app:strokeColor="@color/gray_border"
+            app:strokeWidth="2dp">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:hint="Caută o categorie..."
+                android:paddingLeft="15dp"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="end"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="7dp"
+                android:src="@drawable/ic_search" />
+
+        </com.google.android.material.card.MaterialCardView>
 
         <RelativeLayout
             android:id="@+id/recyclerViewContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/favoriteHeader"
+            android:layout_below="@+id/searchBar"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp">
 

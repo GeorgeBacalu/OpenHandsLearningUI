@@ -1,5 +1,8 @@
 package com.example.llt_project_separate;
 
+import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_ID;
+import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_NAME;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -47,8 +50,8 @@ public class NumbersRecyclerViewAdapter extends RecyclerView.Adapter<NumbersRecy
                 if (numbers.get(position).getId() < 0) {
                     throw new NullPointerException("Invalid Selection");
                 }
-                intent.putExtra("name", numbers.get(position).getName());
-                intent.putExtra("activity", "NumbersActivity");
+                intent.putExtra(CATEGORY_ID, numbers.get(position).getId());
+                intent.putExtra(CATEGORY_NAME, numbers.get(position).getName());
                 numbersContext.startActivity(intent);
             }
         });

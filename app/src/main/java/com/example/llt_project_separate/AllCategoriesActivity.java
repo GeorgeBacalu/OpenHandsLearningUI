@@ -18,15 +18,13 @@ public class AllCategoriesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_categories);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         categoriesRecyclerView = findViewById(R.id.categoriesRecyclerView);
         categoriesAdapter = new AllCategoriesRecyclerViewAdapter(this);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         categoriesRecyclerView.setAdapter(categoriesAdapter);
         categoriesRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-
 
         categoriesAdapter.setCategories(Utils.getInstance(this).getAllCategories());
     }

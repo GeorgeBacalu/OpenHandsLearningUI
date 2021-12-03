@@ -1,11 +1,13 @@
 package com.example.llt_project_separate;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -16,27 +18,17 @@ import java.util.ArrayList;
 public class AlphabetActivity extends AppCompatActivity {
     private RecyclerView alphabetRecyclerView;
     private AlphabetRecyclerViewAdapter alphabetAdapter;
-    private ImageView toPrevPageButton;
     private FloatingActionButton toHomePageFabButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alphabet);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         alphabetRecyclerView = findViewById(R.id.alphabetRecyclerView);
         alphabetAdapter = new AlphabetRecyclerViewAdapter(this);
-
-        toPrevPageButton = findViewById(R.id.toPrevPageButton);
         toHomePageFabButton = findViewById(R.id.toHomePageFabButton);
-
-        toPrevPageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AlphabetActivity.this, VideoSectionActivity.class);
-                startActivity(intent);
-            }
-        });
 
         toHomePageFabButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,5 +74,17 @@ public class AlphabetActivity extends AppCompatActivity {
         letters.add(new Category(30, "Y", R.drawable.caine));
         letters.add(new Category(31, "Z", R.drawable.caine));
         alphabetAdapter.setLetters(letters);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

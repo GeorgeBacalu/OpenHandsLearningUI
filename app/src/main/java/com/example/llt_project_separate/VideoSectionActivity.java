@@ -20,36 +20,24 @@ public class VideoSectionActivity extends AppCompatActivity {
     private RecyclerView mainCategoriesRecyclerView;
     private VideoSectionRecyclerViewAdapter mainCategoriesAdapter;
     private Button showFavoriteButton, allCategoriesButton;
-    private ImageView toPrevPageButton;
     private FloatingActionButton toHomePageFabButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_section);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mainCategoriesRecyclerView = findViewById(R.id.mainCategoriesRecyclerView);
         mainCategoriesAdapter = new VideoSectionRecyclerViewAdapter(this);
         showFavoriteButton = findViewById(R.id.showFavoriteButton);
         allCategoriesButton = findViewById(R.id.allCategoriesButton);
-
-        toPrevPageButton = findViewById(R.id.toPrevPageButton);
         toHomePageFabButton = findViewById(R.id.toHomePageFabButton);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        toPrevPageButton.setOnClickListener(new View.OnClickListener() {
+        showFavoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(VideoSectionActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        toHomePageFabButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(VideoSectionActivity.this, MainActivity.class);
+                Intent intent = new Intent(VideoSectionActivity.this, FavoritesActivity.class);
                 startActivity(intent);
             }
         });
@@ -62,10 +50,10 @@ public class VideoSectionActivity extends AppCompatActivity {
             }
         });
 
-        showFavoriteButton.setOnClickListener(new View.OnClickListener() {
+        toHomePageFabButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(VideoSectionActivity.this, FavoritesActivity.class);
+                Intent intent = new Intent(VideoSectionActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -76,16 +64,16 @@ public class VideoSectionActivity extends AppCompatActivity {
         mainCategoriesRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         ArrayList<Category> categories = new ArrayList<>();
-        categories.add(new Category(1, "ALFABET", R.drawable.alfabet));
-        categories.add(new Category(2, "NUMERE", R.drawable.numere));
-        categories.add(new Category(3, "CULORI", R.drawable.culori));
-        categories.add(new Category(4, "ANIMALE", R.drawable.animale));
-        categories.add(new Category(5, "OBIECTE", R.drawable.animale));
-        categories.add(new Category(6, "PERSOANE", R.drawable.animale));
-        categories.add(new Category(7, "EMOŢII", R.drawable.animale));
-        categories.add(new Category(8, "VERBE", R.drawable.animale));
-        categories.add(new Category(9, "FORMULE DE ADRESARE", R.drawable.animale));
-        mainCategoriesAdapter.setCategories(categories);
+        categories.add(new Category(1001, "ALFABET", R.drawable.alfabet));
+        categories.add(new Category(1002, "NUMERE", R.drawable.numere));
+        categories.add(new Category(1003, "CULORI", R.drawable.culori));
+        categories.add(new Category(1004, "ANIMALE", R.drawable.animale));
+        categories.add(new Category(1005, "OBIECTE", R.drawable.animale));
+        categories.add(new Category(1006, "PERSOANE", R.drawable.animale));
+        categories.add(new Category(1007, "EMOŢII", R.drawable.animale));
+        categories.add(new Category(1008, "VERBE", R.drawable.animale));
+        categories.add(new Category(1009, "FORMULE DE ADRESARE", R.drawable.animale));
+        mainCategoriesAdapter.setMainCategories(categories);
     }
 
     @Override

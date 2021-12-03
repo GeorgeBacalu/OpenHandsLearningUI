@@ -17,8 +17,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/translucent_dark_blue"
-            android:layout_marginTop="170dp"
-            android:layout_marginLeft="40dp">
+            android:layout_marginTop="150dp"
+            android:layout_marginLeft="65dp">
 
             <ImageButton
                 android:id="@+id/decoration_rectangle1"
@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/translucent_dark_blue"
-            android:layout_marginTop="410dp"
+            android:layout_marginTop="430dp"
             android:layout_marginLeft="80dp">
 
             <ImageButton
@@ -47,8 +47,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/translucent_dark_blue"
-            android:layout_marginTop="140dp"
-            android:layout_marginLeft="250dp">
+            android:layout_marginTop="130dp"
+            android:layout_marginLeft="260dp">
 
             <ImageButton
                 android:id="@+id/decoration_rectangle3"
@@ -62,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/translucent_dark_blue"
-            android:layout_marginTop="390dp"
+            android:layout_marginTop="410dp"
             android:layout_marginLeft="230dp">
 
             <ImageButton
@@ -77,7 +77,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/translucent_dark_blue"
-            android:layout_marginTop="375dp"
+            android:layout_marginTop="390dp"
             android:layout_marginLeft="250dp">
 
             <ImageButton

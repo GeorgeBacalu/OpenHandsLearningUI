@@ -1,5 +1,8 @@
 package com.example.llt_project_separate;
 
+import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_ID;
+import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_NAME;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -47,8 +50,8 @@ public class ProductsRecyclerViewAdapter extends RecyclerView.Adapter<ProductsRe
                 if (products.get(position).getId() < 0) {
                     throw new NullPointerException("Invalid Selection");
                 }
-                intent.putExtra("name", products.get(position).getName());
-                intent.putExtra("activity", "ProductsActivity");
+                intent.putExtra(CATEGORY_ID, products.get(position).getId());
+                intent.putExtra(CATEGORY_NAME, products.get(position).getName());
                 productsContext.startActivity(intent);
             }
         });

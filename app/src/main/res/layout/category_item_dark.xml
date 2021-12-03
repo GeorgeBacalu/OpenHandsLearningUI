@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/selectedCategoryCard"
+    android:id="@+id/categoryCard"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="15dp"
@@ -15,16 +15,16 @@
         android:padding="10dp">
 
         <ImageView
-            android:id="@+id/selectedCategoryImage"
+            android:id="@+id/categoryImage"
             android:layout_width="150dp"
             android:layout_height="130dp"
             android:src="@mipmap/ic_launcher" />
 
         <TextView
-            android:id="@+id/selectedCategoryName"
+            android:id="@+id/categoryName"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/selectedCategoryImage"
+            android:layout_below="@id/categoryImage"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:text="Category Name"
@@ -63,7 +63,7 @@
             android:id="@+id/favoriteButton"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
-            android:layout_below="@id/selectedCategoryName"
+            android:layout_below="@id/categoryName"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:background="@drawable/favorite_button"
