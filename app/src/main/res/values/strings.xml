@@ -31,4 +31,5 @@
     <string name="activity_all_categories">Toate Categoriile</string>
     <string name="activity_category">Detalii Categorie</string>
     <string name="activity_favorite_categories">Categorii Favorite</string>
+    <string name="activity_new_category">Categorie Nouă</string>
 </resources>

@@ -12,117 +12,121 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LLT_Project_Current">
         <activity
+            android:name=".NewCategoryActivity"
+            android:exported="false"
+            android:label="@string/activity_new_category"/>
+        <activity
             android:name=".CategoryActivity"
             android:exported="false"
-            android:label="@string/activity_category"/>
+            android:label="@string/activity_category" />
         <activity
             android:name=".AllCategoriesActivity"
             android:exported="false"
-            android:label="@string/activity_all_categories"/>
+            android:label="@string/activity_all_categories" />
         <activity
             android:name=".FavoritesActivity"
             android:exported="false"
-            android:label="@string/activity_favorite_categories"/>
+            android:label="@string/activity_favorite_categories" />
         <activity
             android:name=".PronounsActivity"
             android:exported="false"
-            android:label="@string/activity_pronouns"/>
+            android:label="@string/activity_pronouns" />
         <activity
             android:name=".FamilyMembersActivity"
             android:exported="false"
-            android:label="@string/activity_family_members"/>
+            android:label="@string/activity_family_members" />
         <activity
             android:name=".ProductsActivity"
             android:exported="false"
-            android:label="@string/activity_products"/>
+            android:label="@string/activity_products" />
         <activity
             android:name=".MoneyActivity"
             android:exported="false"
-            android:label="@string/activity_money"/>
+            android:label="@string/activity_money" />
         <activity
             android:name=".CityActivity"
             android:exported="false"
-            android:label="@string/activity_city"/>
+            android:label="@string/activity_city" />
         <activity
             android:name=".ShopActivity"
             android:exported="false"
-            android:label="@string/activity_shop"/>
+            android:label="@string/activity_shop" />
         <activity
             android:name=".ClassActivity"
             android:exported="false"
-            android:label="@string/activity_class"/>
+            android:label="@string/activity_class" />
         <activity
             android:name=".OutsideActivity"
             android:exported="false"
-            android:label="@string/activity_outside"/>
+            android:label="@string/activity_outside" />
         <activity
             android:name=".HomeActivity"
             android:exported="false"
-            android:label="@string/activity_home"/>
+            android:label="@string/activity_home" />
         <activity
             android:name=".VideoPlayerActivity"
             android:exported="false"
-            android:label="@string/activity_video_player"/>
+            android:label="@string/activity_video_player" />
         <activity
             android:name=".WildAnimalsActivity"
             android:exported="false"
-            android:label="@string/activity_wild_animals"/>
+            android:label="@string/activity_wild_animals" />
         <activity
             android:name=".HouseholdAnimalsActivity"
             android:exported="false"
-            android:label="@string/activity_household_animals"/>
+            android:label="@string/activity_household_animals" />
         <activity
             android:name=".VerbsActivity"
             android:exported="false"
-            android:label="@string/activity_verbs"/>/>
+            android:label="@string/activity_verbs" />
         <activity
             android:name=".EmotionsActivity"
             android:exported="false"
-            android:label="@string/activity_emotions"/>/>
+            android:label="@string/activity_emotions" />
         <activity
             android:name=".PeopleActivity"
             android:exported="false"
-            android:label="@string/activity_people"/>/>
+            android:label="@string/activity_people" />
         <activity
             android:name=".ObjectsActivity"
             android:exported="false"
-            android:label="@string/activity_objects"/>/>
+            android:label="@string/activity_objects" />
         <activity
             android:name=".ColorsActivity"
             android:exported="false"
-            android:label="@string/activity_colors"/>/>
+            android:label="@string/activity_colors" />
         <activity
             android:name=".NumbersActivity"
             android:exported="false"
-            android:label="@string/activity_numbers"/>/>
+            android:label="@string/activity_numbers" />
         <activity
             android:name=".AlphabetActivity"
             android:exported="false"
-            android:label="@string/activity_alphabet"/>/>
+            android:label="@string/activity_alphabet" />
         <activity
             android:name=".AnimalsActivity"
             android:exported="false"
-            android:label="@string/activity_animals"/>/>
+            android:label="@string/activity_animals" />
         <activity
             android:name=".FormsOfAddressActivity"
             android:exported="false"
-            android:label="@string/activity_forms_of_address"/>
+            android:label="@string/activity_forms_of_address" />
         <activity
             android:name=".ExpressionsSectionActivity"
             android:exported="false"
-            android:label="@string/activity_expressions_section"/>
+            android:label="@string/activity_expressions_section" />
         <activity
             android:name=".VoiceToSignSectionActivity"
             android:exported="false"
-            android:label="@string/activity_voice_to_sign_section"/>
+            android:label="@string/activity_voice_to_sign_section" />
         <activity
             android:name=".TextToSignSectionActivity"
             android:exported="false"
-            android:label="@string/activity_text_to_sign_section"/>
+            android:label="@string/activity_text_to_sign_section" />
         <activity
             android:name=".VideoSectionActivity"
             android:exported="false"
-            android:label="@string/activity_video_section"/>
+            android:label="@string/activity_video_section" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

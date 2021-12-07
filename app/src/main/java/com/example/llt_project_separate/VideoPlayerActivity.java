@@ -103,6 +103,8 @@ public class VideoPlayerActivity extends AppCompatActivity {
                             if(Utils.getInstance(VideoPlayerActivity.this).removedFromFavorite(incomingCategory)) {
                                 Toast.makeText(VideoPlayerActivity.this,  chosenToBeRemoved + " eliminat", Toast.LENGTH_SHORT).show();
                                 favoriteButton.setText("Adaugă la favorite");
+                                Intent intent = new Intent(VideoPlayerActivity.this, VideoSectionActivity.class);
+                                VideoPlayerActivity.this.startActivity(intent);
                                 handleFavorite(incomingCategory);
                             } else {
                                 Toast.makeText(VideoPlayerActivity.this, "Ceva nu e bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();

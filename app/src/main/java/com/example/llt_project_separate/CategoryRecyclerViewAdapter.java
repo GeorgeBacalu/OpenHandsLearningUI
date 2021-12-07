@@ -78,6 +78,8 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
                                  String chosenToBeRemoved = categories.get(position).getName();
                                  if(Utils.getInstance(categoryContext).removedFromFavorite(categories.get(position))) {
                                      Toast.makeText(categoryContext,  chosenToBeRemoved + " eliminat", Toast.LENGTH_SHORT).show();
+                                     Intent intent = new Intent(categoryContext, VideoSectionActivity.class);
+                                     categoryContext.startActivity(intent);
                                      notifyDataSetChanged();
                                  } else {
                                      Toast.makeText(categoryContext, "Ceva nu e bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();

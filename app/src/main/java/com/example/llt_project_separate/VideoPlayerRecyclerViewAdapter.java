@@ -80,6 +80,8 @@ public class VideoPlayerRecyclerViewAdapter extends RecyclerView.Adapter<VideoPl
                                 String chosenToBeRemoved = categories.get(position).getName();
                                 if(Utils.getInstance(videoContext).removedFromFavorite(categories.get(position))) {
                                     Toast.makeText(videoContext,  chosenToBeRemoved + " eliminat", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(videoContext, VideoSectionActivity.class);
+                                    videoContext.startActivity(intent);
                                     notifyDataSetChanged();
                                 } else {
                                     Toast.makeText(videoContext, "Ceva nu e bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();

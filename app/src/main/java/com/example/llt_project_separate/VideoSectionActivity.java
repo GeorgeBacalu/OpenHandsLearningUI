@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -19,8 +18,8 @@ import java.util.ArrayList;
 public class VideoSectionActivity extends AppCompatActivity {
     private RecyclerView mainCategoriesRecyclerView;
     private VideoSectionRecyclerViewAdapter mainCategoriesAdapter;
-    private Button showFavoriteButton, allCategoriesButton;
-    private FloatingActionButton toHomePageFabButton;
+    private Button showFavoriteButton;
+    private FloatingActionButton toHomePageFabButton, addCategoryButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +30,8 @@ public class VideoSectionActivity extends AppCompatActivity {
         mainCategoriesRecyclerView = findViewById(R.id.mainCategoriesRecyclerView);
         mainCategoriesAdapter = new VideoSectionRecyclerViewAdapter(this);
         showFavoriteButton = findViewById(R.id.showFavoriteButton);
-        allCategoriesButton = findViewById(R.id.allCategoriesButton);
         toHomePageFabButton = findViewById(R.id.toHomePageFabButton);
+        addCategoryButton = findViewById(R.id.addCategoryButton);
 
         showFavoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,10 +41,10 @@ public class VideoSectionActivity extends AppCompatActivity {
             }
         });
 
-        allCategoriesButton.setOnClickListener(new View.OnClickListener() {
+        addCategoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(VideoSectionActivity.this, AllCategoriesActivity.class);
+                Intent intent = new Intent(VideoSectionActivity.this, NewCategoryActivity.class);
                 startActivity(intent);
             }
         });

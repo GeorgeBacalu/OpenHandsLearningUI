@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="-10dp"
+        android:layout_marginTop="-20dp"
         android:paddingBottom="10dp">
 
         <ImageView
@@ -21,20 +21,14 @@
         <ImageView
             android:id="@+id/videoSectionHeaderOverlay"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:src="@drawable/overlay_background" />
+            android:layout_height="320dp"
+            android:src="@drawable/overlay_background2" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
             android:layout_marginTop="20dp">
-
-<!--            <ImageView-->
-<!--                android:id="@+id/toPrevPageButton"-->
-<!--                android:layout_width="40dp"-->
-<!--                android:layout_height="40dp"-->
-<!--                android:src="@drawable/ic_arrow_circle_left" />-->
 
             <TextView
                 android:id="@+id/videoSectionHeaderText"
@@ -79,21 +73,6 @@
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/allCategoriesButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/showFavoriteButton"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/favorite_button"
-                android:gravity="center|bottom|top"
-                android:includeFontPadding="false"
-                android:padding="15dp"
-                android:text="Vezi toate categoriile"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
         </RelativeLayout>
 
         <com.google.android.material.card.MaterialCardView
@@ -126,13 +105,27 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <RelativeLayout
-            android:id="@+id/recyclerViewContainer"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addCategoryButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/searchBar"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp">
+            android:layout_marginTop="25dp"
+            android:backgroundTint="@color/light_blue"
+            android:src="@drawable/ic_add"
+            app:backgroundTint="@color/white"
+            app:borderWidth="2dp"
+            app:rippleColor="@color/white"
+            app:tint="@color/white" />
+
+        <RelativeLayout
+            android:id="@+id/recyclerViewContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/addCategoryButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/mainCategoriesRecyclerView"
@@ -144,12 +137,11 @@
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/toHomePageFabButton"
             android:layout_width="wrap_content"
-            android:layout_height="450dp"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/recyclerViewContainer"
-            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="25dp"
-            android:backgroundTint="@color/light_blue"
+            android:backgroundTint="@color/dark_blue"
             android:src="@drawable/ic_home"
             app:backgroundTint="@color/white"
             app:borderWidth="2dp"
