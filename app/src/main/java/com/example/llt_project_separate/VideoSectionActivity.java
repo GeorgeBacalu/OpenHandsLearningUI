@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -20,6 +22,8 @@ public class VideoSectionActivity extends AppCompatActivity {
     private VideoSectionRecyclerViewAdapter mainCategoriesAdapter;
     private Button showFavoriteButton;
     private FloatingActionButton toHomePageFabButton, addCategoryButton;
+    private EditText searchBarInput;
+    private ImageView searchBarIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +36,10 @@ public class VideoSectionActivity extends AppCompatActivity {
         showFavoriteButton = findViewById(R.id.showFavoriteButton);
         toHomePageFabButton = findViewById(R.id.toHomePageFabButton);
         addCategoryButton = findViewById(R.id.addCategoryButton);
+        searchBarInput = findViewById(R.id.searchBarInput);
+        searchBarIcon = findViewById(R.id.searchBarIcon);
+
+        String searchBarInputText = searchBarInput.getText().toString();
 
         showFavoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +62,13 @@ public class VideoSectionActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(VideoSectionActivity.this, MainActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        searchBarIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 

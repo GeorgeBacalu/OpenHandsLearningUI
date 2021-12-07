@@ -13,15 +13,18 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
 public class TextToSignSectionActivity extends AppCompatActivity {
+    /*
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private FloatingActionButton toHomePageButton;
     float v = 0;
+    */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_text_to_sign_section);
+        /*
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         tabLayout = findViewById(R.id.tabLayout);
@@ -51,6 +54,7 @@ public class TextToSignSectionActivity extends AppCompatActivity {
 
         toHomePageButton.animate().translationY(0).alpha(1).setDuration(1000).setStartDelay(400).start();
         tabLayout.animate().translationY(0).alpha(1).setDuration(1000).setStartDelay(100).start();
+        */
     }
 
     @Override
