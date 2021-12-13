@@ -1,6 +1,7 @@
 package com.example.llt_project_separate;
 
 import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_ID;
+import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_IMAGE;
 import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_NAME;
 
 import android.annotation.SuppressLint;
@@ -20,15 +21,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class OutsideRecyclerViewAdapter extends RecyclerView.Adapter<OutsideRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "OutsideAdapter";
-    private ArrayList<Category> outsideObjects = new ArrayList<>();
-    private Context outsideContext;
+    private List<Category> outsideObjects = new ArrayList<>();
+    private final Context outsideContext;
 
-    public OutsideRecyclerViewAdapter(Context outsideContext) {
-        this.outsideContext = outsideContext;
-    }
+    public OutsideRecyclerViewAdapter(Context outsideContext) { this.outsideContext = outsideContext; }
 
     @NonNull
     @Override
@@ -43,17 +43,15 @@ public class OutsideRecyclerViewAdapter extends RecyclerView.Adapter<OutsideRecy
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(outsideObjects.get(position).getName());
         Glide.with(outsideContext).asBitmap().load(outsideObjects.get(position).getImageSource()).into(holder.categoryImage);
-        holder.categoryCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(outsideContext, VideoPlayerActivity.class);
-                if (outsideObjects.get(position).getId() < 0) {
-                    throw new NullPointerException("Invalid Selection");
-                }
-                intent.putExtra(CATEGORY_ID, outsideObjects.get(position).getId());
-                intent.putExtra(CATEGORY_NAME, outsideObjects.get(position).getName());
-                outsideContext.startActivity(intent);
+        holder.categoryCard.setOnClickListener(v -> {
+            Intent intent = new Intent(outsideContext, VideoPlayerActivity.class);
+            if (outsideObjects.get(position).getId() < 0) {
+                throw new NullPointerException("Invalid Selection");
             }
+            intent.putExtra(CATEGORY_ID, outsideObjects.get(position).getId());
+            intent.putExtra(CATEGORY_NAME, outsideObjects.get(position).getName());
+            intent.putExtra(CATEGORY_IMAGE, outsideObjects.get(position).getImageSource());
+            outsideContext.startActivity(intent);
         });
     }
 
@@ -62,15 +60,16 @@ public class OutsideRecyclerViewAdapter extends RecyclerView.Adapter<OutsideRecy
         return outsideObjects.size();
     }
 
-    public void setOutsideObjects(ArrayList<Category> outsideObjects) {
+    @SuppressLint("NotifyDataSetChanged")
+    public void setOutsideObjects(List<Category> outsideObjects) {
         this.outsideObjects = outsideObjects;
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        private CardView categoryCard;
-        private ImageView categoryImage;
-        private TextView categoryName;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        private final CardView categoryCard;
+        private final ImageView categoryImage;
+        private final TextView categoryName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

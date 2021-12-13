@@ -8,12 +8,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class AlphabetActivity extends AppCompatActivity {
     private RecyclerView alphabetRecyclerView;
@@ -24,24 +24,19 @@ public class AlphabetActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alphabet);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        alphabetRecyclerView = findViewById(R.id.alphabetRecyclerView);
-        alphabetAdapter = new AlphabetRecyclerViewAdapter(this);
-        toHomePageFabButton = findViewById(R.id.toHomePageFabButton);
+        initializeViews();
 
-        toHomePageFabButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AlphabetActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
+        toHomePageFabButton.setOnClickListener(v -> {
+            Intent intent = new Intent(AlphabetActivity.this, MainActivity.class);
+            startActivity(intent);
         });
 
         alphabetRecyclerView.setAdapter(alphabetAdapter);
         alphabetRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-        ArrayList<Category> letters = new ArrayList<>();
+        List<Category> letters = new ArrayList<>();
         letters.add(new Category(1, "A", R.drawable.caine));
         letters.add(new Category(2, "Ă", R.drawable.caine));
         letters.add(new Category(3, "Â", R.drawable.caine));
@@ -76,15 +71,15 @@ public class AlphabetActivity extends AppCompatActivity {
         alphabetAdapter.setLetters(letters);
     }
 
+    private void initializeViews() {
+        alphabetRecyclerView = findViewById(R.id.alphabetRecyclerView);
+        alphabetAdapter = new AlphabetRecyclerViewAdapter(this);
+        toHomePageFabButton = findViewById(R.id.toHomePageFabButton);
+    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch(item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                break;
-            default:
-                break;
-        }
+        if (item.getItemId() == android.R.id.home) onBackPressed();
         return super.onOptionsItemSelected(item);
     }
 }

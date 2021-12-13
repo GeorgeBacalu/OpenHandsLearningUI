@@ -1,6 +1,7 @@
 package com.example.llt_project_separate;
 
 import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_ID;
+import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_IMAGE;
 import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_NAME;
 
 import android.annotation.SuppressLint;
@@ -20,15 +21,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class NumbersRecyclerViewAdapter extends RecyclerView.Adapter<NumbersRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "NumbersAdapter";
-    private ArrayList<Category> numbers = new ArrayList<>();
-    private Context numbersContext;
+    private List<Category> numbers = new ArrayList<>();
+    private final Context numbersContext;
 
-    public NumbersRecyclerViewAdapter(Context numbersContext) {
-        this.numbersContext = numbersContext;
-    }
+    public NumbersRecyclerViewAdapter(Context numbersContext) { this.numbersContext = numbersContext; }
 
     @NonNull
     @Override
@@ -43,17 +43,15 @@ public class NumbersRecyclerViewAdapter extends RecyclerView.Adapter<NumbersRecy
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(numbers.get(position).getName());
         Glide.with(numbersContext).asBitmap().load(numbers.get(position).getImageSource()).into(holder.categoryImage);
-        holder.categoryCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(numbersContext, VideoPlayerActivity.class);
-                if (numbers.get(position).getId() < 0) {
-                    throw new NullPointerException("Invalid Selection");
-                }
-                intent.putExtra(CATEGORY_ID, numbers.get(position).getId());
-                intent.putExtra(CATEGORY_NAME, numbers.get(position).getName());
-                numbersContext.startActivity(intent);
+        holder.categoryCard.setOnClickListener(v -> {
+            Intent intent = new Intent(numbersContext, VideoPlayerActivity.class);
+            if (numbers.get(position).getId() < 0) {
+                throw new NullPointerException("Invalid Selection");
             }
+            intent.putExtra(CATEGORY_ID, numbers.get(position).getId());
+            intent.putExtra(CATEGORY_NAME, numbers.get(position).getName());
+            intent.putExtra(CATEGORY_IMAGE, numbers.get(position).getImageSource());
+            numbersContext.startActivity(intent);
         });
     }
 
@@ -62,15 +60,16 @@ public class NumbersRecyclerViewAdapter extends RecyclerView.Adapter<NumbersRecy
         return numbers.size();
     }
 
-    public void setNumbers(ArrayList<Category> numbers) {
+    @SuppressLint("NotifyDataSetChanged")
+    public void setNumbers(List<Category> numbers) {
         this.numbers = numbers;
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        private CardView categoryCard;
-        private ImageView categoryImage;
-        private TextView categoryName;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        private final CardView categoryCard;
+        private final ImageView categoryImage;
+        private final TextView categoryName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

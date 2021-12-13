@@ -17,11 +17,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SectionsRecyclerViewAdapter extends RecyclerView.Adapter<SectionsRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "SectionsAdapter";
-    private ArrayList<Section> sections = new ArrayList<>();
-    private Context context;
+    private List<Section> sections = new ArrayList<>();
+    private final Context context;
 
     public SectionsRecyclerViewAdapter(Context context) {
         this.context = context;
@@ -31,8 +32,7 @@ public class SectionsRecyclerViewAdapter extends RecyclerView.Adapter<SectionsRe
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.section_item, parent, false);
-        ViewHolder holder = new ViewHolder(view);
-        return holder;
+        return new ViewHolder(view);
     }
 
     @Override
@@ -41,19 +41,16 @@ public class SectionsRecyclerViewAdapter extends RecyclerView.Adapter<SectionsRe
         holder.sectionName.setText(sections.get(position).getName());
         Glide.with(context).asBitmap().load(sections.get(position).getImageSource()).into(holder.sectionImage);
         Glide.with(context).asBitmap().load(sections.get(position).getIcon()).into(holder.sectionIcon);
-        holder.sectionCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent;
-                switch(sections.get(position).getId()) {
-                    case 10001: intent = new Intent(context, VideoSectionActivity.class); break;
-                    case 10002: intent = new Intent(context, TextToSignSectionActivity.class); break;
-                    case 10003: intent = new Intent(context, VoiceToSignSectionActivity.class); break;
-                    case 10004: intent = new Intent(context, ExpressionsSectionActivity.class); break;
-                    default: throw new NullPointerException("Invalid Selection");
-                }
-                context.startActivity(intent);
+        holder.sectionCard.setOnClickListener(v -> {
+            Intent intent;
+            switch(sections.get(position).getId()) {
+                case 10001: intent = new Intent(context, VideoSectionActivity.class); break;
+                case 10002: intent = new Intent(context, TextToSignSectionActivity.class); break;
+                case 10003: intent = new Intent(context, VoiceToSignSectionActivity.class); break;
+                case 10004: intent = new Intent(context, ExpressionsSectionActivity.class); break;
+                default: throw new NullPointerException("Invalid Selection");
             }
+            context.startActivity(intent);
         });
     }
 
@@ -62,15 +59,16 @@ public class SectionsRecyclerViewAdapter extends RecyclerView.Adapter<SectionsRe
         return sections.size();
     }
 
-    public void setSections(ArrayList<Section> sections) {
+    @SuppressLint("NotifyDataSetChanged")
+    public void setSections(List<Section> sections) {
         this.sections = sections;
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        private CardView sectionCard;
-        private ImageView sectionImage, sectionIcon;
-        private TextView sectionName;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        private final CardView sectionCard;
+        private final ImageView sectionImage, sectionIcon;
+        private final TextView sectionName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

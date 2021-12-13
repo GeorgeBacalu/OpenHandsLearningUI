@@ -9,7 +9,12 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="315dp"
         android:src="@drawable/voice_to_sign_section_header"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:src="@drawable/overlay_background"/>
 
 </RelativeLayout>

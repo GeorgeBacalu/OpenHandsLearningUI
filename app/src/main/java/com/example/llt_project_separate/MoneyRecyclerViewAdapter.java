@@ -1,6 +1,7 @@
 package com.example.llt_project_separate;
 
 import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_ID;
+import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_IMAGE;
 import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_NAME;
 
 import android.annotation.SuppressLint;
@@ -20,11 +21,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MoneyRecyclerViewAdapter extends RecyclerView.Adapter<MoneyRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "MoneyAdapter";
-    private ArrayList<Category> moneyUnits = new ArrayList<>();
-    private Context moneyContext;
+    private List<Category> moneyUnits = new ArrayList<>();
+    private final Context moneyContext;
 
     public MoneyRecyclerViewAdapter(Context moneyContext) {
         this.moneyContext = moneyContext;
@@ -43,17 +45,15 @@ public class MoneyRecyclerViewAdapter extends RecyclerView.Adapter<MoneyRecycler
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(moneyUnits.get(position).getName());
         Glide.with(moneyContext).asBitmap().load(moneyUnits.get(position).getImageSource()).into(holder.categoryImage);
-        holder.categoryCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(moneyContext, VideoPlayerActivity.class);
-                if (moneyUnits.get(position).getId() < 0) {
-                    throw new NullPointerException("Invalid Selection");
-                }
-                intent.putExtra(CATEGORY_ID, moneyUnits.get(position).getId());
-                intent.putExtra(CATEGORY_NAME, moneyUnits.get(position).getName());
-                moneyContext.startActivity(intent);
+        holder.categoryCard.setOnClickListener(v -> {
+            Intent intent = new Intent(moneyContext, VideoPlayerActivity.class);
+            if (moneyUnits.get(position).getId() < 0) {
+                throw new NullPointerException("Invalid Selection");
             }
+            intent.putExtra(CATEGORY_ID, moneyUnits.get(position).getId());
+            intent.putExtra(CATEGORY_NAME, moneyUnits.get(position).getName());
+            intent.putExtra(CATEGORY_IMAGE, moneyUnits.get(position).getImageSource());
+            moneyContext.startActivity(intent);
         });
     }
 
@@ -62,15 +62,16 @@ public class MoneyRecyclerViewAdapter extends RecyclerView.Adapter<MoneyRecycler
         return moneyUnits.size();
     }
 
-    public void setMoneyUnits(ArrayList<Category> moneyUnits) {
+    @SuppressLint("NotifyDataSetChanged")
+    public void setMoneyUnits(List<Category> moneyUnits) {
         this.moneyUnits = moneyUnits;
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        private CardView categoryCard;
-        private ImageView categoryImage;
-        private TextView categoryName;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        private final CardView categoryCard;
+        private final ImageView categoryImage;
+        private final TextView categoryName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

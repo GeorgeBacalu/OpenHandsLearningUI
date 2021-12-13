@@ -17,11 +17,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PeopleRecyclerViewAdapter extends RecyclerView.Adapter<PeopleRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "PeopleAdapter";
-    private ArrayList<Category> people = new ArrayList<>();
-    private Context peopleContext;
+    private List<Category> people = new ArrayList<>();
+    private final Context peopleContext;
 
     public PeopleRecyclerViewAdapter(Context peopleContext) {
         this.peopleContext = peopleContext;
@@ -40,17 +41,14 @@ public class PeopleRecyclerViewAdapter extends RecyclerView.Adapter<PeopleRecycl
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(people.get(position).getName());
         Glide.with(peopleContext).asBitmap().load(people.get(position).getImageSource()).into(holder.categoryImage);
-        holder.categoryCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent;
-                switch(people.get(position).getId()) {
-                    case 187: intent = new Intent(peopleContext, FamilyMembersActivity.class); break;
-                    case 188: intent = new Intent(peopleContext, PronounsActivity.class); break;
-                    default: throw new NullPointerException("Invalid Selection");
-                }
-                peopleContext.startActivity(intent);
+        holder.categoryCard.setOnClickListener(v -> {
+            Intent intent;
+            switch(people.get(position).getId()) {
+                case 187: intent = new Intent(peopleContext, FamilyMembersActivity.class); break;
+                case 188: intent = new Intent(peopleContext, PronounsActivity.class); break;
+                default: throw new NullPointerException("Invalid Selection");
             }
+            peopleContext.startActivity(intent);
         });
     }
 
@@ -59,15 +57,16 @@ public class PeopleRecyclerViewAdapter extends RecyclerView.Adapter<PeopleRecycl
         return people.size();
     }
 
-    public void setPeople(ArrayList<Category> people) {
+    @SuppressLint("NotifyDataSetChanged")
+    public void setPeople(List<Category> people) {
         this.people = people;
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        private CardView categoryCard;
-        private ImageView categoryImage;
-        private TextView categoryName;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        private final CardView categoryCard;
+        private final ImageView categoryImage;
+        private final TextView categoryName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

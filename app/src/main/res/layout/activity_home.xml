@@ -9,20 +9,20 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="-10dp"
+        android:layout_marginTop="-5dp"
         android:paddingBottom="10dp">
 
         <ImageView
             android:id="@+id/sectionHeaderImage"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:src="@drawable/animale" />
+            android:layout_height="340dp"
+            android:src="@drawable/acasa" />
 
         <ImageView
             android:id="@+id/animalsSectionHeaderOverlay"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:src="@drawable/overlay_background" />
+            android:src="@drawable/overlay_background_final" />
 
         <RelativeLayout
             android:layout_width="wrap_content"

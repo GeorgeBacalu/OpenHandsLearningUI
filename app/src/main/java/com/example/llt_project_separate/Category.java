@@ -1,15 +1,15 @@
 package com.example.llt_project_separate;
 
 public class Category {
-    private int id;
+    private int id = 0;
     private String name;
     private int imageSource;
     private boolean isExpanded;
 
-    public Category() {
-        this.id = 0;
-        this.name = null;
-        this.imageSource = 0;
+    public Category(int id, String name) {
+        this.id = id;
+        this.name = name;
+        this.isExpanded = false;
     }
 
     public Category(int id, String name, int imageSource) {
@@ -19,44 +19,24 @@ public class Category {
         this.isExpanded = false;
     }
 
-    public boolean isExpanded() {
-        return isExpanded;
-    }
+    public int getId() { return id; }
 
-    public void setExpanded(boolean expanded) {
-        isExpanded = expanded;
-    }
+    public void setId(int id) { this.id = id; }
 
-    public int getId() {
-        return id;
-    }
+    public String getName() { return name; }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public void setName(String name) { this.name = name; }
 
-    public String getName() {
-        return name;
-    }
+    public int getImageSource() { return imageSource; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public void setImageSource(int imageSource) { this.imageSource = imageSource; }
 
-    public int getImageSource() {
-        return imageSource;
-    }
+    public boolean isExpanded() { return isExpanded; }
 
-    public void setImageSource(int imageSource) {
-        this.imageSource = imageSource;
-    }
+    public void setExpanded(boolean expanded) { isExpanded = expanded; }
 
     @Override
     public String toString() {
-        return "Category{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", imageSource=" + imageSource +
-                '}';
+        return "Category{" + "id=" + id + ", name='" + name + '\'' + ", imageSource=" + imageSource + ", isExpanded=" + isExpanded + '}';
     }
 }

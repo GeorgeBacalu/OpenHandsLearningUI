@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import java.util.ArrayList;
+import java.util.Objects;
 
 public class AllCategoriesActivity extends AppCompatActivity {
     private RecyclerView categoriesRecyclerView;
@@ -18,26 +18,23 @@ public class AllCategoriesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_categories);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        categoriesRecyclerView = findViewById(R.id.categoriesRecyclerView);
-        categoriesAdapter = new AllCategoriesRecyclerViewAdapter(this);
+        initializeViews();
 
         categoriesRecyclerView.setAdapter(categoriesAdapter);
         categoriesRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-
         categoriesAdapter.setCategories(Utils.getInstance(this).getAllCategories());
+    }
+
+    private void initializeViews() {
+        categoriesRecyclerView = findViewById(R.id.categoriesRecyclerView);
+        categoriesAdapter = new AllCategoriesRecyclerViewAdapter(this);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch(item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                break;
-            default:
-                break;
-        }
+        if (item.getItemId() == android.R.id.home) onBackPressed();
         return super.onOptionsItemSelected(item);
     }
 }

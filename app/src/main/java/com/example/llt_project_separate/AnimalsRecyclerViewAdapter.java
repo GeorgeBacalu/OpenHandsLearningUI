@@ -17,15 +17,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AnimalsRecyclerViewAdapter extends RecyclerView.Adapter<AnimalsRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "AnimalsAdapter";
-    private ArrayList<Category> animals = new ArrayList<>();
-    private Context animalsContext;
+    private List<Category> animals = new ArrayList<>();
+    private final Context animalsContext;
 
-    public AnimalsRecyclerViewAdapter(Context animalsContext) {
-        this.animalsContext = animalsContext;
-    }
+    public AnimalsRecyclerViewAdapter(Context animalsContext) { this.animalsContext = animalsContext; }
 
     @NonNull
     @Override
@@ -40,17 +39,14 @@ public class AnimalsRecyclerViewAdapter extends RecyclerView.Adapter<AnimalsRecy
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(animals.get(position).getName());
         Glide.with(animalsContext).asBitmap().load(animals.get(position).getImageSource()).into(holder.categoryImage);
-        holder.categoryCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent;
-                switch(animals.get(position).getId()) {
-                    case 180: intent = new Intent(animalsContext, HouseholdAnimalsActivity.class); break;
-                    case 181: intent = new Intent(animalsContext, WildAnimalsActivity.class); break;
-                    default: throw new NullPointerException("Invalid Selection");
-                }
-                animalsContext.startActivity(intent);
+        holder.categoryCard.setOnClickListener(v -> {
+            Intent intent;
+            switch(animals.get(position).getId()) {
+                case 180: intent = new Intent(animalsContext, HouseholdAnimalsActivity.class); break;
+                case 181: intent = new Intent(animalsContext, WildAnimalsActivity.class); break;
+                default: throw new NullPointerException("Invalid Selection");
             }
+            animalsContext.startActivity(intent);
         });
     }
 
@@ -59,15 +55,16 @@ public class AnimalsRecyclerViewAdapter extends RecyclerView.Adapter<AnimalsRecy
         return animals.size();
     }
 
-    public void setAnimals(ArrayList<Category> animals) {
+    @SuppressLint("NotifyDataSetChanged")
+    public void setAnimals(List<Category> animals) {
         this.animals = animals;
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        private CardView categoryCard;
-        private ImageView categoryImage;
-        private TextView categoryName;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        private final CardView categoryCard;
+        private final ImageView categoryImage;
+        private final TextView categoryName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

@@ -47,11 +47,6 @@ public class Section {
 
     @Override
     public String toString() {
-        return "Section{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", icon=" + icon +
-                ", imageSource=" + imageSource +
-                '}';
+        return "Section{" + "id=" + id + ", name='" + name + '\'' + ", icon=" + icon + ", imageSource=" + imageSource + '}';
     }
 }

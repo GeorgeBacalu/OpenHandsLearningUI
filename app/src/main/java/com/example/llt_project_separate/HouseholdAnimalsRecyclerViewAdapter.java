@@ -1,6 +1,7 @@
 package com.example.llt_project_separate;
 
 import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_ID;
+import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_IMAGE;
 import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_NAME;
 
 import android.annotation.SuppressLint;
@@ -20,15 +21,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HouseholdAnimalsRecyclerViewAdapter extends RecyclerView.Adapter<HouseholdAnimalsRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "HouseholdAnimalsAdapter";
-    private ArrayList<Category> householdAnimals = new ArrayList<>();
-    private Context householdAnimalsContext;
+    private List<Category> householdAnimals = new ArrayList<>();
+    private final Context householdAnimalsContext;
 
-    public HouseholdAnimalsRecyclerViewAdapter(Context householdAnimalsContext) {
-        this.householdAnimalsContext = householdAnimalsContext;
-    }
+    public HouseholdAnimalsRecyclerViewAdapter(Context householdAnimalsContext) { this.householdAnimalsContext = householdAnimalsContext; }
 
     @NonNull
     @Override
@@ -43,17 +43,15 @@ public class HouseholdAnimalsRecyclerViewAdapter extends RecyclerView.Adapter<Ho
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(householdAnimals.get(position).getName());
         Glide.with(householdAnimalsContext).asBitmap().load(householdAnimals.get(position).getImageSource()).into(holder.categoryImage);
-        holder.categoryCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(householdAnimalsContext, VideoPlayerActivity.class);
-                if (householdAnimals.get(position).getId() < 0) {
-                    throw new NullPointerException("Invalid Selection");
-                }
-                intent.putExtra(CATEGORY_ID, householdAnimals.get(position).getId());
-                intent.putExtra(CATEGORY_NAME, householdAnimals.get(position).getName());
-                householdAnimalsContext.startActivity(intent);
+        holder.categoryCard.setOnClickListener(v -> {
+            Intent intent = new Intent(householdAnimalsContext, VideoPlayerActivity.class);
+            if (householdAnimals.get(position).getId() < 0) {
+                throw new NullPointerException("Invalid Selection");
             }
+            intent.putExtra(CATEGORY_ID, householdAnimals.get(position).getId());
+            intent.putExtra(CATEGORY_NAME, householdAnimals.get(position).getName());
+            intent.putExtra(CATEGORY_IMAGE, householdAnimals.get(position).getImageSource());
+            householdAnimalsContext.startActivity(intent);
         });
     }
 
@@ -62,15 +60,16 @@ public class HouseholdAnimalsRecyclerViewAdapter extends RecyclerView.Adapter<Ho
         return householdAnimals.size();
     }
 
-    public void setHouseholdAnimals(ArrayList<Category> householdAnimals) {
+    @SuppressLint("NotifyDataSetChanged")
+    public void setHouseholdAnimals(List<Category> householdAnimals) {
         this.householdAnimals = householdAnimals;
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        private CardView categoryCard;
-        private ImageView categoryImage;
-        private TextView categoryName;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        private final CardView categoryCard;
+        private final ImageView categoryImage;
+        private final TextView categoryName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

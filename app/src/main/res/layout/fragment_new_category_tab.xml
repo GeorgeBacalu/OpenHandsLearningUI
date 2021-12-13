@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -40,38 +40,21 @@
         app:layout_constraintVertical_bias="0.15" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/categoryVideo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/favorite_button"
-        android:gravity="center|bottom|top"
-        android:includeFontPadding="false"
-        android:padding="15dp"
-        android:text="Încărcaţi un videoclip"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/categoryImage"
-        app:layout_constraintTop_toBottomOf="@+id/categoryImage"
-        app:layout_constraintVertical_bias="0.2" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/saveButton"
+        android:id="@+id/saveCategoryButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/button_design_2"
         android:gravity="center|bottom|top"
         android:includeFontPadding="false"
         android:paddingHorizontal="30dp"
-        android:text="Salvează"
+        android:text="Salvează categorie"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/categoryVideo"
+        app:layout_constraintTop_toBottomOf="@+id/categoryImage"
         app:layout_constraintVertical_bias="0.5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

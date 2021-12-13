@@ -1,6 +1,7 @@
 package com.example.llt_project_separate;
 
 import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_ID;
+import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_IMAGE;
 import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_NAME;
 
 import android.annotation.SuppressLint;
@@ -20,15 +21,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class EmotionsRecyclerViewAdapter extends RecyclerView.Adapter<EmotionsRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "EmotionsAdapter";
-    private ArrayList<Category> emotions = new ArrayList<>();
-    private Context emotionsContext;
+    private List<Category> emotions = new ArrayList<>();
+    private final Context emotionsContext;
 
-    public EmotionsRecyclerViewAdapter(Context emotionsContext) {
-        this.emotionsContext = emotionsContext;
-    }
+    public EmotionsRecyclerViewAdapter(Context emotionsContext) { this.emotionsContext = emotionsContext; }
 
     @NonNull
     @Override
@@ -43,17 +43,15 @@ public class EmotionsRecyclerViewAdapter extends RecyclerView.Adapter<EmotionsRe
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(emotions.get(position).getName());
         Glide.with(emotionsContext).asBitmap().load(emotions.get(position).getImageSource()).into(holder.categoryImage);
-        holder.categoryCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(emotionsContext, VideoPlayerActivity.class);
-                if (emotions.get(position).getId() < 0) {
-                    throw new NullPointerException("Invalid Selection");
-                }
-                intent.putExtra(CATEGORY_ID, emotions.get(position).getId());
-                intent.putExtra(CATEGORY_NAME, emotions.get(position).getName());
-                emotionsContext.startActivity(intent);
+        holder.categoryCard.setOnClickListener(v -> {
+            Intent intent = new Intent(emotionsContext, VideoPlayerActivity.class);
+            if (emotions.get(position).getId() < 0) {
+                throw new NullPointerException("Invalid Selection");
             }
+            intent.putExtra(CATEGORY_ID, emotions.get(position).getId());
+            intent.putExtra(CATEGORY_NAME, emotions.get(position).getName());
+            intent.putExtra(CATEGORY_IMAGE, emotions.get(position).getImageSource());
+            emotionsContext.startActivity(intent);
         });
     }
 
@@ -62,15 +60,16 @@ public class EmotionsRecyclerViewAdapter extends RecyclerView.Adapter<EmotionsRe
         return emotions.size();
     }
 
-    public void setEmotions(ArrayList<Category> emotions) {
+    @SuppressLint("NotifyDataSetChanged")
+    public void setEmotions(List<Category> emotions) {
         this.emotions = emotions;
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        private CardView categoryCard;
-        private ImageView categoryImage;
-        private TextView categoryName;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        private final CardView categoryCard;
+        private final ImageView categoryImage;
+        private final TextView categoryName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

@@ -2,6 +2,7 @@ package com.example.llt_project_separate;
 
 import static com.example.llt_project_separate.CategoryActivity.CATEGORY_ID;
 import static com.example.llt_project_separate.CategoryActivity.CATEGORY_NAME;
+import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_IMAGE;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -20,15 +21,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AllCategoriesRecyclerViewAdapter extends RecyclerView.Adapter<AllCategoriesRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "AllCategoriesAdapter";
-    private ArrayList<Category> categories = new ArrayList<>();
-    private Context categoriesContext;
+    private List<Category> categories = new ArrayList<>();
+    private final Context categoriesContext;
 
-    public AllCategoriesRecyclerViewAdapter(Context categoriesContext) {
-        this.categoriesContext = categoriesContext;
-    }
+    public AllCategoriesRecyclerViewAdapter(Context categoriesContext) { this.categoriesContext = categoriesContext; }
 
     @NonNull
     @Override
@@ -43,18 +43,13 @@ public class AllCategoriesRecyclerViewAdapter extends RecyclerView.Adapter<AllCa
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(categories.get(position).getName());
         Glide.with(categoriesContext).asBitmap().load(categories.get(position).getImageSource()).into(holder.categoryImage);
-
-        holder.categoryCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(categoriesContext, VideoPlayerActivity.class);
-                if (categories.get(position).getId() < 0) {
-                    throw new NullPointerException("Invalid Selection");
-                }
-                intent.putExtra(CATEGORY_ID, categories.get(position).getId());
-                intent.putExtra(CATEGORY_NAME, categories.get(position).getName());
-                categoriesContext.startActivity(intent);
-            }
+        holder.categoryCard.setOnClickListener(v -> {
+            Intent intent = new Intent(categoriesContext, VideoPlayerActivity.class);
+            if (categories.get(position).getId() < 0) throw new NullPointerException("Invalid Selection");
+            intent.putExtra(CATEGORY_ID, categories.get(position).getId());
+            intent.putExtra(CATEGORY_NAME, categories.get(position).getName());
+            intent.putExtra(CATEGORY_IMAGE, categories.get(position).getImageSource());
+            categoriesContext.startActivity(intent);
         });
     }
 
@@ -63,15 +58,16 @@ public class AllCategoriesRecyclerViewAdapter extends RecyclerView.Adapter<AllCa
         return categories.size();
     }
 
-    public void setCategories(ArrayList<Category> categories) {
+    @SuppressLint("NotifyDataSetChanged")
+    public void setCategories(List<Category> categories) {
         this.categories = categories;
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        private CardView categoryCard;
-        private ImageView categoryImage;
-        private TextView categoryName;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        private final CardView categoryCard;
+        private final ImageView categoryImage;
+        private final TextView categoryName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

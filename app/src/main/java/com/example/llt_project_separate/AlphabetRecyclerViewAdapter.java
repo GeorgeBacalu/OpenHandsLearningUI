@@ -1,6 +1,7 @@
 package com.example.llt_project_separate;
 
 import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_ID;
+import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_IMAGE;
 import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_NAME;
 
 import android.annotation.SuppressLint;
@@ -20,15 +21,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AlphabetRecyclerViewAdapter extends RecyclerView.Adapter<AlphabetRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "AlphabetAdapter";
-    private ArrayList<Category> letters = new ArrayList<>();
-    private Context alphabetContext;
+    private List<Category> letters = new ArrayList<>();
+    private final Context alphabetContext;
 
-    public AlphabetRecyclerViewAdapter(Context alphabetContext) {
-        this.alphabetContext = alphabetContext;
-    }
+    public AlphabetRecyclerViewAdapter(Context alphabetContext) { this.alphabetContext = alphabetContext; }
 
     @NonNull
     @Override
@@ -43,17 +43,13 @@ public class AlphabetRecyclerViewAdapter extends RecyclerView.Adapter<AlphabetRe
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(letters.get(position).getName());
         Glide.with(alphabetContext).asBitmap().load(letters.get(position).getImageSource()).into(holder.categoryImage);
-        holder.categoryCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(alphabetContext, VideoPlayerActivity.class);
-                if (letters.get(position).getId() < 0) {
-                    throw new NullPointerException("Invalid Selection");
-                }
-                intent.putExtra(CATEGORY_ID, letters.get(position).getId());
-                intent.putExtra(CATEGORY_NAME, letters.get(position).getName());
-                alphabetContext.startActivity(intent);
-            }
+        holder.categoryCard.setOnClickListener(v -> {
+            Intent intent = new Intent(alphabetContext, VideoPlayerActivity.class);
+            if (letters.get(position).getId() < 0) throw new NullPointerException("Invalid Selection");
+            intent.putExtra(CATEGORY_ID, letters.get(position).getId());
+            intent.putExtra(CATEGORY_NAME, letters.get(position).getName());
+            intent.putExtra(CATEGORY_IMAGE, letters.get(position).getImageSource());
+            alphabetContext.startActivity(intent);
         });
     }
 
@@ -62,15 +58,16 @@ public class AlphabetRecyclerViewAdapter extends RecyclerView.Adapter<AlphabetRe
         return letters.size();
     }
 
-    public void setLetters(ArrayList<Category> letters) {
+    @SuppressLint("NotifyDataSetChanged")
+    public void setLetters(List<Category> letters) {
         this.letters = letters;
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        private CardView categoryCard;
-        private ImageView categoryImage;
-        private TextView categoryName;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        private final CardView categoryCard;
+        private final ImageView categoryImage;
+        private final TextView categoryName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

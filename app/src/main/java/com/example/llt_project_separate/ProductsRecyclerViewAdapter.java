@@ -1,6 +1,7 @@
 package com.example.llt_project_separate;
 
 import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_ID;
+import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_IMAGE;
 import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_NAME;
 
 import android.annotation.SuppressLint;
@@ -20,15 +21,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProductsRecyclerViewAdapter extends RecyclerView.Adapter<ProductsRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "ProductsAdapter";
-    private ArrayList<Category> products = new ArrayList<>();
-    private Context productsContext;
+    private List<Category> products = new ArrayList<>();
+    private final Context productsContext;
 
-    public ProductsRecyclerViewAdapter(Context productsContext) {
-        this.productsContext = productsContext;
-    }
+    public ProductsRecyclerViewAdapter(Context productsContext) { this.productsContext = productsContext; }
 
     @NonNull
     @Override
@@ -43,17 +43,15 @@ public class ProductsRecyclerViewAdapter extends RecyclerView.Adapter<ProductsRe
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(products.get(position).getName());
         Glide.with(productsContext).asBitmap().load(products.get(position).getImageSource()).into(holder.categoryImage);
-        holder.categoryCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(productsContext, VideoPlayerActivity.class);
-                if (products.get(position).getId() < 0) {
-                    throw new NullPointerException("Invalid Selection");
-                }
-                intent.putExtra(CATEGORY_ID, products.get(position).getId());
-                intent.putExtra(CATEGORY_NAME, products.get(position).getName());
-                productsContext.startActivity(intent);
+        holder.categoryCard.setOnClickListener(v -> {
+            Intent intent = new Intent(productsContext, VideoPlayerActivity.class);
+            if (products.get(position).getId() < 0) {
+                throw new NullPointerException("Invalid Selection");
             }
+            intent.putExtra(CATEGORY_ID, products.get(position).getId());
+            intent.putExtra(CATEGORY_NAME, products.get(position).getName());
+            intent.putExtra(CATEGORY_IMAGE, products.get(position).getImageSource());
+            productsContext.startActivity(intent);
         });
 
     }
@@ -63,15 +61,16 @@ public class ProductsRecyclerViewAdapter extends RecyclerView.Adapter<ProductsRe
         return products.size();
     }
 
-    public void setProducts(ArrayList<Category> products) {
+    @SuppressLint("NotifyDataSetChanged")
+    public void setProducts(List<Category> products) {
         this.products = products;
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        private CardView categoryCard;
-        private ImageView categoryImage;
-        private TextView categoryName;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        private final CardView categoryCard;
+        private final ImageView categoryImage;
+        private final TextView categoryName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

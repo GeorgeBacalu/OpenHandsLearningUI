@@ -8,12 +8,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class MoneyActivity extends AppCompatActivity {
     private RecyclerView moneyRecyclerView;
@@ -24,41 +24,36 @@ public class MoneyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_money);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        moneyRecyclerView = findViewById(R.id.moneyRecyclerView);
-        moneyAdapter = new MoneyRecyclerViewAdapter(this);
-        toHomePageFabButton = findViewById(R.id.toHomePageFabButton);
+        initializeViews();
 
-        toHomePageFabButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MoneyActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
+        toHomePageFabButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MoneyActivity.this, MainActivity.class);
+            startActivity(intent);
         });
 
         moneyRecyclerView.setAdapter(moneyAdapter);
         moneyRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-        ArrayList<Category> moneyUnits = new ArrayList<>();
-        moneyUnits.add(new Category(108, "EURO", R.drawable.caine));
-        moneyUnits.add(new Category(109, "DOLAR", R.drawable.caine));
-        moneyUnits.add(new Category(110, "MONEDĂ", R.drawable.caine));
-        moneyUnits.add(new Category(111, "BANI", R.drawable.caine));
-        moneyUnits.add(new Category(112, "BANCNOTĂ", R.drawable.caine));
+        List<Category> moneyUnits = new ArrayList<>();
+        moneyUnits.add(new Category(108, "EURO", R.drawable.euro));
+        moneyUnits.add(new Category(109, "DOLAR", R.drawable.dolar));
+        moneyUnits.add(new Category(110, "MONEDĂ", R.drawable.moneda));
+        moneyUnits.add(new Category(111, "BANI", R.drawable.bani));
+        moneyUnits.add(new Category(112, "BANCNOTĂ", R.drawable.bancnota));
         moneyAdapter.setMoneyUnits(moneyUnits);
+    }
+
+    private void initializeViews() {
+        moneyRecyclerView = findViewById(R.id.moneyRecyclerView);
+        moneyAdapter = new MoneyRecyclerViewAdapter(this);
+        toHomePageFabButton = findViewById(R.id.toHomePageFabButton);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch(item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                break;
-            default:
-                break;
-        }
+        if (item.getItemId() == android.R.id.home) onBackPressed();
         return super.onOptionsItemSelected(item);
     }
 }

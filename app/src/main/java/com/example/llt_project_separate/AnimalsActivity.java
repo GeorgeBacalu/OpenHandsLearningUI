@@ -8,55 +8,49 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class AnimalsActivity extends AppCompatActivity {
     private RecyclerView animalsRecyclerView;
     private AnimalsRecyclerViewAdapter animalsAdapter;
-    // private ImageView toPrevPageButton;
     private FloatingActionButton toHomePageFabButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_animals);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        animalsRecyclerView = findViewById(R.id.animalsRecyclerView);
-        animalsAdapter = new AnimalsRecyclerViewAdapter(this);
-        toHomePageFabButton = findViewById(R.id.toHomePageFabButton);
+        initializeViews();
 
-        toHomePageFabButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AnimalsActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
+        toHomePageFabButton.setOnClickListener(v -> {
+            Intent intent = new Intent(AnimalsActivity.this, MainActivity.class);
+            startActivity(intent);
         });
 
         animalsRecyclerView.setAdapter(animalsAdapter);
         animalsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-        ArrayList<Category> animalsCategories = new ArrayList<>();
+        List<Category> animalsCategories = new ArrayList<>();
         animalsCategories.add(new Category(180, "DOMESTICE", R.drawable.animale_domestice));
         animalsCategories.add(new Category(181, "SĂLBATICE", R.drawable.animale_salbatice));
         animalsAdapter.setAnimals(animalsCategories);
     }
 
+    private void initializeViews() {
+        animalsRecyclerView = findViewById(R.id.animalsRecyclerView);
+        animalsAdapter = new AnimalsRecyclerViewAdapter(this);
+        toHomePageFabButton = findViewById(R.id.toHomePageFabButton);
+    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch(item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                break;
-            default:
-                break;
-        }
+        if (item.getItemId() == android.R.id.home) onBackPressed();
         return super.onOptionsItemSelected(item);
     }
 }

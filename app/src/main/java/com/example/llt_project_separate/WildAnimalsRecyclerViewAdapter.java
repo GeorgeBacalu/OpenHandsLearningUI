@@ -1,6 +1,7 @@
 package com.example.llt_project_separate;
 
 import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_ID;
+import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_IMAGE;
 import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_NAME;
 
 import android.annotation.SuppressLint;
@@ -20,15 +21,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class  WildAnimalsRecyclerViewAdapter extends RecyclerView.Adapter<WildAnimalsRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "WildAnimalsAdapter";
-    private ArrayList<Category> wildAnimals = new ArrayList<>();
-    private Context wildAnimalsContext;
+    private List<Category> wildAnimals = new ArrayList<>();
+    private final Context wildAnimalsContext;
 
-    public WildAnimalsRecyclerViewAdapter(Context wildAnimalsContext) {
-        this.wildAnimalsContext = wildAnimalsContext;
-    }
+    public WildAnimalsRecyclerViewAdapter(Context wildAnimalsContext) { this.wildAnimalsContext = wildAnimalsContext; }
 
     @NonNull
     @Override
@@ -43,17 +43,15 @@ public class  WildAnimalsRecyclerViewAdapter extends RecyclerView.Adapter<WildAn
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(wildAnimals.get(position).getName());
         Glide.with(wildAnimalsContext).asBitmap().load(wildAnimals.get(position).getImageSource()).into(holder.categoryImage);
-        holder.categoryCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(wildAnimalsContext, VideoPlayerActivity.class);
-                if (wildAnimals.get(position).getId() < 0) {
-                    throw new NullPointerException("Invalid Selection");
-                }
-                intent.putExtra(CATEGORY_ID, wildAnimals.get(position).getId());
-                intent.putExtra(CATEGORY_NAME, wildAnimals.get(position).getName());
-                wildAnimalsContext.startActivity(intent);
+        holder.categoryCard.setOnClickListener(v -> {
+            Intent intent = new Intent(wildAnimalsContext, VideoPlayerActivity.class);
+            if (wildAnimals.get(position).getId() < 0) {
+                throw new NullPointerException("Invalid Selection");
             }
+            intent.putExtra(CATEGORY_ID, wildAnimals.get(position).getId());
+            intent.putExtra(CATEGORY_NAME, wildAnimals.get(position).getName());
+            intent.putExtra(CATEGORY_IMAGE, wildAnimals.get(position).getImageSource());
+            wildAnimalsContext.startActivity(intent);
         });
     }
 
@@ -62,15 +60,16 @@ public class  WildAnimalsRecyclerViewAdapter extends RecyclerView.Adapter<WildAn
         return wildAnimals.size();
     }
 
-    public void setWildAnimals(ArrayList<Category> wildAnimals) {
+    @SuppressLint("NotifyDataSetChanged")
+    public void setWildAnimals(List<Category> wildAnimals) {
         this.wildAnimals = wildAnimals;
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        private CardView categoryCard;
-        private ImageView categoryImage;
-        private TextView categoryName;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        private final CardView categoryCard;
+        private final ImageView categoryImage;
+        private final TextView categoryName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

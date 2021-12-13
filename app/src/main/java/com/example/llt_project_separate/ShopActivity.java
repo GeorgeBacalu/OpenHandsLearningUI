@@ -8,12 +8,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class ShopActivity extends AppCompatActivity {
     private RecyclerView shopRecyclerView;
@@ -24,38 +24,33 @@ public class ShopActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        shopRecyclerView = findViewById(R.id.shopRecyclerView);
-        shopAdapter = new ShopRecyclerViewAdapter(this);
-        toHomePageFabButton = findViewById(R.id.toHomePageFabButton);
+        initializeViews();
 
-        toHomePageFabButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ShopActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
+        toHomePageFabButton.setOnClickListener(v -> {
+            Intent intent = new Intent(ShopActivity.this, MainActivity.class);
+            startActivity(intent);
         });
 
         shopRecyclerView.setAdapter(shopAdapter);
         shopRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-        ArrayList<Category> shopObjects = new ArrayList<>();
-        shopObjects.add(new Category(189, "BANI", R.drawable.caine));
-        shopObjects.add(new Category(190, "PRODUSE", R.drawable.caine));
+        List<Category> shopObjects = new ArrayList<>();
+        shopObjects.add(new Category(189, "BANI", R.drawable.bani));
+        shopObjects.add(new Category(190, "PRODUSE", R.drawable.produse));
         shopAdapter.setShopObjects(shopObjects);
+    }
+
+    private void initializeViews() {
+        shopRecyclerView = findViewById(R.id.shopRecyclerView);
+        shopAdapter = new ShopRecyclerViewAdapter(this);
+        toHomePageFabButton = findViewById(R.id.toHomePageFabButton);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch(item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                break;
-            default:
-                break;
-        }
+        if (item.getItemId() == android.R.id.home) onBackPressed();
         return super.onOptionsItemSelected(item);
     }
 }

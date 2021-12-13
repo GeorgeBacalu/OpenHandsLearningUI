@@ -16,13 +16,13 @@
             android:id="@+id/sectionHeaderImage"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:src="@drawable/animale" />
+            android:src="@drawable/membrii_familiei" />
 
         <ImageView
             android:id="@+id/animalsSectionHeaderOverlay"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:src="@drawable/overlay_background" />
+            android:src="@drawable/overlay_background_final" />
 
         <RelativeLayout
             android:layout_width="wrap_content"

@@ -9,7 +9,12 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="275dp"
+        android:layout_height="300dp"
         android:src="@drawable/expressions_section_header"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:src="@drawable/overlay_background_final"/>
 
 </RelativeLayout>

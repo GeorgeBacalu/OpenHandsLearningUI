@@ -12,9 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LLT_Project_Current">
         <activity
+            android:name=".IntroductoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".NewCategoryActivity"
             android:exported="false"
-            android:label="@string/activity_new_category"/>
+            android:label="@string/activity_new_category" />
         <activity
             android:name=".CategoryActivity"
             android:exported="false"

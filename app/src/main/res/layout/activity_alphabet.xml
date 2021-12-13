@@ -16,7 +16,7 @@
             android:id="@+id/sectionHeaderImage"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:src="@drawable/animale" />
+            android:src="@drawable/alfabet" />
 
         <ImageView
             android:id="@+id/sectionHeaderOverlay"
@@ -27,7 +27,7 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="80dp"
             android:layout_marginTop="20dp">
 
 <!--            <ImageView-->

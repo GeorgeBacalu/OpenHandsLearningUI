@@ -8,26 +8,26 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 public class NewCategoryFormAdapter extends FragmentPagerAdapter {
-    private Context context;
+    private final Context context;
+    int numberOfTabs;
 
-    public NewCategoryFormAdapter(@NonNull FragmentManager fm, Context context) {
+    public NewCategoryFormAdapter(FragmentManager fm, Context context, int numberOfTabs) {
         super(fm);
         this.context = context;
+        this.numberOfTabs = numberOfTabs;
     }
 
     @NonNull
-    @Override
     public Fragment getItem(int position) {
         switch(position) {
-            case 0:
-                NewCategoryFormFragment newCategoryFormFragment = new NewCategoryFormFragment();
-                return newCategoryFormFragment;
+            case 0: return new NewSubcategoryTabFragment();
+            case 1: return new NewCategoryTabFragment();
             default: return null;
         }
     }
 
     @Override
     public int getCount() {
-        return 1;
+        return numberOfTabs;
     }
 }

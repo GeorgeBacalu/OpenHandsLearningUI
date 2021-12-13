@@ -1,6 +1,7 @@
 package com.example.llt_project_separate;
 
 import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_ID;
+import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_IMAGE;
 import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_NAME;
 
 import android.annotation.SuppressLint;
@@ -20,15 +21,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FormsOfAddressRecyclerViewAdapter extends RecyclerView.Adapter<FormsOfAddressRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "FormsOfAddressAdapter";
-    private ArrayList<Category> formsOfAddress = new ArrayList<>();
-    private Context formsOfAddressContext;
+    private List<Category> formsOfAddress = new ArrayList<>();
+    private final Context formsOfAddressContext;
 
-    public FormsOfAddressRecyclerViewAdapter(Context formsOfAddressContext) {
-        this.formsOfAddressContext = formsOfAddressContext;
-    }
+    public FormsOfAddressRecyclerViewAdapter(Context formsOfAddressContext) { this.formsOfAddressContext = formsOfAddressContext; }
 
     @NonNull
     @Override
@@ -43,17 +43,15 @@ public class FormsOfAddressRecyclerViewAdapter extends RecyclerView.Adapter<Form
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(formsOfAddress.get(position).getName());
         Glide.with(formsOfAddressContext).asBitmap().load(formsOfAddress.get(position).getImageSource()).into(holder.categoryImage);
-        holder.categoryCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(formsOfAddressContext, VideoPlayerActivity.class);
-                if (formsOfAddress.get(position).getId() < 0) {
-                    throw new NullPointerException("Invalid Selection");
-                }
-                intent.putExtra(CATEGORY_ID, formsOfAddress.get(position).getId());
-                intent.putExtra(CATEGORY_NAME, formsOfAddress.get(position).getName());
-                formsOfAddressContext.startActivity(intent);
+        holder.categoryCard.setOnClickListener(v -> {
+            Intent intent = new Intent(formsOfAddressContext, VideoPlayerActivity.class);
+            if (formsOfAddress.get(position).getId() < 0) {
+                throw new NullPointerException("Invalid Selection");
             }
+            intent.putExtra(CATEGORY_ID, formsOfAddress.get(position).getId());
+            intent.putExtra(CATEGORY_NAME, formsOfAddress.get(position).getName());
+            intent.putExtra(CATEGORY_IMAGE, formsOfAddress.get(position).getImageSource());
+            formsOfAddressContext.startActivity(intent);
         });
     }
 
@@ -62,15 +60,16 @@ public class FormsOfAddressRecyclerViewAdapter extends RecyclerView.Adapter<Form
         return formsOfAddress.size();
     }
 
-    public void setFormsOfAddress(ArrayList<Category> formsOfAddress) {
+    @SuppressLint("NotifyDataSetChanged")
+    public void setFormsOfAddress(List<Category> formsOfAddress) {
         this.formsOfAddress = formsOfAddress;
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        private CardView categoryCard;
-        private ImageView categoryImage;
-        private TextView categoryName;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        private final CardView categoryCard;
+        private final ImageView categoryImage;
+        private final TextView categoryName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

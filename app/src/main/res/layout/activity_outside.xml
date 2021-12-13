@@ -9,32 +9,32 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="-10dp"
+        android:layout_marginTop="-60dp"
         android:paddingBottom="10dp">
 
         <ImageView
             android:id="@+id/sectionHeaderImage"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:src="@drawable/animale" />
+            android:layout_height="350dp"
+            android:src="@drawable/afara" />
 
         <ImageView
             android:id="@+id/animalsSectionHeaderOverlay"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:src="@drawable/overlay_background" />
+            android:src="@drawable/overlay_background_final" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="50dp">
 
-<!--            <ImageView-->
-<!--                android:id="@+id/toPrevPageButton"-->
-<!--                android:layout_width="40dp"-->
-<!--                android:layout_height="40dp"-->
-<!--                android:src="@drawable/ic_arrow_circle_left" />-->
+            <!--            <ImageView-->
+            <!--                android:id="@+id/toPrevPageButton"-->
+            <!--                android:layout_width="40dp"-->
+            <!--                android:layout_height="40dp"-->
+            <!--                android:src="@drawable/ic_arrow_circle_left" />-->
 
             <TextView
                 android:id="@+id/animalsSectionHeaderText"

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/navHome"
+            android:title="Acasă"
+            android:icon="@drawable/ic_home_black"/>
+        <item
+            android:id="@+id/navVideo"
+            android:title="Secţiune video"
+            android:icon="@drawable/ic_video_section_black"/>
+        <item
+            android:id="@+id/navTextToSign"
+            android:title="Secţiune Text to Sign"
+            android:icon="@drawable/ic_text_to_sign_section_black"/>
+        <item
+            android:id="@+id/navVoiceToSign"
+            android:title="Secţiune Voice to Sign"
+            android:icon="@drawable/ic_voice_to_sign_section_black"/>
+        <item
+            android:id="@+id/navExpressions"
+            android:title="Secţiune Expresii"
+            android:icon="@drawable/ic_expressions_section_black"/>
+    </group>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/navSettings"
+            android:title="Preferinţe aplicaţie"
+            android:icon="@drawable/ic_settings_black"/>
+    </group>
+</menu>

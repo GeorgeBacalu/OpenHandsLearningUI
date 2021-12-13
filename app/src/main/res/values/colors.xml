@@ -8,10 +8,15 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="main_blue">#113CFC</color>
     <color name="light_blue">#1195FC</color>
     <color name="dark_blue">#193498</color>
     <color name="translucent_dark_blue">#40193498</color>
     <color name="gray_border">#D3D3D3</color>
     <color name="dark">#19242C</color>
+
+    <color name="purple">#ba53de</color>
+    <color name="pink">#f469a9</color>
+    <color name="blue">#88bef5</color>
 
 </resources>

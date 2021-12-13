@@ -1,6 +1,7 @@
 package com.example.llt_project_separate;
 
 import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_ID;
+import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_IMAGE;
 import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_NAME;
 
 import android.annotation.SuppressLint;
@@ -20,11 +21,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class VerbsRecyclerViewAdapter extends RecyclerView.Adapter<VerbsRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "VerbsAdapter";
-    private ArrayList<Category> verbs = new ArrayList<>();
-    private Context verbsContext;
+    private List<Category> verbs = new ArrayList<>();
+    private final Context verbsContext;
 
     public VerbsRecyclerViewAdapter(Context verbsContext) {
         this.verbsContext = verbsContext;
@@ -43,17 +45,15 @@ public class VerbsRecyclerViewAdapter extends RecyclerView.Adapter<VerbsRecycler
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(verbs.get(position).getName());
         Glide.with(verbsContext).asBitmap().load(verbs.get(position).getImageSource()).into(holder.categoryImage);
-        holder.categoryCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(verbsContext, VideoPlayerActivity.class);
-                if (verbs.get(position).getId() < 0) {
-                    throw new NullPointerException("Invalid Selection");
-                }
-                intent.putExtra(CATEGORY_ID, verbs.get(position).getId());
-                intent.putExtra(CATEGORY_NAME, verbs.get(position).getName());
-                verbsContext.startActivity(intent);
+        holder.categoryCard.setOnClickListener(v -> {
+            Intent intent = new Intent(verbsContext, VideoPlayerActivity.class);
+            if (verbs.get(position).getId() < 0) {
+                throw new NullPointerException("Invalid Selection");
             }
+            intent.putExtra(CATEGORY_ID, verbs.get(position).getId());
+            intent.putExtra(CATEGORY_NAME, verbs.get(position).getName());
+            intent.putExtra(CATEGORY_IMAGE, verbs.get(position).getImageSource());
+            verbsContext.startActivity(intent);
         });
     }
 
@@ -62,15 +62,16 @@ public class VerbsRecyclerViewAdapter extends RecyclerView.Adapter<VerbsRecycler
         return verbs.size();
     }
 
-    public void setVerbs(ArrayList<Category> verbs) {
+    @SuppressLint("NotifyDataSetChanged")
+    public void setVerbs(List<Category> verbs) {
         this.verbs = verbs;
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        private CardView categoryCard;
-        private ImageView categoryImage;
-        private TextView categoryName;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        private final CardView categoryCard;
+        private final ImageView categoryImage;
+        private final TextView categoryName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

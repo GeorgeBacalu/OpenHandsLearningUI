@@ -8,12 +8,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class ColorsActivity extends AppCompatActivity {
     private RecyclerView colorsRecyclerView;
@@ -24,46 +24,41 @@ public class ColorsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_colors);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        colorsRecyclerView = findViewById(R.id.colorsRecyclerView);
-        colorsAdapter = new ColorsRecyclerViewAdapter(this);
-        toHomePageFabButton = findViewById(R.id.toHomePageFabButton);
+        initializeViews();
 
-        toHomePageFabButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ColorsActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
+        toHomePageFabButton.setOnClickListener(v -> {
+            Intent intent = new Intent(ColorsActivity.this, MainActivity.class);
+            startActivity(intent);
         });
 
         colorsRecyclerView.setAdapter(colorsAdapter);
         colorsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-        ArrayList<Category> colors = new ArrayList<>();
-        colors.add(new Category(42, "ROŞU", R.drawable.caine));
-        colors.add(new Category(43, "PORTOCALIU", R.drawable.caine));
-        colors.add(new Category(44, "GALBEN", R.drawable.caine));
-        colors.add(new Category(45, "VERDE", R.drawable.caine));
-        colors.add(new Category(46, "ALBASTRU", R.drawable.caine));
-        colors.add(new Category(47, "INDIGO", R.drawable.caine));
-        colors.add(new Category(48, "VIOLET", R.drawable.caine));
-        colors.add(new Category(49, "MARO", R.drawable.caine));
-        colors.add(new Category(50, "ROZ", R.drawable.caine));
-        colors.add(new Category(51, "TURCOAZ", R.drawable.caine));
+        List<Category> colors = new ArrayList<>();
+        colors.add(new Category(42, "ROŞU", R.drawable.rosu));
+        colors.add(new Category(43, "PORTOCALIU", R.drawable.portocaliu));
+        colors.add(new Category(44, "GALBEN", R.drawable.galben));
+        colors.add(new Category(45, "VERDE", R.drawable.verde));
+        colors.add(new Category(46, "ALBASTRU", R.drawable.albastru));
+        colors.add(new Category(47, "INDIGO", R.drawable.indigo));
+        colors.add(new Category(48, "VIOLET", R.drawable.violet));
+        colors.add(new Category(49, "MARO", R.drawable.maro));
+        colors.add(new Category(50, "ROZ", R.drawable.roz));
+        colors.add(new Category(51, "TURCOAZ", R.drawable.turcoaz));
         colorsAdapter.setColors(colors);
+    }
+
+    private void initializeViews() {
+        colorsRecyclerView = findViewById(R.id.colorsRecyclerView);
+        colorsAdapter = new ColorsRecyclerViewAdapter(this);
+        toHomePageFabButton = findViewById(R.id.toHomePageFabButton);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch(item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                break;
-            default:
-                break;
-        }
+        if (item.getItemId() == android.R.id.home) onBackPressed();
         return super.onOptionsItemSelected(item);
     }
 }

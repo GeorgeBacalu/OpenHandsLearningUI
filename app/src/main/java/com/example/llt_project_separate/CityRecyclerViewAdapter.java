@@ -1,6 +1,7 @@
 package com.example.llt_project_separate;
 
 import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_ID;
+import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_IMAGE;
 import static com.example.llt_project_separate.VideoPlayerActivity.CATEGORY_NAME;
 
 import android.annotation.SuppressLint;
@@ -20,11 +21,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CityRecyclerViewAdapter extends RecyclerView.Adapter<CityRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "CityAdapter";
-    private ArrayList<Category> cityObjects = new ArrayList<>();
-    private Context cityContext;
+    private List<Category> cityObjects = new ArrayList<>();
+    private final Context cityContext;
 
     public CityRecyclerViewAdapter(Context cityContext) {
         this.cityContext = cityContext;
@@ -43,17 +45,15 @@ public class CityRecyclerViewAdapter extends RecyclerView.Adapter<CityRecyclerVi
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(cityObjects.get(position).getName());
         Glide.with(cityContext).asBitmap().load(cityObjects.get(position).getImageSource()).into(holder.categoryImage);
-        holder.categoryCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(cityContext, VideoPlayerActivity.class);
-                if (cityObjects.get(position).getId() < 0) {
-                    throw new NullPointerException("Invalid Selection");
-                }
-                intent.putExtra(CATEGORY_ID, cityObjects.get(position).getId());
-                intent.putExtra(CATEGORY_NAME, cityObjects.get(position).getName());
-                cityContext.startActivity(intent);
+        holder.categoryCard.setOnClickListener(v -> {
+            Intent intent = new Intent(cityContext, VideoPlayerActivity.class);
+            if (cityObjects.get(position).getId() < 0) {
+                throw new NullPointerException("Invalid Selection");
             }
+            intent.putExtra(CATEGORY_ID, cityObjects.get(position).getId());
+            intent.putExtra(CATEGORY_NAME, cityObjects.get(position).getName());
+            intent.putExtra(CATEGORY_IMAGE, cityObjects.get(position).getImageSource());
+            cityContext.startActivity(intent);
         });
     }
 
@@ -62,15 +62,16 @@ public class CityRecyclerViewAdapter extends RecyclerView.Adapter<CityRecyclerVi
         return cityObjects.size();
     }
 
-    public void setCityObjects(ArrayList<Category> cityObjects) {
+    @SuppressLint("NotifyDataSetChanged")
+    public void setCityObjects(List<Category> cityObjects) {
         this.cityObjects = cityObjects;
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        private CardView categoryCard;
-        private ImageView categoryImage;
-        private TextView categoryName;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        private final CardView categoryCard;
+        private final ImageView categoryImage;
+        private final TextView categoryName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

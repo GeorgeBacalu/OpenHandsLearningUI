@@ -35,30 +35,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!--        <androidx.cardview.widget.CardView-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_below="@+id/selectedItemName"-->
-        <!--            android:layout_centerHorizontal="true"-->
-        <!--            android:layout_marginTop="10dp"-->
-        <!--            app:cardCornerRadius="7dp"-->
-        <!--            android:backgroundTint="@color/light_blue"-->
-        <!--            app:cardElevation="3dp">-->
-
-        <!--            <Button-->
-        <!--                android:id="@+id/favoriteButton"-->
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="30dp"-->
-        <!--                android:text="Adauga la favorite"-->
-        <!--                android:textAllCaps="false"-->
-        <!--                android:letterSpacing="0.02"-->
-        <!--                android:textSize="11dp"-->
-        <!--                android:backgroundTint="@color/light_blue"-->
-        <!--                android:textColor="@color/dark"-->
-        <!--                android:paddingHorizontal="3dp" />-->
-
-        <!--        </androidx.cardview.widget.CardView>-->
-
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/favoriteButton"
             android:layout_width="wrap_content"

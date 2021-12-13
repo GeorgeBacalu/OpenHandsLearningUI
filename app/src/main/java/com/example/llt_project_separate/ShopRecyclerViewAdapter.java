@@ -17,11 +17,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<ShopRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "ShopRecyclerViewAdapter";
-    private ArrayList<Category> shopObjects = new ArrayList<>();
-    private Context shopContext;
+    private List<Category> shopObjects = new ArrayList<>();
+    private final Context shopContext;
 
     public ShopRecyclerViewAdapter(Context shopContext) {
         this.shopContext = shopContext;
@@ -40,17 +41,14 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<ShopRecyclerVi
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(shopObjects.get(position).getName());
         Glide.with(shopContext).asBitmap().load(shopObjects.get(position).getImageSource()).into(holder.categoryImage);
-        holder.categoryCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent;
-                switch(shopObjects.get(position).getId()) {
-                    case 189: intent = new Intent(shopContext, MoneyActivity.class); break;
-                    case 190: intent = new Intent(shopContext, ProductsActivity.class); break;
-                    default: throw new NullPointerException("Invalid Selection");
-                }
-                shopContext.startActivity(intent);
+        holder.categoryCard.setOnClickListener(v -> {
+            Intent intent;
+            switch(shopObjects.get(position).getId()) {
+                case 189: intent = new Intent(shopContext, MoneyActivity.class); break;
+                case 190: intent = new Intent(shopContext, ProductsActivity.class); break;
+                default: throw new NullPointerException("Invalid Selection");
             }
+            shopContext.startActivity(intent);
         });
     }
 
@@ -59,15 +57,16 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<ShopRecyclerVi
         return shopObjects.size();
     }
 
-    public void setShopObjects(ArrayList<Category> shopObjects) {
+    @SuppressLint("NotifyDataSetChanged")
+    public void setShopObjects(List<Category> shopObjects) {
         this.shopObjects = shopObjects;
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        private CardView categoryCard;
-        private ImageView categoryImage;
-        private TextView categoryName;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        private final CardView categoryCard;
+        private final ImageView categoryImage;
+        private final TextView categoryName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
