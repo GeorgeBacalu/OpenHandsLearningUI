@@ -35,4 +35,8 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="header_title_text">SECŢIUNE VIDEO</string>
+    <string name="header_subtitle_text">Selectează categoria dorită.</string>
+    <string name="favorite_button_text">Vizualizează favorite</string>
+    <string name="search_bar_input_placeholder">Caută o categorie...</string>
 </resources>

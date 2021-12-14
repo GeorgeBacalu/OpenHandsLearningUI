@@ -5,121 +5,154 @@
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     tools:context=".MainActivity"
     tools:openDrawer="start">
 
-<!--    <com.google.android.material.navigation.NavigationView-->
-<!--        android:id="@+id/navigationView"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_gravity="start"-->
-<!--        app:headerLayout="@layout/navigation_header"-->
-<!--        app:menu="@menu/navigation_menu" />-->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigationView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/navigation_header"
+        app:menu="@menu/navigation_menu" />
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
+        <include layout="@layout/navigation_action_bar" />
 
-        <RelativeLayout
-            android:id="@+id/homepageHeader"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="450dp"
-            android:background="@drawable/homepage_header_background"
-            android:padding="10dp">
+            android:layout_height="match_parent">
 
-<!--            <include layout="@layout/navigation_action_bar"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"/>-->
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="65dp"
-                android:layout_marginTop="150dp"
-                android:backgroundTint="@color/translucent_dark_blue">
-
-                <ImageButton
-                    android:id="@+id/decoration_rectangle1"
-                    android:layout_width="50dp"
-                    android:layout_height="60dp"
-                    android:background="#00193498"
-                    tools:ignore="SpeakableTextPresentCheck" />
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="80dp"
-                android:layout_marginTop="430dp"
-                android:backgroundTint="@color/translucent_dark_blue">
-
-                <ImageButton
-                    android:id="@+id/decoration_rectangle2"
-                    android:layout_width="50dp"
-                    android:layout_height="60dp"
-                    android:background="#00193498"
-                    tools:ignore="SpeakableTextPresentCheck" />
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="260dp"
-                android:layout_marginTop="130dp"
-                android:backgroundTint="@color/translucent_dark_blue">
-
-                <ImageButton
-                    android:id="@+id/decoration_rectangle3"
-                    android:layout_width="50dp"
-                    android:layout_height="60dp"
-                    android:background="#00193498"
-                    tools:ignore="SpeakableTextPresentCheck" />
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="230dp"
-                android:layout_marginTop="410dp"
-                android:backgroundTint="@color/translucent_dark_blue">
-
-                <ImageButton
-                    android:id="@+id/decoration_rectangle4"
-                    android:layout_width="50dp"
-                    android:layout_height="60dp"
-                    android:background="#00193498"
-                    tools:ignore="SpeakableTextPresentCheck" />
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="250dp"
-                android:layout_marginTop="390dp"
-                android:backgroundTint="@color/translucent_dark_blue">
-
-                <ImageButton
-                    android:id="@+id/decoration_rectangle5"
-                    android:layout_width="50dp"
-                    android:layout_height="60dp"
-                    android:background="#00193498"
-                    tools:ignore="SpeakableTextPresentCheck" />
-
-            </androidx.cardview.widget.CardView>
-
-            <LinearLayout
-                android:id="@+id/logoAndMenu"
+            <RelativeLayout
+                android:id="@+id/homepageHeader"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="450dp"
+                android:background="@color/main_blue"
+                android:padding="10dp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="65dp"
+                    android:layout_marginTop="150dp"
+                    android:backgroundTint="@color/translucent_dark_blue">
+
+                    <ImageButton
+                        android:id="@+id/decoration_rectangle1"
+                        android:layout_width="50dp"
+                        android:layout_height="60dp"
+                        android:background="#00193498"
+                        tools:ignore="SpeakableTextPresentCheck" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="80dp"
+                    android:layout_marginTop="430dp"
+                    android:backgroundTint="@color/translucent_dark_blue">
+
+                    <ImageButton
+                        android:id="@+id/decoration_rectangle2"
+                        android:layout_width="50dp"
+                        android:layout_height="60dp"
+                        android:background="#00193498"
+                        tools:ignore="SpeakableTextPresentCheck" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="270dp"
+                    android:layout_marginTop="140dp"
+                    android:backgroundTint="@color/translucent_dark_blue">
+
+                    <ImageButton
+                        android:id="@+id/decoration_rectangle3"
+                        android:layout_width="50dp"
+                        android:layout_height="60dp"
+                        android:background="#00193498"
+                        tools:ignore="SpeakableTextPresentCheck" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="230dp"
+                    android:layout_marginTop="410dp"
+                    android:backgroundTint="@color/translucent_dark_blue">
+
+                    <ImageButton
+                        android:id="@+id/decoration_rectangle4"
+                        android:layout_width="50dp"
+                        android:layout_height="60dp"
+                        android:background="#00193498"
+                        tools:ignore="SpeakableTextPresentCheck" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="250dp"
+                    android:layout_marginTop="390dp"
+                    android:backgroundTint="@color/translucent_dark_blue">
+
+                    <ImageButton
+                        android:id="@+id/decoration_rectangle5"
+                        android:layout_width="50dp"
+                        android:layout_height="60dp"
+                        android:background="#00193498"
+                        tools:ignore="SpeakableTextPresentCheck" />
+
+                </androidx.cardview.widget.CardView>
+
+                <!--            <LinearLayout-->
+                <!--                android:id="@+id/logoAndMenu"-->
+                <!--                android:layout_width="match_parent"-->
+                <!--                android:layout_height="match_parent"-->
+                <!--                android:orientation="vertical">-->
+
+                <!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:padding="50dp">-->
+
+                <!--                    <ImageView-->
+                <!--                        android:id="@+id/lltLogo"-->
+                <!--                        android:layout_width="80dp"-->
+                <!--                        android:layout_height="80dp"-->
+                <!--                        android:layout_alignParentStart="true"-->
+                <!--                        android:src="@drawable/llt_logo"-->
+                <!--                        app:layout_constraintEnd_toEndOf="parent"-->
+                <!--                        app:layout_constraintHorizontal_bias="0.03"-->
+                <!--                        app:layout_constraintStart_toStartOf="parent"-->
+                <!--                        app:layout_constraintTop_toTopOf="parent" />-->
+
+                <!--                    <ImageView-->
+                <!--                        android:id="@+id/hamburgerMenu"-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_alignParentEnd="true"-->
+                <!--                        android:src="@drawable/baseline_menu_black_24"-->
+                <!--                        app:layout_constraintBottom_toBottomOf="@+id/lltLogo"-->
+                <!--                        app:layout_constraintEnd_toEndOf="parent"-->
+                <!--                        app:layout_constraintTop_toTopOf="@+id/lltLogo"-->
+                <!--                        app:tint="@color/white" />-->
+
+                <!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+                <!--            </LinearLayout>-->
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/logo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="50dp">
@@ -128,128 +161,115 @@
                         android:id="@+id/lltLogo"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        android:layout_alignParentStart="true"
                         android:src="@drawable/llt_logo"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.03"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <ImageView
-                        android:id="@+id/hamburgerMenu"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:src="@drawable/baseline_menu_black_24"
-                        app:layout_constraintBottom_toBottomOf="@+id/lltLogo"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/lltLogo"
-                        app:tint="@color/white" />
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </LinearLayout>
+                <RelativeLayout
+                    android:id="@+id/headerText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/logo">
 
-            <RelativeLayout
-                android:id="@+id/headerText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/logoAndMenu">
+                    <TextView
+                        android:id="@+id/welcomeMessage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="40dp"
+                        android:fontFamily="@font/source_sans_pro_semibold"
+                        android:text="Bine ai venit!"
+                        android:textColor="@color/white"
+                        android:textSize="18dp" />
 
-                <TextView
-                    android:id="@+id/welcomeMessage"
+                    <TextView
+                        android:id="@+id/projectTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/welcomeMessage"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/source_sans_pro_black"
+                        android:text="Let's Learn Together "
+                        android:textColor="@color/white"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/projectDescription"
+                        android:layout_width="270dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/projectTitle"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/source_sans_pro_semibold"
+                        android:paddingStart="10dp"
+                        android:text="Împreună facilităm procesul de învăţare al copiilor cu deficienţe de auz."
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="15dp" />
+
+                </RelativeLayout>
+
+                <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+                <!--            android:layout_width="match_parent"-->
+                <!--            android:layout_height="wrap_content"-->
+                <!--            android:layout_below="@+id/headerText"-->
+                <!--            android:layout_centerHorizontal="true">-->
+
+                <!--            <com.google.android.material.button.MaterialButton-->
+                <!--                android:id="@+id/loginButton"-->
+                <!--                android:layout_width="110dp"-->
+                <!--                android:layout_height="wrap_content"-->
+                <!--                android:layout_marginTop="12dp"-->
+                <!--                android:backgroundTint="@color/white"-->
+                <!--                android:fontFamily="@font/source_sans_pro_bold"-->
+                <!--                android:text="Login"-->
+                <!--                android:textAllCaps="false"-->
+                <!--                android:textColor="@color/dark_blue"-->
+                <!--                app:layout_constraintEnd_toEndOf="parent"-->
+                <!--                app:layout_constraintHorizontal_bias="0.25"-->
+                <!--                app:layout_constraintStart_toStartOf="parent"-->
+                <!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+                <!--            <com.google.android.material.button.MaterialButton-->
+                <!--                android:id="@+id/signUpButton"-->
+                <!--                style="?attr/materialButtonOutlinedStyle"-->
+                <!--                android:layout_width="110dp"-->
+                <!--                android:layout_height="wrap_content"-->
+                <!--                android:fontFamily="@font/source_sans_pro_bold"-->
+                <!--                android:text="Sign Up"-->
+                <!--                android:textAllCaps="false"-->
+                <!--                android:textColor="@color/white"-->
+                <!--                app:layout_constraintBottom_toBottomOf="@+id/loginButton"-->
+                <!--                app:layout_constraintEnd_toEndOf="parent"-->
+                <!--                app:layout_constraintStart_toEndOf="@+id/loginButton"-->
+                <!--                app:layout_constraintTop_toTopOf="@+id/loginButton"-->
+                <!--                app:strokeColor="@color/white"-->
+                <!--                app:strokeWidth="2dp" />-->
+                <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/headerText"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="40dp"
-                    android:fontFamily="@font/source_sans_pro_semibold"
-                    android:text="Bine ai venit!"
-                    android:textColor="@color/white"
-                    android:textSize="18dp" />
+                    android:layout_marginTop="200dp"
+                    android:layout_marginBottom="100dp">
 
-                <TextView
-                    android:id="@+id/projectTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/welcomeMessage"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="20dp"
-                    android:fontFamily="@font/source_sans_pro_black"
-                    android:text="Let's Learn Together "
-                    android:textColor="@color/white"
-                    android:textSize="20dp" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/sectionsRecyclerView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
 
-                <TextView
-                    android:id="@+id/projectDescription"
-                    android:layout_width="270dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/projectTitle"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="20dp"
-                    android:fontFamily="@font/source_sans_pro_semibold"
-                    android:paddingStart="10dp"
-                    android:text="Împreună facilităm procesul de învăţare al copiilor cu deficienţe de auz."
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="15dp" />
+                </RelativeLayout>
 
             </RelativeLayout>
 
-            <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-            <!--            android:layout_width="match_parent"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:layout_below="@+id/headerText"-->
-            <!--            android:layout_centerHorizontal="true">-->
+        </ScrollView>
 
-            <!--            <com.google.android.material.button.MaterialButton-->
-            <!--                android:id="@+id/loginButton"-->
-            <!--                android:layout_width="110dp"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_marginTop="12dp"-->
-            <!--                android:backgroundTint="@color/white"-->
-            <!--                android:fontFamily="@font/source_sans_pro_bold"-->
-            <!--                android:text="Login"-->
-            <!--                android:textAllCaps="false"-->
-            <!--                android:textColor="@color/dark_blue"-->
-            <!--                app:layout_constraintEnd_toEndOf="parent"-->
-            <!--                app:layout_constraintHorizontal_bias="0.25"-->
-            <!--                app:layout_constraintStart_toStartOf="parent"-->
-            <!--                app:layout_constraintTop_toTopOf="parent" />-->
-
-            <!--            <com.google.android.material.button.MaterialButton-->
-            <!--                android:id="@+id/signUpButton"-->
-            <!--                style="?attr/materialButtonOutlinedStyle"-->
-            <!--                android:layout_width="110dp"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:fontFamily="@font/source_sans_pro_bold"-->
-            <!--                android:text="Sign Up"-->
-            <!--                android:textAllCaps="false"-->
-            <!--                android:textColor="@color/white"-->
-            <!--                app:layout_constraintBottom_toBottomOf="@+id/loginButton"-->
-            <!--                app:layout_constraintEnd_toEndOf="parent"-->
-            <!--                app:layout_constraintStart_toEndOf="@+id/loginButton"-->
-            <!--                app:layout_constraintTop_toTopOf="@+id/loginButton"-->
-            <!--                app:strokeColor="@color/white"-->
-            <!--                app:strokeWidth="2dp" />-->
-            <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/headerText"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="200dp"
-                android:layout_marginBottom="100dp">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/sectionsRecyclerView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-            </RelativeLayout>
-
-        </RelativeLayout>
-
-    </ScrollView>
+    </LinearLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>

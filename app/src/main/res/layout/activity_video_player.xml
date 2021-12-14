@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".VideoPlayerActivity"
+    tools:context=".video_section.VideoPlayerActivity"
     android:background="#212121">
 
 <!--    <ImageView-->
@@ -18,7 +18,7 @@
     <FrameLayout
         android:id="@+id/videoViewContainer"
         android:layout_width="match_parent"
-        android:layout_height="430dp">
+        android:layout_height="390dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
 
@@ -28,7 +28,7 @@
             <VideoView
                 android:id="@+id/videoView"
                 android:layout_width="350dp"
-                android:layout_height="280dp"
+                android:layout_height="260dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +43,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/categoryCard"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/videoViewContainer">
+        android:layout_below="@+id/videoViewContainer"
+        app:cardCornerRadius="10dp"
+        android:elevation="10dp">
 
         <RelativeLayout
             android:layout_width="match_parent"

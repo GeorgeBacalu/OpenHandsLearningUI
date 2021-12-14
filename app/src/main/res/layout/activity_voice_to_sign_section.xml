@@ -4,17 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".VoiceToSignSectionActivity"
-    android:layout_marginTop="-20dp">
+    tools:context=".voice_to_sign_section.VoiceToSignSectionActivity"
+    android:layout_marginTop="-30dp">
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="315dp"
+        android:layout_height="320dp"
         android:src="@drawable/voice_to_sign_section_header"/>
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:src="@drawable/overlay_background"/>
+        android:src="@drawable/overlay_background_final"/>
 
 </RelativeLayout>

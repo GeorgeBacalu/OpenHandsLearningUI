@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="-10dp"
-    tools:context=".TextToSignSectionActivity">
+    tools:context=".text_to_sign_section.TextToSignSectionActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="-20dp"
+        android:layout_marginTop="-35dp"
         android:paddingBottom="10dp">
 
         <ImageView
@@ -22,8 +22,8 @@
         <ImageView
             android:id="@+id/videoSectionHeaderOverlay"
             android:layout_width="match_parent"
-            android:layout_height="340dp"
-            android:src="@drawable/overlay_background4" />
+            android:layout_height="380dp"
+            android:src="@drawable/overlay_background_final" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -47,7 +47,7 @@
                 android:layout_below="@id/videoSectionHeaderText"
                 android:layout_marginTop="25dp"
                 android:fontFamily="@font/source_sans_pro_regular"
-                android:text="Introdu un text şî lasă-ne pe noi să-l traducem în limbajul semnelor!"
+                android:text="Introdu un text şi lasă-ne pe noi să-l traducem în limbajul semnelor!"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
@@ -60,9 +60,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/videoSectionHeaderOverlay"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
             android:background="@drawable/input_design"
-            android:hint="Introduceţi un text"
+            android:hint="Introduceţi un text..."
             android:paddingVertical="10dp"
             android:paddingLeft="20dp"
             android:textSize="16sp" />
@@ -139,7 +138,6 @@
                         android:id="@+id/categoryText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
                         android:layout_toRightOf="@id/slideBackwards">
 
                         <LinearLayout

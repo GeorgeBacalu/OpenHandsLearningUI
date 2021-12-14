@@ -4,16 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".VideoSectionActivity">
+    tools:context=".video_section.VideoSectionActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="-20dp"
-        android:paddingBottom="10dp">
+        android:layout_marginTop="-5dp">
 
         <ImageView
-            android:id="@+id/sectionHeaderImage"
+            android:id="@+id/videoSectionHeaderImage"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:src="@drawable/video_section_header" />
@@ -21,70 +20,66 @@
         <ImageView
             android:id="@+id/videoSectionHeaderOverlay"
             android:layout_width="match_parent"
-            android:layout_height="320dp"
-            android:src="@drawable/overlay_background2" />
+            android:layout_height="300dp"
+            android:src="@drawable/overlay_background_final" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="20dp">
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="50dp">
 
             <TextView
-                android:id="@+id/videoSectionHeaderText"
+                android:id="@+id/videoSectionHeaderTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
                 android:fontFamily="@font/source_sans_pro_black"
-                android:text="SECŢIUNE VIDEO"
+                android:text="@string/header_title_text"
                 android:textColor="@color/white"
                 android:textSize="25sp" />
 
             <TextView
+                android:id="@+id/videoSectionHeaderSubtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/videoSectionHeaderText"
+                android:layout_below="@id/videoSectionHeaderTitle"
                 android:layout_marginTop="25dp"
                 android:fontFamily="@font/source_sans_pro_regular"
-                android:text="Selectează categoria dorită."
+                android:text="@string/header_subtitle_text"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/favoriteButtonContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/favoriteButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/sectionHeaderImage"
+            android:layout_below="@+id/videoSectionHeaderImage"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp">
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/showFavoriteButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/favorite_button"
-                android:gravity="center|bottom|top"
-                android:includeFontPadding="false"
-                android:padding="15dp"
-                android:text="Vizualizează favorite"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
-        </RelativeLayout>
+            android:layout_marginTop="30dp"
+            android:background="@drawable/favorite_button"
+            android:padding="15dp"
+            android:text="@string/favorite_button_text"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/searchBar"
-            android:layout_width="match_parent"
+            android:id="@+id/searchBarContainer"
+            android:layout_width="250dp"
             android:layout_height="45dp"
-            android:layout_below="@+id/favoriteButtonContainer"
-            android:layout_marginHorizontal="80dp"
+            android:layout_below="@+id/favoriteButton"
             android:layout_marginTop="40dp"
             app:cardCornerRadius="20dp"
             app:strokeColor="@color/gray_border"
-            app:strokeWidth="2dp">
+            app:strokeWidth="1dp"
+            android:layout_centerHorizontal="true">
 
             <EditText
                 android:id="@+id/searchBarInput"
@@ -92,8 +87,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@color/white"
-                android:hint="Caută o categorie..."
-                android:paddingLeft="15dp"
+                android:hint="@string/search_bar_input_placeholder"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
                 android:textSize="16sp" />
 
             <ImageView
@@ -102,7 +98,7 @@
                 android:layout_height="35dp"
                 android:layout_gravity="end"
                 android:layout_marginTop="4dp"
-                android:layout_marginRight="7dp"
+                android:layout_marginEnd="7dp"
                 android:src="@drawable/ic_search" />
 
         </com.google.android.material.card.MaterialCardView>
@@ -111,7 +107,7 @@
             android:id="@+id/addCategoryButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/searchBar"
+            android:layout_below="@+id/searchBarContainer"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="25dp"
             android:backgroundTint="@color/light_blue"
@@ -121,29 +117,23 @@
             app:rippleColor="@color/white"
             app:tint="@color/white" />
 
-        <RelativeLayout
-            android:id="@+id/recyclerViewContainer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/addCategoryButton"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp">
-
             <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginTop="40dp"
+                android:layout_below="@+id/addCategoryButton"
+                android:layout_centerHorizontal="true"
                 android:id="@+id/mainCategoriesRecyclerView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-        </RelativeLayout>
-
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/toHomePageFabButton"
+            android:id="@+id/homePageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/recyclerViewContainer"
+            android:layout_below="@+id/mainCategoriesRecyclerView"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="25dp"
-            android:backgroundTint="@color/dark_blue"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="@color/light_blue"
             android:src="@drawable/ic_home"
             app:backgroundTint="@color/white"
             app:borderWidth="2dp"

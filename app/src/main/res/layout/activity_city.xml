@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CityActivity">
+    tools:context=".video_section.objects.city.CityActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -71,6 +71,7 @@
             app:strokeWidth="2dp">
 
             <EditText
+                android:id="@+id/searchBarInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -80,6 +81,7 @@
                 android:textSize="16sp" />
 
             <ImageView
+                android:id="@+id/searchBarIcon"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_gravity="end"

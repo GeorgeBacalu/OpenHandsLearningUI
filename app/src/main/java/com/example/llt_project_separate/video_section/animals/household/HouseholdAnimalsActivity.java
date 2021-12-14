@@ -1,0 +1,89 @@
+package com.example.llt_project_separate.video_section.animals.household;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.ImageView;
+
+import com.example.llt_project_separate.general.standard_classes.Category;
+import com.example.llt_project_separate.MainActivity;
+import com.example.llt_project_separate.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+public class HouseholdAnimalsActivity extends AppCompatActivity {
+    private RecyclerView householdAnimalsRecyclerView;
+    private HouseholdAnimalsRecyclerViewAdapter householdAnimalsAdapter;
+    private FloatingActionButton toHomePageFabButton;
+    private EditText searchBarInput;
+    private ImageView searchBarIcon;
+
+    @SuppressLint("NotifyDataSetChanged")
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_household_animals);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
+        initializeViews();
+
+        toHomePageFabButton.setOnClickListener(v -> {
+            Intent intent = new Intent(HouseholdAnimalsActivity.this, MainActivity.class);
+            startActivity(intent);
+        });
+
+        householdAnimalsRecyclerView.setAdapter(householdAnimalsAdapter);
+        householdAnimalsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+
+        List<Category> householdAnimals = new ArrayList<>();
+        householdAnimals.add(new Category(53, "CÂINE", R.drawable.caine));
+        householdAnimals.add(new Category(54, "PISICĂ", R.drawable.pisica));
+        householdAnimals.add(new Category(55, "PORC", R.drawable.porc));
+        householdAnimals.add(new Category(56, "CAPRĂ", R.drawable.capra));
+        householdAnimals.add(new Category(57, "GĂINĂ", R.drawable.gaina));
+        householdAnimals.add(new Category(58, "IEPURE", R.drawable.iepure));
+        householdAnimals.add(new Category(59, "PUI", R.drawable.pui));
+        householdAnimals.add(new Category(60, "VACĂ", R.drawable.vaca));
+        householdAnimals.add(new Category(61, "CAL", R.drawable.cal));
+        householdAnimals.add(new Category(62, "COCOŞ", R.drawable.cocos));
+        householdAnimals.add(new Category(63, "GÂSCĂ", R.drawable.gasca));
+        householdAnimals.add(new Category(64, "OAIE", R.drawable.oaie));
+        householdAnimals.add(new Category(65, "RAŢĂ", R.drawable.rata));
+        householdAnimalsAdapter.setHouseholdAnimals(householdAnimals);
+
+        searchBarIcon.setOnClickListener(v -> {
+            String searchBarInputText = searchBarInput.getText().toString().toLowerCase();
+            List<Category> filteredHouseholdAnimals = householdAnimals.stream().filter(category-> category.getName().toLowerCase().startsWith(searchBarInputText)).collect(Collectors.toList());
+            householdAnimalsAdapter.setHouseholdAnimals(filteredHouseholdAnimals);
+            householdAnimalsAdapter.notifyDataSetChanged();
+        });
+    }
+
+    private void initializeViews() {
+        householdAnimalsRecyclerView = findViewById(R.id.householdAnimalsRecyclerView);
+        householdAnimalsAdapter = new HouseholdAnimalsRecyclerViewAdapter(this);
+        toHomePageFabButton = findViewById(R.id.toHomePageFabButton);
+        searchBarInput = findViewById(R.id.searchBarInput);
+        searchBarIcon = findViewById(R.id.searchBarIcon);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) onBackPressed();
+        return super.onOptionsItemSelected(item);
+    }
+}
