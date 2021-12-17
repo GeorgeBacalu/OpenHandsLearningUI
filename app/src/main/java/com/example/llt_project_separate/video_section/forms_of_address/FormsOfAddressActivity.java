@@ -50,10 +50,10 @@ public class FormsOfAddressActivity extends AppCompatActivity {
         formsOfAddressRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         List<Category> formsOfAddress = new ArrayList<>();
-        formsOfAddress.add(new Category(176, "VĂ ROG", R.drawable.va_rog));
-        formsOfAddress.add(new Category(177, "MULŢUMESC", R.drawable.multumesc));
-        formsOfAddress.add(new Category(178, "SCUZE", R.drawable.scuze));
-        formsOfAddress.add(new Category(179, "HAI", R.drawable.hai));
+        formsOfAddress.add(new Category(176, getStringResource(R.string.VA_ROG), R.drawable.va_rog));
+        formsOfAddress.add(new Category(177, getStringResource(R.string.MULTUMESC), R.drawable.multumesc));
+        formsOfAddress.add(new Category(178, getStringResource(R.string.SCUZE), R.drawable.scuze));
+        formsOfAddress.add(new Category(179, getStringResource(R.string.HAI), R.drawable.hai));
         formsOfAddressAdapter.setFormsOfAddress(formsOfAddress);
 
         searchBarIcon.setOnClickListener(v -> {
@@ -71,6 +71,8 @@ public class FormsOfAddressActivity extends AppCompatActivity {
         searchBarInput = findViewById(R.id.searchBarInput);
         searchBarIcon = findViewById(R.id.searchBarIcon);
     }
+
+    String getStringResource(int intResource) { return getResources().getString(intResource); }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

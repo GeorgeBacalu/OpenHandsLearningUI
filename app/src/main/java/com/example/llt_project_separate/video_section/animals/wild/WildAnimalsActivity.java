@@ -50,15 +50,15 @@ public class WildAnimalsActivity extends AppCompatActivity {
         wildAnimalsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         List<Category> wildAnimals = new ArrayList<>();
-        wildAnimals.add(new Category(66, "LUP", R.drawable.lup));
-        wildAnimals.add(new Category(67, "VULPE", R.drawable.vulpe));
-        wildAnimals.add(new Category(68, "ARICI", R.drawable.arici));
-        wildAnimals.add(new Category(69, "LEU", R.drawable.leu));
-        wildAnimals.add(new Category(70, "VEVERIŢĂ", R.drawable.veverita));
-        wildAnimals.add(new Category(71, "ZIMBRU", R.drawable.zimbru));
-        wildAnimals.add(new Category(72, "URS POLAR", R.drawable.urs_polar));
-        wildAnimals.add(new Category(73, "ELEFANT", R.drawable.elefant));
-        wildAnimals.add(new Category(74, "CROCODIL", R.drawable.crocodil));
+        wildAnimals.add(new Category(66, getStringResource(R.string.LUP), R.drawable.lup));
+        wildAnimals.add(new Category(67, getStringResource(R.string.VULPE), R.drawable.vulpe));
+        wildAnimals.add(new Category(68, getStringResource(R.string.ARICI), R.drawable.arici));
+        wildAnimals.add(new Category(69, getStringResource(R.string.LEU), R.drawable.leu));
+        wildAnimals.add(new Category(70, getStringResource(R.string.VEVERITA), R.drawable.veverita));
+        wildAnimals.add(new Category(71, getStringResource(R.string.ZIMBRU), R.drawable.zimbru));
+        wildAnimals.add(new Category(72, getStringResource(R.string.URS_POLAR), R.drawable.urs_polar));
+        wildAnimals.add(new Category(73, getStringResource(R.string.ELEFANT), R.drawable.elefant));
+        wildAnimals.add(new Category(74, getStringResource(R.string.CROCODIL), R.drawable.crocodil));
         wildAnimalsAdapter.setWildAnimals(wildAnimals);
 
         searchBarIcon.setOnClickListener(v -> {
@@ -76,6 +76,8 @@ public class WildAnimalsActivity extends AppCompatActivity {
         searchBarInput = findViewById(R.id.searchBarInput);
         searchBarIcon = findViewById(R.id.searchBarIcon);
     }
+
+    String getStringResource(int intResource) { return getResources().getString(intResource); }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

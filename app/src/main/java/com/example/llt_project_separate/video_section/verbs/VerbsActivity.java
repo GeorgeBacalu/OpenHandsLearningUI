@@ -50,18 +50,18 @@ public class VerbsActivity extends AppCompatActivity {
         verbsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         List<Category> verbs = new ArrayList<>();
-        verbs.add(new Category(164, "CONSTRUI", R.drawable.construi));
-        verbs.add(new Category(165, "SCRIE", R.drawable.scrie));
-        verbs.add(new Category(166, "TRAGE", R.drawable.trage));
-        verbs.add(new Category(167, "CITI", R.drawable.citi));
-        verbs.add(new Category(168, "STA JOS", R.drawable.sta_jos));
-        // verbs.add(new Category(169, "LĂSA", R.drawable.lasa));
-        verbs.add(new Category(170, "APĂSA", R.drawable.apasa));
-        // verbs.add(new Category(171, "PUNE", R.drawable.pune));
-        // verbs.add(new Category(172, "STRÂNGE", R.drawable.strange));
-        // verbs.add(new Category(173, "SCOATE", R.drawable.scoate));
-        verbs.add(new Category(174, "SPUNE", R.drawable.spune));
-        verbs.add(new Category(175, "SE UITA", R.drawable.se_uita));
+        verbs.add(new Category(164, getStringResource(R.string.CONSTRUI), R.drawable.construi));
+        verbs.add(new Category(165, getStringResource(R.string.SCRIE), R.drawable.scrie));
+        verbs.add(new Category(166, getStringResource(R.string.TRAGE), R.drawable.trage));
+        verbs.add(new Category(167, getStringResource(R.string.CITI), R.drawable.citi));
+        verbs.add(new Category(168, getStringResource(R.string.STA_JOS), R.drawable.sta_jos));
+        // verbs.add(new Category(169, getStringResource(R.string.LASA), R.drawable.lasa));
+        verbs.add(new Category(170, getStringResource(R.string.APASA), R.drawable.apasa));
+        // verbs.add(new Category(171, getStringResource(R.string.PUNE), R.drawable.pune));
+        // verbs.add(new Category(172, getStringResource(R.string.STRANGE), R.drawable.strange));
+        // verbs.add(new Category(173, getStringResource(R.string.SCOATE), R.drawable.scoate));
+        verbs.add(new Category(174, getStringResource(R.string.SPUNE), R.drawable.spune));
+        verbs.add(new Category(175, getStringResource(R.string.SE_UITA), R.drawable.se_uita));
         verbsAdapter.setVerbs(verbs);
 
         searchBarIcon.setOnClickListener(v -> {
@@ -79,6 +79,8 @@ public class VerbsActivity extends AppCompatActivity {
         searchBarInput = findViewById(R.id.searchBarInput);
         searchBarIcon = findViewById(R.id.searchBarIcon);
     }
+
+    String getStringResource(int intResource) { return getResources().getString(intResource); }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

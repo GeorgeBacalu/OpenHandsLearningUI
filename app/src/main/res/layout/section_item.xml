@@ -18,6 +18,7 @@
             android:id="@+id/sectionImage"
             android:layout_width="150dp"
             android:layout_height="150dp"
+            android:contentDescription="@string/placeholder_image"
             android:src="@mipmap/ic_launcher" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,17 +35,18 @@
                 android:src="@drawable/ic_video_section"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/placeholder_icon" />
 
             <TextView
                 android:id="@+id/sectionName"
-                android:layout_width="110dp"
+                android:layout_width="115dp"
                 android:layout_height="wrap_content"
-                android:text="Section Name"
-                android:layout_marginLeft="3dp"
+                android:text="@string/placeholder_text"
+                android:layout_marginStart="2dp"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@id/sectionIcon"

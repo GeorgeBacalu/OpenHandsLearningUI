@@ -50,16 +50,16 @@ public class ColorsActivity extends AppCompatActivity {
         colorsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         List<Category> colors = new ArrayList<>();
-        colors.add(new Category(43, "ROŞU", R.drawable.rosu));
-        colors.add(new Category(44, "PORTOCALIU", R.drawable.portocaliu));
-        colors.add(new Category(45, "GALBEN", R.drawable.galben));
-        colors.add(new Category(46, "VERDE", R.drawable.verde));
-        colors.add(new Category(47, "ALBASTRU", R.drawable.albastru));
-        colors.add(new Category(48, "INDIGO", R.drawable.indigo));
-        colors.add(new Category(49, "VIOLET", R.drawable.violet));
-        colors.add(new Category(50, "MARO", R.drawable.maro));
-        colors.add(new Category(51, "ROZ", R.drawable.roz));
-        colors.add(new Category(52, "TURCOAZ", R.drawable.turcoaz));
+        colors.add(new Category(43, getStringResource(R.string.ROSU), R.drawable.rosu));
+        colors.add(new Category(44, getStringResource(R.string.PORTOCALIU), R.drawable.portocaliu));
+        colors.add(new Category(45, getStringResource(R.string.GALBEN), R.drawable.galben));
+        colors.add(new Category(46, getStringResource(R.string.VERDE), R.drawable.verde));
+        colors.add(new Category(47, getStringResource(R.string.ALBASTRU), R.drawable.albastru));
+        colors.add(new Category(48, getStringResource(R.string.INDIGO), R.drawable.indigo));
+        colors.add(new Category(49, getStringResource(R.string.VIOLET), R.drawable.violet));
+        colors.add(new Category(50, getStringResource(R.string.MARO), R.drawable.maro));
+        colors.add(new Category(51, getStringResource(R.string.ROZ), R.drawable.roz));
+        colors.add(new Category(52, getStringResource(R.string.TURCOAZ), R.drawable.turcoaz));
         colorsAdapter.setColors(colors);
 
         searchBarIcon.setOnClickListener(v -> {
@@ -77,6 +77,8 @@ public class ColorsActivity extends AppCompatActivity {
         searchBarInput = findViewById(R.id.searchBarInput);
         searchBarIcon = findViewById(R.id.searchBarIcon);
     }
+
+    String getStringResource(int intResource) { return getResources().getString(intResource); }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

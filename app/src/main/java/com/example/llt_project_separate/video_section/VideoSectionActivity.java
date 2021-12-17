@@ -67,15 +67,15 @@ public class VideoSectionActivity extends AppCompatActivity {
         mainCategoriesRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         List<Category> categories = new ArrayList<>();
-        categories.add(new Category(1001, "ALFABET", R.drawable.alfabet));
-        categories.add(new Category(1002, "NUMERE", R.drawable.numere));
-        categories.add(new Category(1003, "CULORI", R.drawable.culori));
-        categories.add(new Category(1004, "ANIMALE", R.drawable.animale));
-        categories.add(new Category(1005, "OBIECTE", R.drawable.obiecte));
-        categories.add(new Category(1006, "PERSOANE", R.drawable.persoane));
-        categories.add(new Category(1007, "EMOŢII", R.drawable.emotii));
-        categories.add(new Category(1008, "VERBE", R.drawable.verbe));
-        categories.add(new Category(1009, "FORMULE DE ADRESARE", R.drawable.formule_de_adresare));
+        categories.add(new Category(1001, getStringResource(R.string.ALFABET), R.drawable.alfabet));
+        categories.add(new Category(1002, getStringResource(R.string.NUMERE), R.drawable.numere));
+        categories.add(new Category(1003, getStringResource(R.string.CULORI), R.drawable.culori));
+        categories.add(new Category(1004, getStringResource(R.string.ANIMALE), R.drawable.animale));
+        categories.add(new Category(1005, getStringResource(R.string.OBIECTE), R.drawable.obiecte));
+        categories.add(new Category(1006, getStringResource(R.string.PERSOANE), R.drawable.persoane));
+        categories.add(new Category(1007, getStringResource(R.string.EMOTII), R.drawable.emotii));
+        categories.add(new Category(1008, getStringResource(R.string.VERBE), R.drawable.verbe));
+        categories.add(new Category(1009, getStringResource(R.string.FORMULE_DE_ADRESARE), R.drawable.formule_de_adresare));
         mainCategoriesAdapter.setMainCategories(categories);
 
         searchBarIcon.setOnClickListener(v -> {
@@ -95,6 +95,8 @@ public class VideoSectionActivity extends AppCompatActivity {
         searchBarInput = findViewById(R.id.searchBarInput);
         searchBarIcon = findViewById(R.id.searchBarIcon);
     }
+
+    String getStringResource(int intResource) { return getResources().getString(intResource); }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

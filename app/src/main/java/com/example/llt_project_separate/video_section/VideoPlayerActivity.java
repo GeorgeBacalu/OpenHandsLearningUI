@@ -16,6 +16,7 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
+import com.example.llt_project_separate.general.favorites.FavoritesActivity;
 import com.example.llt_project_separate.general.standard_classes.Category;
 import com.example.llt_project_separate.R;
 import com.example.llt_project_separate.general.shared_preferences.Utils;
@@ -103,12 +104,10 @@ public class VideoPlayerActivity extends AppCompatActivity {
                     if(Utils.getInstance(VideoPlayerActivity.this).removedFromFavorite(incomingCategory)) {
                         Toast.makeText(VideoPlayerActivity.this,  chosenToBeRemoved + " eliminat", Toast.LENGTH_SHORT).show();
                         favoriteButton.setText("Adaugă la favorite");
-                        Intent intent = new Intent(VideoPlayerActivity.this, VideoSectionActivity.class);
+                        Intent intent = new Intent(VideoPlayerActivity.this, FavoritesActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         VideoPlayerActivity.this.startActivity(intent);
-                        if (incomingCategory.getId() < 0) throw new NullPointerException("Invalid Selection");
-                        intent.putExtra(CATEGORY_ID, incomingCategory.getId());
-                        intent.putExtra(CATEGORY_NAME, incomingCategory.getName());
-                        intent.putExtra(CATEGORY_IMAGE, incomingCategory.getImageSource());
+                        favoriteCategories.remove(incomingCategory);
                         handleFavorite(incomingCategory);
                     } else {
                         Toast.makeText(VideoPlayerActivity.this, "Ceva nu e bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();

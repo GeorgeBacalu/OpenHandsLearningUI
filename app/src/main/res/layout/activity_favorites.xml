@@ -8,7 +8,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="-10dp"
         android:paddingBottom="10dp">
 
@@ -19,7 +19,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="60dp"
             android:fontFamily="@font/source_sans_pro_bold"
-            android:text="Favorite"
+            android:text="@string/header_title_favorites"
             android:textColor="@color/light_blue"
             android:textAllCaps="true"
             android:textSize="30sp"
@@ -42,9 +42,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@color/white"
-                android:hint="Caută o categorie..."
-                android:paddingLeft="15dp"
-                android:textSize="16sp" />
+                android:hint="@string/input_placeholder_category"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:textSize="16sp"
+                android:autofillHints="@string/input_placeholder_category"
+                android:inputType="text" />
 
             <ImageView
                 android:id="@+id/searchBarIcon"
@@ -52,8 +55,9 @@
                 android:layout_height="35dp"
                 android:layout_gravity="end"
                 android:layout_marginTop="4dp"
-                android:layout_marginRight="7dp"
-                android:src="@drawable/ic_search" />
+                android:layout_marginEnd="7dp"
+                android:src="@drawable/ic_search"
+                android:contentDescription="@string/search_bar_icon" />
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -85,7 +89,8 @@
             app:backgroundTint="@color/white"
             app:borderWidth="2dp"
             app:rippleColor="@color/white"
-            app:tint="@color/white" />
+            app:tint="@color/white"
+            android:contentDescription="@string/home_page_button" />
 
     </RelativeLayout>
 

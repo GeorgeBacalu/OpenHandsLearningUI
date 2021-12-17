@@ -114,7 +114,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:backgroundTint="@color/white"
-        android:src="@drawable/ic_arrow_right"
+        android:src="@drawable/ic_arrow"
         app:backgroundTint="@color/light_blue"
         app:borderWidth="2dp"
         app:layout_constraintBottom_toBottomOf="parent"

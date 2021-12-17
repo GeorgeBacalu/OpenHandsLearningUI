@@ -50,37 +50,37 @@ public class AlphabetActivity extends AppCompatActivity {
         alphabetRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         List<Category> letters = new ArrayList<>();
-        letters.add(new Category(1, "A", R.drawable.caine));
-        letters.add(new Category(2, "Ă", R.drawable.caine));
-        letters.add(new Category(3, "Â", R.drawable.caine));
-        letters.add(new Category(4, "B", R.drawable.caine));
-        letters.add(new Category(5, "C", R.drawable.caine));
-        letters.add(new Category(6, "D", R.drawable.caine));
-        letters.add(new Category(7, "E", R.drawable.caine));
-        letters.add(new Category(8, "F", R.drawable.caine));
-        letters.add(new Category(9, "G", R.drawable.caine));
-        letters.add(new Category(10, "H", R.drawable.caine));
-        letters.add(new Category(11, "I", R.drawable.caine));
-        letters.add(new Category(12, "Î", R.drawable.caine));
-        letters.add(new Category(13, "J", R.drawable.caine));
-        letters.add(new Category(14, "K", R.drawable.caine));
-        letters.add(new Category(15, "L", R.drawable.caine));
-        letters.add(new Category(16, "M", R.drawable.caine));
-        letters.add(new Category(17, "N", R.drawable.caine));
-        letters.add(new Category(18, "O", R.drawable.caine));
-        letters.add(new Category(19, "P", R.drawable.caine));
-        letters.add(new Category(20, "Q", R.drawable.caine));
-        letters.add(new Category(21, "R", R.drawable.caine));
-        letters.add(new Category(22, "S", R.drawable.caine));
-        letters.add(new Category(23, "Ş", R.drawable.caine));
-        letters.add(new Category(24, "T", R.drawable.caine));
-        letters.add(new Category(25, "Ţ", R.drawable.caine));
-        letters.add(new Category(26, "U", R.drawable.caine));
-        letters.add(new Category(27, "V", R.drawable.caine));
-        letters.add(new Category(28, "W", R.drawable.caine));
-        letters.add(new Category(29, "X", R.drawable.caine));
-        letters.add(new Category(30, "Y", R.drawable.caine));
-        letters.add(new Category(31, "Z", R.drawable.caine));
+        letters.add(new Category(1, getStringResource(R.string.A), R.drawable.dactilema_a));
+        // letters.add(new Category(2, getStringResource(R.string.A), R.drawable.dactilema_a));
+        // letters.add(new Category(3, getStringResource(R.string.A), R.drawable.dactilema_a));
+        letters.add(new Category(4, getStringResource(R.string.B), R.drawable.dactilema_b));
+        letters.add(new Category(5, getStringResource(R.string.C), R.drawable.dactilema_c));
+        letters.add(new Category(6, getStringResource(R.string.D), R.drawable.dactilema_d));
+        letters.add(new Category(7, getStringResource(R.string.E), R.drawable.dactilema_e));
+        letters.add(new Category(8, getStringResource(R.string.F), R.drawable.dactilema_f));
+        letters.add(new Category(9, getStringResource(R.string.G), R.drawable.dactilema_g));
+        letters.add(new Category(10, getStringResource(R.string.H), R.drawable.dactilema_h));
+        letters.add(new Category(11, getStringResource(R.string.I), R.drawable.dactilema_i));
+        // letters.add(new Category(12, getStringResource(R.string.I), R.drawable.dactilema_i));
+        letters.add(new Category(13, getStringResource(R.string.J), R.drawable.dactilema_j));
+        letters.add(new Category(14, getStringResource(R.string.K), R.drawable.dactilema_k));
+        letters.add(new Category(15, getStringResource(R.string.L), R.drawable.dactilema_l));
+        letters.add(new Category(16, getStringResource(R.string.M), R.drawable.dactilema_m));
+        letters.add(new Category(17, getStringResource(R.string.N), R.drawable.dactilema_n));
+        letters.add(new Category(18, getStringResource(R.string.O), R.drawable.dactilema_o));
+        letters.add(new Category(19, getStringResource(R.string.P), R.drawable.dactilema_p));
+        letters.add(new Category(20, getStringResource(R.string.Q), R.drawable.dactilema_q));
+        letters.add(new Category(21, getStringResource(R.string.R), R.drawable.dactilema_r));
+        letters.add(new Category(22, getStringResource(R.string.S), R.drawable.dactilema_s));
+        // letters.add(new Category(23, getStringResource(R.string.S), R.drawable.dactilema_s));
+        letters.add(new Category(24, getStringResource(R.string.T), R.drawable.dactilema_t));
+        // letters.add(new Category(25, getStringResource(R.string.T), R.drawable.dactilema_t));
+        letters.add(new Category(26, getStringResource(R.string.U), R.drawable.dactilema_u));
+        letters.add(new Category(27, getStringResource(R.string.V), R.drawable.dactilema_v));
+        letters.add(new Category(28, getStringResource(R.string.W), R.drawable.dactilema_w));
+        letters.add(new Category(29, getStringResource(R.string.X), R.drawable.dactilema_x));
+        letters.add(new Category(30, getStringResource(R.string.Y), R.drawable.dactilema_y));
+        letters.add(new Category(31, getStringResource(R.string.Z), R.drawable.dactilema_z));
         alphabetAdapter.setLetters(letters);
 
         searchBarIcon.setOnClickListener(v -> {
@@ -98,6 +98,8 @@ public class AlphabetActivity extends AppCompatActivity {
         searchBarInput = findViewById(R.id.searchBarInput);
         searchBarIcon = findViewById(R.id.searchBarIcon);
     }
+
+    String getStringResource(int intResource) { return getResources().getString(intResource); }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

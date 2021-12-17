@@ -50,13 +50,13 @@ public class PronounsActivity extends AppCompatActivity {
         pronounsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         List<Category> pronouns = new ArrayList<>();
-        pronouns.add(new Category(144, "EU"));
-        pronouns.add(new Category(145, "TU"));
-        pronouns.add(new Category(146, "EL"));
-        pronouns.add(new Category(147, "EA"));
-        pronouns.add(new Category(148, "NOI"));
-        pronouns.add(new Category(149, "VOI"));
-        pronouns.add(new Category(150, "EI/ELE"));
+        pronouns.add(new Category(144, getStringResource(R.string.EU)));
+        pronouns.add(new Category(145, getStringResource(R.string.TU)));
+        pronouns.add(new Category(146, getStringResource(R.string.EL)));
+        pronouns.add(new Category(147, getStringResource(R.string.EA)));
+        pronouns.add(new Category(148, getStringResource(R.string.NOI)));
+        pronouns.add(new Category(149, getStringResource(R.string.VOI)));
+        pronouns.add(new Category(150, getStringResource(R.string.EI_ELE)));
         pronounsAdapter.setPronouns(pronouns);
 
         searchBarIcon.setOnClickListener(v -> {
@@ -74,6 +74,8 @@ public class PronounsActivity extends AppCompatActivity {
         searchBarInput = findViewById(R.id.searchBarInput);
         searchBarIcon = findViewById(R.id.searchBarIcon);
     }
+
+    String getStringResource(int intResource) { return getResources().getString(intResource); }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

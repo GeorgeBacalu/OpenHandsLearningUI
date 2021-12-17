@@ -19,7 +19,8 @@
             android:id="@+id/categoryImage"
             android:layout_width="150dp"
             android:layout_height="130dp"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/ic_launcher"
+            android:contentDescription="@string/placeholder_image" />
 
         <TextView
             android:id="@+id/categoryName"
@@ -28,7 +29,7 @@
             android:layout_below="@id/categoryImage"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:text="Category Name"
+            android:text="@string/placeholder_text"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="16sp"

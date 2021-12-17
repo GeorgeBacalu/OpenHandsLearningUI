@@ -50,18 +50,18 @@ public class ProductsActivity extends AppCompatActivity {
         productsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         List<Category> products = new ArrayList<>();
-        products.add(new Category(114, "SUC", R.drawable.suc));
-        products.add(new Category(115, "PRĂJITURĂ", R.drawable.prajitura));
-        products.add(new Category(116, "MORCOV", R.drawable.morcov));
-        products.add(new Category(117, "CIOCOLATĂ", R.drawable.ciocolata));
-        products.add(new Category(118, "PÂINE", R.drawable.paine));
-        products.add(new Category(119, "CEAPĂ", R.drawable.ceapa));
-        products.add(new Category(120, "ULEI", R.drawable.ulei));
-        products.add(new Category(121, "CASTRAVEŢI", R.drawable.castraveti));
-        products.add(new Category(122, "CARTOFI", R.drawable.cartofi));
-        products.add(new Category(123, "CAŞCAVAL", R.drawable.cascaval));
-        products.add(new Category(124, "ARDEI", R.drawable.ardei));
-        products.add(new Category(125, "BRÂNZĂ", R.drawable.branza));
+        products.add(new Category(114, getStringResource(R.string.SUC), R.drawable.suc));
+        products.add(new Category(115, getStringResource(R.string.PRAJITURA), R.drawable.prajitura));
+        products.add(new Category(116, getStringResource(R.string.MORCOV), R.drawable.morcov));
+        products.add(new Category(117, getStringResource(R.string.CIOCOLATA), R.drawable.ciocolata));
+        products.add(new Category(118, getStringResource(R.string.PAINE), R.drawable.paine));
+        products.add(new Category(119, getStringResource(R.string.CEAPA), R.drawable.ceapa));
+        products.add(new Category(120, getStringResource(R.string.ULEI), R.drawable.ulei));
+        products.add(new Category(121, getStringResource(R.string.CASTRAVETI), R.drawable.castraveti));
+        products.add(new Category(122, getStringResource(R.string.CARTOFI), R.drawable.cartofi));
+        products.add(new Category(123, getStringResource(R.string.CASCAVAL), R.drawable.cascaval));
+        products.add(new Category(124, getStringResource(R.string.ARDEI), R.drawable.ardei));
+        products.add(new Category(125, getStringResource(R.string.BRANZA), R.drawable.branza));
         productsAdapter.setProducts(products);
 
         searchBarIcon.setOnClickListener(v -> {
@@ -79,6 +79,8 @@ public class ProductsActivity extends AppCompatActivity {
         searchBarInput = findViewById(R.id.searchBarInput);
         searchBarIcon = findViewById(R.id.searchBarIcon);
     }
+
+    String getStringResource(int intResource) { return getResources().getString(intResource); }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

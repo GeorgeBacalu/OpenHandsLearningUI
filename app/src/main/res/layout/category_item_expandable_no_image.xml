@@ -24,7 +24,8 @@
                 android:layout_width="150dp"
                 android:layout_height="130dp"
                 android:layout_centerHorizontal="true"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@mipmap/ic_launcher"
+                android:contentDescription="@string/placeholder_image" />
 
             <TextView
                 android:id="@+id/categoryName"
@@ -33,7 +34,7 @@
                 android:layout_below="@id/categoryImage"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
-                android:text="Category Name"
+                android:text="@string/placeholder_text"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -69,7 +70,7 @@
                 android:gravity="center|bottom|top"
                 android:includeFontPadding="false"
                 android:padding="7dp"
-                android:text="Elimină Favorit"
+                android:text="@string/remove_from_favorites"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="15sp" />

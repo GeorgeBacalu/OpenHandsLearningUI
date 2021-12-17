@@ -79,9 +79,10 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
                     builder.setPositiveButton("DA", (dialog, which) -> {
                         String chosenToBeRemoved = categories.get(position).getName();
                         if (Utils.getInstance(categoryContext).removedFromFavorite(categories.get(position))) {
-                            categories.remove(position);
                             Toast.makeText(categoryContext, chosenToBeRemoved + " eliminat", Toast.LENGTH_SHORT).show();
+                            categories.remove(position);
                             notifyItemRemoved(position);
+                            notifyItemRangeChanged(position, getItemCount());
                         } else {
                             Toast.makeText(categoryContext, "Ceva nu e bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
                         }

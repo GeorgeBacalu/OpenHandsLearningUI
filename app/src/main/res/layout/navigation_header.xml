@@ -4,18 +4,19 @@
     android:layout_height="170dp"
     android:orientation="vertical"
     android:background="@color/main_blue"
-    android:gravity="center|left"
+    android:gravity="center|start"
     android:padding="20dp">
 
     <ImageView
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:src="@drawable/llt_logo"/>
+        android:src="@drawable/llt_logo"
+        android:contentDescription="@string/app_logo" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Let's Learn Together"
+        android:text="@string/project_name"
         android:textSize="23sp"
         android:layout_marginTop="15dp"
         android:textColor="@color/white"

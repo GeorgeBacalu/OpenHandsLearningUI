@@ -50,16 +50,16 @@ public class CityActivity extends AppCompatActivity {
         cityRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         List<Category> cityObjects = new ArrayList<>();
-        cityObjects.add(new Category(126, "ŞCOALĂ", R.drawable.scoala));
-        cityObjects.add(new Category(127, "LEAGĂN", R.drawable.leagan));
-        cityObjects.add(new Category(128, "SPITAL", R.drawable.spital));
-        cityObjects.add(new Category(129, "AUTOBUZ", R.drawable.autobuz));
-        cityObjects.add(new Category(130, "STÂLP", R.drawable.stalp));
-        cityObjects.add(new Category(131, "BLOC", R.drawable.bloc));
-        cityObjects.add(new Category(132, "TAXI", R.drawable.taxi));
-        cityObjects.add(new Category(133, "LOC DE PARCARE", R.drawable.loc_de_parcare));
-        cityObjects.add(new Category(134, "TRAMVAI", R.drawable.tramvai));
-        cityObjects.add(new Category(135, "POLIŢIE", R.drawable.politie));
+        cityObjects.add(new Category(126, getStringResource(R.string.SCOALA), R.drawable.scoala));
+        cityObjects.add(new Category(127, getStringResource(R.string.LEAGAN), R.drawable.leagan));
+        cityObjects.add(new Category(128, getStringResource(R.string.SPITAL), R.drawable.spital));
+        cityObjects.add(new Category(129, getStringResource(R.string.AUTOBUZ), R.drawable.autobuz));
+        cityObjects.add(new Category(130, getStringResource(R.string.STALP), R.drawable.stalp));
+        cityObjects.add(new Category(131, getStringResource(R.string.BLOC), R.drawable.bloc));
+        cityObjects.add(new Category(132, getStringResource(R.string.TAXI), R.drawable.taxi));
+        cityObjects.add(new Category(133, getStringResource(R.string.LOC_DE_PARCARE), R.drawable.loc_de_parcare));
+        cityObjects.add(new Category(134, getStringResource(R.string.TRAMVAI), R.drawable.tramvai));
+        cityObjects.add(new Category(135, getStringResource(R.string.POLITIE), R.drawable.politie));
         cityAdapter.setCityObjects(cityObjects);
 
         searchBarIcon.setOnClickListener(v -> {
@@ -77,6 +77,8 @@ public class CityActivity extends AppCompatActivity {
         searchBarInput = findViewById(R.id.searchBarInput);
         searchBarIcon = findViewById(R.id.searchBarIcon);
     }
+
+    String getStringResource(int intResource) { return getResources().getString(intResource); }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

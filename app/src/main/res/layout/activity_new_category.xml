@@ -17,7 +17,8 @@
         app:layout_constraintHeight_percent=".33"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0" />
+        app:layout_constraintVertical_bias="0"
+        android:contentDescription="@string/category_header_image" />
 
     <ImageView
         android:layout_width="match_parent"
@@ -29,7 +30,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/category_header_overlay" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -40,13 +42,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:layout_constraintVertical_bias=".3" />
+        app:layout_constraintVertical_bias=".3"
+        android:contentDescription="@string/app_logo" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/source_sans_pro_bold"
-        android:text="Adaugă categorie nouă"
+        android:text="@string/header_text"
         android:textColor="@color/white"
         android:textStyle="bold"
         android:textSize="18sp"
@@ -101,7 +104,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/viewPager" />
+            app:layout_constraintTop_toBottomOf="@+id/viewPager"
+            android:contentDescription="@string/home_page_button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

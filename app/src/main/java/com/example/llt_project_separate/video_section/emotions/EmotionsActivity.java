@@ -50,19 +50,19 @@ public class EmotionsActivity extends AppCompatActivity {
         emotionsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         List<Category> emotions = new ArrayList<>();
-        emotions.add(new Category(151, "VESEL", R.drawable.vesel));
-        emotions.add(new Category(152, "SĂTURAT", R.drawable.saturat));
-        emotions.add(new Category(153, "ÎNCRUNTAT", R.drawable.incruntat));
-        emotions.add(new Category(154, "TRIST", R.drawable.trist));
-        emotions.add(new Category(155, "DEZAMĂGIT", R.drawable.dezamagit));
-        emotions.add(new Category(156, "NERVOS", R.drawable.nervos));
-        emotions.add(new Category(157, "FERICIT", R.drawable.fericit));
-        emotions.add(new Category(158, "SUPĂRAT", R.drawable.suparat));
-        emotions.add(new Category(159, "ÎNDURERAT", R.drawable.indurerat));
-        emotions.add(new Category(160, "ENTUZIASMAT", R.drawable.entuziasmat));
-        emotions.add(new Category(161, "ÎNDRĂGOSTIT", R.drawable.indragostit));
-        emotions.add(new Category(162, "LINIŞTIT", R.drawable.linistit));
-        emotions.add(new Category(163, "CUMINTE", R.drawable.cuminte));
+        emotions.add(new Category(151, getStringResource(R.string.VESEL), R.drawable.vesel));
+        emotions.add(new Category(152, getStringResource(R.string.SATURAT), R.drawable.saturat));
+        emotions.add(new Category(153, getStringResource(R.string.INCRUNTAT), R.drawable.incruntat));
+        emotions.add(new Category(154, getStringResource(R.string.TRIST), R.drawable.trist));
+        emotions.add(new Category(155, getStringResource(R.string.DEZAMAGIT), R.drawable.dezamagit));
+        emotions.add(new Category(156, getStringResource(R.string.NERVOS), R.drawable.nervos));
+        emotions.add(new Category(157, getStringResource(R.string.FERICIT), R.drawable.fericit));
+        emotions.add(new Category(158, getStringResource(R.string.SUPARAT), R.drawable.suparat));
+        emotions.add(new Category(159, getStringResource(R.string.INDURERAT), R.drawable.indurerat));
+        emotions.add(new Category(160, getStringResource(R.string.ENTUZIASMAT), R.drawable.entuziasmat));
+        emotions.add(new Category(161, getStringResource(R.string.INDRAGOSTIT), R.drawable.indragostit));
+        emotions.add(new Category(162, getStringResource(R.string.LINISTIT), R.drawable.linistit));
+        emotions.add(new Category(163, getStringResource(R.string.CUMINTE), R.drawable.cuminte));
         emotionsAdapter.setEmotions(emotions);
 
         searchBarIcon.setOnClickListener(v -> {
@@ -80,6 +80,8 @@ public class EmotionsActivity extends AppCompatActivity {
         searchBarInput = findViewById(R.id.searchBarInput);
         searchBarIcon = findViewById(R.id.searchBarIcon);
     }
+
+    String getStringResource(int intResource) { return getResources().getString(intResource); }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

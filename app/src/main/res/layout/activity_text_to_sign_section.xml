@@ -9,7 +9,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="-35dp"
         android:paddingBottom="10dp">
 
@@ -17,18 +17,20 @@
             android:id="@+id/sectionHeaderImage"
             android:layout_width="match_parent"
             android:layout_height="340dp"
+            android:contentDescription="@string/section_header_image"
             android:src="@drawable/text_to_sign_section_header" />
 
         <ImageView
             android:id="@+id/videoSectionHeaderOverlay"
             android:layout_width="match_parent"
             android:layout_height="380dp"
+            android:contentDescription="@string/section_header_overlay"
             android:src="@drawable/overlay_background_final" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
+            android:layout_marginStart="40dp"
             android:layout_marginTop="50dp">
 
             <TextView
@@ -37,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:fontFamily="@font/source_sans_pro_black"
-                android:text="SECŢIUNE TEXT - DACTILEMĂ"
+                android:text="@string/header_title_text_to_sign_section"
                 android:textColor="@color/white"
                 android:textSize="25sp" />
 
@@ -47,37 +49,39 @@
                 android:layout_below="@id/videoSectionHeaderText"
                 android:layout_marginTop="25dp"
                 android:fontFamily="@font/source_sans_pro_regular"
-                android:text="Introdu un text şi lasă-ne pe noi să-l traducem în limbajul semnelor!"
+                android:text="@string/header_subtitle_text_to_sign_section"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
         </RelativeLayout>
 
-
         <EditText
-            android:id="@+id/categoryNameInput"
+            android:id="@+id/textInput"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/videoSectionHeaderOverlay"
             android:layout_centerHorizontal="true"
+            android:autofillHints="@string/input_placeholder_text_to_sign"
             android:background="@drawable/input_design"
-            android:hint="Introduceţi un text..."
+            android:hint="@string/input_placeholder_text_to_sign"
+            android:inputType="text"
             android:paddingVertical="10dp"
-            android:paddingLeft="20dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
             android:textSize="16sp" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/saveButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/categoryNameInput"
+            android:layout_below="@+id/textInput"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
             android:background="@drawable/button_design_2"
             android:gravity="center|bottom|top"
             android:includeFontPadding="false"
             android:paddingHorizontal="30dp"
-            android:text="Confirmă"
+            android:text="@string/confirm_button"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="16sp" />
@@ -92,28 +96,23 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/resultCategoryName"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
+                android:backgroundTint="@color/light_blue"
                 app:cardElevation="10dp">
 
-                <RelativeLayout
+                <TextView
+                    android:id="@+id/categoryNameCardText"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/light_blue">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:text="Category Name"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="23sp"
-                        android:textStyle="bold" />
-
-                </RelativeLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
+                    android:letterSpacing="0.1"
+                    android:text="@string/category_name_placeholder"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -123,6 +122,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/resultCategoryName"
                 android:layout_centerHorizontal="true"
+                android:backgroundTint="@color/white"
                 app:cardElevation="10dp"
                 app:strokeColor="@color/black"
                 app:strokeWidth="1dp">
@@ -138,152 +138,13 @@
                         android:id="@+id/categoryText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/slideBackwards">
+                        android:layout_toEndOf="@id/slideBackwards">
 
-                        <LinearLayout
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/textToSignRecyclerView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:paddingHorizontal="4dp">
-
-                            <ImageView
-                                android:id="@+id/signImage1"
-                                android:layout_width="45dp"
-                                android:layout_height="45dp"
-                                android:src="@drawable/dactilema_c" />
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_marginTop="7dp"
-                                android:background="@android:color/darker_gray" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="7dp"
-                                android:fontFamily="@font/source_sans_pro_bold"
-                                android:text="C"
-                                android:textAlignment="center"
-                                android:textSize="23sp" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:paddingHorizontal="4dp">
-
-                            <ImageView
-                                android:id="@+id/signImage2"
-                                android:layout_width="45dp"
-                                android:layout_height="45dp"
-                                android:src="@drawable/dactilema_c" />
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_marginTop="7dp"
-                                android:background="@android:color/darker_gray" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="7dp"
-                                android:fontFamily="@font/source_sans_pro_bold"
-                                android:text="C"
-                                android:textAlignment="center"
-                                android:textSize="23sp" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:paddingHorizontal="4dp">
-
-                            <ImageView
-                                android:id="@+id/signImage3"
-                                android:layout_width="45dp"
-                                android:layout_height="45dp"
-                                android:src="@drawable/dactilema_c" />
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_marginTop="7dp"
-                                android:background="@android:color/darker_gray" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="7dp"
-                                android:fontFamily="@font/source_sans_pro_bold"
-                                android:text="C"
-                                android:textAlignment="center"
-                                android:textSize="23sp" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:paddingHorizontal="4dp">
-
-                            <ImageView
-                                android:id="@+id/signImage4"
-                                android:layout_width="45dp"
-                                android:layout_height="45dp"
-                                android:src="@drawable/dactilema_c" />
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_marginTop="7dp"
-                                android:background="@android:color/darker_gray" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="7dp"
-                                android:fontFamily="@font/source_sans_pro_bold"
-                                android:text="C"
-                                android:textAlignment="center"
-                                android:textSize="23sp" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:paddingHorizontal="4dp">
-
-                            <ImageView
-                                android:id="@+id/signImage5"
-                                android:layout_width="45dp"
-                                android:layout_height="45dp"
-                                android:src="@drawable/dactilema_c" />
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_marginTop="7dp"
-                                android:background="@android:color/darker_gray" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="7dp"
-                                android:fontFamily="@font/source_sans_pro_bold"
-                                android:text="C"
-                                android:textAlignment="center"
-                                android:textSize="23sp" />
-
-                        </LinearLayout>
+                            android:layout_marginStart="7dp" />
 
                     </LinearLayout>
 
@@ -293,6 +154,7 @@
                         android:layout_height="50dp"
                         android:layout_marginTop="20dp"
                         android:backgroundTint="@color/light_blue"
+                        android:contentDescription="@string/backward_slider_button"
                         android:src="@drawable/ic_arrow_left"
                         app:backgroundTint="@color/white"
                         app:borderWidth="1dp"
@@ -306,6 +168,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_marginTop="20dp"
                         android:backgroundTint="@color/light_blue"
+                        android:contentDescription="@string/forward_slider_button"
                         android:src="@drawable/ic_arrow_right"
                         app:backgroundTint="@color/white"
                         app:borderWidth="1dp"
@@ -322,10 +185,11 @@
             android:id="@+id/toHomePageFabButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/outputContent"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="25dp"
-            android:backgroundTint="@color/dark_blue"
-            android:layout_below="@+id/outputContent"
+            android:backgroundTint="@color/light_blue"
+            android:contentDescription="@string/home_page_button"
             android:src="@drawable/ic_home"
             app:backgroundTint="@color/white"
             app:borderWidth="2dp"
@@ -333,112 +197,5 @@
             app:tint="@color/white" />
 
     </RelativeLayout>
-
-    <!--    <ImageView-->
-    <!--        android:id="@+id/imageView"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="0dp"-->
-    <!--        android:scaleType="centerCrop"-->
-    <!--        android:src="@drawable/text_to_sign_section_header"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintHeight_percent=".33"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent"-->
-    <!--        app:layout_constraintVertical_bias="0" />-->
-
-    <!--    <ImageView-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="0dp"-->
-    <!--        android:src="@drawable/overlay_background"-->
-    <!--        app:layout_constraintHeight_percent=".40"-->
-    <!--        android:scaleType="centerCrop"-->
-    <!--        app:layout_constraintVertical_bias="0"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-    <!--    <RelativeLayout-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"-->
-    <!--        app:layout_constraintEnd_toEndOf="@+id/imageView"-->
-    <!--        app:layout_constraintHorizontal_bias="0.2"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="@+id/imageView"-->
-    <!--        app:layout_constraintWidth_percent=".8">-->
-
-    <!--        <TextView-->
-    <!--            android:id="@+id/videoSectionHeaderText"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_marginTop="40dp"-->
-    <!--            android:fontFamily="@font/source_sans_pro_black"-->
-    <!--            android:text="SECŢIUNE TEXT-DACTILEMĂ"-->
-    <!--            android:textColor="@color/white"-->
-    <!--            android:textSize="25sp" />-->
-
-    <!--        <TextView-->
-    <!--            android:layout_width="270dp"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_below="@id/videoSectionHeaderText"-->
-    <!--            android:layout_marginTop="25dp"-->
-    <!--            android:fontFamily="@font/source_sans_pro_regular"-->
-    <!--            android:text="Introdu un text şî lasă-ne pe noi să-l traducem în limbajul semnelor!"-->
-    <!--            android:textColor="@color/white"-->
-    <!--            android:textSize="18sp" />-->
-
-    <!--    </RelativeLayout>-->
-
-    <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-    <!--        android:id="@+id/constraintLayout"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="0dp"-->
-    <!--        android:background="@drawable/curved_background"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintHeight_percent=".7"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent"-->
-    <!--        app:layout_constraintVertical_bias="1">-->
-
-    <!--        <androidx.viewpager.widget.ViewPager-->
-    <!--            android:id="@+id/viewPager"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="0dp"-->
-    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--            app:layout_constraintEnd_toEndOf="parent"-->
-    <!--            app:layout_constraintHeight_percent=".7"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintTop_toBottomOf="@+id/tabLayout"-->
-    <!--            app:layout_constraintVertical_bias="0" />-->
-
-    <!--        <com.google.android.material.tabs.TabLayout-->
-    <!--            android:id="@+id/tabLayout"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--            app:layout_constraintEnd_toEndOf="parent"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintTop_toTopOf="parent"-->
-    <!--            app:layout_constraintVertical_bias="0.05" />-->
-
-    <!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-    <!--            android:id="@+id/toHomePageButton"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:backgroundTint="@color/dark_blue"-->
-    <!--            android:src="@drawable/ic_home"-->
-    <!--            app:backgroundTint="@color/white"-->
-    <!--            app:borderWidth="2dp"-->
-    <!--            app:rippleColor="@color/white"-->
-    <!--            app:tint="@color/white"-->
-    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--            app:layout_constraintEnd_toEndOf="parent"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintTop_toBottomOf="@+id/viewPager" />-->
-
-    <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
 </ScrollView>

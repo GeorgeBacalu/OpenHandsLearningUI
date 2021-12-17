@@ -1,9 +1,12 @@
 <resources>
     <string name="app_name">LLT_PROJECT</string>
-    <string name="activity_video_section">Secţiune Video</string>
-    <string name="activity_text_to_sign_section">Secţiune Text to Sign</string>
-    <string name="activity_voice_to_sign_section">Secţiune Voice to Sign</string>
-    <string name="activity_expressions_section">Secţiune Expresii</string>
+
+    // all activities
+
+    <string name="activity_video_section">Sectiune Video</string>
+    <string name="activity_text_to_sign_section">Sectiune Text - Dactilema</string>
+    <string name="activity_voice_to_sign_section">Sectiune Voce - Dactilema</string>
+    <string name="activity_expressions_section">Sectiune Expresii</string>
 
     <string name="activity_alphabet">Alfabet</string>
     <string name="activity_numbers">Numere</string>
@@ -11,16 +14,16 @@
     <string name="activity_animals">Animale</string>
     <string name="activity_objects">Obiecte</string>
     <string name="activity_people">Persoane</string>
-    <string name="activity_emotions">Emoţii</string>
+    <string name="activity_emotions">Emotii</string>
     <string name="activity_verbs">Verbe</string>
     <string name="activity_forms_of_address">Formule de adresare</string>
 
     <string name="activity_household_animals">Animale domestice</string>
-    <string name="activity_wild_animals">Animale sălbatice</string>
-    <string name="activity_home">Acasă</string>
-    <string name="activity_outside">Afară</string>
-    <string name="activity_class">Clasă</string>
-    <string name="activity_city">Oraş</string>
+    <string name="activity_wild_animals">Animale salbatice</string>
+    <string name="activity_home">Acasa</string>
+    <string name="activity_outside">Afara</string>
+    <string name="activity_class">Clasa</string>
+    <string name="activity_city">Oras</string>
     <string name="activity_shop">Magazin</string>
     <string name="activity_money">Bani</string>
     <string name="activity_products">Produse</string>
@@ -31,12 +34,401 @@
     <string name="activity_all_categories">Toate Categoriile</string>
     <string name="activity_category">Detalii Categorie</string>
     <string name="activity_favorite_categories">Categorii Favorite</string>
-    <string name="activity_new_category">Categorie Nouă</string>
+    <string name="activity_new_category">Categorie Noua</string>
+
+    // main activity
+
+    <string name="video_section">Sectiune Video</string>
+    <string name="text_to_sign_section">Sectiune Text - Dactilema</string>
+    <string name="voice_to_sign_section">Sectiune Voce - Dactilema</string>
+    <string name="expressions_section">Sectiune Expresii</string>
+
+    // navigation drawer
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="header_title_text">SECŢIUNE VIDEO</string>
-    <string name="header_subtitle_text">Selectează categoria dorită.</string>
-    <string name="favorite_button_text">Vizualizează favorite</string>
-    <string name="search_bar_input_placeholder">Caută o categorie...</string>
+
+    // video section
+
+    // header titles sections
+
+    <string name="header_title_video_section">SECTIUNE VIDEO</string>
+    <string name="header_title_text_to_sign_section">SECTIUNE TEXT - DACTILEMA</string>
+    <string name="header_title_voice_to_sign_section">SECTIUNE VOCE - DACTILEMA</string>
+    <string name="header_title_expressions_section">SECTIUNE EXPRESII</string>
+
+    <string name="header_subtitle_video_section">Alege categoria dorita si vizioneaza un scurt videoclip cu traducerea acesteia in limbajul semnelor.</string>
+    <string name="header_subtitle_text_to_sign_section">Introdu un text si lasa-ne pe noi sa-l traducem in limbajul semnelor!</string>
+    <string name="header_subtitle_voice_to_sign_section">Introdu un mesaj vocal si lasa-ne pe noi sa-l traducem in limbajul semnelor!</string>
+    <string name="header_subtitle_expressions_section">Te ajutam sa traduci expresii in limbajul semnelor.</string>
+
+    // header title main categories
+
+    <string name="header_title_alphabet">ALFABET</string>
+    <string name="header_title_animals">ANIMALE</string>
+    <string name="header_title_city">ORAS</string>
+    <string name="header_title_class">CLASA</string>
+    <string name="header_title_colors">CULORI</string>
+    <string name="header_title_emotions">EMOTII</string>
+    <string name="header_title_family_members">MEMBRII FAMILIEI</string>
+    <string name="header_title_forms_of_address">FORMULE DE ADRESARE</string>
+    <string name="header_title_household_animals">ANIMALE DOMESTICE</string>
+    <string name="header_title_home">ACASA</string>
+    <string name="header_title_money">BANI</string>
+    <string name="header_title_numbers">NUMERE</string>
+    <string name="header_title_objects">OBIECTE</string>
+    <string name="header_title_outside">AFARA</string>
+    <string name="header_title_people">PERSOANE</string>
+    <string name="header_title_products">PRODUSE</string>
+    <string name="header_title_pronouns">PRONUME</string>
+    <string name="header_title_shop">MAGAZIN</string>
+    <string name="header_title_verbs">VERBE</string>
+    <string name="header_title_wild_animals">ANIMALE SALBATICE</string>
+
+    <string name="section_header_image">Section Header Image</string>
+    <string name="section_header_overlay">Section Header Overlay</string>
+    <string name="header_subtitle_category">Selecteaza categoria dorita.</string>
+    <string name="header_subtitle_subcategory">Selecteaza subcategoria dorita.</string>
+    <string name="input_placeholder_category">Cauta o categorie…</string>
+    <string name="input_placeholder_subcategory">Cauta o subcategorie…</string>
+    <string name="search_bar_icon">Searchbar Icon</string>
+    <string name="see_favorites">Vizualizeaza favorite</string>
+    <string name="home_page_button">To Home Page Button</string>
+
+    <string name="placeholder_image">Placeholder Image</string>
+    <string name="placeholder_text">Category name</string>
+    <string name="placeholder_icon">Placeholder Icon</string>
+    <string name="add_to_favorites">Adauga la favorite</string>
+    <string name="remove_from_favorites">Elimina Favorit</string>
+
+    <string name="category_header_image">Category Header Image</string>
+    <string name="category_header_overlay">Category Header Overlay</string>
+
+    // favorites activity
+
+    <string name="header_title_favorites">Favorite</string>
+
+    // introductory activity starting page
+
+    <string name="background_image">Background Image</string>
+    <string name="background_overlay">Background Overlay</string>
+
+    // main activity
+
+    <string name="app_logo">App Logo</string>
+    <string name="welcome_text">Bine ai venit!</string>
+    <string name="project_name">Let\'s Learn Together</string>
+    <string name="project_description">Impreuna facilitam procesul de invatare al copiilor cu deficiente de auz.</string>
+
+    <string name="rectangle">rectangle</string>
+
+    // video section activity
+
+    <string name="header_text">Adauga categorie noua</string>
+
+    // text-to-sign activity
+
+    <string name="input_placeholder_text_to_sign">Introduceti un text…</string>
+    <string name="confirm_button">Confirma</string>
+    <string name="category_name_placeholder">Category Name</string>
+    <string name="sign">Sign</string>
+    <string name="letter">a</string>
+    <string name="backward_slider_button">Backward Slider Button</string>
+    <string name="forward_slider_button">Forward Slider Button</string>
+
+    // new category form activity
+
+    <string name="add_new_category">Add New Category</string>
+    <string name="category_name">Introduceti numele categoriei</string>
+    <string name="load_image">Incarcati o imagine</string>
+    <string name="load_video">Incarcati un videoclip</string>
+    <string name="save_category">Salveaza categoria</string>
+    <string name="save_subcategory">Salveaza subcategoria</string>
+
+    // all categories strings
+
+    // alphabet
+
+    <string name="A">A</string>
+    <string name="B">B</string>
+    <string name="C">C</string>
+    <string name="D">D</string>
+    <string name="E">E</string>
+    <string name="F">F</string>
+    <string name="G">G</string>
+    <string name="H">H</string>
+    <string name="I">I</string>
+    <string name="J">J</string>
+    <string name="K">K</string>
+    <string name="L">L</string>
+    <string name="M">M</string>
+    <string name="N">N</string>
+    <string name="O">O</string>
+    <string name="P">P</string>
+    <string name="Q">Q</string>
+    <string name="R">R</string>
+    <string name="S">S</string>
+    <string name="T">T</string>
+    <string name="U">U</string>
+    <string name="V">V</string>
+    <string name="W">W</string>
+    <string name="X">X</string>
+    <string name="Y">Y</string>
+    <string name="Z">Z</string>
+
+    // numbers
+
+    <string name="ZERO">ZERO</string>
+    <string name="UNU">UNU</string>
+    <string name="DOI">DOI</string>
+    <string name="TREI">TREI</string>
+    <string name="PATRU">PATRU</string>
+    <string name="CINCI">CINCI</string>
+    <string name="SASE">SASE</string>
+    <string name="SAPTE">SAPTE</string>
+    <string name="OPT">OPT</string>
+    <string name="NOUA">NOUA</string>
+    <string name="ZECE">ZECE</string>
+
+    // colors
+
+    <string name="ROSU">ROSU</string>
+    <string name="PORTOCALIU">PORTOCALIU</string>
+    <string name="GALBEN">GALBEN</string>
+    <string name="VERDE">VERDE</string>
+    <string name="ALBASTRU">ALBASTRU</string>
+    <string name="INDIGO">INDIGO</string>
+    <string name="VIOLET">VIOLET</string>
+    <string name="MARO">MARO</string>
+    <string name="ROZ">ROZ</string>
+    <string name="TURCOAZ">TURCOAZ</string>
+
+    // animals
+
+    // // household
+
+    <string name="CAINE">CAINE</string>
+    <string name="PISICA">PISICA</string>
+    <string name="PORC">PORC</string>
+    <string name="CAPRA">CAPRA</string>
+    <string name="GAINA">GAINA</string>
+    <string name="IEPURE">IEPURE</string>
+    <string name="PUI">PUI</string>
+    <string name="VACA">VACA</string>
+    <string name="CAL">CAL</string>
+    <string name="COCOS">COCOS</string>
+    <string name="GASCA">GASCA</string>
+    <string name="OAIE">OAIE</string>
+    <string name="RATA">RATA</string>
+
+    // // wild
+
+    <string name="LUP">LUP</string>
+    <string name="VULPE">VULPE</string>
+    <string name="ARICI">ARICI</string>
+    <string name="LEU">LEU</string>
+    <string name="VEVERITA">VEVERITA</string>
+    <string name="ZIMBRU">ZIMBRU</string>
+    <string name="URS_POLAR">URS POLAR</string>
+    <string name="ELEFANT">ELEFANT</string>
+    <string name="CROCODIL">CROCODIL</string>
+
+    // objects
+
+    // // home
+
+    <string name="PAT">PAT</string>
+    <string name="TELEVIZOR">TELEVIZOR</string>
+    <string name="CALCULATOR">CALCULATOR</string>
+    <string name="DULAP">DULAP</string>
+    <string name="LINGURA">LINGURA</string>
+    <string name="SCAUN">SCAUN</string>
+    <string name="MASA">MASA</string>
+    <string name="FRIGIDER">FRIGIDER</string>
+    <string name="CUTIT">CUTIT</string>
+
+    // // outside
+
+    <string name="TOPOR">TOPOR</string>
+    <string name="POARTA">POARTA</string>
+    <string name="GEAM">GEAM</string>
+    <string name="FURCA">FURCA</string>
+    <string name="COPAC">COPAC</string>
+    <string name="GARD">GARD</string>
+    <string name="COASA">COASA</string>
+    <string name="BEC">BEC</string>
+    <string name="LOPATA">LOPATA</string>
+    <string name="USA">USA</string>
+
+    // // class
+
+    <string name="MANUAL">MANUAL</string>
+    <string name="PIX">PIX</string>
+    <string name="DICTIONAR">DICTIONAR</string>
+    <string name="CARTE">CARTE</string>
+    <string name="BANCA">BANCA</string>
+    <string name="TEMA">TEMA</string>
+    <string name="VIDEO_PROIECTOR">VIDEO PROIECTOR</string>
+    <string name="TEST">TEST</string>
+    <string name="STILOU">STILOU</string>
+    <string name="TEST_GRILA">TEST GRILA</string>
+    <string name="RADIERA">RADIERA</string>
+    <string name="CRETA">CRETA</string>
+    <string name="CATEDRA">CATEDRA</string>
+    <string name="CREION">CREION</string>
+    <string name="CAIET">CAIET</string>
+    
+    // // shop
+    
+    // // // money
+    
+    <string name="EURO">EURO</string>
+    <string name="DOLAR">DOLAR</string>
+    <string name="MONEDA">MONEDA</string>
+    <string name="BANCNOTA">BANCNOTA</string>
+    
+    // // // products
+    
+    <string name="SUC">SUC</string>
+    <string name="PRAJITURA">PRAJITURA</string>
+    <string name="MORCOV">MORCOV</string>
+    <string name="CIOCOLATA">CIOCOLATA</string>
+    <string name="PAINE">PAINE</string>
+    <string name="CEAPA">CEAPA</string>
+    <string name="ULEI">ULEI</string>
+    <string name="CASTRAVETI">CASTRAVETI</string>
+    <string name="CARTOFI">CARTOFI</string>
+    <string name="CASCAVAL">CASCAVAL</string>
+    <string name="ARDEI">ARDEI</string>
+    <string name="BRANZA">BRANZA</string>
+
+    // // city
+
+    <string name="SCOALA">SCOALA</string>
+    <string name="LEAGAN">LEAGAN</string>
+    <string name="SPITAL">SPITAL</string>
+    <string name="AUTOBUZ">AUTOBUZ</string>
+    <string name="STALP">STALP</string>
+    <string name="BLOC">BLOC</string>
+    <string name="TAXI">TAXI</string>
+    <string name="LOC_DE_PARCARE">LOC DE PARCARE</string>
+    <string name="TRAMVAI">TRAMVAI</string>
+    <string name="POLITIE">POLITIE</string>
+
+    // people
+
+    // // family members
+
+    <string name="TATA">TATA</string>
+    <string name="MAMA">MAMA</string>
+    <string name="FRATE">FRATE</string>
+    <string name="SORA">SORA</string>
+    <string name="UNCHI">UNCHI</string>
+    <string name="MATUSA">MATUSA</string>
+    <string name="BUNIC_BUNICA">BUNIC/BUNICA</string>
+    <string name="NAS_NASA">NAS/NASA</string>
+
+    // // pronouns
+
+    <string name="EU">EU</string>
+    <string name="TU">TU</string>
+    <string name="EL">EL</string>
+    <string name="EA">EA</string>
+    <string name="NOI">NOI</string>
+    <string name="VOI">VOI</string>
+    <string name="EI_ELE">EI/ELE</string>
+
+    // emotions
+
+    <string name="VESEL">VESEL</string>
+    <string name="SATURAT">SATURAT</string>
+    <string name="INCRUNTAT">INCRUNTAT</string>
+    <string name="TRIST">TRIST</string>
+    <string name="DEZAMAGIT">DEZAMAGIT</string>
+    <string name="NERVOS">NERVOS</string>
+    <string name="FERICIT">FERICIT</string>
+    <string name="SUPARAT">SUPARAT</string>
+    <string name="INDURERAT">INDURERAT</string>
+    <string name="ENTUZIASMAT">ENTUZIASMAT</string>
+    <string name="INDRAGOSTIT">INDRAGOSTIT</string>
+    <string name="LINISTIT">LINISTIT</string>
+    <string name="CUMINTE">CUMINTE</string>
+
+    // verbs
+
+    <string name="CONSTRUI">CONSTRUI</string>
+    <string name="SCRIE">SCRIE</string>
+    <string name="TRAGE">TRAGE</string>
+    <string name="CITI">CITI</string>
+    <string name="STA_JOS">STA JOS</string>
+    <string name="LASA">LASA</string>
+    <string name="APASA">APASA</string>
+    <string name="PUNE">PUNE</string>
+    <string name="STRANGE">STRANGE</string>
+    <string name="SCOATE">SCOATE</string>
+    <string name="SPUNE">SPUNE</string>
+    <string name="SE_UITA">SE UITA</string>
+
+    // forms of address
+
+    <string name="VA_ROG">VA ROG</string>
+    <string name="MULTUMESC">MULTUMESC</string>
+    <string name="SCUZE">SCUZE</string>
+    <string name="HAI">HAI</string>
+
+    // subcategories that hold other categories
+
+    <string name="DOMESTICE">DOMESTICE</string>
+    <string name="SALBATICE">SALBATICE</string>
+    <string name="ACASA">ACASA</string>
+    <string name="AFARA">AFARA</string>
+    <string name="CLASA">CLASA</string>
+    <string name="MAGAZIN">MAGAZIN</string>
+    <string name="ORAS">ORAS</string>
+    <string name="BANI">BANI</string>
+    <string name="PRODUSE">PRODUSE</string>
+    <string name="MEMBRII_FAMILIEI">MEMBRII FAMILIEI</string>
+    <string name="PRONUME">PRONUME</string>
+
+    // main categories
+
+    <string name="ALFABET">ALFABET</string>
+    <string name="NUMERE">NUMERE</string>
+    <string name="CULORI">CULORI</string>
+    <string name="ANIMALE">ANIMALE</string>
+    <string name="OBIECTE">OBIECTE</string>
+    <string name="PERSOANE">PERSOANE</string>
+    <string name="EMOTII">EMOTII</string>
+    <string name="VERBE">VERBE</string>
+    <string name="FORMULE_DE_ADRESARE">FORMULE DE ADRESARE</string>
+
+    // text to sign section
+
+    <string name="a">a</string>
+    <string name="b">b</string>
+    <string name="c">c</string>
+    <string name="d">d</string>
+    <string name="e">e</string>
+    <string name="f">f</string>
+    <string name="g">g</string>
+    <string name="h">h</string>
+    <string name="i">i</string>
+    <string name="j">j</string>
+    <string name="k">k</string>
+    <string name="l">l</string>
+    <string name="m">m</string>
+    <string name="n">n</string>
+    <string name="o">o</string>
+    <string name="p">p</string>
+    <string name="q">q</string>
+    <string name="r">r</string>
+    <string name="s">s</string>
+    <string name="t">t</string>
+    <string name="u">u</string>
+    <string name="v">v</string>
+    <string name="w">w</string>
+    <string name="x">x</string>
+    <string name="y">y</string>
+    <string name="z">z</string>
+
 </resources>

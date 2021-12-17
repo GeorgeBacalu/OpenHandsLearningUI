@@ -22,9 +22,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@color/white"
-            android:hint="Caută o categorie..."
-            android:paddingLeft="15dp"
-            android:textSize="16sp" />
+            android:hint="@string/input_placeholder_category"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:textSize="16sp"
+            android:autofillHints="@string/input_placeholder_category"
+            android:inputType="text" />
 
         <ImageView
             android:id="@+id/searchBarIcon"
@@ -32,8 +35,9 @@
             android:layout_height="35dp"
             android:layout_gravity="end"
             android:layout_marginTop="4dp"
-            android:layout_marginRight="7dp"
-            android:src="@drawable/ic_search" />
+            android:layout_marginEnd="7dp"
+            android:src="@drawable/ic_search"
+            android:contentDescription="@string/search_bar_icon" />
 
     </com.google.android.material.card.MaterialCardView>
 

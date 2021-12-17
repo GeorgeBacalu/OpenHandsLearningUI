@@ -50,15 +50,15 @@ public class HomeActivity extends AppCompatActivity {
         homeRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
 
         List<Category> homeObjects = new ArrayList<>();
-        homeObjects.add(new Category(75, "PAT", R.drawable.pat));
-        homeObjects.add(new Category(76, "TELEVIZOR", R.drawable.televizor));
-        homeObjects.add(new Category(77, "CALCULATOR", R.drawable.calculator));
-        homeObjects.add(new Category(78, "DULAP", R.drawable.dulap));
-        homeObjects.add(new Category(79, "LINGURĂ", R.drawable.lingura));
-        homeObjects.add(new Category(80, "SCAUN", R.drawable.scaun));
-        homeObjects.add(new Category(81, "MASĂ", R.drawable.masa));
-        homeObjects.add(new Category(82, "FRIGIDER", R.drawable.frigider));
-        homeObjects.add(new Category(83, "CUŢIT", R.drawable.cutit));
+        homeObjects.add(new Category(75, getStringResource(R.string.PAT), R.drawable.pat));
+        homeObjects.add(new Category(76, getStringResource(R.string.TELEVIZOR), R.drawable.televizor));
+        homeObjects.add(new Category(77, getStringResource(R.string.CALCULATOR), R.drawable.calculator));
+        homeObjects.add(new Category(78, getStringResource(R.string.DULAP), R.drawable.dulap));
+        homeObjects.add(new Category(79, getStringResource(R.string.LINGURA), R.drawable.lingura));
+        homeObjects.add(new Category(80, getStringResource(R.string.SCAUN), R.drawable.scaun));
+        homeObjects.add(new Category(81, getStringResource(R.string.MASA), R.drawable.masa));
+        homeObjects.add(new Category(82, getStringResource(R.string.FRIGIDER), R.drawable.frigider));
+        homeObjects.add(new Category(83, getStringResource(R.string.CUTIT), R.drawable.cutit));
         homeAdapter.setHomeObjects(homeObjects);
 
         searchBarIcon.setOnClickListener(v -> {
@@ -76,6 +76,8 @@ public class HomeActivity extends AppCompatActivity {
         searchBarInput = findViewById(R.id.searchBarInput);
         searchBarIcon = findViewById(R.id.searchBarIcon);
     }
+
+    String getStringResource(int intResource) { return getResources().getString(intResource); }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

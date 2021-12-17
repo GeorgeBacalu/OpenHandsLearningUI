@@ -50,11 +50,11 @@ public class MoneyActivity extends AppCompatActivity {
         moneyRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         List<Category> moneyUnits = new ArrayList<>();
-        moneyUnits.add(new Category(109, "EURO", R.drawable.euro));
-        moneyUnits.add(new Category(110, "DOLAR", R.drawable.dolar));
-        moneyUnits.add(new Category(111, "MONEDĂ", R.drawable.moneda));
-        moneyUnits.add(new Category(112, "BANI", R.drawable.bani));
-        moneyUnits.add(new Category(113, "BANCNOTĂ", R.drawable.bancnota));
+        moneyUnits.add(new Category(109, getStringResource(R.string.EURO), R.drawable.euro));
+        moneyUnits.add(new Category(110, getStringResource(R.string.DOLAR), R.drawable.dolar));
+        moneyUnits.add(new Category(111, getStringResource(R.string.MONEDA), R.drawable.moneda));
+        moneyUnits.add(new Category(112, getStringResource(R.string.BANI), R.drawable.bani));
+        moneyUnits.add(new Category(113, getStringResource(R.string.BANCNOTA), R.drawable.bancnota));
         moneyAdapter.setMoneyUnits(moneyUnits);
 
         searchBarIcon.setOnClickListener(v -> {
@@ -72,6 +72,8 @@ public class MoneyActivity extends AppCompatActivity {
         searchBarInput = findViewById(R.id.searchBarInput);
         searchBarIcon = findViewById(R.id.searchBarIcon);
     }
+
+    String getStringResource(int intResource) { return getResources().getString(intResource); }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

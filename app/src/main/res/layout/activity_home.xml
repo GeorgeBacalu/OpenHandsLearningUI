@@ -8,7 +8,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="-22dp"
         android:paddingBottom="10dp">
 
@@ -16,18 +16,20 @@
             android:id="@+id/sectionHeaderImage"
             android:layout_width="match_parent"
             android:layout_height="340dp"
-            android:src="@drawable/acasa" />
+            android:src="@drawable/acasa"
+            android:contentDescription="@string/category_header_image" />
 
         <ImageView
             android:id="@+id/animalsSectionHeaderOverlay"
             android:layout_width="match_parent"
             android:layout_height="340dp"
-            android:src="@drawable/overlay_background_final" />
+            android:src="@drawable/overlay_background_final"
+            android:contentDescription="@string/category_header_overlay" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
+            android:layout_marginStart="50dp"
             android:layout_marginTop="20dp">
 
 <!--            <ImageView-->
@@ -42,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:fontFamily="@font/source_sans_pro_black"
-                android:text="ACASĂ"
+                android:text="@string/header_title_home"
                 android:textColor="@color/white"
                 android:textSize="25sp" />
 
@@ -52,7 +54,7 @@
                 android:layout_below="@id/animalsSectionHeaderText"
                 android:layout_marginTop="25dp"
                 android:fontFamily="@font/source_sans_pro_regular"
-                android:text="Selectează subcategoria dorită."
+                android:text="@string/header_subtitle_subcategory"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
@@ -75,9 +77,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@color/white"
-                android:hint="Caută o subcategorie..."
-                android:paddingLeft="15dp"
-                android:textSize="16sp" />
+                android:hint="@string/input_placeholder_subcategory"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:textSize="16sp"
+                android:autofillHints="@string/input_placeholder_subcategory"
+                android:inputType="text" />
 
             <ImageView
                 android:id="@+id/searchBarIcon"
@@ -85,8 +90,9 @@
                 android:layout_height="35dp"
                 android:layout_gravity="end"
                 android:layout_marginTop="4dp"
-                android:layout_marginRight="7dp"
-                android:src="@drawable/ic_search" />
+                android:layout_marginEnd="7dp"
+                android:src="@drawable/ic_search"
+                android:contentDescription="@string/search_bar_icon" />
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -116,7 +122,8 @@
             app:backgroundTint="@color/white"
             app:borderWidth="2dp"
             app:rippleColor="@color/white"
-            app:tint="@color/white" />
+            app:tint="@color/white"
+            android:contentDescription="@string/home_page_button" />
 
     </RelativeLayout>
 

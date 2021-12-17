@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="140dp"
-            android:text="Category Name"
+            android:text="@string/placeholder_text"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="16sp"
@@ -39,7 +39,7 @@
             android:gravity="center|bottom|top"
             android:includeFontPadding="false"
             android:padding="11dp"
-            android:text="Adaugă la favorite"
+            android:text="@string/add_to_favorites"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="11sp" />

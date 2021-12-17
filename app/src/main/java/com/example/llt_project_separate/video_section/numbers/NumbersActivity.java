@@ -50,17 +50,17 @@ public class NumbersActivity extends AppCompatActivity {
         numbersRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         List<Category> numbers = new ArrayList<>();
-        numbers.add(new Category(32, "ZERO", R.drawable.zero));
-        numbers.add(new Category(33, "UNU", R.drawable.unu));
-        numbers.add(new Category(34, "DOI", R.drawable.doi));
-        numbers.add(new Category(35, "TREI", R.drawable.trei));
-        numbers.add(new Category(36, "PATRU", R.drawable.patru));
-        numbers.add(new Category(37, "CINCI", R.drawable.cinci));
-        numbers.add(new Category(38, "ŞASE", R.drawable.sase));
-        numbers.add(new Category(39, "ŞAPTE", R.drawable.sapte));
-        numbers.add(new Category(40, "OPT", R.drawable.opt));
-        numbers.add(new Category(41, "NOUĂ", R.drawable.noua));
-        numbers.add(new Category(42, "ZECE", R.drawable.zece));
+        numbers.add(new Category(32, getStringResource(R.string.ZERO), R.drawable.zero));
+        numbers.add(new Category(33, getStringResource(R.string.UNU), R.drawable.unu));
+        numbers.add(new Category(34, getStringResource(R.string.DOI), R.drawable.doi));
+        numbers.add(new Category(35, getStringResource(R.string.TREI), R.drawable.trei));
+        numbers.add(new Category(36, getStringResource(R.string.PATRU), R.drawable.patru));
+        numbers.add(new Category(37, getStringResource(R.string.CINCI), R.drawable.cinci));
+        numbers.add(new Category(38, getStringResource(R.string.SASE), R.drawable.sase));
+        numbers.add(new Category(39, getStringResource(R.string.SAPTE), R.drawable.sapte));
+        numbers.add(new Category(40, getStringResource(R.string.OPT), R.drawable.opt));
+        numbers.add(new Category(41, getStringResource(R.string.NOUA), R.drawable.noua));
+        numbers.add(new Category(42, getStringResource(R.string.ZECE), R.drawable.zece));
         numbersAdapter.setNumbers(numbers);
 
         searchBarIcon.setOnClickListener(v -> {
@@ -78,6 +78,8 @@ public class NumbersActivity extends AppCompatActivity {
         searchBarInput = findViewById(R.id.searchBarInput);
         searchBarIcon = findViewById(R.id.searchBarIcon);
     }
+
+    String getStringResource(int intResource) { return getResources().getString(intResource); }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

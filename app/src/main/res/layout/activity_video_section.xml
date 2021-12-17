@@ -8,20 +8,22 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="-5dp">
 
         <ImageView
             android:id="@+id/videoSectionHeaderImage"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:src="@drawable/video_section_header" />
+            android:src="@drawable/video_section_header"
+            android:contentDescription="@string/section_header_image" />
 
         <ImageView
             android:id="@+id/videoSectionHeaderOverlay"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:src="@drawable/overlay_background_final" />
+            android:src="@drawable/overlay_background_final"
+            android:contentDescription="@string/section_header_overlay" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -34,27 +36,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/source_sans_pro_black"
-                android:text="@string/header_title_text"
+                android:text="@string/header_title_video_section"
                 android:textColor="@color/white"
                 android:textSize="25sp" />
 
             <TextView
                 android:id="@+id/videoSectionHeaderSubtitle"
-                android:layout_width="wrap_content"
+                android:layout_width="270dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/videoSectionHeaderTitle"
                 android:layout_marginTop="25dp"
                 android:fontFamily="@font/source_sans_pro_regular"
-                android:text="@string/header_subtitle_text"
+                android:text="@string/header_subtitle_video_section"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
         </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/favoriteButton"
@@ -65,7 +62,7 @@
             android:layout_marginTop="30dp"
             android:background="@drawable/favorite_button"
             android:padding="15dp"
-            android:text="@string/favorite_button_text"
+            android:text="@string/see_favorites"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="16sp" />
@@ -87,10 +84,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@color/white"
-                android:hint="@string/search_bar_input_placeholder"
+                android:hint="@string/input_placeholder_category"
                 android:paddingStart="15dp"
                 android:paddingEnd="15dp"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:autofillHints="@string/input_placeholder_category"
+                android:inputType="text" />
 
             <ImageView
                 android:id="@+id/searchBarIcon"
@@ -99,7 +98,8 @@
                 android:layout_gravity="end"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="7dp"
-                android:src="@drawable/ic_search" />
+                android:src="@drawable/ic_search"
+                android:contentDescription="@string/search_bar_icon" />
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -115,15 +115,16 @@
             app:backgroundTint="@color/white"
             app:borderWidth="2dp"
             app:rippleColor="@color/white"
-            app:tint="@color/white" />
+            app:tint="@color/white"
+            android:contentDescription="@string/add_new_category" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_marginTop="40dp"
-                android:layout_below="@+id/addCategoryButton"
-                android:layout_centerHorizontal="true"
-                android:id="@+id/mainCategoriesRecyclerView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/mainCategoriesRecyclerView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/addCategoryButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/homePageButton"
@@ -138,7 +139,8 @@
             app:backgroundTint="@color/white"
             app:borderWidth="2dp"
             app:rippleColor="@color/white"
-            app:tint="@color/white" />
+            app:tint="@color/white"
+            android:contentDescription="@string/home_page_button" />
 
     </RelativeLayout>
 

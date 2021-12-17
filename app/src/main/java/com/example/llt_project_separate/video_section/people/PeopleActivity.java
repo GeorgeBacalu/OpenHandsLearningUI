@@ -50,8 +50,8 @@ public class PeopleActivity extends AppCompatActivity {
         peopleRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         List<Category> people = new ArrayList<>();
-        people.add(new Category(189, "MEMBRII FAMILIEI", R.drawable.membrii_familiei));
-        people.add(new Category(190, "PRONUME", R.drawable.pronume));
+        people.add(new Category(189, getStringResource(R.string.MEMBRII_FAMILIEI), R.drawable.membrii_familiei));
+        people.add(new Category(190, getStringResource(R.string.PRONUME), R.drawable.pronume));
         peopleAdapter.setPeople(people);
 
         searchBarIcon.setOnClickListener(v -> {
@@ -69,6 +69,8 @@ public class PeopleActivity extends AppCompatActivity {
         searchBarInput = findViewById(R.id.searchBarInput);
         searchBarIcon = findViewById(R.id.searchBarIcon);
     }
+
+    String getStringResource(int intResource) { return getResources().getString(intResource); }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

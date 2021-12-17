@@ -50,11 +50,11 @@ public class ObjectsActivity extends AppCompatActivity {
         objectsRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
 
         List<Category> objects = new ArrayList<>();
-        objects.add(new Category(182, "ACASĂ", R.drawable.acasa));
-        objects.add(new Category(183, "AFARĂ", R.drawable.afara));
-        objects.add(new Category(184, "CLASĂ", R.drawable.clasa));
-        objects.add(new Category(185, "MAGAZIN", R.drawable.magazin));
-        objects.add(new Category(186, "ORAŞ", R.drawable.oras));
+        objects.add(new Category(182, getStringResource(R.string.ACASA), R.drawable.acasa));
+        objects.add(new Category(183, getStringResource(R.string.AFARA), R.drawable.afara));
+        objects.add(new Category(184, getStringResource(R.string.CLASA), R.drawable.clasa));
+        objects.add(new Category(185, getStringResource(R.string.MAGAZIN), R.drawable.magazin));
+        objects.add(new Category(186, getStringResource(R.string.ORAS), R.drawable.oras));
         objectsAdapter.setObjects(objects);
 
         searchBarIcon.setOnClickListener(v -> {
@@ -72,6 +72,8 @@ public class ObjectsActivity extends AppCompatActivity {
         searchBarInput = findViewById(R.id.searchBarInput);
         searchBarIcon = findViewById(R.id.searchBarIcon);
     }
+
+    String getStringResource(int intResource) { return getResources().getString(intResource); }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

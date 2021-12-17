@@ -50,8 +50,8 @@ public class AnimalsActivity extends AppCompatActivity {
         animalsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         List<Category> animalsCategories = new ArrayList<>();
-        animalsCategories.add(new Category(180, "DOMESTICE", R.drawable.animale_domestice));
-        animalsCategories.add(new Category(181, "SĂLBATICE", R.drawable.animale_salbatice));
+        animalsCategories.add(new Category(180, getStringResource(R.string.DOMESTICE), R.drawable.animale_domestice));
+        animalsCategories.add(new Category(181, getStringResource(R.string.SALBATICE), R.drawable.animale_salbatice));
         animalsAdapter.setAnimals(animalsCategories);
 
         searchBarIcon.setOnClickListener(v -> {
@@ -69,6 +69,8 @@ public class AnimalsActivity extends AppCompatActivity {
         searchBarInput = findViewById(R.id.searchBarInput);
         searchBarIcon = findViewById(R.id.searchBarIcon);
     }
+
+    String getStringResource(int intResource) { return getResources().getString(intResource); }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

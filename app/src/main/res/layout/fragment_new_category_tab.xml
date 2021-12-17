@@ -10,9 +10,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/input_design"
-        android:hint="Introduceţi numele categoriei"
+        android:hint="@string/category_name"
         android:paddingVertical="10dp"
-        android:paddingLeft="20dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,7 +21,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias=".1"
-        app:layout_constraintWidth_percent=".8" />
+        app:layout_constraintWidth_percent=".8"
+        android:autofillHints="@string/category_name"
+        android:inputType="text" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/categoryImage"
@@ -30,7 +33,7 @@
         android:gravity="center|bottom|top"
         android:includeFontPadding="false"
         android:padding="15dp"
-        android:text="Încărcaţi o imagine"
+        android:text="@string/load_image"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="16sp"
@@ -47,7 +50,7 @@
         android:gravity="center|bottom|top"
         android:includeFontPadding="false"
         android:paddingHorizontal="30dp"
-        android:text="Salvează categorie"
+        android:text="@string/save_category"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="16sp"

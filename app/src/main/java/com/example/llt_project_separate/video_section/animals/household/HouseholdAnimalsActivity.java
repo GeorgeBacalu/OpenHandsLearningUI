@@ -50,19 +50,19 @@ public class HouseholdAnimalsActivity extends AppCompatActivity {
         householdAnimalsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         List<Category> householdAnimals = new ArrayList<>();
-        householdAnimals.add(new Category(53, "CÂINE", R.drawable.caine));
-        householdAnimals.add(new Category(54, "PISICĂ", R.drawable.pisica));
-        householdAnimals.add(new Category(55, "PORC", R.drawable.porc));
-        householdAnimals.add(new Category(56, "CAPRĂ", R.drawable.capra));
-        householdAnimals.add(new Category(57, "GĂINĂ", R.drawable.gaina));
-        householdAnimals.add(new Category(58, "IEPURE", R.drawable.iepure));
-        householdAnimals.add(new Category(59, "PUI", R.drawable.pui));
-        householdAnimals.add(new Category(60, "VACĂ", R.drawable.vaca));
-        householdAnimals.add(new Category(61, "CAL", R.drawable.cal));
-        householdAnimals.add(new Category(62, "COCOŞ", R.drawable.cocos));
-        householdAnimals.add(new Category(63, "GÂSCĂ", R.drawable.gasca));
-        householdAnimals.add(new Category(64, "OAIE", R.drawable.oaie));
-        householdAnimals.add(new Category(65, "RAŢĂ", R.drawable.rata));
+        householdAnimals.add(new Category(53, getStringResource(R.string.CAINE), R.drawable.caine));
+        householdAnimals.add(new Category(54, getStringResource(R.string.PISICA), R.drawable.pisica));
+        householdAnimals.add(new Category(55, getStringResource(R.string.PORC), R.drawable.porc));
+        householdAnimals.add(new Category(56, getStringResource(R.string.CAPRA), R.drawable.capra));
+        householdAnimals.add(new Category(57, getStringResource(R.string.GAINA), R.drawable.gaina));
+        householdAnimals.add(new Category(58, getStringResource(R.string.IEPURE), R.drawable.iepure));
+        householdAnimals.add(new Category(59, getStringResource(R.string.PUI), R.drawable.pui));
+        householdAnimals.add(new Category(60, getStringResource(R.string.VACA), R.drawable.vaca));
+        householdAnimals.add(new Category(61, getStringResource(R.string.CAL), R.drawable.cal));
+        householdAnimals.add(new Category(62, getStringResource(R.string.COCOS), R.drawable.cocos));
+        householdAnimals.add(new Category(63, getStringResource(R.string.GASCA), R.drawable.gasca));
+        householdAnimals.add(new Category(64, getStringResource(R.string.OAIE), R.drawable.oaie));
+        householdAnimals.add(new Category(65, getStringResource(R.string.RATA), R.drawable.rata));
         householdAnimalsAdapter.setHouseholdAnimals(householdAnimals);
 
         searchBarIcon.setOnClickListener(v -> {
@@ -80,6 +80,8 @@ public class HouseholdAnimalsActivity extends AppCompatActivity {
         searchBarInput = findViewById(R.id.searchBarInput);
         searchBarIcon = findViewById(R.id.searchBarIcon);
     }
+
+    String getStringResource(int intResource) { return getResources().getString(intResource); }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

@@ -37,7 +37,7 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="65dp"
+                    android:layout_marginStart="65dp"
                     android:layout_marginTop="150dp"
                     android:backgroundTint="@color/translucent_dark_blue">
 
@@ -46,14 +46,15 @@
                         android:layout_width="50dp"
                         android:layout_height="60dp"
                         android:background="#00193498"
-                        tools:ignore="SpeakableTextPresentCheck" />
+                        tools:ignore="SpeakableTextPresentCheck"
+                        android:contentDescription="@string/rectangle" />
 
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="80dp"
+                    android:layout_marginStart="80dp"
                     android:layout_marginTop="430dp"
                     android:backgroundTint="@color/translucent_dark_blue">
 
@@ -62,14 +63,15 @@
                         android:layout_width="50dp"
                         android:layout_height="60dp"
                         android:background="#00193498"
-                        tools:ignore="SpeakableTextPresentCheck" />
+                        tools:ignore="SpeakableTextPresentCheck"
+                        android:contentDescription="@string/rectangle" />
 
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="270dp"
+                    android:layout_marginStart="270dp"
                     android:layout_marginTop="140dp"
                     android:backgroundTint="@color/translucent_dark_blue">
 
@@ -78,14 +80,15 @@
                         android:layout_width="50dp"
                         android:layout_height="60dp"
                         android:background="#00193498"
-                        tools:ignore="SpeakableTextPresentCheck" />
+                        tools:ignore="SpeakableTextPresentCheck"
+                        android:contentDescription="@string/rectangle" />
 
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="230dp"
+                    android:layout_marginStart="230dp"
                     android:layout_marginTop="410dp"
                     android:backgroundTint="@color/translucent_dark_blue">
 
@@ -94,14 +97,15 @@
                         android:layout_width="50dp"
                         android:layout_height="60dp"
                         android:background="#00193498"
-                        tools:ignore="SpeakableTextPresentCheck" />
+                        tools:ignore="SpeakableTextPresentCheck"
+                        android:contentDescription="@string/rectangle" />
 
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="250dp"
+                    android:layout_marginStart="250dp"
                     android:layout_marginTop="390dp"
                     android:backgroundTint="@color/translucent_dark_blue">
 
@@ -110,7 +114,8 @@
                         android:layout_width="50dp"
                         android:layout_height="60dp"
                         android:background="#00193498"
-                        tools:ignore="SpeakableTextPresentCheck" />
+                        tools:ignore="SpeakableTextPresentCheck"
+                        android:contentDescription="@string/rectangle" />
 
                 </androidx.cardview.widget.CardView>
 
@@ -164,7 +169,8 @@
                         android:src="@drawable/llt_logo"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:contentDescription="@string/app_logo" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -181,9 +187,9 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="40dp"
                         android:fontFamily="@font/source_sans_pro_semibold"
-                        android:text="Bine ai venit!"
+                        android:text="@string/welcome_text"
                         android:textColor="@color/white"
-                        android:textSize="18dp" />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/projectTitle"
@@ -193,23 +199,24 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="20dp"
                         android:fontFamily="@font/source_sans_pro_black"
-                        android:text="Let's Learn Together "
+                        android:text="@string/project_name"
                         android:textColor="@color/white"
-                        android:textSize="20dp" />
+                        android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/projectDescription"
-                        android:layout_width="270dp"
+                        android:layout_width="280dp"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/projectTitle"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="20dp"
                         android:fontFamily="@font/source_sans_pro_semibold"
                         android:paddingStart="10dp"
-                        android:text="Împreună facilităm procesul de învăţare al copiilor cu deficienţe de auz."
+                        android:paddingEnd="10dp"
+                        android:text="@string/project_description"
                         android:textAlignment="center"
                         android:textColor="@color/white"
-                        android:textSize="15dp" />
+                        android:textSize="15sp" />
 
                 </RelativeLayout>
 

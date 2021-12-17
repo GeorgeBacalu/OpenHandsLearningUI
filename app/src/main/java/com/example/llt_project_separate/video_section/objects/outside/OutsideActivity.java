@@ -50,16 +50,16 @@ public class OutsideActivity extends AppCompatActivity {
         outsideRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         List<Category> outsideObjects = new ArrayList<>();
-        outsideObjects.add(new Category(84, "TOPOR", R.drawable.topor));
-        outsideObjects.add(new Category(85, "POARTĂ", R.drawable.poarta));
-        outsideObjects.add(new Category(86, "GEAM", R.drawable.geam));
-        outsideObjects.add(new Category(87, "FURCĂ", R.drawable.furca));
-        outsideObjects.add(new Category(88, "COPAC", R.drawable.copac));
-        outsideObjects.add(new Category(89, "GARD", R.drawable.gard));
-        outsideObjects.add(new Category(90, "COASĂ", R.drawable.coasa));
-        outsideObjects.add(new Category(91, "BEC", R.drawable.bec));
-        outsideObjects.add(new Category(92, "LOPATĂ", R.drawable.lopata));
-        outsideObjects.add(new Category(93, "UŞĂ", R.drawable.usa));
+        outsideObjects.add(new Category(84, getStringResource(R.string.TOPOR), R.drawable.topor));
+        outsideObjects.add(new Category(85, getStringResource(R.string.POARTA), R.drawable.poarta));
+        outsideObjects.add(new Category(86, getStringResource(R.string.GEAM), R.drawable.geam));
+        outsideObjects.add(new Category(87, getStringResource(R.string.FURCA), R.drawable.furca));
+        outsideObjects.add(new Category(88, getStringResource(R.string.COPAC), R.drawable.copac));
+        outsideObjects.add(new Category(89, getStringResource(R.string.GARD), R.drawable.gard));
+        outsideObjects.add(new Category(90, getStringResource(R.string.COASA), R.drawable.coasa));
+        outsideObjects.add(new Category(91, getStringResource(R.string.BEC), R.drawable.bec));
+        outsideObjects.add(new Category(92, getStringResource(R.string.LOPATA), R.drawable.lopata));
+        outsideObjects.add(new Category(93, getStringResource(R.string.USA), R.drawable.usa));
         outsideAdapter.setOutsideObjects(outsideObjects);
 
         searchBarIcon.setOnClickListener(v -> {
@@ -77,6 +77,8 @@ public class OutsideActivity extends AppCompatActivity {
         searchBarInput = findViewById(R.id.searchBarInput);
         searchBarIcon = findViewById(R.id.searchBarIcon);
     }
+
+    String getStringResource(int intResource) { return getResources().getString(intResource); }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
