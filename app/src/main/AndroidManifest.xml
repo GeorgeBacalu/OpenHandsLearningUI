@@ -3,17 +3,23 @@
     package="com.example.llt_project_separate">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/app_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/app_logo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LLT_Project_Current">
         <activity
+            android:name=".SettingsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_settings" />
+        <activity
             android:name=".general.on_boarding.IntroductoryActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="@string/activity_introductory"/>
         <activity
             android:name=".general.new_category.NewCategoryActivity"
             android:exported="false"

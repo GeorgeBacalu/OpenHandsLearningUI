@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Utils {
     private static final String ALL_CATEGORIES = "all_categories";
     private static final String FAVORITE_CATEGORIES = "favorite_categories";
-    private static final String SHARED_PREF_FILE_NAME = "project_shared_preferences_test4";
+    private static final String SHARED_PREF_FILE_NAME = "project_shared_preferences_test5";
 
     private static Utils instance;
     private final SharedPreferences sharedPreferences;
@@ -242,6 +242,13 @@ public class Utils {
         categories.add(new Category(188, getStringResource(context, R.string.PRODUSE), R.drawable.produse));
         categories.add(new Category(189, getStringResource(context, R.string.MEMBRII_FAMILIEI), R.drawable.membrii_familiei));
         categories.add(new Category(190, getStringResource(context, R.string.PRONUME), R.drawable.pronume));
+
+        categories.add(new Category(191, getStringResource(context, R.string.aceasta_este_prietena_mea), R.drawable.aceasta_este_prietena_mea));
+        categories.add(new Category(192, getStringResource(context, R.string.acesta_este_colegul_meu), R.drawable.acesta_este_colegul_meu));
+        categories.add(new Category(193, getStringResource(context, R.string.acesta_este_sotul_meu), R.drawable.acesta_este_sotul_meu));
+        categories.add(new Category(194, getStringResource(context, R.string.am_inteles), R.drawable.am_inteles));
+        categories.add(new Category(195, getStringResource(context, R.string.am_sa_va_fac_cunostinta), R.drawable.am_sa_va_fac_cunostinta));
+        categories.add(new Category(196, getStringResource(context, R.string.as_dori_sa_iti_cer_sfatul), R.drawable.as_dori_sa_iti_cer_sfatul));
 
         categories.add(new Category(1001, getStringResource(context, R.string.ALFABET), R.drawable.alfabet));
         categories.add(new Category(1002, getStringResource(context, R.string.NUMERE), R.drawable.numere));

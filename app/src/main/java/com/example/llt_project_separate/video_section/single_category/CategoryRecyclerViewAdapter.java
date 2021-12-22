@@ -39,10 +39,12 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
     private List<Category> categories = new ArrayList<>();
     private final Context categoryContext;
     private final String parentActivity;
+    private final RefreshFavorites refreshFavorites;
 
-    public CategoryRecyclerViewAdapter(Context categoryContext, String parentActivity) {
+    public CategoryRecyclerViewAdapter(Context categoryContext, String parentActivity, RefreshFavorites refreshFavorites) {
         this.categoryContext = categoryContext;
         this.parentActivity = parentActivity;
+        this.refreshFavorites = refreshFavorites;
     }
 
     @NonNull
@@ -61,7 +63,8 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
         Glide.with(categoryContext).asBitmap().load(categories.get(position).getImageSource()).into(holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(categoryContext, VideoPlayerActivity.class);
-            if (categories.get(position).getId() < 0) throw new NullPointerException("Invalid Selection");
+            if (categories.get(position).getId() < 0)
+                throw new NullPointerException("Invalid Selection");
             intent.putExtra(CATEGORY_ID, categories.get(position).getId());
             intent.putExtra(CATEGORY_NAME, categories.get(position).getName());
             intent.putExtra(CATEGORY_IMAGE, categories.get(position).getImageSource());
@@ -83,11 +86,13 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
                             categories.remove(position);
                             notifyItemRemoved(position);
                             notifyItemRangeChanged(position, getItemCount());
+                            if (categories.isEmpty()) refreshFavorites.refresh();
                         } else {
                             Toast.makeText(categoryContext, "Ceva nu e bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
                         }
                     });
-                    builder.setNegativeButton("NU", (dialog, which) -> {});
+                    builder.setNegativeButton("NU", (dialog, which) -> {
+                    });
                     builder.create().show();
                 });
             }

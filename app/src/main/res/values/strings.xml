@@ -3,6 +3,7 @@
 
     // all activities
 
+    <string name="activity_introductory">Introductory Activity</string>
     <string name="activity_video_section">Sectiune Video</string>
     <string name="activity_text_to_sign_section">Sectiune Text - Dactilema</string>
     <string name="activity_voice_to_sign_section">Sectiune Voce - Dactilema</string>
@@ -107,6 +108,10 @@
     // favorites activity
 
     <string name="header_title_favorites">Favorite</string>
+    <string name="no_favorites_image">No Favorites Image</string>
+    <string name="first_message">Se pare ca nu ai nici o categorie adaugata momentan!</string>
+    <string name="second_message">Navigheaza printre colectiile disponibile si adauga cateva la favorite!</string>
+    <string name="browse_collections">Acceseaza colectiile</string>
 
     // introductory activity starting page
 
@@ -277,18 +282,18 @@
     <string name="CATEDRA">CATEDRA</string>
     <string name="CREION">CREION</string>
     <string name="CAIET">CAIET</string>
-    
+
     // // shop
-    
+
     // // // money
-    
+
     <string name="EURO">EURO</string>
     <string name="DOLAR">DOLAR</string>
     <string name="MONEDA">MONEDA</string>
     <string name="BANCNOTA">BANCNOTA</string>
-    
+
     // // // products
-    
+
     <string name="SUC">SUC</string>
     <string name="PRAJITURA">PRAJITURA</string>
     <string name="MORCOV">MORCOV</string>
@@ -430,5 +435,43 @@
     <string name="x">x</string>
     <string name="y">y</string>
     <string name="z">z</string>
+
+    // settings
+
+    <string name="nav_home">Acasa</string>
+    <string name="nav_video">Sectiune video</string>
+    <string name="nav_text_to_sign">Sectiune Text to Sign</string>
+    <string name="nav_voice_to_sign">Sectiune Voice to Sign</string>
+    <string name="nav_expressions">Sectiune Expresii</string>
+    <string name="nav_settings">Preferinte aplicatie</string>
+
+    // settings activity
+
+    <string name="title_activity_settings">Preferinte aplicatie</string>
+    <string name="header_title_settings">SETARI</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+
+    // expressions section
+
+    <string name="aceasta_este_prietena_mea">ACEASTA ESTE PRIETENA MEA</string>
+    <string name="acesta_este_colegul_meu">ACESTA ESTE COLEGUL MEU</string>
+    <string name="acesta_este_sotul_meu">ACESTA ESTE SOTUL MEU</string>
+    <string name="am_inteles">AM INTELES</string>
+    <string name="am_sa_va_fac_cunostinta">AM SA VA FAC CUNOSTINTA</string>
+    <string name="as_dori_sa_iti_cer_sfatul">AS DORI SA ITI CER SFATUL</string>
 
 </resources>

@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -18,6 +19,7 @@ import com.example.llt_project_separate.MainActivity;
 import com.example.llt_project_separate.R;
 import com.example.llt_project_separate.general.shared_preferences.Utils;
 import com.example.llt_project_separate.general.standard_classes.Category;
+import com.example.llt_project_separate.video_section.VideoSectionActivity;
 import com.example.llt_project_separate.video_section.single_category.CategoryRecyclerViewAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -51,6 +53,14 @@ public class FavoritesActivity extends AppCompatActivity {
         favoriteRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         favoritesAdapter.setCategories(Utils.getInstance(this).getFavoriteCategories());
+        if(favoritesAdapter.getItemCount() == 0) {
+            setContentView(R.layout.no_favorites);
+            Button browseCollectionsButton = findViewById(R.id.browseCollectionsButton);
+            browseCollectionsButton.setOnClickListener(v -> {
+                Intent intent = new Intent(FavoritesActivity.this, VideoSectionActivity.class);
+                startActivity(intent);
+            });
+        }
 
         searchBarIcon.setOnClickListener(v -> {
             String searchBarInputText = searchBarInput.getText().toString().toLowerCase();
@@ -62,7 +72,7 @@ public class FavoritesActivity extends AppCompatActivity {
 
     private void initializeViews() {
         favoriteRecyclerView = findViewById(R.id.favoriteRecyclerView);
-        favoritesAdapter = new CategoryRecyclerViewAdapter(this, "favoriteCategories");
+        favoritesAdapter = new CategoryRecyclerViewAdapter(this, "favoriteCategories", this::recreate);
         toHomePageFabButton = findViewById(R.id.toHomePageFabButton);
         searchBarInput = findViewById(R.id.searchBarInput);
         searchBarIcon = findViewById(R.id.searchBarIcon);

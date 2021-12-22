@@ -1,48 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".expressions_section.ExpressionsSectionActivity"
     android:layout_marginTop="-22dp">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="320dp"
-        android:src="@drawable/expressions_section_header"
-        android:contentDescription="@string/section_header_image" />
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:src="@drawable/overlay_background_final"
-        android:contentDescription="@string/section_header_overlay" />
-
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="50dp">
+        android:layout_marginTop="-5dp">
 
-        <TextView
-            android:id="@+id/videoSectionHeaderTitle"
+        <ImageView
+            android:id="@+id/expressionsSectionHeaderImage"
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            android:src="@drawable/expressions_section_header"
+            android:contentDescription="@string/section_header_image" />
+
+        <ImageView
+            android:id="@+id/expressionsSectionHeaderOverlay"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:contentDescription="@string/section_header_overlay"
+            android:src="@drawable/overlay_background_final" />
+
+        <RelativeLayout
+            android:id="@+id/expressionsSectionHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/source_sans_pro_black"
-            android:text="@string/header_title_expressions_section"
-            android:textColor="@color/white"
-            android:textSize="25sp" />
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="50dp">
 
-        <TextView
-            android:id="@+id/videoSectionHeaderSubtitle"
-            android:layout_width="240dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/videoSectionHeaderTitle"
-            android:layout_marginTop="25dp"
-            android:fontFamily="@font/source_sans_pro_regular"
-            android:text="@string/header_subtitle_expressions_section"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
+            <TextView
+                android:id="@+id/videoSectionHeaderTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro_black"
+                android:text="@string/header_title_expressions_section"
+                android:textColor="@color/white"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/videoSectionHeaderSubtitle"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/videoSectionHeaderTitle"
+                android:layout_marginTop="25dp"
+                android:fontFamily="@font/source_sans_pro_regular"
+                android:text="@string/header_subtitle_expressions_section"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
         </RelativeLayout>
 
-</RelativeLayout>
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/searchBarContainer"
+            android:layout_width="250dp"
+            android:layout_height="45dp"
+            android:layout_below="@+id/expressionsSectionHeaderImage"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            app:cardCornerRadius="20dp"
+            app:strokeColor="@color/gray_border"
+            app:strokeWidth="1dp">
+
+            <EditText
+                android:id="@+id/searchBarInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:autofillHints="@string/input_placeholder_category"
+                android:background="@color/white"
+                android:hint="@string/input_placeholder_category"
+                android:inputType="text"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/searchBarIcon"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="end"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="7dp"
+                android:contentDescription="@string/search_bar_icon"
+                android:src="@drawable/ic_search" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/expressionsSectionRecyclerView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/searchBarContainer"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/toHomePageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/expressionsSectionRecyclerView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="@color/light_blue"
+            android:contentDescription="@string/home_page_button"
+            android:src="@drawable/ic_home"
+            app:backgroundTint="@color/white"
+            app:borderWidth="2dp"
+            app:rippleColor="@color/white"
+            app:tint="@color/white" />
+
+    </RelativeLayout>
+
+</ScrollView>

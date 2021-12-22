@@ -72,24 +72,24 @@
             android:layout_width="250dp"
             android:layout_height="45dp"
             android:layout_below="@+id/favoriteButton"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="40dp"
             app:cardCornerRadius="20dp"
             app:strokeColor="@color/gray_border"
-            app:strokeWidth="1dp"
-            android:layout_centerHorizontal="true">
+            app:strokeWidth="1dp">
 
             <EditText
                 android:id="@+id/searchBarInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:autofillHints="@string/input_placeholder_category"
                 android:background="@color/white"
                 android:hint="@string/input_placeholder_category"
+                android:inputType="text"
                 android:paddingStart="15dp"
                 android:paddingEnd="15dp"
-                android:textSize="16sp"
-                android:autofillHints="@string/input_placeholder_category"
-                android:inputType="text" />
+                android:textSize="16sp" />
 
             <ImageView
                 android:id="@+id/searchBarIcon"
@@ -98,8 +98,8 @@
                 android:layout_gravity="end"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="7dp"
-                android:src="@drawable/ic_search"
-                android:contentDescription="@string/search_bar_icon" />
+                android:contentDescription="@string/search_bar_icon"
+                android:src="@drawable/ic_search" />
 
         </com.google.android.material.card.MaterialCardView>
 

@@ -1,49 +1,246 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".voice_to_sign_section.VoiceToSignSectionActivity"
-    android:layout_marginTop="-30dp">
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="320dp"
-        android:src="@drawable/voice_to_sign_section_header"
-        android:contentDescription="@string/section_header_image" />
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:src="@drawable/overlay_background_final"
-        android:contentDescription="@string/section_header_overlay" />
+    tools:context=".voice_to_sign_section.VoiceToSignSectionActivity">
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="50dp">
+        android:layout_marginTop="-35dp"
+        android:paddingBottom="10dp">
 
-        <TextView
-            android:id="@+id/videoSectionHeaderTitle"
+        <ImageView
+            android:id="@+id/sectionHeaderImage"
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            android:contentDescription="@string/section_header_image"
+            android:src="@drawable/voice_to_sign_section_header" />
+
+        <ImageView
+            android:id="@+id/sectionHeaderOverlay"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:contentDescription="@string/section_header_overlay"
+            android:src="@drawable/overlay_background_final" />
+
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/source_sans_pro_black"
-            android:text="@string/header_title_voice_to_sign_section"
-            android:textColor="@color/white"
-            android:textSize="25sp" />
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="50dp">
 
-        <TextView
-            android:id="@+id/videoSectionHeaderSubtitle"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/videoSectionHeaderTitle"
+            <TextView
+                android:id="@+id/videoSectionHeaderTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro_black"
+                android:text="@string/header_title_voice_to_sign_section"
+                android:textColor="@color/white"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/videoSectionHeaderSubtitle"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/videoSectionHeaderTitle"
+                android:layout_marginTop="25dp"
+                android:fontFamily="@font/source_sans_pro_regular"
+                android:text="@string/header_subtitle_voice_to_sign_section"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+        </RelativeLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/voiceRecordingButton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/sectionHeaderImage"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="25dp"
-            android:fontFamily="@font/source_sans_pro_regular"
-            android:text="@string/header_subtitle_voice_to_sign_section"
+            android:backgroundTint="@color/light_blue"
+            android:contentDescription="@string/home_page_button"
+            android:src="@drawable/microphone"
+            app:backgroundTint="@color/white"
+            app:borderWidth="2dp"
+            app:rippleColor="@color/white"
+            app:tint="@color/white" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/voiceStopRecordingButton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/voiceRecordingButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:backgroundTint="@color/light_blue"
+            android:contentDescription="@string/home_page_button"
+            android:src="@drawable/microphone"
+            app:backgroundTint="@color/white"
+            app:borderWidth="2dp"
+            app:rippleColor="@color/white"
+            app:tint="@color/white" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/voiceReplayRecordingButton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/voiceStopRecordingButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:backgroundTint="@color/light_blue"
+            android:contentDescription="@string/home_page_button"
+            android:src="@drawable/microphone"
+            app:backgroundTint="@color/white"
+            app:borderWidth="2dp"
+            app:rippleColor="@color/white"
+            app:tint="@color/white" />
+
+        <EditText
+            android:layout_marginTop="25dp"
+            android:id="@+id/textInput"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/voiceReplayRecordingButton"
+            android:layout_centerHorizontal="true"
+            android:autofillHints="@string/input_placeholder_text_to_sign"
+            android:background="@drawable/input_design"
+            android:hint="@string/input_placeholder_text_to_sign"
+            android:inputType="text"
+            android:paddingVertical="10dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:textSize="16sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/confirmButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textInput"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/button_design_2"
+            android:gravity="center|bottom|top"
+            android:includeFontPadding="false"
+            android:paddingHorizontal="30dp"
+            android:text="@string/confirm_button"
+            android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
+
+        <RelativeLayout
+            android:id="@+id/outputContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/confirmButton"
+            android:layout_marginTop="30dp"
+            android:paddingHorizontal="10dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/resultCategoryName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:backgroundTint="@color/light_blue"
+                app:cardElevation="10dp">
+
+                <TextView
+                    android:id="@+id/categoryNameCardText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
+                    android:letterSpacing="0.1"
+                    android:text="@string/category_name_placeholder"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/resultTranslation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/resultCategoryName"
+                android:layout_centerHorizontal="true"
+                android:backgroundTint="@color/white"
+                app:cardElevation="10dp"
+                app:strokeColor="@color/black"
+                app:strokeWidth="1dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="50dp">
+
+                    <LinearLayout
+                        android:id="@+id/categoryText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/voiceToSignRecyclerView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="7dp"
+                            android:orientation="horizontal" />
+
+                    </LinearLayout>
+
+                    <!--                    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+                    <!--                        android:id="@+id/slideBackwards"-->
+                    <!--                        android:layout_width="50dp"-->
+                    <!--                        android:layout_height="50dp"-->
+                    <!--                        android:layout_marginTop="20dp"-->
+                    <!--                        android:backgroundTint="@color/light_blue"-->
+                    <!--                        android:contentDescription="@string/backward_slider_button"-->
+                    <!--                        android:src="@drawable/ic_arrow_left"-->
+                    <!--                        app:backgroundTint="@color/white"-->
+                    <!--                        app:borderWidth="1dp"-->
+                    <!--                        app:rippleColor="@color/white"-->
+                    <!--                        app:tint="@color/white" />-->
+
+                    <!--                    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+                    <!--                        android:id="@+id/slideForwards"-->
+                    <!--                        android:layout_width="50dp"-->
+                    <!--                        android:layout_height="50dp"-->
+                    <!--                        android:layout_alignParentEnd="true"-->
+                    <!--                        android:layout_marginTop="20dp"-->
+                    <!--                        android:backgroundTint="@color/light_blue"-->
+                    <!--                        android:contentDescription="@string/forward_slider_button"-->
+                    <!--                        android:src="@drawable/ic_arrow_right"-->
+                    <!--                        app:backgroundTint="@color/white"-->
+                    <!--                        app:borderWidth="1dp"-->
+                    <!--                        app:rippleColor="@color/white"-->
+                    <!--                        app:tint="@color/white" />-->
+
+                </RelativeLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </RelativeLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/toHomePageFabButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/outputContent"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:backgroundTint="@color/light_blue"
+            android:contentDescription="@string/home_page_button"
+            android:src="@drawable/ic_home"
+            app:backgroundTint="@color/white"
+            app:borderWidth="2dp"
+            app:rippleColor="@color/white"
+            app:tint="@color/white" />
 
     </RelativeLayout>
 
-</RelativeLayout>
+</ScrollView>

@@ -1,0 +1,63 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!--    <PreferenceCategory app:title="@string/messages_header">-->
+
+    <!--        <EditTextPreference-->
+    <!--            app:key="signature"-->
+    <!--            app:title="@string/signature_title"-->
+    <!--            app:useSimpleSummaryProvider="true" />-->
+
+    <!--        <ListPreference-->
+    <!--            app:defaultValue="reply"-->
+    <!--            app:entries="@array/reply_entries"-->
+    <!--            app:entryValues="@array/reply_values"-->
+    <!--            app:key="reply"-->
+    <!--            app:title="@string/reply_title"-->
+    <!--            app:useSimpleSummaryProvider="true" />-->
+
+    <!--    </PreferenceCategory>-->
+
+    <!--    <PreferenceCategory app:title="@string/sync_header">-->
+
+    <!--        <SwitchPreferenceCompat-->
+    <!--            app:key="sync"-->
+    <!--            app:title="@string/sync_title" />-->
+
+    <!--        <SwitchPreferenceCompat-->
+    <!--            app:dependency="sync"-->
+    <!--            app:key="attachment"-->
+    <!--            app:summaryOff="@string/attachment_summary_off"-->
+    <!--            app:summaryOn="@string/attachment_summary_on"-->
+    <!--            app:title="@string/attachment_title" />-->
+
+    <!--    </PreferenceCategory>-->
+
+    <PreferenceCategory app:title="Preferinte utilizator">
+
+        <EditTextPreference
+            app:key="signature"
+            app:title="Numele tau"
+            app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+            app:key="files"
+            app:summary="Gestioneaza videoclipurile salvare"
+            app:title="Fisierele mele" />
+
+        <SwitchPreferenceCompat
+            app:key="theme"
+            app:summary="Alege intre modul luminos si cel intunecat in functie de preferintele tale"
+            app:title="Tema aplicatie" />
+        />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="Preferinte aplicatie">
+        <EditTextPreference
+            app:key="reset"
+            app:summary="Reseteaza setarile inapoi la configuratia initiala"
+            app:title="Resetare preferinte" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

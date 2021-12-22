@@ -21,7 +21,7 @@
             android:src="@drawable/text_to_sign_section_header" />
 
         <ImageView
-            android:id="@+id/videoSectionHeaderOverlay"
+            android:id="@+id/sectionHeaderOverlay"
             android:layout_width="match_parent"
             android:layout_height="380dp"
             android:contentDescription="@string/section_header_overlay"
@@ -59,7 +59,7 @@
             android:id="@+id/textInput"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/videoSectionHeaderOverlay"
+            android:layout_below="@+id/sectionHeaderOverlay"
             android:layout_centerHorizontal="true"
             android:autofillHints="@string/input_placeholder_text_to_sign"
             android:background="@drawable/input_design"
@@ -71,7 +71,7 @@
             android:textSize="16sp" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/saveButton"
+            android:id="@+id/confirmButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textInput"
@@ -90,7 +90,7 @@
             android:id="@+id/outputContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/saveButton"
+            android:layout_below="@+id/confirmButton"
             android:layout_marginTop="30dp"
             android:paddingHorizontal="10dp">
 
@@ -118,7 +118,7 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/resultTranslation"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/resultCategoryName"
                 android:layout_centerHorizontal="true"
@@ -137,43 +137,43 @@
                     <LinearLayout
                         android:id="@+id/categoryText"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toEndOf="@id/slideBackwards">
+                        android:layout_height="wrap_content">
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/textToSignRecyclerView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="7dp" />
+                            android:layout_marginStart="7dp"
+                            android:orientation="horizontal"/>
 
                     </LinearLayout>
 
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/slideBackwards"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginTop="20dp"
-                        android:backgroundTint="@color/light_blue"
-                        android:contentDescription="@string/backward_slider_button"
-                        android:src="@drawable/ic_arrow_left"
-                        app:backgroundTint="@color/white"
-                        app:borderWidth="1dp"
-                        app:rippleColor="@color/white"
-                        app:tint="@color/white" />
+<!--                    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--                        android:id="@+id/slideBackwards"-->
+<!--                        android:layout_width="50dp"-->
+<!--                        android:layout_height="50dp"-->
+<!--                        android:layout_marginTop="20dp"-->
+<!--                        android:backgroundTint="@color/light_blue"-->
+<!--                        android:contentDescription="@string/backward_slider_button"-->
+<!--                        android:src="@drawable/ic_arrow_left"-->
+<!--                        app:backgroundTint="@color/white"-->
+<!--                        app:borderWidth="1dp"-->
+<!--                        app:rippleColor="@color/white"-->
+<!--                        app:tint="@color/white" />-->
 
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/slideForwards"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginTop="20dp"
-                        android:backgroundTint="@color/light_blue"
-                        android:contentDescription="@string/forward_slider_button"
-                        android:src="@drawable/ic_arrow_right"
-                        app:backgroundTint="@color/white"
-                        app:borderWidth="1dp"
-                        app:rippleColor="@color/white"
-                        app:tint="@color/white" />
+<!--                    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--                        android:id="@+id/slideForwards"-->
+<!--                        android:layout_width="50dp"-->
+<!--                        android:layout_height="50dp"-->
+<!--                        android:layout_alignParentEnd="true"-->
+<!--                        android:layout_marginTop="20dp"-->
+<!--                        android:backgroundTint="@color/light_blue"-->
+<!--                        android:contentDescription="@string/forward_slider_button"-->
+<!--                        android:src="@drawable/ic_arrow_right"-->
+<!--                        app:backgroundTint="@color/white"-->
+<!--                        app:borderWidth="1dp"-->
+<!--                        app:rippleColor="@color/white"-->
+<!--                        app:tint="@color/white" />-->
 
                 </RelativeLayout>
 

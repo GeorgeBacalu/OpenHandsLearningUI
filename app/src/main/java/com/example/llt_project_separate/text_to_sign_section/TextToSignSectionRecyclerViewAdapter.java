@@ -38,6 +38,11 @@ public class TextToSignSectionRecyclerViewAdapter extends RecyclerView.Adapter<T
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.letter.setText(textSignPairs.get(position).getLetter());
+        if(textSignPairs.get(position).getLetter().equals(" ")) {
+            holder.separatingLine.setVisibility(View.GONE);
+        } else {
+            holder.separatingLine.setVisibility(View.VISIBLE);
+        }
         Glide.with(textToSignContext).asBitmap().load(textSignPairs.get(position).getImageSource()).into(holder.signImage);
     }
 
@@ -55,12 +60,14 @@ public class TextToSignSectionRecyclerViewAdapter extends RecyclerView.Adapter<T
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final ImageView signImage;
         private final TextView letter;
+        private final View separatingLine;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             signImage = itemView.findViewById(R.id.signImage);
             letter = itemView.findViewById(R.id.letter);
+            separatingLine = itemView.findViewById(R.id.separatingLine);
         }
     }
 }

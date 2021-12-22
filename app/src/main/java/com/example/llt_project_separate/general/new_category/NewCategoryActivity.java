@@ -34,8 +34,8 @@ public class NewCategoryActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        tabLayout.addTab(tabLayout.newTab().setText("Categorie"));
         tabLayout.addTab(tabLayout.newTab().setText("Subcategorie"));
+        tabLayout.addTab(tabLayout.newTab().setText("Categorie"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final NewCategoryFormAdapter adapter = new NewCategoryFormAdapter(getSupportFragmentManager(), this, tabLayout.getTabCount());
