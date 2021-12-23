@@ -53,13 +53,14 @@ public class MoneyActivity extends AppCompatActivity {
         moneyUnits.add(new Category(109, getStringResource(R.string.EURO), R.drawable.euro));
         moneyUnits.add(new Category(110, getStringResource(R.string.DOLAR), R.drawable.dolar));
         moneyUnits.add(new Category(111, getStringResource(R.string.MONEDA), R.drawable.moneda));
-        moneyUnits.add(new Category(112, getStringResource(R.string.BANI), R.drawable.bani));
+        // moneyUnits.add(new Category(112, getStringResource(R.string.BANI), R.drawable.bani));
         moneyUnits.add(new Category(113, getStringResource(R.string.BANCNOTA), R.drawable.bancnota));
         moneyAdapter.setMoneyUnits(moneyUnits);
 
         searchBarIcon.setOnClickListener(v -> {
             String searchBarInputText = searchBarInput.getText().toString().toLowerCase();
             List<Category> filteredMoneyUnits = moneyUnits.stream().filter(category-> category.getName().toLowerCase().startsWith(searchBarInputText)).collect(Collectors.toList());
+            searchBarInput.setText("");
             moneyAdapter.setMoneyUnits(filteredMoneyUnits);
             moneyAdapter.notifyDataSetChanged();
         });

@@ -67,6 +67,7 @@ public class VerbsActivity extends AppCompatActivity {
         searchBarIcon.setOnClickListener(v -> {
             String searchBarInputText = searchBarInput.getText().toString().toLowerCase();
             List<Category> filteredVerbs = verbs.stream().filter(category-> category.getName().toLowerCase().startsWith(searchBarInputText)).collect(Collectors.toList());
+            searchBarInput.setText("");
             verbsAdapter.setVerbs(filteredVerbs);
             verbsAdapter.notifyDataSetChanged();
         });

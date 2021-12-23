@@ -66,6 +66,7 @@ public class NumbersActivity extends AppCompatActivity {
         searchBarIcon.setOnClickListener(v -> {
             String searchBarInputText = searchBarInput.getText().toString().toLowerCase();
             List<Category> filteredNumbers = numbers.stream().filter(category-> category.getName().toLowerCase().startsWith(searchBarInputText)).collect(Collectors.toList());
+            searchBarInput.setText("");
             numbersAdapter.setNumbers(filteredNumbers);
             numbersAdapter.notifyDataSetChanged();
         });

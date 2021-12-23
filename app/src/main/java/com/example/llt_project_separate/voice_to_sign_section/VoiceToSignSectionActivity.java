@@ -27,6 +27,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,32 +46,33 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class VoiceToSignSectionActivity extends AppCompatActivity {
-    /*
     MediaRecorder mediaRecorder;
     MediaPlayer mediaPlayer;
-     */
 
     private static int MICROPHONE_PERMISSION_CODE = 200;
 
     private RecyclerView voiceToSignRecyclerView;
     private VoiceToSignSectionRecyclerViewAdapter voiceToSignSectionRecyclerViewAdapter;
     private FloatingActionButton toHomePageFabButton;
-    // private FloatingActionButton recordingButton, voiceStopRecordingButton, voiceReplayRecordingButton;
+    private FloatingActionButton voiceRecordingButton, voiceStopRecordingButton, voiceReplayRecordingButton;
     private EditText textInput;
     private Button confirmButton;
     private TextView categoryNameCardText;
+    private RelativeLayout outputContent;
 
-    @BindView(R.id.tabs) PagerSlidingTabStrip tabs;
-    @BindView(R.id.pager) ViewPager viewPager;
+    // @BindView(R.id.tabs) PagerSlidingTabStrip tabs;
+    // @BindView(R.id.pager) ViewPager viewPager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voice_to_sign_section);
-        ButterKnife.bind(this);
+        // ButterKnife.bind(this);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
+        /*
         viewPager.setAdapter(new VoiceToSignTabAdapter(getSupportFragmentManager()));
         tabs.setViewPager(viewPager);
+        */
 
         initializeViews();
 
@@ -83,8 +85,8 @@ public class VoiceToSignSectionActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        /*
-        recordingButton.setOnClickListener(v -> {
+
+        voiceRecordingButton.setOnClickListener(v -> {
             try {
                 mediaRecorder = new MediaRecorder();
                 mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
@@ -93,7 +95,7 @@ public class VoiceToSignSectionActivity extends AppCompatActivity {
                 mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
                 mediaRecorder.prepare();
                 mediaRecorder.start();
-                Toast.makeText(this, "Recording has started", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Se inregistreaza...", Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -104,7 +106,7 @@ public class VoiceToSignSectionActivity extends AppCompatActivity {
                 mediaRecorder.stop();
                 mediaRecorder.release();
                 mediaRecorder = null;
-                Toast.makeText(this, "Recording was stopped", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Inregistrarea a fost intrerupta", Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -116,12 +118,11 @@ public class VoiceToSignSectionActivity extends AppCompatActivity {
                 mediaPlayer.setDataSource(getRecordingFilePath());
                 mediaPlayer.prepare();
                 mediaPlayer.start();
-                Toast.makeText(this, "Recording is playing", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Se reda inregistrarea", Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
-         */
 
         voiceToSignRecyclerView.setAdapter(voiceToSignSectionRecyclerViewAdapter);
         voiceToSignRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -192,9 +193,11 @@ public class VoiceToSignSectionActivity extends AppCompatActivity {
         textSignPairs.add(new TextSignPair(" ", R.drawable.space));
         // voiceToSignSectionRecyclerViewAdapter.setTextSignPairs(textSignPairs);
 
+        outputContent.setVisibility(View.GONE);
         categoryNameCardText.setText("");
 
         confirmButton.setOnClickListener(v -> {
+            outputContent.setVisibility(View.VISIBLE);
             String inputTextUnformatted = textInput.getText().toString();
             String inputText = inputTextUnformatted.substring(0, 1).toUpperCase() + inputTextUnformatted.substring(1).toLowerCase();
             if (inputText.equals("")) {
@@ -223,14 +226,11 @@ public class VoiceToSignSectionActivity extends AppCompatActivity {
         toHomePageFabButton = findViewById(R.id.toHomePageFabButton);
         textInput = findViewById(R.id.textInput);
         confirmButton = findViewById(R.id.confirmButton);
-        // recordingButton = findViewById(R.id.recordingButton);
-        // voiceStopRecordingButton = findViewById(R.id.voiceStopRecordingButton);
-        // voiceReplayRecordingButton = findViewById(R.id.voiceReplayRecordingButton);
+        voiceRecordingButton = findViewById(R.id.voiceRecordingButton);
+        voiceStopRecordingButton = findViewById(R.id.voiceStopRecordingButton);
+        voiceReplayRecordingButton = findViewById(R.id.voiceReplayRecordingButton);
         categoryNameCardText = findViewById(R.id.categoryNameCardText);
-
-        // chronometer = findViewById(R.id.chronometer);
-        // TextView recordingStatusText = findViewById(R.id.recordingStatusText);
-        // Button pauseButton = findViewById(R.id.pauseButton);
+        outputContent = findViewById(R.id.outputContent);
     }
 
     String getStringResource(int intResource) {
@@ -251,14 +251,13 @@ public class VoiceToSignSectionActivity extends AppCompatActivity {
         }
     }
 
-    /*
+
     private String getRecordingFilePath() {
         ContextWrapper contextWrapper = new ContextWrapper(getApplicationContext());
         File musicDirectory = contextWrapper.getExternalFilesDir(Environment.DIRECTORY_MUSIC);
         File file = new File(musicDirectory, "textRecordingFile" + ".mp3");
         return file.getPath();
     }
-     */
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

@@ -64,6 +64,7 @@ public class WildAnimalsActivity extends AppCompatActivity {
         searchBarIcon.setOnClickListener(v -> {
             String searchBarInputText = searchBarInput.getText().toString().toLowerCase();
             List<Category> filteredWildAnimals = wildAnimals.stream().filter(category-> category.getName().toLowerCase().startsWith(searchBarInputText)).collect(Collectors.toList());
+            searchBarInput.setText("");
             wildAnimalsAdapter.setWildAnimals(filteredWildAnimals);
             wildAnimalsAdapter.notifyDataSetChanged();
         });

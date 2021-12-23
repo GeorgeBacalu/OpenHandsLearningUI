@@ -57,6 +57,7 @@ public class AnimalsActivity extends AppCompatActivity {
         searchBarIcon.setOnClickListener(v -> {
             String searchBarInputText = searchBarInput.getText().toString().toLowerCase();
             List<Category> filteredAnimals = animalsCategories.stream().filter(category-> category.getName().toLowerCase().startsWith(searchBarInputText)).collect(Collectors.toList());
+            searchBarInput.setText("");
             animalsAdapter.setAnimals(filteredAnimals);
             animalsAdapter.notifyDataSetChanged();
         });

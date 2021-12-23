@@ -9,8 +9,10 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.llt_project_separate.MainActivity;
@@ -29,6 +31,7 @@ public class TextToSignSectionActivity extends AppCompatActivity {
     private EditText textInput;
     private Button confirmButton;
     private TextView categoryNameCardText;
+    private RelativeLayout outputContent;
 
     @SuppressLint({"NotifyDataSetChanged", "SetTextI18n"})
     @Override
@@ -113,9 +116,11 @@ public class TextToSignSectionActivity extends AppCompatActivity {
         textSignPairs.add(new TextSignPair(" ", R.drawable.space));
         // textToSignSectionRecyclerViewAdapter.setTextSignPairs(textSignPairs);
 
+        outputContent.setVisibility(View.GONE);
         categoryNameCardText.setText("");
 
         confirmButton.setOnClickListener(v -> {
+            outputContent.setVisibility(View.VISIBLE);
             String inputTextUnformatted = textInput.getText().toString();
             String inputText = inputTextUnformatted.substring(0, 1).toUpperCase() + inputTextUnformatted.substring(1).toLowerCase();
             if(inputText.equals("")) {
@@ -145,6 +150,7 @@ public class TextToSignSectionActivity extends AppCompatActivity {
         textInput = findViewById(R.id.textInput);
         confirmButton = findViewById(R.id.confirmButton);
         categoryNameCardText = findViewById(R.id.categoryNameCardText);
+        outputContent = findViewById(R.id.outputContent);
     }
 
     String getStringResource(int intResource) { return getResources().getString(intResource); }

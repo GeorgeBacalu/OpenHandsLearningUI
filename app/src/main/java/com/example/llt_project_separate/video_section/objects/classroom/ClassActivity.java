@@ -70,6 +70,7 @@ public class ClassActivity extends AppCompatActivity {
         searchBarIcon.setOnClickListener(v -> {
             String searchBarInputText = searchBarInput.getText().toString().toLowerCase();
             List<Category> filteredClassObjects = classObjects.stream().filter(category-> category.getName().toLowerCase().startsWith(searchBarInputText)).collect(Collectors.toList());
+            searchBarInput.setText("");
             classAdapter.setClassObjects(filteredClassObjects);
             classAdapter.notifyDataSetChanged();
         });

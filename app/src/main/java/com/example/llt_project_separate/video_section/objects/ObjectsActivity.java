@@ -60,6 +60,7 @@ public class ObjectsActivity extends AppCompatActivity {
         searchBarIcon.setOnClickListener(v -> {
             String searchBarInputText = searchBarInput.getText().toString().toLowerCase();
             List<Category> filteredObjects = objects.stream().filter(category-> category.getName().toLowerCase().startsWith(searchBarInputText)).collect(Collectors.toList());
+            searchBarInput.setText("");
             objectsAdapter.setObjects(filteredObjects);
             objectsAdapter.notifyDataSetChanged();
         });

@@ -65,6 +65,7 @@ public class CityActivity extends AppCompatActivity {
         searchBarIcon.setOnClickListener(v -> {
             String searchBarInputText = searchBarInput.getText().toString().toLowerCase();
             List<Category> filteredCityObjects = cityObjects.stream().filter(category-> category.getName().toLowerCase().startsWith(searchBarInputText)).collect(Collectors.toList());
+            searchBarInput.setText("");
             cityAdapter.setCityObjects(filteredCityObjects);
             cityAdapter.notifyDataSetChanged();
         });

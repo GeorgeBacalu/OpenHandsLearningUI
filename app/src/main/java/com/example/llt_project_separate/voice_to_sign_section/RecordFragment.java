@@ -29,6 +29,7 @@ import butterknife.OnClick;
 
 public class RecordFragment extends Fragment {
 
+    /*
     @BindView(R.id.chronometer) Chronometer chronometer;
     @BindView(R.id.recordingStatusText) TextView recordingStatusText;
     @BindView(R.id.recordingButton) FloatingActionButton recordingButton;
@@ -86,4 +87,5 @@ public class RecordFragment extends Fragment {
             getActivity().stopService(intent);
         }
     }
+     */
 }

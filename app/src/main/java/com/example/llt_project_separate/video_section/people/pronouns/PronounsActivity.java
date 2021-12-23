@@ -62,6 +62,7 @@ public class PronounsActivity extends AppCompatActivity {
         searchBarIcon.setOnClickListener(v -> {
             String searchBarInputText = searchBarInput.getText().toString().toLowerCase();
             List<Category> filteredPronouns = pronouns.stream().filter(category-> category.getName().toLowerCase().startsWith(searchBarInputText)).collect(Collectors.toList());
+            searchBarInput.setText("");
             pronounsAdapter.setPronouns(filteredPronouns);
             pronounsAdapter.notifyDataSetChanged();
         });

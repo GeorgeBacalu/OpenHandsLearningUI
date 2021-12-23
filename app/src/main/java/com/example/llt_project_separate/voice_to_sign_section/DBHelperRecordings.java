@@ -2,8 +2,11 @@ package com.example.llt_project_separate.voice_to_sign_section;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
 
 public class DBHelperRecordings extends SQLiteOpenHelper {
     private Context context;
@@ -15,6 +18,9 @@ public class DBHelperRecordings extends SQLiteOpenHelper {
     public static final String COLUMN_PATH = "path";
     public static final String COLUMN_LENGTH = "length";
     public static final String COLUMN_TIME_ADDED = "time_added";
+
+    private static OnDatabaseChangedListener OnDatabaseChangedListener;
+
     public static final String COMMA_SEPARATOR = ",";
 
     private static final String SQLITE_CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " (id INTEGER PRIMARY KEY " +
@@ -48,10 +54,36 @@ public class DBHelperRecordings extends SQLiteOpenHelper {
             contentValues.put(COLUMN_LENGTH, recordingItem.getLength());
             contentValues.put(COLUMN_TIME_ADDED, recordingItem.getTimeAdded());
             db.insert(TABLE_NAME, null, contentValues);
+            if(OnDatabaseChangedListener != null) {
+                OnDatabaseChangedListener.onNewDatabaseEntryAdded(recordingItem);
+            }
             return true;
         } catch(Exception e) {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public ArrayList<RecordingItem> getAllAudios() {
+        ArrayList<RecordingItem> recordingItems = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from " + TABLE_NAME, null);
+        if(cursor != null) {
+            while(cursor.moveToNext()) {
+                String name = cursor.getString(1);
+                String path = cursor.getString(1);
+                int length = (int)cursor.getLong(3);
+                long timeAdded = cursor.getLong(4);
+                RecordingItem recordingItem = new RecordingItem(name, path, length, timeAdded);
+                recordingItems.add(recordingItem);
+            }
+            cursor.close();
+            return recordingItems;
+        }
+        return null;
+    }
+
+    public static void setOnDatabaseChangedListener(OnDatabaseChangedListener listener) {
+        OnDatabaseChangedListener = listener;
     }
 }

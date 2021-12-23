@@ -61,45 +61,45 @@
 
         </RelativeLayout>
 
-        <LinearLayout
-            android:id="@+id/pagerContainer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/headerSection"
-            android:orientation="vertical">
+<!--        <LinearLayout-->
+<!--            android:id="@+id/pagerContainer"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@id/headerSection"-->
+<!--            android:orientation="vertical">-->
 
-            <com.astuetz.PagerSlidingTabStrip
-                android:id="@+id/tabs"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:layout_marginBottom="15dp"
-                android:background="@color/dark_blue"
-                android:elevation="4dp"
-                android:textColor="@color/white"
-                app:pstsTabTextColor="@color/white"
-                app:pstsIndicatorColor="@color/light_blue"
-                app:pstsIndicatorHeight="5dp"
-                app:pstsShouldExpand="true" />
+<!--            <com.astuetz.PagerSlidingTabStrip-->
+<!--                android:id="@+id/tabs"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="?attr/actionBarSize"-->
+<!--                android:layout_marginBottom="15dp"-->
+<!--                android:background="@color/dark_blue"-->
+<!--                android:elevation="4dp"-->
+<!--                android:textColor="@color/white"-->
+<!--                app:pstsTabTextColor="@color/white"-->
+<!--                app:pstsIndicatorColor="@color/light_blue"-->
+<!--                app:pstsIndicatorHeight="5dp"-->
+<!--                app:pstsShouldExpand="true" />-->
 
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/pager"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="@color/white" />
+<!--            <androidx.viewpager.widget.ViewPager-->
+<!--                android:id="@+id/pager"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="0dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:background="@color/white" />-->
 
-            <FrameLayout
-                android:id="@+id/container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+<!--            <FrameLayout-->
+<!--                android:id="@+id/container"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent" />-->
 
-        </LinearLayout>
+<!--        </LinearLayout>-->
 
         <RelativeLayout
             android:id="@+id/pageContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/pagerContainer">
+            android:layout_below="@id/headerSection">
 
             <include layout="@layout/fragment_record" />
 

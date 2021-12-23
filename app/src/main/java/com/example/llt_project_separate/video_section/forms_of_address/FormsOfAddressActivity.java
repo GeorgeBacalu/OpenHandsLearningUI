@@ -59,6 +59,7 @@ public class FormsOfAddressActivity extends AppCompatActivity {
         searchBarIcon.setOnClickListener(v -> {
             String searchBarInputText = searchBarInput.getText().toString().toLowerCase();
             List<Category> filteredFormsOfAddress = formsOfAddress.stream().filter(category-> category.getName().toLowerCase().startsWith(searchBarInputText)).collect(Collectors.toList());
+            searchBarInput.setText("");
             formsOfAddressAdapter.setFormsOfAddress(filteredFormsOfAddress);
             formsOfAddressAdapter.notifyDataSetChanged();
         });

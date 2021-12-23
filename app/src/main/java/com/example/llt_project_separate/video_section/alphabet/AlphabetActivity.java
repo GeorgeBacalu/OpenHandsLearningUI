@@ -86,6 +86,7 @@ public class AlphabetActivity extends AppCompatActivity {
         searchBarIcon.setOnClickListener(v -> {
             String searchBarInputText = searchBarInput.getText().toString().toLowerCase();
             List<Category> filteredLetters = letters.stream().filter(category-> category.getName().toLowerCase().startsWith(searchBarInputText)).collect(Collectors.toList());
+            searchBarInput.setText("");
             alphabetAdapter.setLetters(filteredLetters);
             alphabetAdapter.notifyDataSetChanged();
         });

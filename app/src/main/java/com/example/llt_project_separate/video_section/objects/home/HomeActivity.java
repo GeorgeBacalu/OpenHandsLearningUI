@@ -64,6 +64,7 @@ public class HomeActivity extends AppCompatActivity {
         searchBarIcon.setOnClickListener(v -> {
             String searchBarInputText = searchBarInput.getText().toString().toLowerCase();
             List<Category> filteredHomeObjects = homeObjects.stream().filter(category-> category.getName().toLowerCase().startsWith(searchBarInputText)).collect(Collectors.toList());
+            searchBarInput.setText("");
             homeAdapter.setHomeObjects(filteredHomeObjects);
             homeAdapter.notifyDataSetChanged();
         });

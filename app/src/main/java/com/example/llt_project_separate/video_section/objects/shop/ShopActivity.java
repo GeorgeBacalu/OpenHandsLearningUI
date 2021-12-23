@@ -57,6 +57,7 @@ public class ShopActivity extends AppCompatActivity {
         searchBarIcon.setOnClickListener(v -> {
             String searchBarInputText = searchBarInput.getText().toString().toLowerCase();
             List<Category> filteredShopObjects = shopObjects.stream().filter(category-> category.getName().toLowerCase().startsWith(searchBarInputText)).collect(Collectors.toList());
+            searchBarInput.setText("");
             shopAdapter.setShopObjects(filteredShopObjects);
             shopAdapter.notifyDataSetChanged();
         });

@@ -68,6 +68,7 @@ public class HouseholdAnimalsActivity extends AppCompatActivity {
         searchBarIcon.setOnClickListener(v -> {
             String searchBarInputText = searchBarInput.getText().toString().toLowerCase();
             List<Category> filteredHouseholdAnimals = householdAnimals.stream().filter(category-> category.getName().toLowerCase().startsWith(searchBarInputText)).collect(Collectors.toList());
+            searchBarInput.setText("");
             householdAnimalsAdapter.setHouseholdAnimals(filteredHouseholdAnimals);
             householdAnimalsAdapter.notifyDataSetChanged();
         });

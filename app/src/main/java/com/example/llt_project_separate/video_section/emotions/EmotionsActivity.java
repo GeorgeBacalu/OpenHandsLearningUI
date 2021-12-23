@@ -68,6 +68,7 @@ public class EmotionsActivity extends AppCompatActivity {
         searchBarIcon.setOnClickListener(v -> {
             String searchBarInputText = searchBarInput.getText().toString().toLowerCase();
             List<Category> filteredEmotions = emotions.stream().filter(category-> category.getName().toLowerCase().startsWith(searchBarInputText)).collect(Collectors.toList());
+            searchBarInput.setText("");
             emotionsAdapter.setEmotions(filteredEmotions);
             emotionsAdapter.notifyDataSetChanged();
         });

@@ -63,6 +63,7 @@ public class FamilyMembersActivity extends AppCompatActivity {
         searchBarIcon.setOnClickListener(v -> {
             String searchBarInputText = searchBarInput.getText().toString().toLowerCase();
             List<Category> filteredFamilyMembers = familyMembers.stream().filter(category-> category.getName().toLowerCase().startsWith(searchBarInputText)).collect(Collectors.toList());
+            searchBarInput.setText("");
             familyMembersAdapter.setFamilyMembers(filteredFamilyMembers);
             familyMembersAdapter.notifyDataSetChanged();
         });

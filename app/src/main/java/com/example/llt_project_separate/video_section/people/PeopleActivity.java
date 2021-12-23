@@ -57,6 +57,7 @@ public class PeopleActivity extends AppCompatActivity {
         searchBarIcon.setOnClickListener(v -> {
             String searchBarInputText = searchBarInput.getText().toString().toLowerCase();
             List<Category> filteredPeople = people.stream().filter(category-> category.getName().toLowerCase().startsWith(searchBarInputText)).collect(Collectors.toList());
+            searchBarInput.setText("");
             peopleAdapter.setPeople(filteredPeople);
             peopleAdapter.notifyDataSetChanged();
         });

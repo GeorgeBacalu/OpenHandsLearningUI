@@ -47,6 +47,7 @@
         <entry key="..\:/Let's Learn Together/LLT_PA_PROJECT/app/src/main/res/layout/category_item_expandable.xml" value="0.25416666666666665" />
         <entry key="..\:/Let's Learn Together/LLT_PA_PROJECT/app/src/main/res/layout/category_item_expandable_no_image.xml" value="0.25416666666666665" />
         <entry key="..\:/Let's Learn Together/LLT_PA_PROJECT/app/src/main/res/layout/category_item_no_image.xml" value="0.25416666666666665" />
+        <entry key="..\:/Let's Learn Together/LLT_PA_PROJECT/app/src/main/res/layout/fragment_file_viewer.xml" value="0.1" />
         <entry key="..\:/Let's Learn Together/LLT_PA_PROJECT/app/src/main/res/layout/fragment_new_category_form.xml" value="0.25416666666666665" />
         <entry key="..\:/Let's Learn Together/LLT_PA_PROJECT/app/src/main/res/layout/fragment_new_category_tab.xml" value="0.2" />
         <entry key="..\:/Let's Learn Together/LLT_PA_PROJECT/app/src/main/res/layout/fragment_new_subcategory_tab.xml" value="0.264" />
@@ -54,12 +55,14 @@
         <entry key="..\:/Let's Learn Together/LLT_PA_PROJECT/app/src/main/res/layout/fragment_on_boarding_2.xml" value="0.264" />
         <entry key="..\:/Let's Learn Together/LLT_PA_PROJECT/app/src/main/res/layout/fragment_on_boarding_3.xml" value="0.2" />
         <entry key="..\:/Let's Learn Together/LLT_PA_PROJECT/app/src/main/res/layout/fragment_on_boarding_4.xml" value="0.25416666666666665" />
+        <entry key="..\:/Let's Learn Together/LLT_PA_PROJECT/app/src/main/res/layout/fragment_playback.xml" value="0.264" />
         <entry key="..\:/Let's Learn Together/LLT_PA_PROJECT/app/src/main/res/layout/fragment_record.xml" value="0.264" />
         <entry key="..\:/Let's Learn Together/LLT_PA_PROJECT/app/src/main/res/layout/fragment_text_to_sign_section.xml" value="0.25416666666666665" />
         <entry key="..\:/Let's Learn Together/LLT_PA_PROJECT/app/src/main/res/layout/header.xml" value="0.264" />
         <entry key="..\:/Let's Learn Together/LLT_PA_PROJECT/app/src/main/res/layout/navigation_action_bar.xml" value="0.2" />
         <entry key="..\:/Let's Learn Together/LLT_PA_PROJECT/app/src/main/res/layout/navigation_header.xml" value="0.25416666666666665" />
         <entry key="..\:/Let's Learn Together/LLT_PA_PROJECT/app/src/main/res/layout/no_favorites.xml" value="0.264" />
+        <entry key="..\:/Let's Learn Together/LLT_PA_PROJECT/app/src/main/res/layout/recording_item_card_view.xml" value="0.1" />
         <entry key="..\:/Let's Learn Together/LLT_PA_PROJECT/app/src/main/res/layout/section_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Let's Learn Together/LLT_PA_PROJECT/app/src/main/res/layout/settings_activity.xml" value="0.25416666666666665" />
         <entry key="..\:/Let's Learn Together/LLT_PA_PROJECT/app/src/main/res/layout/text_to_sign_matching_items.xml" value="0.6" />

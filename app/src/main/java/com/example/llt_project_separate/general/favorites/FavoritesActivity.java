@@ -66,6 +66,7 @@ public class FavoritesActivity extends AppCompatActivity {
             String searchBarInputText = searchBarInput.getText().toString().toLowerCase();
             List<Category> filteredCategories = Utils.getInstance(this).getFavoriteCategories().stream().filter(category-> category.getName().toLowerCase().startsWith(searchBarInputText)).collect(Collectors.toList());
             favoritesAdapter.setCategories(filteredCategories);
+            searchBarInput.setText("");
             favoritesAdapter.notifyDataSetChanged();
         });
     }

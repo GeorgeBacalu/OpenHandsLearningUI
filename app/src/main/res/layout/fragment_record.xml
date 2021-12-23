@@ -9,119 +9,118 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <Chronometer
-            android:id="@+id/chronometer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/recordProgressBar"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="30dp"
-            android:fontFamily="@font/source_sans_pro_semibold"
-            android:textSize="25sp" />
-
-        <ProgressBar
-            android:id="@+id/recordProgressBar"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/record_progress_bar_background"
-            android:indeterminate="false"
-            android:max="100"
-            android:progress="0"
-            android:progressDrawable="@drawable/record_progress_bar" />
-
-        <Button
-            android:id="@+id/pauseButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/recordProgressBar"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/source_sans_pro_semibold"
-            android:text="Pauza"
-            android:textAllCaps="true" />
-
-        <TextView
-            android:id="@+id/recordingStatusText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/pauseButton"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="15dp"
-            android:fontFamily="@font/source_sans_pro_semibold"
-            android:text="Inregistreaza"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <com.melnykov.fab.FloatingActionButton
-            android:id="@+id/recordingButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/recordingStatusText"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:src="@drawable/ic_mic_white"
-            app:fab_colorNormal="@color/light_blue" />
-
-<!--        <LinearLayout-->
-<!--            android:id="@+id/recordingButtonsContainer"-->
+<!--        <Chronometer-->
+<!--            android:id="@+id/chronometer"-->
 <!--            android:layout_width="wrap_content"-->
 <!--            android:layout_height="wrap_content"-->
-<!--            android:layout_below="@id/recordingButton"-->
-<!--            android:layout_centerHorizontal="true">-->
+<!--            android:layout_alignBottom="@+id/recordProgressBar"-->
+<!--            android:layout_centerHorizontal="true"-->
+<!--            android:layout_marginBottom="30dp"-->
+<!--            android:fontFamily="@font/source_sans_pro_semibold"-->
+<!--            android:textSize="25sp" />-->
 
-<!--            <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--                android:id="@+id/recordingButton2"-->
-<!--                android:layout_width="60dp"-->
-<!--                android:layout_height="60dp"-->
-<!--                android:layout_marginTop="25dp"-->
-<!--                android:backgroundTint="@color/light_blue"-->
-<!--                android:contentDescription="@string/home_page_button"-->
-<!--                android:src="@drawable/microphone"-->
-<!--                app:backgroundTint="@color/white"-->
-<!--                app:borderWidth="2dp"-->
-<!--                app:rippleColor="@color/white"-->
-<!--                app:tint="@color/white" />-->
+<!--        <ProgressBar-->
+<!--            android:id="@+id/recordProgressBar"-->
+<!--            style="?android:attr/progressBarStyleHorizontal"-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="100dp"-->
+<!--            android:layout_centerHorizontal="true"-->
+<!--            android:background="@drawable/record_progress_bar_background"-->
+<!--            android:indeterminate="false"-->
+<!--            android:max="100"-->
+<!--            android:progress="0"-->
+<!--            android:progressDrawable="@drawable/record_progress_bar" />-->
 
-<!--            <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--                android:id="@+id/voiceStopRecordingButton"-->
-<!--                android:layout_width="60dp"-->
-<!--                android:layout_height="60dp"-->
-<!--                android:layout_marginTop="25dp"-->
-<!--                android:backgroundTint="@color/light_blue"-->
-<!--                android:contentDescription="@string/home_page_button"-->
-<!--                android:src="@drawable/microphone"-->
-<!--                app:backgroundTint="@color/white"-->
-<!--                app:borderWidth="2dp"-->
-<!--                app:rippleColor="@color/white"-->
-<!--                app:tint="@color/white"-->
-<!--                android:layout_marginHorizontal="30dp"/>-->
+<!--        <Button-->
+<!--            android:id="@+id/pauseButton"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@id/recordProgressBar"-->
+<!--            android:layout_centerHorizontal="true"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:fontFamily="@font/source_sans_pro_semibold"-->
+<!--            android:text="Pauza"-->
+<!--            android:textAllCaps="true" />-->
 
-<!--            <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--                android:id="@+id/voiceReplayRecordingButton"-->
-<!--                android:layout_width="60dp"-->
-<!--                android:layout_height="60dp"-->
-<!--                android:layout_marginTop="25dp"-->
-<!--                android:backgroundTint="@color/light_blue"-->
-<!--                android:contentDescription="@string/home_page_button"-->
-<!--                android:src="@drawable/microphone"-->
-<!--                app:backgroundTint="@color/white"-->
-<!--                app:borderWidth="2dp"-->
-<!--                app:rippleColor="@color/white"-->
-<!--                app:tint="@color/white" />-->
+<!--        <TextView-->
+<!--            android:id="@+id/recordingStatusText"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@+id/pauseButton"-->
+<!--            android:layout_centerHorizontal="true"-->
+<!--            android:layout_marginTop="15dp"-->
+<!--            android:fontFamily="@font/source_sans_pro_semibold"-->
+<!--            android:text="Inregistreaza"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="18sp"-->
+<!--            android:textStyle="bold" />-->
 
-<!--        </LinearLayout>-->
+<!--        <com.melnykov.fab.FloatingActionButton-->
+<!--            android:id="@+id/recordingButton"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@+id/recordingStatusText"-->
+<!--            android:layout_centerHorizontal="true"-->
+<!--            android:layout_marginTop="25dp"-->
+<!--            android:clickable="true"-->
+<!--            android:focusable="true"-->
+<!--            android:src="@drawable/ic_mic_white"-->
+<!--            app:fab_colorNormal="@color/light_blue" />-->
+
+        <LinearLayout
+            android:id="@+id/recordingButtonsContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/voiceRecordingButton"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="25dp"
+                android:backgroundTint="@color/light_blue"
+                android:contentDescription="@string/home_page_button"
+                android:src="@drawable/ic_mic_white"
+                app:backgroundTint="@color/white"
+                app:borderWidth="2dp"
+                app:rippleColor="@color/white"
+                app:tint="@color/white" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/voiceStopRecordingButton"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="25dp"
+                android:backgroundTint="@color/light_blue"
+                android:contentDescription="@string/home_page_button"
+                android:src="@drawable/ic_media_pause"
+                app:backgroundTint="@color/white"
+                app:borderWidth="2dp"
+                app:rippleColor="@color/white"
+                app:tint="@color/white"
+                android:layout_marginHorizontal="30dp"/>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/voiceReplayRecordingButton"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="25dp"
+                android:backgroundTint="@color/light_blue"
+                android:contentDescription="@string/home_page_button"
+                android:src="@drawable/ic_media_play"
+                app:backgroundTint="@color/white"
+                app:borderWidth="2dp"
+                app:rippleColor="@color/white"
+                app:tint="@color/white" />
+
+        </LinearLayout>
 
 
         <EditText
             android:id="@+id/textInput"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/recordingButton"
+            android:layout_below="@+id/recordingButtonsContainer"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="25dp"
             android:autofillHints="@string/input_placeholder_text_to_sign"

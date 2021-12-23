@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Utils {
     private static final String ALL_CATEGORIES = "all_categories";
     private static final String FAVORITE_CATEGORIES = "favorite_categories";
-    private static final String SHARED_PREF_FILE_NAME = "project_shared_preferences_test6";
+    private static final String SHARED_PREF_FILE_NAME = "project_shared_preferences";
 
     private static Utils instance;
     private final SharedPreferences sharedPreferences;
@@ -155,7 +155,7 @@ public class Utils {
         categories.add(new Category(109, getStringResource(context, R.string.EURO), R.drawable.euro));
         categories.add(new Category(110, getStringResource(context, R.string.DOLAR), R.drawable.dolar));
         categories.add(new Category(111, getStringResource(context, R.string.MONEDA), R.drawable.moneda));
-        categories.add(new Category(112, getStringResource(context, R.string.BANI), R.drawable.bani));
+        // categories.add(new Category(112, getStringResource(context, R.string.BANI), R.drawable.bani));
         categories.add(new Category(113, getStringResource(context, R.string.BANCNOTA), R.drawable.bancnota));
 
         categories.add(new Category(114, getStringResource(context, R.string.SUC), R.drawable.suc));

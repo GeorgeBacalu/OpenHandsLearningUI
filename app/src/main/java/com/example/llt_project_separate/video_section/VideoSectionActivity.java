@@ -81,6 +81,7 @@ public class VideoSectionActivity extends AppCompatActivity {
         searchBarIcon.setOnClickListener(v -> {
             String searchBarInputText = searchBarInput.getText().toString().toLowerCase();
             List<Category> filteredCategories = categories.stream().filter(category-> category.getName().toLowerCase().startsWith(searchBarInputText)).collect(Collectors.toList());
+            searchBarInput.setText("");
             mainCategoriesAdapter.setMainCategories(filteredCategories);
             mainCategoriesAdapter.notifyDataSetChanged();
         });

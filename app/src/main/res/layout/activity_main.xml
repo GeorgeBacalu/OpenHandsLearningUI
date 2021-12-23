@@ -47,7 +47,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="80dp"
-                    android:layout_marginTop="430dp"
+                    android:layout_marginTop="450dp"
                     android:backgroundTint="@color/translucent_dark_blue">
 
                     <ImageButton
@@ -81,7 +81,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="230dp"
-                    android:layout_marginTop="410dp"
+                    android:layout_marginTop="430dp"
                     android:backgroundTint="@color/translucent_dark_blue">
 
                     <ImageButton
@@ -98,7 +98,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="250dp"
-                    android:layout_marginTop="390dp"
+                    android:layout_marginTop="410dp"
                     android:backgroundTint="@color/translucent_dark_blue">
 
                     <ImageButton

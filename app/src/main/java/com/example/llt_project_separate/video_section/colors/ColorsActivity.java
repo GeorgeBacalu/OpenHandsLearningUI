@@ -65,6 +65,7 @@ public class ColorsActivity extends AppCompatActivity {
         searchBarIcon.setOnClickListener(v -> {
             String searchBarInputText = searchBarInput.getText().toString().toLowerCase();
             List<Category> filteredColors = colors.stream().filter(category-> category.getName().toLowerCase().startsWith(searchBarInputText)).collect(Collectors.toList());
+            searchBarInput.setText("");
             colorsAdapter.setColors(filteredColors);
             colorsAdapter.notifyDataSetChanged();
         });
