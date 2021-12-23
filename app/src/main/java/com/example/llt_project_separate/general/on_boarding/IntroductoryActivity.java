@@ -8,7 +8,6 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,6 +15,7 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.example.llt_project_separate.R;
 
 public class IntroductoryActivity extends AppCompatActivity {
+
     /*
     private ImageView logo, backgroundImage;
     private TextView appName;
@@ -46,9 +46,11 @@ public class IntroductoryActivity extends AppCompatActivity {
         logo.animate().translationY(1800).setDuration(1000).setStartDelay(4000);
         appName.animate().translationY(1500).setDuration(1000).setStartDelay(4000);
         lottieAnimationView.animate().translationY(1500).setDuration(1000).setStartDelay(4000);
+         */
     }
 
-    private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
+    /*
+    private static class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
 
         public ScreenSlidePagerAdapter(@NonNull FragmentManager fm) {
             super(fm);
@@ -58,26 +60,16 @@ public class IntroductoryActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
             switch(position) {
-                case 0:
-                    OnBoardingFragment1 tab1 = new OnBoardingFragment1();
-                    return tab1;
-                case 1:
-                    OnBoardingFragment2 tab2 = new OnBoardingFragment2();
-                    return tab2;
-                case 2:
-                    OnBoardingFragment3 tab3 = new OnBoardingFragment3();
-                    return tab3;
-                case 3:
-                    OnBoardingFragment4 tab4 = new OnBoardingFragment4();
-                    return tab4;
+                case 0: return new OnBoardingFragment1();
+                case 1: return new OnBoardingFragment2();
+                case 2: return new OnBoardingFragment3();
+                case 3: return new OnBoardingFragment4();
             }
             return null;
         }
 
         @Override
-        public int getCount() {
-            return NUMBER_OF_PAGES;
-        }
-         */
+        public int getCount() { return NUMBER_OF_PAGES; }
     }
+     */
 }

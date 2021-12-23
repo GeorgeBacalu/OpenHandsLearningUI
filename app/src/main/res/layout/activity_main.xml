@@ -8,8 +8,6 @@
     tools:context=".MainActivity"
     tools:openDrawer="start">
 
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -199,7 +197,7 @@
 
                     <TextView
                         android:id="@+id/projectDescription"
-                        android:layout_width="280dp"
+                        android:layout_width="250dp"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/projectTitle"
                         android:layout_centerHorizontal="true"
@@ -210,7 +208,7 @@
                         android:text="@string/project_description"
                         android:textAlignment="center"
                         android:textColor="@color/white"
-                        android:textSize="15sp" />
+                        android:textSize="17sp" />
 
                 </RelativeLayout>
 

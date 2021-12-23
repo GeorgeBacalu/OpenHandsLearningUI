@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/recordingContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Chronometer
+            android:id="@+id/chronometer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/recordProgressBar"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="30dp"
+            android:fontFamily="@font/source_sans_pro_semibold"
+            android:textSize="25sp" />
+
+        <ProgressBar
+            android:id="@+id/recordProgressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/record_progress_bar_background"
+            android:indeterminate="false"
+            android:max="100"
+            android:progress="0"
+            android:progressDrawable="@drawable/record_progress_bar" />
+
+        <Button
+            android:id="@+id/pauseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/recordProgressBar"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/source_sans_pro_semibold"
+            android:text="Pauza"
+            android:textAllCaps="true" />
+
+        <TextView
+            android:id="@+id/recordingStatusText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/pauseButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/source_sans_pro_semibold"
+            android:text="Inregistreaza"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <com.melnykov.fab.FloatingActionButton
+            android:id="@+id/recordingButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/recordingStatusText"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_mic_white"
+            app:fab_colorNormal="@color/light_blue" />
+
+<!--        <LinearLayout-->
+<!--            android:id="@+id/recordingButtonsContainer"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@id/recordingButton"-->
+<!--            android:layout_centerHorizontal="true">-->
+
+<!--            <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--                android:id="@+id/recordingButton2"-->
+<!--                android:layout_width="60dp"-->
+<!--                android:layout_height="60dp"-->
+<!--                android:layout_marginTop="25dp"-->
+<!--                android:backgroundTint="@color/light_blue"-->
+<!--                android:contentDescription="@string/home_page_button"-->
+<!--                android:src="@drawable/microphone"-->
+<!--                app:backgroundTint="@color/white"-->
+<!--                app:borderWidth="2dp"-->
+<!--                app:rippleColor="@color/white"-->
+<!--                app:tint="@color/white" />-->
+
+<!--            <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--                android:id="@+id/voiceStopRecordingButton"-->
+<!--                android:layout_width="60dp"-->
+<!--                android:layout_height="60dp"-->
+<!--                android:layout_marginTop="25dp"-->
+<!--                android:backgroundTint="@color/light_blue"-->
+<!--                android:contentDescription="@string/home_page_button"-->
+<!--                android:src="@drawable/microphone"-->
+<!--                app:backgroundTint="@color/white"-->
+<!--                app:borderWidth="2dp"-->
+<!--                app:rippleColor="@color/white"-->
+<!--                app:tint="@color/white"-->
+<!--                android:layout_marginHorizontal="30dp"/>-->
+
+<!--            <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--                android:id="@+id/voiceReplayRecordingButton"-->
+<!--                android:layout_width="60dp"-->
+<!--                android:layout_height="60dp"-->
+<!--                android:layout_marginTop="25dp"-->
+<!--                android:backgroundTint="@color/light_blue"-->
+<!--                android:contentDescription="@string/home_page_button"-->
+<!--                android:src="@drawable/microphone"-->
+<!--                app:backgroundTint="@color/white"-->
+<!--                app:borderWidth="2dp"-->
+<!--                app:rippleColor="@color/white"-->
+<!--                app:tint="@color/white" />-->
+
+<!--        </LinearLayout>-->
+
+
+        <EditText
+            android:id="@+id/textInput"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/recordingButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:autofillHints="@string/input_placeholder_text_to_sign"
+            android:background="@drawable/input_design"
+            android:hint="@string/input_placeholder_text_to_sign"
+            android:inputType="text"
+            android:paddingVertical="10dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:textSize="16sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/confirmButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textInput"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/button_design_2"
+            android:gravity="center|bottom|top"
+            android:includeFontPadding="false"
+            android:paddingHorizontal="30dp"
+            android:text="@string/confirm_button"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <RelativeLayout
+            android:id="@+id/outputContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/confirmButton"
+            android:layout_marginTop="30dp"
+            android:paddingHorizontal="10dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/resultCategoryName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:backgroundTint="@color/light_blue"
+                app:cardElevation="10dp">
+
+                <TextView
+                    android:id="@+id/categoryNameCardText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
+                    android:letterSpacing="0.1"
+                    android:text="@string/category_name_placeholder"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/resultTranslation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/resultCategoryName"
+                android:layout_centerHorizontal="true"
+                android:backgroundTint="@color/white"
+                app:cardElevation="10dp"
+                app:strokeColor="@color/black"
+                app:strokeWidth="1dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="50dp">
+
+                    <LinearLayout
+                        android:id="@+id/categoryText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/voiceToSignRecyclerView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="7dp"
+                            android:orientation="horizontal" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </RelativeLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/toHomePageFabButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/outputContent"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:backgroundTint="@color/light_blue"
+            android:contentDescription="@string/home_page_button"
+            android:src="@drawable/ic_home"
+            app:backgroundTint="@color/white"
+            app:borderWidth="2dp"
+            app:rippleColor="@color/white"
+            app:tint="@color/white" />
+
+    </RelativeLayout>
+
+</ScrollView>

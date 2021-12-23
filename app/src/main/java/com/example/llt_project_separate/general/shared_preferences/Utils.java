@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Utils {
     private static final String ALL_CATEGORIES = "all_categories";
     private static final String FAVORITE_CATEGORIES = "favorite_categories";
-    private static final String SHARED_PREF_FILE_NAME = "project_shared_preferences_test5";
+    private static final String SHARED_PREF_FILE_NAME = "project_shared_preferences_test6";
 
     private static Utils instance;
     private final SharedPreferences sharedPreferences;
