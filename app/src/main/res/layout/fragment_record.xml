@@ -80,38 +80,38 @@
                 android:layout_marginTop="25dp"
                 android:backgroundTint="@color/light_blue"
                 android:contentDescription="@string/home_page_button"
-                android:src="@drawable/ic_mic_white"
+                android:src="@drawable/microphone"
                 app:backgroundTint="@color/white"
                 app:borderWidth="2dp"
                 app:rippleColor="@color/white"
                 app:tint="@color/white" />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/voiceStopRecordingButton"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="25dp"
-                android:backgroundTint="@color/light_blue"
-                android:contentDescription="@string/home_page_button"
-                android:src="@drawable/ic_media_pause"
-                app:backgroundTint="@color/white"
-                app:borderWidth="2dp"
-                app:rippleColor="@color/white"
-                app:tint="@color/white"
-                android:layout_marginHorizontal="30dp"/>
+<!--            <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--                android:id="@+id/voiceStopRecordingButton"-->
+<!--                android:layout_width="60dp"-->
+<!--                android:layout_height="60dp"-->
+<!--                android:layout_marginTop="25dp"-->
+<!--                android:backgroundTint="@color/light_blue"-->
+<!--                android:contentDescription="@string/home_page_button"-->
+<!--                android:src="@drawable/ic_media_pause"-->
+<!--                app:backgroundTint="@color/white"-->
+<!--                app:borderWidth="2dp"-->
+<!--                app:rippleColor="@color/white"-->
+<!--                app:tint="@color/white"-->
+<!--                android:layout_marginHorizontal="30dp"/>-->
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/voiceReplayRecordingButton"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="25dp"
-                android:backgroundTint="@color/light_blue"
-                android:contentDescription="@string/home_page_button"
-                android:src="@drawable/ic_media_play"
-                app:backgroundTint="@color/white"
-                app:borderWidth="2dp"
-                app:rippleColor="@color/white"
-                app:tint="@color/white" />
+<!--            <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--                android:id="@+id/voiceReplayRecordingButton"-->
+<!--                android:layout_width="60dp"-->
+<!--                android:layout_height="60dp"-->
+<!--                android:layout_marginTop="25dp"-->
+<!--                android:backgroundTint="@color/light_blue"-->
+<!--                android:contentDescription="@string/home_page_button"-->
+<!--                android:src="@drawable/ic_media_play"-->
+<!--                app:backgroundTint="@color/white"-->
+<!--                app:borderWidth="2dp"-->
+<!--                app:rippleColor="@color/white"-->
+<!--                app:tint="@color/white" />-->
 
         </LinearLayout>
 

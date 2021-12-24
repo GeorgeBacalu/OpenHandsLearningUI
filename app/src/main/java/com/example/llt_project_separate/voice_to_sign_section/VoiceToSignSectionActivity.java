@@ -20,6 +20,7 @@ import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.SystemClock;
+import android.speech.RecognizerIntent;
 import android.util.AttributeSet;
 import android.view.MenuItem;
 import android.view.View;
@@ -54,7 +55,8 @@ public class VoiceToSignSectionActivity extends AppCompatActivity {
     private RecyclerView voiceToSignRecyclerView;
     private VoiceToSignSectionRecyclerViewAdapter voiceToSignSectionRecyclerViewAdapter;
     private FloatingActionButton toHomePageFabButton;
-    private FloatingActionButton voiceRecordingButton, voiceStopRecordingButton, voiceReplayRecordingButton;
+    private FloatingActionButton voiceRecordingButton;
+    private FloatingActionButton voiceStopRecordingButton, voiceReplayRecordingButton;
     private EditText textInput;
     private Button confirmButton;
     private TextView categoryNameCardText;
@@ -87,6 +89,11 @@ public class VoiceToSignSectionActivity extends AppCompatActivity {
 
 
         voiceRecordingButton.setOnClickListener(v -> {
+            Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+            intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Start Speaking");
+            startActivityForResult(intent, 100);
+            /*
             try {
                 mediaRecorder = new MediaRecorder();
                 mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
@@ -99,8 +106,10 @@ public class VoiceToSignSectionActivity extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            */
         });
 
+        /*
         voiceStopRecordingButton.setOnClickListener(v -> {
             try {
                 mediaRecorder.stop();
@@ -123,14 +132,15 @@ public class VoiceToSignSectionActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         });
+         */
 
         voiceToSignRecyclerView.setAdapter(voiceToSignSectionRecyclerViewAdapter);
         voiceToSignRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
         List<TextSignPair> textSignPairs = new ArrayList<>();
         textSignPairs.add(new TextSignPair(getStringResource(R.string.a), R.drawable.dactilema_a));
-        // textSignPairs.add(new TextSignPair(getStringResource(R.string.a), R.drawable.dactilema_a));
-        // textSignPairs.add(new TextSignPair(getStringResource(R.string.a), R.drawable.dactilema_a));
+        textSignPairs.add(new TextSignPair(getStringResource(R.string.ă), R.drawable.dactilema_a));
+        textSignPairs.add(new TextSignPair(getStringResource(R.string.â), R.drawable.dactilema_a));
         textSignPairs.add(new TextSignPair(getStringResource(R.string.b), R.drawable.dactilema_b));
         textSignPairs.add(new TextSignPair(getStringResource(R.string.c), R.drawable.dactilema_c));
         textSignPairs.add(new TextSignPair(getStringResource(R.string.d), R.drawable.dactilema_d));
@@ -139,7 +149,7 @@ public class VoiceToSignSectionActivity extends AppCompatActivity {
         textSignPairs.add(new TextSignPair(getStringResource(R.string.g), R.drawable.dactilema_g));
         textSignPairs.add(new TextSignPair(getStringResource(R.string.h), R.drawable.dactilema_h));
         textSignPairs.add(new TextSignPair(getStringResource(R.string.i), R.drawable.dactilema_i));
-        // textSignPairs.add(new TextSignPair(getStringResource(R.string.i), R.drawable.dactilema_i));
+        textSignPairs.add(new TextSignPair(getStringResource(R.string.î), R.drawable.dactilema_i));
         textSignPairs.add(new TextSignPair(getStringResource(R.string.j), R.drawable.dactilema_j));
         textSignPairs.add(new TextSignPair(getStringResource(R.string.k), R.drawable.dactilema_k));
         textSignPairs.add(new TextSignPair(getStringResource(R.string.l), R.drawable.dactilema_l));
@@ -150,9 +160,9 @@ public class VoiceToSignSectionActivity extends AppCompatActivity {
         textSignPairs.add(new TextSignPair(getStringResource(R.string.q), R.drawable.dactilema_q));
         textSignPairs.add(new TextSignPair(getStringResource(R.string.r), R.drawable.dactilema_r));
         textSignPairs.add(new TextSignPair(getStringResource(R.string.s), R.drawable.dactilema_s));
-        // textSignPairs.add(new TextSignPair(getStringResource(R.string.s), R.drawable.dactilema_s));
+        textSignPairs.add(new TextSignPair(getStringResource(R.string.ş), R.drawable.dactilema_s));
         textSignPairs.add(new TextSignPair(getStringResource(R.string.t), R.drawable.dactilema_t));
-        // textSignPairs.add(new TextSignPair(getStringResource(R.string.t), R.drawable.dactilema_t));
+        textSignPairs.add(new TextSignPair(getStringResource(R.string.ţ), R.drawable.dactilema_t));
         textSignPairs.add(new TextSignPair(getStringResource(R.string.u), R.drawable.dactilema_u));
         textSignPairs.add(new TextSignPair(getStringResource(R.string.v), R.drawable.dactilema_v));
         textSignPairs.add(new TextSignPair(getStringResource(R.string.w), R.drawable.dactilema_w));
@@ -160,8 +170,9 @@ public class VoiceToSignSectionActivity extends AppCompatActivity {
         textSignPairs.add(new TextSignPair(getStringResource(R.string.y), R.drawable.dactilema_y));
         textSignPairs.add(new TextSignPair(getStringResource(R.string.z), R.drawable.dactilema_z));
         textSignPairs.add(new TextSignPair(getStringResource(R.string.A), R.drawable.dactilema_a));
-        // textSignPairs.add(new TextSignPair(getStringResource(R.string.A), R.drawable.dactilema_a));
-        // textSignPairs.add(new TextSignPair(getStringResource(R.string.A), R.drawable.dactilema_a));
+        textSignPairs.add(new TextSignPair(getStringResource(R.string.A), R.drawable.dactilema_a));
+        textSignPairs.add(new TextSignPair(getStringResource(R.string.Ă), R.drawable.dactilema_a));
+        textSignPairs.add(new TextSignPair(getStringResource(R.string.Â), R.drawable.dactilema_a));
         textSignPairs.add(new TextSignPair(getStringResource(R.string.B), R.drawable.dactilema_b));
         textSignPairs.add(new TextSignPair(getStringResource(R.string.C), R.drawable.dactilema_c));
         textSignPairs.add(new TextSignPair(getStringResource(R.string.D), R.drawable.dactilema_d));
@@ -170,7 +181,7 @@ public class VoiceToSignSectionActivity extends AppCompatActivity {
         textSignPairs.add(new TextSignPair(getStringResource(R.string.G), R.drawable.dactilema_g));
         textSignPairs.add(new TextSignPair(getStringResource(R.string.H), R.drawable.dactilema_h));
         textSignPairs.add(new TextSignPair(getStringResource(R.string.I), R.drawable.dactilema_i));
-        // textSignPairs.add(new TextSignPair(getStringResource(R.string.I), R.drawable.dactilema_i));
+        textSignPairs.add(new TextSignPair(getStringResource(R.string.Î), R.drawable.dactilema_i));
         textSignPairs.add(new TextSignPair(getStringResource(R.string.J), R.drawable.dactilema_j));
         textSignPairs.add(new TextSignPair(getStringResource(R.string.K), R.drawable.dactilema_k));
         textSignPairs.add(new TextSignPair(getStringResource(R.string.L), R.drawable.dactilema_l));
@@ -181,9 +192,9 @@ public class VoiceToSignSectionActivity extends AppCompatActivity {
         textSignPairs.add(new TextSignPair(getStringResource(R.string.Q), R.drawable.dactilema_q));
         textSignPairs.add(new TextSignPair(getStringResource(R.string.R), R.drawable.dactilema_r));
         textSignPairs.add(new TextSignPair(getStringResource(R.string.S), R.drawable.dactilema_s));
-        // textSignPairs.add(new TextSignPair(getStringResource(R.string.S), R.drawable.dactilema_s));
+        textSignPairs.add(new TextSignPair(getStringResource(R.string.Ş), R.drawable.dactilema_s));
         textSignPairs.add(new TextSignPair(getStringResource(R.string.T), R.drawable.dactilema_t));
-        // textSignPairs.add(new TextSignPair(getStringResource(R.string.T), R.drawable.dactilema_t));
+        textSignPairs.add(new TextSignPair(getStringResource(R.string.Ţ), R.drawable.dactilema_t));
         textSignPairs.add(new TextSignPair(getStringResource(R.string.U), R.drawable.dactilema_u));
         textSignPairs.add(new TextSignPair(getStringResource(R.string.V), R.drawable.dactilema_v));
         textSignPairs.add(new TextSignPair(getStringResource(R.string.W), R.drawable.dactilema_w));
@@ -227,8 +238,8 @@ public class VoiceToSignSectionActivity extends AppCompatActivity {
         textInput = findViewById(R.id.textInput);
         confirmButton = findViewById(R.id.confirmButton);
         voiceRecordingButton = findViewById(R.id.voiceRecordingButton);
-        voiceStopRecordingButton = findViewById(R.id.voiceStopRecordingButton);
-        voiceReplayRecordingButton = findViewById(R.id.voiceReplayRecordingButton);
+        // voiceStopRecordingButton = findViewById(R.id.voiceStopRecordingButton);
+        // voiceReplayRecordingButton = findViewById(R.id.voiceReplayRecordingButton);
         categoryNameCardText = findViewById(R.id.categoryNameCardText);
         outputContent = findViewById(R.id.outputContent);
     }
@@ -237,6 +248,13 @@ public class VoiceToSignSectionActivity extends AppCompatActivity {
         return getResources().getString(intResource);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 100 && resultCode == RESULT_OK) {
+            textInput.setText(data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS).get(0));
+        }
+    }
 
     private boolean isMicrophonePresent() {
         if (this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_MICROPHONE)) {
@@ -251,13 +269,14 @@ public class VoiceToSignSectionActivity extends AppCompatActivity {
         }
     }
 
-
+    /*
     private String getRecordingFilePath() {
         ContextWrapper contextWrapper = new ContextWrapper(getApplicationContext());
         File musicDirectory = contextWrapper.getExternalFilesDir(Environment.DIRECTORY_MUSIC);
         File file = new File(musicDirectory, "textRecordingFile" + ".mp3");
         return file.getPath();
     }
+     */
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

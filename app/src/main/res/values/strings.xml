@@ -473,5 +473,15 @@
     <string name="am_inteles">AM INTELES</string>
     <string name="am_sa_va_fac_cunostinta">AM SA VA FAC CUNOSTINTA</string>
     <string name="as_dori_sa_iti_cer_sfatul">AS DORI SA ITI CER SFATUL</string>
+    <string name="ă">ă</string>
+    <string name="â">â</string>
+    <string name="î">î</string>
+    <string name="ş">ş</string>
+    <string name="ţ">ţ</string>
+    <string name="Ă">Ă</string>
+    <string name="Â">Â</string>
+    <string name="Î">Î</string>
+    <string name="Ş">Ş</string>
+    <string name="Ţ">Ţ</string>
 
 </resources>
