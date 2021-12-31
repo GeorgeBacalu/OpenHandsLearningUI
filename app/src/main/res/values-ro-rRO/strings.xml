@@ -6,8 +6,8 @@
 
     <string name="activity_introductory">Introductory Activity</string>
     <string name="activity_video_section">Secţiune Video</string>
-    <string name="activity_text_to_sign_section">Secţiune Text to Sign</string>
-    <string name="activity_voice_to_sign_section">Secţiune Voice to Sign</string>
+    <string name="activity_text_to_sign_section">Secţiune Text - Dactilemă</string>
+    <string name="activity_voice_to_sign_section">Secţiune Voce - Dactilemă</string>
     <string name="activity_expressions_section">Secţiune Expresii</string>
 
     <string name="activity_alphabet">Alfabet</string>
@@ -56,7 +56,7 @@
 
     <string name="header_title_video_section">SECŢIUNE VIDEO</string>
     <string name="header_title_text_to_sign_section">SECŢIUNE TEXT - DACTILEMĂ</string>
-    <string name="header_title_voice_to_sign_section">SECŢIUNE VOCE - DACTILEMA</string>
+    <string name="header_title_voice_to_sign_section">SECŢIUNE VOCE - DACTILEMĂ</string>
     <string name="header_title_expressions_section">SECŢIUNE EXPRESII</string>
 
     <string name="header_subtitle_video_section">Alege categoria dorită şi vizionează un scurt videoclip cu traducerea acesteia în limbajul semnelor.</string>
