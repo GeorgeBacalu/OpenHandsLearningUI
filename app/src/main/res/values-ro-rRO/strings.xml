@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">LLT_PROJECT</string>
+    <string name="app_name">Let\'s Learn Together!</string>
 
     // all activities
 
@@ -208,6 +208,9 @@
     <string name="MARO">MARO</string>
     <string name="ROZ">ROZ</string>
     <string name="TURCOAZ">TURCOAZ</string>
+    <string name="ALB">ALB</string>
+    <string name="GRI">GRI</string>
+    <string name="NEGRU">NEGRU</string>
 
     // animals
 
@@ -441,8 +444,8 @@
 
     <string name="nav_home">Acasă</string>
     <string name="nav_video">Secţiune video</string>
-    <string name="nav_text_to_sign">Secţiune Text to Sign</string>
-    <string name="nav_voice_to_sign">Secţiune Voice to Sign</string>
+    <string name="nav_text_to_sign">Secţiune Text - Dactilemă</string>
+    <string name="nav_voice_to_sign">Secţiune Voce - Dactilemă</string>
     <string name="nav_expressions">Secţiune Expresii</string>
     <string name="nav_settings">Preferinţe aplicaţie</string>
 

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LLT_PROJECT</string>
+    <string name="app_name">Let\'s Learn Together!</string>
 
     // all activities
 
@@ -207,6 +207,9 @@
     <string name="MARO">MARO</string>
     <string name="ROZ">ROZ</string>
     <string name="TURCOAZ">TURCOAZ</string>
+    <string name="ALB">ALB</string>
+    <string name="GRI">GRI</string>
+    <string name="NEGRU">NEGRU</string>
 
     // animals
 
@@ -440,8 +443,8 @@
 
     <string name="nav_home">Acasa</string>
     <string name="nav_video">Sectiune video</string>
-    <string name="nav_text_to_sign">Sectiune Text to Sign</string>
-    <string name="nav_voice_to_sign">Sectiune Voice to Sign</string>
+    <string name="nav_text_to_sign">Sectiune Text - Dactilema</string>
+    <string name="nav_voice_to_sign">Sectiune Voce - Dactilema</string>
     <string name="nav_expressions">Sectiune Expresii</string>
     <string name="nav_settings">Preferinte aplicatie</string>
 

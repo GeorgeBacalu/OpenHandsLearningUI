@@ -50,7 +50,7 @@ public class NumbersActivity extends AppCompatActivity {
         numbersRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         List<Category> numbers = new ArrayList<>();
-        numbers.add(new Category(32, getStringResource(R.string.ZERO), R.drawable.zero));
+        // numbers.add(new Category(32, getStringResource(R.string.ZERO), R.drawable.zero));
         numbers.add(new Category(33, getStringResource(R.string.UNU), R.drawable.unu));
         numbers.add(new Category(34, getStringResource(R.string.DOI), R.drawable.doi));
         numbers.add(new Category(35, getStringResource(R.string.TREI), R.drawable.trei));

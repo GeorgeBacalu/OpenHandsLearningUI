@@ -20,7 +20,7 @@ public class OnBoardingFragment4 extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_on_boarding_4, container, false);
 
-        FloatingActionButton nextPageButton = root.findViewById(R.id.nextPageButton);
+        FloatingActionButton nextPageButton = root.findViewById(R.id.next_page_button);
 
         nextPageButton.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), NewCategoryActivity.class);

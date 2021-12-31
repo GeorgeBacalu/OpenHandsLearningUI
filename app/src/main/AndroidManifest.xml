@@ -125,7 +125,7 @@
             android:exported="false"
             android:label="@string/activity_forms_of_address" />
         <activity
-            android:name=".expressions_section.ExpressionsSectionActivity"
+            android:name=".expressions_section.ExpressionsActivity"
             android:exported="false"
             android:label="@string/activity_expressions_section" />
         <activity

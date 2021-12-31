@@ -55,16 +55,19 @@ public class ColorsActivity extends AppCompatActivity {
         colors.add(new Category(45, getStringResource(R.string.GALBEN), R.drawable.galben));
         colors.add(new Category(46, getStringResource(R.string.VERDE), R.drawable.verde));
         colors.add(new Category(47, getStringResource(R.string.ALBASTRU), R.drawable.albastru));
-        colors.add(new Category(48, getStringResource(R.string.INDIGO), R.drawable.indigo));
-        colors.add(new Category(49, getStringResource(R.string.VIOLET), R.drawable.violet));
+        // colors.add(new Category(48, getStringResource(R.string.INDIGO), R.drawable.indigo));
+        // colors.add(new Category(49, getStringResource(R.string.VIOLET), R.drawable.violet));
+        colors.add(new Category(48, getStringResource(R.string.ALB), R.drawable.alb));
+        colors.add(new Category(49, getStringResource(R.string.GRI), R.drawable.gri));
         colors.add(new Category(50, getStringResource(R.string.MARO), R.drawable.maro));
         colors.add(new Category(51, getStringResource(R.string.ROZ), R.drawable.roz));
-        colors.add(new Category(52, getStringResource(R.string.TURCOAZ), R.drawable.turcoaz));
+        // colors.add(new Category(52, getStringResource(R.string.TURCOAZ), R.drawable.turcoaz));
+        colors.add(new Category(52, getStringResource(R.string.NEGRU), R.drawable.negru));
         colorsAdapter.setColors(colors);
 
         searchBarIcon.setOnClickListener(v -> {
             String searchBarInputText = searchBarInput.getText().toString().toLowerCase();
-            List<Category> filteredColors = colors.stream().filter(category-> category.getName().toLowerCase().startsWith(searchBarInputText)).collect(Collectors.toList());
+            List<Category> filteredColors = colors.stream().filter(category  -> category.getName().toLowerCase().startsWith(searchBarInputText)).collect(Collectors.toList());
             searchBarInput.setText("");
             colorsAdapter.setColors(filteredColors);
             colorsAdapter.notifyDataSetChanged();

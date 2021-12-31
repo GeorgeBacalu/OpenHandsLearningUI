@@ -28,11 +28,11 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class FavoritesActivity extends AppCompatActivity {
-    private RecyclerView favoriteRecyclerView;
-    private CategoryRecyclerViewAdapter favoritesAdapter;
-    private FloatingActionButton toHomePageFabButton;
-    private EditText searchBarInput;
-    private ImageView searchBarIcon;
+    private RecyclerView recyclerView;
+    private CategoryRecyclerViewAdapter adapter;
+    private FloatingActionButton homePageButton;
+    private EditText searchBar;
+    private ImageView searchIcon;
 
     @SuppressLint("NotifyDataSetChanged")
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -41,19 +41,18 @@ public class FavoritesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorites);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-
         initializeViews();
 
-        toHomePageFabButton.setOnClickListener(v -> {
+        homePageButton.setOnClickListener(v -> {
             Intent intent = new Intent(FavoritesActivity.this, MainActivity.class);
             startActivity(intent);
         });
 
-        favoriteRecyclerView.setAdapter(favoritesAdapter);
-        favoriteRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        favoritesAdapter.setCategories(Utils.getInstance(this).getFavoriteCategories());
-        if(favoritesAdapter.getItemCount() == 0) {
+        adapter.setCategories(Utils.getInstance(this).getFavoriteCategories());
+        if(adapter.getItemCount() == 0) {
             setContentView(R.layout.no_favorites);
             Button browseCollectionsButton = findViewById(R.id.browseCollectionsButton);
             browseCollectionsButton.setOnClickListener(v -> {
@@ -62,21 +61,21 @@ public class FavoritesActivity extends AppCompatActivity {
             });
         }
 
-        searchBarIcon.setOnClickListener(v -> {
-            String searchBarInputText = searchBarInput.getText().toString().toLowerCase();
-            List<Category> filteredCategories = Utils.getInstance(this).getFavoriteCategories().stream().filter(category-> category.getName().toLowerCase().startsWith(searchBarInputText)).collect(Collectors.toList());
-            favoritesAdapter.setCategories(filteredCategories);
-            searchBarInput.setText("");
-            favoritesAdapter.notifyDataSetChanged();
+        searchIcon.setOnClickListener(v -> {
+            String searchBarInputText = searchBar.getText().toString().toLowerCase();
+            List<Category> filteredFavorites = Utils.getInstance(this).getFavoriteCategories().stream().filter(favorite-> favorite.getName().toLowerCase().startsWith(searchBarInputText)).collect(Collectors.toList());
+            searchBar.setText("");
+            adapter.setCategories(filteredFavorites);
+            adapter.notifyDataSetChanged();
         });
     }
 
     private void initializeViews() {
-        favoriteRecyclerView = findViewById(R.id.favoriteRecyclerView);
-        favoritesAdapter = new CategoryRecyclerViewAdapter(this, "favoriteCategories", this::recreate);
-        toHomePageFabButton = findViewById(R.id.toHomePageFabButton);
-        searchBarInput = findViewById(R.id.searchBarInput);
-        searchBarIcon = findViewById(R.id.searchBarIcon);
+        recyclerView = findViewById(R.id.recycler_view);
+        adapter = new CategoryRecyclerViewAdapter(this, "favoriteCategories", this::recreate);
+        homePageButton = findViewById(R.id.home_page_button);
+        searchBar = findViewById(R.id.search_bar);
+        searchIcon = findViewById(R.id.search_icon);
     }
 
     @Override

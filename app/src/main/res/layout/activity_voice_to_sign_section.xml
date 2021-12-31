@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:contentDescription="@string/section_header_overlay"
-                android:src="@drawable/overlay_background_final" />
+                android:src="@drawable/overlay_background" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"

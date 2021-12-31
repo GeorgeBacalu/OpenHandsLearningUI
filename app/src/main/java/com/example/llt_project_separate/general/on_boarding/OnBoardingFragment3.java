@@ -16,6 +16,6 @@ public class OnBoardingFragment3 extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return (ViewGroup) inflater.inflate(R.layout.fragment_on_boarding_3, container, false);
+        return inflater.inflate(R.layout.fragment_on_boarding_3, container, false);
     }
 }

@@ -12,23 +12,23 @@
         android:paddingBottom="10dp">
 
         <TextView
-            android:id="@+id/favoriteHeader"
+            android:id="@+id/favorite_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="60dp"
             android:fontFamily="@font/source_sans_pro_bold"
             android:text="@string/header_title_favorites"
-            android:textColor="@color/light_blue"
             android:textAllCaps="true"
+            android:textColor="@color/light_blue"
             android:textSize="30sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/searchBar"
+            android:id="@+id/search_bar_container"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:layout_below="@+id/favoriteHeader"
+            android:layout_below="@+id/favorite_header"
             android:layout_marginHorizontal="80dp"
             android:layout_marginTop="40dp"
             app:cardCornerRadius="20dp"
@@ -36,7 +36,7 @@
             app:strokeWidth="2dp">
 
             <EditText
-                android:id="@+id/searchBarInput"
+                android:id="@+id/search_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -49,7 +49,7 @@
                 android:inputType="text" />
 
             <ImageView
-                android:id="@+id/searchBarIcon"
+                android:id="@+id/search_icon"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_gravity="end"
@@ -60,26 +60,19 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <RelativeLayout
-            android:id="@+id/recyclerViewContainer"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/searchBar"
+            android:layout_below="@+id/search_bar_container"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/favoriteRecyclerView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </RelativeLayout>
+            android:layout_marginTop="40dp" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/toHomePageFabButton"
+            android:id="@+id/home_page_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/recyclerViewContainer"
+            android:layout_below="@+id/recycler_view"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="35dp"

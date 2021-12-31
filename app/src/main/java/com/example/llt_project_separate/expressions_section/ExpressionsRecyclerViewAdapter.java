@@ -26,12 +26,12 @@ import com.example.llt_project_separate.video_section.VideoPlayerActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExpressionsSectionRecyclerViewAdapter extends RecyclerView.Adapter<ExpressionsSectionRecyclerViewAdapter.ViewHolder> {
+public class ExpressionsRecyclerViewAdapter extends RecyclerView.Adapter<ExpressionsRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "ExpressionsAdapter";
     private List<Category> expressions = new ArrayList<>();
-    private final Context expressionsContext;
+    private final Context context;
 
-    public ExpressionsSectionRecyclerViewAdapter(Context expressionsContext) { this.expressionsContext = expressionsContext; }
+    public ExpressionsRecyclerViewAdapter(Context expressionsContext) { this.context = expressionsContext; }
 
     @NonNull
     @Override
@@ -45,14 +45,15 @@ public class ExpressionsSectionRecyclerViewAdapter extends RecyclerView.Adapter<
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(expressions.get(position).getName());
-        Glide.with(expressionsContext).asBitmap().load(expressions.get(position).getImageSource()).into(holder.categoryImage);
+        Glide.with(context).asBitmap().load(expressions.get(position).getImageSource()).into(holder.categoryImage);
+
         holder.categoryCard.setOnClickListener(v -> {
-            Intent intent = new Intent(expressionsContext, VideoPlayerActivity.class);
+            Intent intent = new Intent(context, VideoPlayerActivity.class);
             if (expressions.get(position).getId() < 0) throw new NullPointerException("Invalid Selection");
             intent.putExtra(CATEGORY_ID, expressions.get(position).getId());
             intent.putExtra(CATEGORY_NAME, expressions.get(position).getName());
             intent.putExtra(CATEGORY_IMAGE, expressions.get(position).getImageSource());
-            expressionsContext.startActivity(intent);
+            context.startActivity(intent);
         });
     }
 

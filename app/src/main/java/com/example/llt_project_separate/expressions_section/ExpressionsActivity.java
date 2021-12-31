@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.llt_project_separate.MainActivity;
 import com.example.llt_project_separate.R;
@@ -24,12 +25,12 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class ExpressionsSectionActivity extends AppCompatActivity {
-    private RecyclerView expressionsSectionRecyclerView;
-    private ExpressionsSectionRecyclerViewAdapter expressionsSectionRecyclerViewAdapter;
-    private FloatingActionButton toHomePageButton;
-    private EditText searchBarInput;
-    private ImageView searchBarIcon;
+public class ExpressionsActivity extends AppCompatActivity {
+    private RecyclerView recyclerView;
+    private ExpressionsRecyclerViewAdapter adapter;
+    private FloatingActionButton homePageButton;
+    private EditText searchBar;
+    private ImageView searchIcon;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @SuppressLint("NotifyDataSetChanged")
@@ -38,16 +39,15 @@ public class ExpressionsSectionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expressions_section);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-
         initializeViews();
 
-        toHomePageButton.setOnClickListener(v -> {
-            Intent intent = new Intent(ExpressionsSectionActivity.this, MainActivity.class);
+        homePageButton.setOnClickListener(v -> {
+            Intent intent = new Intent(ExpressionsActivity.this, MainActivity.class);
             startActivity(intent);
         });
 
-        expressionsSectionRecyclerView.setAdapter(expressionsSectionRecyclerViewAdapter);
-        expressionsSectionRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         List<Category> expressions = new ArrayList<>();
         expressions.add(new Category(191, getStringResource(R.string.aceasta_este_prietena_mea), R.drawable.aceasta_este_prietena_mea));
@@ -56,22 +56,23 @@ public class ExpressionsSectionActivity extends AppCompatActivity {
         expressions.add(new Category(194, getStringResource(R.string.am_inteles), R.drawable.am_inteles));
         expressions.add(new Category(195, getStringResource(R.string.am_sa_va_fac_cunostinta), R.drawable.am_sa_va_fac_cunostinta));
         expressions.add(new Category(196, getStringResource(R.string.as_dori_sa_iti_cer_sfatul), R.drawable.as_dori_sa_iti_cer_sfatul));
-        expressionsSectionRecyclerViewAdapter.setExpressions(expressions);
+        adapter.setExpressions(expressions);
 
-        searchBarIcon.setOnClickListener(v -> {
-            String searchBarInputText = searchBarInput.getText().toString().toLowerCase();
-            List<Category> filteredExpressions = expressions.stream().filter(category-> category.getName().toLowerCase().startsWith(searchBarInputText)).collect(Collectors.toList());
-            expressionsSectionRecyclerViewAdapter.setExpressions(filteredExpressions);
-            expressionsSectionRecyclerViewAdapter.notifyDataSetChanged();
+        searchIcon.setOnClickListener(v -> {
+            String searchBarText = searchBar.getText().toString().toLowerCase();
+            List<Category> filteredExpressions = expressions.stream().filter(expression-> expression.getName().toLowerCase().startsWith(searchBarText)).collect(Collectors.toList());
+            searchBar.setText("");
+            adapter.setExpressions(filteredExpressions);
+            adapter.notifyDataSetChanged();
         });
     }
 
     private void initializeViews() {
-        expressionsSectionRecyclerView = findViewById(R.id.expressionsSectionRecyclerView);
-        expressionsSectionRecyclerViewAdapter = new ExpressionsSectionRecyclerViewAdapter(this);
-        toHomePageButton = findViewById(R.id.toHomePageButton);
-        searchBarInput = findViewById(R.id.searchBarInput);
-        searchBarIcon = findViewById(R.id.searchBarIcon);
+        recyclerView = findViewById(R.id.recycler_view);
+        adapter = new ExpressionsRecyclerViewAdapter(this);
+        homePageButton = findViewById(R.id.home_page_button);
+        searchBar = findViewById(R.id.search_bar);
+        searchIcon = findViewById(R.id.search_icon);
     }
 
     String getStringResource(int intResource) { return getResources().getString(intResource); }

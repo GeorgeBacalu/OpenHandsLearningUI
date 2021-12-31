@@ -1,41 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".expressions_section.ExpressionsSectionActivity"
-    android:layout_marginTop="-22dp">
+    android:layout_marginTop="-20dp"
+    tools:context=".expressions_section.ExpressionsActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="-5dp">
+        android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/expressionsSectionHeaderImage"
+            android:id="@+id/expressions_section_header_image"
             android:layout_width="match_parent"
             android:layout_height="320dp"
-            android:src="@drawable/expressions_section_header"
-            android:contentDescription="@string/section_header_image" />
+            android:contentDescription="@string/section_header_image"
+            android:src="@drawable/expressions_section_header" />
 
         <ImageView
-            android:id="@+id/expressionsSectionHeaderOverlay"
+            android:id="@+id/expressions_section_header_overlay"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:contentDescription="@string/section_header_overlay"
-            android:src="@drawable/overlay_background_final" />
+            android:src="@drawable/overlay_background" />
 
         <RelativeLayout
-            android:id="@+id/expressionsSectionHeader"
-            android:layout_width="wrap_content"
+            android:id="@+id/expressions_section_header_text"
+            android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
             android:layout_marginTop="50dp">
 
             <TextView
-                android:id="@+id/videoSectionHeaderTitle"
-                android:layout_width="wrap_content"
+                android:id="@+id/header_title"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/source_sans_pro_black"
                 android:text="@string/header_title_expressions_section"
@@ -43,10 +42,10 @@
                 android:textSize="25sp" />
 
             <TextView
-                android:id="@+id/videoSectionHeaderSubtitle"
-                android:layout_width="240dp"
+                android:id="@+id/header_subtitle"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/videoSectionHeaderTitle"
+                android:layout_below="@id/header_title"
                 android:layout_marginTop="25dp"
                 android:fontFamily="@font/source_sans_pro_regular"
                 android:text="@string/header_subtitle_expressions_section"
@@ -55,10 +54,10 @@
         </RelativeLayout>
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/searchBarContainer"
+            android:id="@+id/search_bar_container"
             android:layout_width="250dp"
             android:layout_height="45dp"
-            android:layout_below="@+id/expressionsSectionHeaderImage"
+            android:layout_below="@+id/expressions_section_header_image"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="40dp"
             app:cardCornerRadius="20dp"
@@ -66,12 +65,12 @@
             app:strokeWidth="1dp">
 
             <EditText
-                android:id="@+id/searchBarInput"
+                android:id="@+id/search_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:autofillHints="@string/input_placeholder_category"
-                android:background="@color/white"
+                android:background="@color/transparent"
                 android:hint="@string/input_placeholder_category"
                 android:inputType="text"
                 android:paddingStart="15dp"
@@ -79,7 +78,7 @@
                 android:textSize="16sp" />
 
             <ImageView
-                android:id="@+id/searchBarIcon"
+                android:id="@+id/search_icon"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_gravity="end"
@@ -87,22 +86,21 @@
                 android:layout_marginEnd="7dp"
                 android:contentDescription="@string/search_bar_icon"
                 android:src="@drawable/ic_search" />
-
         </com.google.android.material.card.MaterialCardView>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/expressionsSectionRecyclerView"
+            android:id="@+id/recycler_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/searchBarContainer"
+            android:layout_below="@+id/search_bar_container"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="40dp" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/toHomePageButton"
+            android:id="@+id/home_page_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/expressionsSectionRecyclerView"
+            android:layout_below="@+id/recycler_view"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="25dp"
             android:layout_marginBottom="10dp"

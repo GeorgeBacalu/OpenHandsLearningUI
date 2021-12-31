@@ -15,7 +15,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.llt_project_separate.expressions_section.ExpressionsSectionActivity;
+import com.example.llt_project_separate.expressions_section.ExpressionsActivity;
 import com.example.llt_project_separate.general.standard_classes.Section;
 import com.example.llt_project_separate.text_to_sign_section.TextToSignSectionActivity;
 import com.example.llt_project_separate.video_section.VideoSectionActivity;
@@ -52,7 +52,7 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
                 case 10001: intent = new Intent(context, VideoSectionActivity.class); break;
                 case 10002: intent = new Intent(context, TextToSignSectionActivity.class); break;
                 case 10003: intent = new Intent(context, VoiceToSignSectionActivity.class); break;
-                case 10004: intent = new Intent(context, ExpressionsSectionActivity.class); break;
+                case 10004: intent = new Intent(context, ExpressionsActivity.class); break;
                 default: throw new NullPointerException("Invalid Selection");
             }
             context.startActivity(intent);
