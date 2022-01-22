@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".video_section.all_categories.AllCategoriesActivity">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/searchBar"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginHorizontal="80dp"
+        android:layout_marginTop="40dp"
+        app:cardCornerRadius="20dp"
+        app:strokeColor="@color/gray_border"
+        app:strokeWidth="2dp">
+
+        <EditText
+            android:id="@+id/searchBarInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:hint="@string/input_placeholder_category"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:textSize="16sp"
+            android:autofillHints="@string/input_placeholder_category"
+            android:inputType="text" />
+
+        <ImageView
+            android:id="@+id/searchBarIcon"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="end"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="7dp"
+            android:src="@drawable/ic_search"
+            android:contentDescription="@string/search_bar_icon" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/categoriesRecyclerView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_below="@id/searchBar"
+        android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>

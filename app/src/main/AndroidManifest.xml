@@ -1,97 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.llt_project_separate">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/app_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/app_logo_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.LLT_Project_Separate">
+        android:theme="@style/Theme.LLT_Project_Current">
         <activity
-            android:name=".PronounsActivity"
-            android:exported="false" />
+            android:name=".SettingsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_settings" />
         <activity
-            android:name=".FamilyMembersActivity"
-            android:exported="false" />
+            android:name=".general.on_boarding.IntroductoryActivity"
+            android:exported="false"
+            android:label="@string/activity_introductory"/>
         <activity
-            android:name=".ProductsActivity"
-            android:exported="false" />
+            android:name=".general.new_category.NewCategoryActivity"
+            android:exported="false"
+            android:label="@string/activity_new_category" />
         <activity
-            android:name=".MoneyActivity"
-            android:exported="false" />
+            android:name=".video_section.single_category.CategoryActivity"
+            android:exported="false"
+            android:label="@string/activity_category" />
         <activity
-            android:name=".CityActivity"
-            android:exported="false" />
+            android:name=".video_section.all_categories.AllCategoriesActivity"
+            android:exported="false"
+            android:label="@string/activity_all_categories" />
         <activity
-            android:name=".ShopActivity"
-            android:exported="false" />
+            android:name=".general.favorites.FavoritesActivity"
+            android:exported="false"
+            android:label="@string/activity_favorite_categories" />
         <activity
-            android:name=".ClassActivity"
-            android:exported="false" />
+            android:name=".video_section.people.pronouns.PronounsActivity"
+            android:exported="false"
+            android:label="@string/activity_pronouns" />
         <activity
-            android:name=".OutsideActivity"
-            android:exported="false" />
+            android:name=".video_section.people.family_members.FamilyMembersActivity"
+            android:exported="false"
+            android:label="@string/activity_family_members" />
         <activity
-            android:name=".HomeActivity"
-            android:exported="false" />
+            android:name=".video_section.objects.shop.products.ProductsActivity"
+            android:exported="false"
+            android:label="@string/activity_products" />
         <activity
-            android:name=".VideoPlayerActivity"
-            android:exported="false" />
+            android:name=".video_section.objects.shop.money.MoneyActivity"
+            android:exported="false"
+            android:label="@string/activity_money" />
         <activity
-            android:name=".WildAnimalsActivity"
-            android:exported="false" />
+            android:name=".video_section.objects.city.CityActivity"
+            android:exported="false"
+            android:label="@string/activity_city" />
         <activity
-            android:name=".HouseholdAnimalsActivity"
-            android:exported="false" />
+            android:name=".video_section.objects.shop.ShopActivity"
+            android:exported="false"
+            android:label="@string/activity_shop" />
         <activity
-            android:name=".VerbsActivity"
-            android:exported="false" />
+            android:name=".video_section.objects.classroom.ClassActivity"
+            android:exported="false"
+            android:label="@string/activity_class" />
         <activity
-            android:name=".EmotionsActivity"
-            android:exported="false" />
+            android:name=".video_section.objects.outside.OutsideActivity"
+            android:exported="false"
+            android:label="@string/activity_outside" />
         <activity
-            android:name=".PeopleActivity"
-            android:exported="false" />
+            android:name=".video_section.objects.home.HomeActivity"
+            android:exported="false"
+            android:label="@string/activity_home" />
         <activity
-            android:name=".ObjectsActivity"
-            android:exported="false" />
+            android:name=".video_section.VideoPlayerActivity"
+            android:exported="false"
+            android:label="@string/activity_video_player" />
         <activity
-            android:name=".ColorsActivity"
-            android:exported="false" />
+            android:name=".video_section.animals.wild.WildAnimalsActivity"
+            android:exported="false"
+            android:label="@string/activity_wild_animals" />
         <activity
-            android:name=".NumbersActivity"
-            android:exported="false" />
+            android:name=".video_section.animals.household.HouseholdAnimalsActivity"
+            android:exported="false"
+            android:label="@string/activity_household_animals" />
         <activity
-            android:name=".AlphabetActivity"
-            android:exported="false" />
+            android:name=".video_section.verbs.VerbsActivity"
+            android:exported="false"
+            android:label="@string/activity_verbs" />
         <activity
-            android:name=".AnimalsActivity"
-            android:exported="false" />
+            android:name=".video_section.emotions.EmotionsActivity"
+            android:exported="false"
+            android:label="@string/activity_emotions" />
         <activity
-            android:name=".ExpressionsSectionActivity"
-            android:exported="false" />
+            android:name=".video_section.people.PeopleActivity"
+            android:exported="false"
+            android:label="@string/activity_people" />
         <activity
-            android:name=".VoiceToSignSectionActivity"
-            android:exported="false" />
+            android:name=".video_section.objects.ObjectsActivity"
+            android:exported="false"
+            android:label="@string/activity_objects" />
         <activity
-            android:name=".TextToSignSectionActivity"
-            android:exported="false" />
+            android:name=".video_section.colors.ColorsActivity"
+            android:exported="false"
+            android:label="@string/activity_colors" />
         <activity
-            android:name=".VideoSectionActivity"
-            android:exported="false" />
+            android:name=".video_section.numbers.NumbersActivity"
+            android:exported="false"
+            android:label="@string/activity_numbers" />
+        <activity
+            android:name=".video_section.alphabet.AlphabetActivity"
+            android:exported="false"
+            android:label="@string/activity_alphabet" />
+        <activity
+            android:name=".video_section.animals.AnimalsActivity"
+            android:exported="false"
+            android:label="@string/activity_animals" />
+        <activity
+            android:name=".video_section.forms_of_address.FormsOfAddressActivity"
+            android:exported="false"
+            android:label="@string/activity_forms_of_address" />
+        <activity
+            android:name=".expressions_section.ExpressionsActivity"
+            android:exported="false"
+            android:label="@string/activity_expressions_section" />
+        <activity
+            android:name=".voice_to_sign_section.VoiceToSignSectionActivity"
+            android:exported="false"
+            android:label="@string/activity_voice_to_sign_section" />
+        <activity
+            android:name=".text_to_sign_section.TextToSignSectionActivity"
+            android:exported="false"
+            android:label="@string/activity_text_to_sign_section" />
+        <activity
+            android:name=".video_section.VideoSectionActivity"
+            android:exported="false"
+            android:label="@string/activity_video_section" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Alternative">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service android:name=".voice_to_sign_section.RecordingService" />
     </application>
 
 </manifest>

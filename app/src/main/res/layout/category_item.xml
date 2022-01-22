@@ -9,6 +9,7 @@
     app:cardElevation="10dp">
 
     <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/light_blue"
@@ -18,7 +19,8 @@
             android:id="@+id/categoryImage"
             android:layout_width="150dp"
             android:layout_height="130dp"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/ic_launcher"
+            android:contentDescription="@string/placeholder_image" />
 
         <TextView
             android:id="@+id/categoryName"
@@ -26,15 +28,12 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/categoryImage"
             android:layout_centerHorizontal="true"
-            android:layout_marginLeft="-10dp"
             android:layout_marginTop="10dp"
-            android:text="Category Name"
+            android:text="@string/placeholder_text"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textSize="15sp"
+            android:textStyle="bold" />
 
     </RelativeLayout>
 

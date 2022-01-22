@@ -1,15 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".VoiceToSignSectionActivity"
-    android:layout_marginTop="-20dp">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context=".voice_to_sign_section.VoiceToSignSectionActivity">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:src="@drawable/voice_to_sign_section_header"/>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-35dp"
+        android:paddingBottom="10dp">
 
-</RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/headerSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/sectionHeaderImage"
+                android:layout_width="match_parent"
+                android:layout_height="320dp"
+                android:contentDescription="@string/section_header_image"
+                android:src="@drawable/voice_to_sign_section_header" />
+
+            <ImageView
+                android:id="@+id/sectionHeaderOverlay"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:contentDescription="@string/section_header_overlay"
+                android:src="@drawable/overlay_background" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="50dp">
+
+                <TextView
+                    android:id="@+id/videoSectionHeaderTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/source_sans_pro_black"
+                    android:text="@string/header_title_voice_to_sign_section"
+                    android:textColor="@color/white"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:id="@+id/videoSectionHeaderSubtitle"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/videoSectionHeaderTitle"
+                    android:layout_marginTop="25dp"
+                    android:fontFamily="@font/source_sans_pro_regular"
+                    android:text="@string/header_subtitle_voice_to_sign_section"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+<!--        <LinearLayout-->
+<!--            android:id="@+id/pagerContainer"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@id/headerSection"-->
+<!--            android:orientation="vertical">-->
+
+<!--            <com.astuetz.PagerSlidingTabStrip-->
+<!--                android:id="@+id/tabs"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="?attr/actionBarSize"-->
+<!--                android:layout_marginBottom="15dp"-->
+<!--                android:background="@color/dark_blue"-->
+<!--                android:elevation="4dp"-->
+<!--                android:textColor="@color/white"-->
+<!--                app:pstsTabTextColor="@color/white"-->
+<!--                app:pstsIndicatorColor="@color/light_blue"-->
+<!--                app:pstsIndicatorHeight="5dp"-->
+<!--                app:pstsShouldExpand="true" />-->
+
+<!--            <androidx.viewpager.widget.ViewPager-->
+<!--                android:id="@+id/pager"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="0dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:background="@color/white" />-->
+
+<!--            <FrameLayout-->
+<!--                android:id="@+id/container"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent" />-->
+
+<!--        </LinearLayout>-->
+
+        <RelativeLayout
+            android:id="@+id/pageContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/headerSection">
+
+            <include layout="@layout/fragment_record" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</ScrollView>

@@ -4,119 +4,143 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".VideoSectionActivity">
+    tools:context=".video_section.VideoSectionActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="-10dp"
-        android:paddingBottom="10dp">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-5dp">
 
         <ImageView
             android:id="@+id/videoSectionHeaderImage"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:src="@drawable/video_section_header" />
+            android:src="@drawable/video_section_header"
+            android:contentDescription="@string/section_header_image" />
 
         <ImageView
             android:id="@+id/videoSectionHeaderOverlay"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:src="@drawable/overlay_background" />
+            android:src="@drawable/overlay_background"
+            android:contentDescription="@string/section_header_overlay" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="20dp">
-
-            <ImageView
-                android:id="@+id/toPrevPageButton"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_arrow_circle_left" />
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="50dp">
 
             <TextView
-                android:id="@+id/videoSectionHeaderText"
+                android:id="@+id/videoSectionHeaderTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/toPrevPageButton"
-                android:layout_marginTop="25dp"
                 android:fontFamily="@font/source_sans_pro_black"
-                android:text="VIDEO SECTION"
+                android:text="@string/header_title_video_section"
                 android:textColor="@color/white"
                 android:textSize="25sp" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/videoSectionHeaderSubtitle"
+                android:layout_width="270dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/videoSectionHeaderText"
+                android:layout_below="@id/videoSectionHeaderTitle"
                 android:layout_marginTop="25dp"
                 android:fontFamily="@font/source_sans_pro_regular"
-                android:text="Select a category of your choice."
+                android:text="@string/header_subtitle_video_section"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
         </RelativeLayout>
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/searchBar"
-            android:layout_width="match_parent"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/favoriteButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/videoSectionHeaderImage"
-            android:layout_marginHorizontal="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/favorite_button"
+            android:padding="15dp"
+            android:text="@string/see_favorites"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/searchBarContainer"
+            android:layout_width="250dp"
+            android:layout_height="45dp"
+            android:layout_below="@+id/favoriteButton"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="40dp"
             app:cardCornerRadius="20dp"
             app:strokeColor="@color/gray_border"
             app:strokeWidth="1dp">
 
             <EditText
+                android:id="@+id/searchBarInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:paddingHorizontal="15dp"
-                android:hint="Cauta o categorie..."
-                android:textSize="14sp"
+                android:layout_marginTop="10dp"
+                android:autofillHints="@string/input_placeholder_category"
                 android:background="@color/white"
-                android:layout_marginTop="8dp"/>
+                android:hint="@string/input_placeholder_category"
+                android:inputType="text"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:textSize="16sp" />
 
             <ImageView
+                android:id="@+id/searchBarIcon"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:src="@drawable/ic_search"
                 android:layout_gravity="end"
-                android:padding="7dp"
-                />
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="7dp"
+                android:contentDescription="@string/search_bar_icon"
+                android:src="@drawable/ic_search" />
 
         </com.google.android.material.card.MaterialCardView>
 
-        <RelativeLayout
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addCategoryButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/searchBar"
+            android:layout_below="@+id/searchBarContainer"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="100dp">
+            android:layout_marginTop="25dp"
+            android:backgroundTint="@color/light_blue"
+            android:contentDescription="@string/add_new_category"
+            android:src="@drawable/ic_add"
+            app:backgroundTint="@color/white"
+            app:borderWidth="2dp"
+            app:rippleColor="@color/white"
+            app:tint="@color/white" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/categoriesRecyclerView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </RelativeLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/mainCategoriesRecyclerView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/addCategoryButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/toHomePageFabButton"
+            android:id="@+id/homePageButton"
             android:layout_width="wrap_content"
-            android:layout_height="450dp"
-            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mainCategoriesRecyclerView"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="10dp"
             android:backgroundTint="@color/light_blue"
             android:src="@drawable/ic_home"
             app:backgroundTint="@color/white"
             app:borderWidth="2dp"
             app:rippleColor="@color/white"
-            app:tint="@color/white" />
+            app:tint="@color/white"
+            android:contentDescription="@string/home_page_button" />
 
     </RelativeLayout>
 

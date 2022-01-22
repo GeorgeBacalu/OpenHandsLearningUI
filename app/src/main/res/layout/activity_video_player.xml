@@ -4,21 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".VideoPlayerActivity"
+    tools:context=".video_section.VideoPlayerActivity"
     android:background="#212121">
 
-    <ImageView
-        android:id="@+id/toVideoSectionPageButton"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="25dp"
-        android:src="@drawable/ic_arrow_circle_left" />
+<!--    <ImageView-->
+<!--        android:id="@+id/toVideoSectionPageButton"-->
+<!--        android:layout_width="40dp"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:layout_marginLeft="30dp"-->
+<!--        android:layout_marginTop="25dp"-->
+<!--        android:src="@drawable/ic_arrow_circle_left" />-->
 
     <FrameLayout
         android:id="@+id/videoViewContainer"
         android:layout_width="match_parent"
-        android:layout_height="400dp">
+        android:layout_height="390dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
 
@@ -27,8 +27,8 @@
 
             <VideoView
                 android:id="@+id/videoView"
-                android:layout_width="300dp"
-                android:layout_height="200dp"
+                android:layout_width="350dp"
+                android:layout_height="260dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -38,11 +38,85 @@
 
     </FrameLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
+    <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/videoSubjectRecyclerView"
-        android:layout_below="@id/videoViewContainer"
-        android:layout_centerHorizontal="true"/>
+        android:id="@+id/categoryCard"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/videoViewContainer"
+        app:cardCornerRadius="10dp"
+        android:elevation="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/dark"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/categoryImage"
+                android:layout_width="150dp"
+                android:layout_height="130dp"
+                android:src="@mipmap/ic_launcher"
+                android:contentDescription="@string/placeholder_image" />
+
+            <TextView
+                android:id="@+id/categoryName"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/categoryImage"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="@string/placeholder_text"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!--        <androidx.cardview.widget.CardView-->
+            <!--            android:layout_width="wrap_content"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:layout_below="@+id/selectedItemName"-->
+            <!--            android:layout_centerHorizontal="true"-->
+            <!--            android:layout_marginTop="10dp"-->
+            <!--            app:cardCornerRadius="7dp"-->
+            <!--            android:backgroundTint="@color/light_blue"-->
+            <!--            app:cardElevation="3dp">-->
+
+            <!--            <Button-->
+            <!--                android:id="@+id/favoriteButton"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="30dp"-->
+            <!--                android:text="Adauga la favorite"-->
+            <!--                android:textAllCaps="false"-->
+            <!--                android:letterSpacing="0.02"-->
+            <!--                android:textSize="11dp"-->
+            <!--                android:backgroundTint="@color/light_blue"-->
+            <!--                android:textColor="@color/dark"-->
+            <!--                android:paddingHorizontal="3dp" />-->
+
+            <!--        </androidx.cardview.widget.CardView>-->
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/favoriteButton"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_below="@id/categoryName"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/favorite_button"
+                android:gravity="center|bottom|top"
+                android:includeFontPadding="false"
+                android:padding="11dp"
+                android:text="@string/add_to_favorites"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="11sp" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

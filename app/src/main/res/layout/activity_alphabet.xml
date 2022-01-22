@@ -4,65 +4,97 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AlphabetActivity">
+    tools:context=".video_section.alphabet.AlphabetActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="-10dp"
         android:paddingBottom="10dp">
 
         <ImageView
-            android:id="@+id/animalsSectionHeaderImage"
+            android:id="@+id/sectionHeaderImage"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:src="@drawable/animale" />
+            android:src="@drawable/alfabet"
+            android:contentDescription="@string/section_header_image" />
 
         <ImageView
-            android:id="@+id/animalsSectionHeaderOverlay"
+            android:id="@+id/sectionHeaderOverlay"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:src="@drawable/overlay_background" />
+            android:src="@drawable/overlay_background"
+            android:contentDescription="@string/section_header_overlay" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
+            android:layout_marginStart="80dp"
             android:layout_marginTop="20dp">
 
-            <ImageView
-                android:id="@+id/toPrevPageButton"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_arrow_circle_left" />
-
             <TextView
-                android:id="@+id/animalsSectionHeaderText"
+                android:id="@+id/sectionHeaderText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/toPrevPageButton"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="40dp"
                 android:fontFamily="@font/source_sans_pro_black"
-                android:text="ALPHABET CATEGORY"
+                android:text="@string/header_title_alphabet"
                 android:textColor="@color/white"
                 android:textSize="25sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/animalsSectionHeaderText"
+                android:layout_below="@id/sectionHeaderText"
                 android:layout_marginTop="25dp"
                 android:fontFamily="@font/source_sans_pro_regular"
-                android:text="Select a subcategory of your choice."
+                android:text="@string/header_subtitle_subcategory"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
         </RelativeLayout>
 
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/searchBar"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@+id/sectionHeaderImage"
+            android:layout_marginHorizontal="80dp"
+            android:layout_marginTop="40dp"
+            app:cardCornerRadius="20dp"
+            app:strokeColor="@color/gray_border"
+            app:strokeWidth="2dp">
+
+            <EditText
+                android:id="@+id/searchBarInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:autofillHints="Cauta"
+                android:background="@color/white"
+                android:hint="@string/input_placeholder_subcategory"
+                android:inputType="text"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:textSize="16sp"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <ImageView
+                android:id="@+id/searchBarIcon"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="end"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="7dp"
+                android:src="@drawable/ic_search"
+                android:contentDescription="@string/search_bar_icon" />
+
+        </com.google.android.material.card.MaterialCardView>
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/animalsSectionHeaderImage"
+            android:layout_below="@+id/searchBar"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
             android:layout_marginBottom="100dp">
@@ -85,7 +117,8 @@
             app:backgroundTint="@color/white"
             app:borderWidth="2dp"
             app:rippleColor="@color/white"
-            app:tint="@color/white" />
+            app:tint="@color/white"
+            android:contentDescription="@string/home_page_button" />
 
     </RelativeLayout>
 
