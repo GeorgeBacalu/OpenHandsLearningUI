@@ -1,10 +1,20 @@
 package com.example.llt_project_separate.general.standard_classes;
 
 public class Category {
-    private int id = 0;
+
+    private int id;
+
     private String name;
-    private int imageSource;
-    private boolean isExpanded;
+
+    private Integer imageSource;
+
+    private Boolean isExpanded = false;
+
+    private Boolean isFavorite = false;
+
+    private Long parentId;
+
+    private Long sectionId;
 
     public Category(int id, String name) {
         this.id = id;
@@ -19,24 +29,85 @@ public class Category {
         this.isExpanded = false;
     }
 
-    public int getId() { return id; }
+    public Category() {
+    }
 
-    public void setId(int id) { this.id = id; }
+    public Category(int id, String name, Integer imageSource, Boolean isExpanded, Boolean isFavorite, Long parentId, Long sectionId) {
+        this.id = id;
+        this.name = name;
+        this.imageSource = imageSource;
+        this.isExpanded = isExpanded;
+        this.isFavorite = isFavorite;
+        this.parentId = parentId;
+        this.sectionId = sectionId;
+    }
 
-    public String getName() { return name; }
+    public int getId() {
+        return id;
+    }
 
-    public void setName(String name) { this.name = name; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public int getImageSource() { return imageSource; }
+    public String getName() {
+        return name;
+    }
 
-    public void setImageSource(int imageSource) { this.imageSource = imageSource; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public boolean isExpanded() { return isExpanded; }
+    public Boolean isExpanded() {
+        return isExpanded;
+    }
 
-    public void setExpanded(boolean expanded) { isExpanded = expanded; }
+    public void setExpanded(Boolean expanded) {
+        isExpanded = expanded;
+    }
+
+    public Boolean getFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(Boolean favorite) {
+        isFavorite = favorite;
+    }
+
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
+    }
+
+    public Long getSectionId() {
+        return sectionId;
+    }
+
+    public void setSectionId(Long sectionId) {
+        this.sectionId = sectionId;
+    }
+
+    public Integer getImageSource() {
+        return imageSource;
+    }
+
+    public void setImageSource(Integer imageSource) {
+        this.imageSource = imageSource;
+    }
 
     @Override
     public String toString() {
-        return "Category{" + "id=" + id + ", name='" + name + '\'' + ", imageSource=" + imageSource + ", isExpanded=" + isExpanded + '}';
+        return "CategoryDto{" +
+             "id=" + id +
+             ", name='" + name + '\'' +
+             ", imageSource=" + imageSource +
+             ", isExpanded=" + isExpanded +
+             ", isFavorite=" + isFavorite +
+             ", parentId=" + parentId +
+             ", sectionId=" + sectionId +
+             '}';
     }
 }

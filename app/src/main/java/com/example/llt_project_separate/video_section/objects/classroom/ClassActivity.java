@@ -1,5 +1,6 @@
 package com.example.llt_project_separate.video_section.objects.classroom;
 
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,12 +18,17 @@ import android.widget.ImageView;
 import com.example.llt_project_separate.general.standard_classes.Category;
 import com.example.llt_project_separate.MainActivity;
 import com.example.llt_project_separate.R;
+import com.example.llt_project_separate.retrofit.UtilsRetrofit;
+import com.example.llt_project_separate.video_section.VideoSectionActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ClassActivity extends AppCompatActivity {
     private RecyclerView classRecyclerView;
@@ -49,30 +55,53 @@ public class ClassActivity extends AppCompatActivity {
         classRecyclerView.setAdapter(classAdapter);
         classRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-        List<Category> classObjects = new ArrayList<>();
-        classObjects.add(new Category(94, getStringResource(R.string.MANUAL), R.drawable.manual));
-        classObjects.add(new Category(95, getStringResource(R.string.PIX), R.drawable.pix));
-        classObjects.add(new Category(96, getStringResource(R.string.DICTIONAR), R.drawable.dictionar));
-        classObjects.add(new Category(97, getStringResource(R.string.CARTE), R.drawable.carte));
-        classObjects.add(new Category(98, getStringResource(R.string.BANCA), R.drawable.banca));
-        classObjects.add(new Category(99, getStringResource(R.string.TEMA), R.drawable.tema));
-        classObjects.add(new Category(100, getStringResource(R.string.VIDEO_PROIECTOR), R.drawable.video_proiector));
-        classObjects.add(new Category(101, getStringResource(R.string.TEST), R.drawable.test));
-        classObjects.add(new Category(102, getStringResource(R.string.STILOU), R.drawable.stilou));
-        classObjects.add(new Category(103, getStringResource(R.string.TEST_GRILA), R.drawable.test_grila));
-        classObjects.add(new Category(104, getStringResource(R.string.RADIERA), R.drawable.radiera));
-        classObjects.add(new Category(105, getStringResource(R.string.CRETA), R.drawable.creta));
-        classObjects.add(new Category(106, getStringResource(R.string.CATEDRA), R.drawable.catedra));
-        classObjects.add(new Category(107, getStringResource(R.string.CREION), R.drawable.creion));
-        classObjects.add(new Category(108, getStringResource(R.string.CAIET), R.drawable.caiet));
-        classAdapter.setClassObjects(classObjects);
+        UtilsRetrofit.getInstance(this).getCategoriesByParentIdAndSectionIdAndName(new Callback<List<Category>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<Category>> call, @NonNull Response<List<Category>> response) {
+                if(response.isSuccessful()) {
+                    List<Category> classCategories = response.body();
+                    for (Category category : classCategories) {
+                        String name = category.getName();
+                        int drawableId = getResources().getIdentifier(name.replace(" ", "_").toLowerCase(), "drawable", getPackageName());
+                        category.setImageSource(drawableId);
+                    }
+                    classAdapter.setClassObjects(classCategories);
+                } else {
+                    Toast.makeText(ClassActivity.this, "Obtinerea subcategoriilor clasa a esuat!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<Category>> call, @NonNull Throwable throwable) {
+                Toast.makeText(ClassActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
+            }
+        }, 90, 1, "");
 
         searchBarIcon.setOnClickListener(v -> {
             String searchBarInputText = searchBarInput.getText().toString().toLowerCase();
-            List<Category> filteredClassObjects = classObjects.stream().filter(category-> category.getName().toLowerCase().startsWith(searchBarInputText)).collect(Collectors.toList());
-            searchBarInput.setText("");
-            classAdapter.setClassObjects(filteredClassObjects);
-            classAdapter.notifyDataSetChanged();
+            UtilsRetrofit.getInstance(this).getCategoriesByParentIdAndSectionIdAndName(new Callback<List<Category>>() {
+                @Override
+                public void onResponse(@NonNull Call<List<Category>> call, @NonNull Response<List<Category>> response) {
+                    if(response.isSuccessful()) {
+                        List<Category> filteredClassCategories = response.body();
+                        for (Category category : filteredClassCategories) {
+                            String name = category.getName();
+                            int drawableId = getResources().getIdentifier(name.replace(" ", "_").toLowerCase(), "drawable", getPackageName());
+                            category.setImageSource(drawableId);
+                        }
+                        searchBarInput.setText("");
+                        classAdapter.setClassObjects(filteredClassCategories);
+                        classAdapter.notifyDataSetChanged();
+                    } else {
+                        Toast.makeText(ClassActivity.this, "Obtinerea subcategoriilor clasa filtrate a esuat!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<List<Category>> call, @NonNull Throwable throwable) {
+                    Toast.makeText(ClassActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
+                }
+            }, 90, 1, searchBarInputText);
         });
     }
 
@@ -83,8 +112,6 @@ public class ClassActivity extends AppCompatActivity {
         searchBarInput = findViewById(R.id.searchBarInput);
         searchBarIcon = findViewById(R.id.searchBarIcon);
     }
-
-    String getStringResource(int intResource) { return getResources().getString(intResource); }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

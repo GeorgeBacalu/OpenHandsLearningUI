@@ -1,6 +1,7 @@
 package com.example.llt_project_separate.general.standard_classes;
 
 public class Section {
+
     private int id;
     private String name;
     private int icon;

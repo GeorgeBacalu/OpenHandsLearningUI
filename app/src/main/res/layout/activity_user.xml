@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   xmlns:app="http://schemas.android.com/apk/res-auto"
+   xmlns:tools="http://schemas.android.com/tools"
+   android:layout_width="match_parent"
+   android:layout_height="match_parent"
+   android:padding="25dp"
+   tools:context=".user.UserActivity">
+
+   <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+
+      <com.google.android.material.textfield.TextInputEditText
+         android:id="@+id/form_textFieldName"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginBottom="10dp"
+         android:hint="@string/form_name"
+         android:minHeight="48dp" />
+
+      <com.google.android.material.textfield.TextInputEditText
+         android:id="@+id/form_textFieldEmail"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginBottom="10dp"
+         android:hint="@string/form_email"
+         android:minHeight="48dp" />
+
+      <com.google.android.material.textfield.TextInputEditText
+         android:id="@+id/form_textFieldPassword"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginBottom="10dp"
+         android:hint="@string/form_password"
+         android:minHeight="48dp"
+         android:inputType="textPassword" />
+
+      <com.google.android.material.textfield.TextInputEditText
+         android:id="@+id/form_textFieldMobile"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginBottom="10dp"
+         android:hint="@string/form_mobile"
+         android:minHeight="48dp" />
+
+      <com.google.android.material.textfield.TextInputEditText
+         android:id="@+id/form_textFieldAddress"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginBottom="10dp"
+         android:hint="@string/form_address"
+         android:minHeight="48dp" />
+
+
+      <com.google.android.material.textfield.TextInputEditText
+         android:id="@+id/form_textFieldBirthday"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginBottom="10dp"
+         android:hint="@string/form_birthday"
+         android:minHeight="48dp" />
+
+      <com.google.android.material.textfield.TextInputEditText
+         android:id="@+id/form_textFieldInstitutionId"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginBottom="10dp"
+         android:hint="@string/form_institution_id"
+         android:minHeight="48dp" />
+
+      <com.google.android.material.textfield.TextInputEditText
+         android:id="@+id/form_textFieldRoleId"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginBottom="10dp"
+         android:hint="@string/form_role_id"
+         android:minHeight="48dp" />
+
+   </LinearLayout>
+
+   <com.google.android.material.button.MaterialButton
+      android:id="@+id/button_saveUser"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:minHeight="60dp"
+      android:text="@string/save_user" />
+
+</RelativeLayout>

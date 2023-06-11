@@ -1,5 +1,6 @@
 package com.example.llt_project_separate.video_section.verbs;
 
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,12 +18,17 @@ import android.widget.ImageView;
 import com.example.llt_project_separate.general.standard_classes.Category;
 import com.example.llt_project_separate.MainActivity;
 import com.example.llt_project_separate.R;
+import com.example.llt_project_separate.retrofit.UtilsRetrofit;
+import com.example.llt_project_separate.video_section.VideoSectionActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class VerbsActivity extends AppCompatActivity {
     private RecyclerView verbsRecyclerView;
@@ -49,27 +55,53 @@ public class VerbsActivity extends AppCompatActivity {
         verbsRecyclerView.setAdapter(verbsAdapter);
         verbsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-        List<Category> verbs = new ArrayList<>();
-        verbs.add(new Category(164, getStringResource(R.string.CONSTRUI), R.drawable.construi));
-        verbs.add(new Category(165, getStringResource(R.string.SCRIE), R.drawable.scrie));
-        verbs.add(new Category(166, getStringResource(R.string.TRAGE), R.drawable.trage));
-        verbs.add(new Category(167, getStringResource(R.string.CITI), R.drawable.citi));
-        verbs.add(new Category(168, getStringResource(R.string.STA_JOS), R.drawable.sta_jos));
-        // verbs.add(new Category(169, getStringResource(R.string.LASA), R.drawable.lasa));
-        verbs.add(new Category(170, getStringResource(R.string.APASA), R.drawable.apasa));
-        // verbs.add(new Category(171, getStringResource(R.string.PUNE), R.drawable.pune));
-        // verbs.add(new Category(172, getStringResource(R.string.STRANGE), R.drawable.strange));
-        // verbs.add(new Category(173, getStringResource(R.string.SCOATE), R.drawable.scoate));
-        verbs.add(new Category(174, getStringResource(R.string.SPUNE), R.drawable.spune));
-        verbs.add(new Category(175, getStringResource(R.string.SE_UITA), R.drawable.se_uita));
-        verbsAdapter.setVerbs(verbs);
+        UtilsRetrofit.getInstance(this).getCategoriesByParentIdAndSectionIdAndName(new Callback<List<Category>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<Category>> call, @NonNull Response<List<Category>> response) {
+                if(response.isSuccessful()) {
+                    List<Category> verbs = response.body();
+                    for (Category category : verbs) {
+                        String name = category.getName();
+                        int drawableId = getResources().getIdentifier(name.replace(" ", "_").toLowerCase(), "drawable", getPackageName());
+                        category.setImageSource(drawableId);
+                    }
+                    verbsAdapter.setVerbs(verbs);
+                } else {
+                    Toast.makeText(VerbsActivity.this, "Obtinerea subcategoriilor verbe a esuat!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<Category>> call, @NonNull Throwable throwable) {
+                Toast.makeText(VerbsActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
+            }
+        }, 8, 1, "");
 
         searchBarIcon.setOnClickListener(v -> {
             String searchBarInputText = searchBarInput.getText().toString().toLowerCase();
-            List<Category> filteredVerbs = verbs.stream().filter(category-> category.getName().toLowerCase().startsWith(searchBarInputText)).collect(Collectors.toList());
-            searchBarInput.setText("");
-            verbsAdapter.setVerbs(filteredVerbs);
-            verbsAdapter.notifyDataSetChanged();
+            UtilsRetrofit.getInstance(this).getCategoriesByParentIdAndSectionIdAndName(new Callback<List<Category>>() {
+                @Override
+                public void onResponse(@NonNull Call<List<Category>> call, @NonNull Response<List<Category>> response) {
+                    if(response.isSuccessful()) {
+                        List<Category> filteredVerbs = response.body();
+                        for (Category category : filteredVerbs) {
+                            String name = category.getName();
+                            int drawableId = getResources().getIdentifier(name.replace(" ", "_").toLowerCase(), "drawable", getPackageName());
+                            category.setImageSource(drawableId);
+                        }
+                        searchBarInput.setText("");
+                        verbsAdapter.setVerbs(filteredVerbs);
+                        verbsAdapter.notifyDataSetChanged();
+                    } else {
+                        Toast.makeText(VerbsActivity.this, "Obtinerea subcategoriilor verbe filtrate a esuat!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<List<Category>> call, @NonNull Throwable throwable) {
+                    Toast.makeText(VerbsActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
+                }
+            }, 8, 1, searchBarInputText);
         });
     }
 
@@ -80,8 +112,6 @@ public class VerbsActivity extends AppCompatActivity {
         searchBarInput = findViewById(R.id.searchBarInput);
         searchBarIcon = findViewById(R.id.searchBarIcon);
     }
-
-    String getStringResource(int intResource) { return getResources().getString(intResource); }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

@@ -49,11 +49,11 @@ public class ObjectsRecyclerViewAdapter extends RecyclerView.Adapter<ObjectsRecy
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent;
             switch(objects.get(position).getId()) {
-                case 182: intent = new Intent(objectsContext, HomeActivity.class); break;
-                case 183: intent = new Intent(objectsContext, OutsideActivity.class); break;
-                case 184: intent = new Intent(objectsContext, ClassActivity.class); break;
-                case 185: intent = new Intent(objectsContext, ShopActivity.class); break;
-                case 186: intent = new Intent(objectsContext, CityActivity.class); break;
+                case 88: intent = new Intent(objectsContext, HomeActivity.class); break;
+                case 89: intent = new Intent(objectsContext, OutsideActivity.class); break;
+                case 90: intent = new Intent(objectsContext, ClassActivity.class); break;
+                case 91: intent = new Intent(objectsContext, ShopActivity.class); break;
+                case 92: intent = new Intent(objectsContext, CityActivity.class); break;
                 default: throw new NullPointerException("Invalid Selection");
             }
             objectsContext.startActivity(intent);

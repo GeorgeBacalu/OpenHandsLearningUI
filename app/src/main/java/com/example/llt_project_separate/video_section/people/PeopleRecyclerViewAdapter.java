@@ -48,8 +48,8 @@ public class PeopleRecyclerViewAdapter extends RecyclerView.Adapter<PeopleRecycl
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent;
             switch(people.get(position).getId()) {
-                case 189: intent = new Intent(peopleContext, FamilyMembersActivity.class); break;
-                case 190: intent = new Intent(peopleContext, PronounsActivity.class); break;
+                case 155: intent = new Intent(peopleContext, FamilyMembersActivity.class); break;
+                case 156: intent = new Intent(peopleContext, PronounsActivity.class); break;
                 default: throw new NullPointerException("Invalid Selection");
             }
             peopleContext.startActivity(intent);
