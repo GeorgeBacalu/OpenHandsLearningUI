@@ -48,8 +48,8 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<ShopRecyclerVi
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent;
             switch(shopObjects.get(position).getId()) {
-                case 187: intent = new Intent(shopContext, MoneyActivity.class); break;
-                case 188: intent = new Intent(shopContext, ProductsActivity.class); break;
+                case 127: intent = new Intent(shopContext, MoneyActivity.class); break;
+                case 128: intent = new Intent(shopContext, ProductsActivity.class); break;
                 default: throw new NullPointerException("Invalid Selection");
             }
             shopContext.startActivity(intent);

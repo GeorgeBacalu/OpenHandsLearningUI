@@ -55,15 +55,15 @@ public class VideoSectionRecyclerViewAdapter extends RecyclerView.Adapter<VideoS
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent;
             switch(mainCategories.get(position).getId()) {
-                case 1001: intent = new Intent(mainContext, AlphabetActivity.class); break;
-                case 1002: intent = new Intent(mainContext, NumbersActivity.class); break;
-                case 1003: intent = new Intent(mainContext, ColorsActivity.class); break;
-                case 1004: intent = new Intent(mainContext, AnimalsActivity.class); break;
-                case 1005: intent = new Intent(mainContext, ObjectsActivity.class); break;
-                case 1006: intent = new Intent(mainContext, PeopleActivity.class); break;
-                case 1007: intent = new Intent(mainContext, EmotionsActivity.class); break;
-                case 1008: intent = new Intent(mainContext, VerbsActivity.class); break;
-                case 1009: intent = new Intent(mainContext, FormsOfAddressActivity.class); break;
+                case 1: intent = new Intent(mainContext, AlphabetActivity.class); break;
+                case 2: intent = new Intent(mainContext, NumbersActivity.class); break;
+                case 3: intent = new Intent(mainContext, ColorsActivity.class); break;
+                case 4: intent = new Intent(mainContext, AnimalsActivity.class); break;
+                case 5: intent = new Intent(mainContext, ObjectsActivity.class); break;
+                case 6: intent = new Intent(mainContext, PeopleActivity.class); break;
+                case 7: intent = new Intent(mainContext, EmotionsActivity.class); break;
+                case 8: intent = new Intent(mainContext, VerbsActivity.class); break;
+                case 9: intent = new Intent(mainContext, FormsOfAddressActivity.class); break;
                 default: throw new NullPointerException("Invalid Selection");
             }
             mainContext.startActivity(intent);

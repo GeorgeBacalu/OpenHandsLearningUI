@@ -1,5 +1,6 @@
 package com.example.llt_project_separate.video_section.emotions;
 
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,12 +18,17 @@ import android.widget.ImageView;
 import com.example.llt_project_separate.general.standard_classes.Category;
 import com.example.llt_project_separate.MainActivity;
 import com.example.llt_project_separate.R;
+import com.example.llt_project_separate.retrofit.UtilsRetrofit;
+import com.example.llt_project_separate.video_section.VideoSectionActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class EmotionsActivity extends AppCompatActivity {
     private RecyclerView emotionsRecyclerView;
@@ -49,28 +55,53 @@ public class EmotionsActivity extends AppCompatActivity {
         emotionsRecyclerView.setAdapter(emotionsAdapter);
         emotionsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-        List<Category> emotions = new ArrayList<>();
-        emotions.add(new Category(151, getStringResource(R.string.VESEL), R.drawable.vesel));
-        emotions.add(new Category(152, getStringResource(R.string.SATURAT), R.drawable.saturat));
-        emotions.add(new Category(153, getStringResource(R.string.INCRUNTAT), R.drawable.incruntat));
-        emotions.add(new Category(154, getStringResource(R.string.TRIST), R.drawable.trist));
-        emotions.add(new Category(155, getStringResource(R.string.DEZAMAGIT), R.drawable.dezamagit));
-        emotions.add(new Category(156, getStringResource(R.string.NERVOS), R.drawable.nervos));
-        emotions.add(new Category(157, getStringResource(R.string.FERICIT), R.drawable.fericit));
-        emotions.add(new Category(158, getStringResource(R.string.SUPARAT), R.drawable.suparat));
-        emotions.add(new Category(159, getStringResource(R.string.INDURERAT), R.drawable.indurerat));
-        emotions.add(new Category(160, getStringResource(R.string.ENTUZIASMAT), R.drawable.entuziasmat));
-        emotions.add(new Category(161, getStringResource(R.string.INDRAGOSTIT), R.drawable.indragostit));
-        emotions.add(new Category(162, getStringResource(R.string.LINISTIT), R.drawable.linistit));
-        emotions.add(new Category(163, getStringResource(R.string.CUMINTE), R.drawable.cuminte));
-        emotionsAdapter.setEmotions(emotions);
+        UtilsRetrofit.getInstance(this).getCategoriesByParentIdAndSectionIdAndName(new Callback<List<Category>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<Category>> call, @NonNull Response<List<Category>> response) {
+                if(response.isSuccessful()) {
+                    List<Category> emotions = response.body();
+                    for (Category category : emotions) {
+                        String name = category.getName();
+                        int drawableId = getResources().getIdentifier(name.replace(" ", "_").toLowerCase(), "drawable", getPackageName());
+                        category.setImageSource(drawableId);
+                    }
+                    emotionsAdapter.setEmotions(emotions);
+                } else {
+                    Toast.makeText(EmotionsActivity.this, "Obtinerea subcategoriilor emotii a esuat!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<Category>> call, @NonNull Throwable throwable) {
+                Toast.makeText(EmotionsActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
+            }
+        }, 7, 1, "");
 
         searchBarIcon.setOnClickListener(v -> {
             String searchBarInputText = searchBarInput.getText().toString().toLowerCase();
-            List<Category> filteredEmotions = emotions.stream().filter(category-> category.getName().toLowerCase().startsWith(searchBarInputText)).collect(Collectors.toList());
-            searchBarInput.setText("");
-            emotionsAdapter.setEmotions(filteredEmotions);
-            emotionsAdapter.notifyDataSetChanged();
+            UtilsRetrofit.getInstance(this).getCategoriesByParentIdAndSectionIdAndName(new Callback<List<Category>>() {
+                @Override
+                public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
+                    if(response.isSuccessful()) {
+                        List<Category> filteredEmotions = response.body();
+                        for(Category category : filteredEmotions) {
+                            String name = category.getName();
+                            int drawableId = getResources().getIdentifier(name.replace(" ", "_").toLowerCase(), "drawable", getPackageName());
+                            category.setImageSource(drawableId);
+                        }
+                        searchBarInput.setText("");
+                        emotionsAdapter.setEmotions(filteredEmotions);
+                        emotionsAdapter.notifyDataSetChanged();
+                    } else {
+                        Toast.makeText(EmotionsActivity.this, "Obtinerea subcategoriilor emotii filtrate a esuat!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<Category>> call, Throwable t) {
+                    Toast.makeText(EmotionsActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
+                }
+            }, 7, 1, searchBarInputText);
         });
     }
 
@@ -81,8 +112,6 @@ public class EmotionsActivity extends AppCompatActivity {
         searchBarInput = findViewById(R.id.searchBarInput);
         searchBarIcon = findViewById(R.id.searchBarIcon);
     }
-
-    String getStringResource(int intResource) { return getResources().getString(intResource); }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

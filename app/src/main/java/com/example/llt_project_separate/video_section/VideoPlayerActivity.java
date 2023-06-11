@@ -21,8 +21,13 @@ import com.example.llt_project_separate.general.standard_classes.Category;
 import com.example.llt_project_separate.R;
 import com.example.llt_project_separate.general.shared_preferences.Utils;
 
+import com.example.llt_project_separate.retrofit.UtilsRetrofit;
 import java.util.ArrayList;
 import java.util.Objects;
+import org.jetbrains.annotations.NotNull;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class VideoPlayerActivity extends AppCompatActivity {
     public static final String CATEGORY_ID = "categoryId";
@@ -39,15 +44,34 @@ public class VideoPlayerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_player);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-
         initializeViews();
 
         Intent intent = getIntent();
         if(intent != null) {
             int categoryId = intent.getIntExtra(CATEGORY_ID, -1);
             int imageSubject = intent.getIntExtra(CATEGORY_IMAGE, -1);
+            String categoryName = intent.getStringExtra(CATEGORY_NAME);
+
             if(categoryId != -1) {
                 Category incomingCategory = Utils.getInstance(this).getCategoryById(categoryId);
+
+//                final Category[] incomingCategory = {null};
+//                UtilsRetrofit.getInstance(this).getCategoryById(new Callback<Category>() {
+//                    @Override
+//                    public void onResponse(Call<Category> call, Response<Category> response) {
+//                        if(response.isSuccessful()) {
+//                            incomingCategory[0] = response.body();
+//                        } else {
+//                            Toast.makeText(VideoPlayerActivity.this, "Ceva nu e bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<Category> call, Throwable t) {
+//                        Toast.makeText(VideoPlayerActivity.this, "Ceva nu e bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
+//                    }
+//                }, categoryId);
+                incomingCategory.setName(categoryName);
                 if(incomingCategory != null) {
                     setData(incomingCategory, imageSubject);
                     handleFavorite(incomingCategory);
@@ -117,14 +141,34 @@ public class VideoPlayerActivity extends AppCompatActivity {
                 builder.create().show();
             });
         } else {
-            favoriteButton.setOnClickListener(v -> {
-                if(Utils.getInstance(VideoPlayerActivity.this).addedToFavorite(incomingCategory)) {
-                    Toast.makeText(VideoPlayerActivity.this, incomingCategory.getName() + " adăugat la favorite", Toast.LENGTH_SHORT).show();
-                    handleFavorite(incomingCategory);
-                } else {
+//            favoriteButton.setOnClickListener(v -> {
+//                if (Utils.getInstance(VideoPlayerActivity.this).addedToFavorite(incomingCategory)) {
+//                    Toast.makeText(VideoPlayerActivity.this, incomingCategory.getName() + " adăugat la favorite", Toast.LENGTH_SHORT).show();
+//                    handleFavorite(incomingCategory);
+//                } else {
+//                    Toast.makeText(VideoPlayerActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
+//                }
+//            });
+
+           favoriteButton.setOnClickListener(v -> {
+              UtilsRetrofit.getInstance(this).saveFavorite(new Callback<Category>() {
+                 @Override
+                 public void onResponse(@NonNull Call<Category> call, @NonNull Response<Category> response) {
+                    if(response.isSuccessful()) {
+                       Category savedFavorite = response.body();
+                       Toast.makeText(VideoPlayerActivity.this, savedFavorite.getName() + " adăugat la favorite", Toast.LENGTH_SHORT).show();
+                       handleFavorite(incomingCategory);
+                    } else {
+                       Toast.makeText(VideoPlayerActivity.this, "Salvarea a esuat!", Toast.LENGTH_SHORT).show();
+                    }
+                 }
+
+                 @Override
+                 public void onFailure(@NonNull Call<Category> call, @NonNull Throwable throwable) {
                     Toast.makeText(VideoPlayerActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
-                }
-            });
+                 }
+              }, incomingCategory.getId());
+           });
         }
     }
 

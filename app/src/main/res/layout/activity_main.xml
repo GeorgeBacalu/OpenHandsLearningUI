@@ -265,6 +265,14 @@
 
                 </RelativeLayout>
 
+                <com.google.android.material.button.MaterialButton
+                   android:id="@+id/button_userNavigation"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_alignParentBottom="true"
+                   android:minHeight="60dp"
+                   android:text="Navigate to User" />
+
             </RelativeLayout>
 
         </ScrollView>

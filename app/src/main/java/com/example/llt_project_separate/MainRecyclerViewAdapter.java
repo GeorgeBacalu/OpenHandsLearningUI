@@ -49,10 +49,10 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
         holder.sectionCard.setOnClickListener(v -> {
             Intent intent;
             switch(sections.get(position).getId()) {
-                case 10001: intent = new Intent(context, VideoSectionActivity.class); break;
-                case 10002: intent = new Intent(context, TextToSignSectionActivity.class); break;
-                case 10003: intent = new Intent(context, VoiceToSignSectionActivity.class); break;
-                case 10004: intent = new Intent(context, ExpressionsActivity.class); break;
+                case 1: intent = new Intent(context, VideoSectionActivity.class); break;
+                case 2: intent = new Intent(context, TextToSignSectionActivity.class); break;
+                case 3: intent = new Intent(context, VoiceToSignSectionActivity.class); break;
+                case 4: intent = new Intent(context, ExpressionsActivity.class); break;
                 default: throw new NullPointerException("Invalid Selection");
             }
             context.startActivity(intent);

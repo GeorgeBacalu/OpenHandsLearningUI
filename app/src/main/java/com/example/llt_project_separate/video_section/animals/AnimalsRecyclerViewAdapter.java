@@ -45,9 +45,10 @@ public class AnimalsRecyclerViewAdapter extends RecyclerView.Adapter<AnimalsRecy
         Glide.with(animalsContext).asBitmap().load(animals.get(position).getImageSource()).into(holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent;
-            switch(animals.get(position).getId()) {
-                case 180: intent = new Intent(animalsContext, HouseholdAnimalsActivity.class); break;
-                case 181: intent = new Intent(animalsContext, WildAnimalsActivity.class); break;
+            int id = animals.get(position).getId();
+            switch(id) {
+                case 64: intent = new Intent(animalsContext, HouseholdAnimalsActivity.class); break;
+                case 65: intent = new Intent(animalsContext, WildAnimalsActivity.class); break;
                 default: throw new NullPointerException("Invalid Selection");
             }
             animalsContext.startActivity(intent);

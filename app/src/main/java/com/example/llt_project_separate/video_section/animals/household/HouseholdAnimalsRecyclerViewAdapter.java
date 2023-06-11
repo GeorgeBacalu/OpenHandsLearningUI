@@ -49,9 +49,13 @@ public class HouseholdAnimalsRecyclerViewAdapter extends RecyclerView.Adapter<Ho
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(householdAnimalsContext, VideoPlayerActivity.class);
             if (householdAnimals.get(position).getId() < 0) throw new NullPointerException("Invalid Selection");
-            intent.putExtra(CATEGORY_ID, householdAnimals.get(position).getId());
-            intent.putExtra(CATEGORY_NAME, householdAnimals.get(position).getName());
-            intent.putExtra(CATEGORY_IMAGE, householdAnimals.get(position).getImageSource());
+
+            int id = householdAnimals.get(position).getId();
+            intent.putExtra(CATEGORY_ID, id);
+            String name = householdAnimals.get(position).getName();
+            intent.putExtra(CATEGORY_NAME, name);
+            Integer imageSource = householdAnimals.get(position).getImageSource();
+            intent.putExtra(CATEGORY_IMAGE, imageSource);
             householdAnimalsContext.startActivity(intent);
         });
     }
