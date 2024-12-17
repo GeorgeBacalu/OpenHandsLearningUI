@@ -100,17 +100,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Intent intent;
-        switch(item.getItemId()) {
-            case R.id.navHome: intent = new Intent(MainActivity.this, MainActivity.class); break;
-            case R.id.navVideo: intent = new Intent(MainActivity.this, VideoSectionActivity.class); break;
-            case R.id.navTextToSign: intent = new Intent(MainActivity.this, TextToSignSectionActivity.class); break;
-            case R.id.navVoiceToSign: intent = new Intent(MainActivity.this, VoiceToSignSectionActivity.class); break;
-            case R.id.navExpressions: intent = new Intent(MainActivity.this, ExpressionsActivity.class); break;
-            case R.id.navSettings: intent = new Intent(MainActivity.this, SettingsActivity.class); break;
-            default: throw new IllegalStateException("Unexpected value: " + item.getItemId());
-        }
-        startActivity(intent);
+//        Intent intent;
+//        switch(item.getItemId()) {
+//            case R.id.navHome: intent = new Intent(MainActivity.this, MainActivity.class); break;
+//            case R.id.navVideo: intent = new Intent(MainActivity.this, VideoSectionActivity.class); break;
+//            case R.id.navTextToSign: intent = new Intent(MainActivity.this, TextToSignSectionActivity.class); break;
+//            case R.id.navVoiceToSign: intent = new Intent(MainActivity.this, VoiceToSignSectionActivity.class); break;
+//            case R.id.navExpressions: intent = new Intent(MainActivity.this, ExpressionsActivity.class); break;
+//            case R.id.navSettings: intent = new Intent(MainActivity.this, SettingsActivity.class); break;
+//            default: throw new IllegalStateException("Unexpected value: " + item.getItemId());
+//        }
+//        startActivity(intent);
         return true;
     }
 

@@ -1,5 +1,20 @@
 package com.example.llt_project_separate.voice_to_sign_section;
 
+import android.widget.Toast;
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.media.MediaPlayer;
+import android.media.MediaRecorder;
+import android.os.Bundle;
+import android.speech.RecognizerIntent;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,46 +22,20 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.ContextWrapper;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.media.MediaPlayer;
-import android.media.MediaRecorder;
-import android.os.Bundle;
-import android.os.Environment;
-import android.os.SystemClock;
-import android.speech.RecognizerIntent;
-import android.util.AttributeSet;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.Chronometer;
-import android.widget.EditText;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.astuetz.PagerSlidingTabStrip;
 import com.example.llt_project_separate.MainActivity;
 import com.example.llt_project_separate.R;
+import com.example.llt_project_separate.databinding.ActivityVoiceToSignSectionBinding;
 import com.example.llt_project_separate.general.standard_classes.TextSignPair;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 public class VoiceToSignSectionActivity extends AppCompatActivity {
+
+    private ActivityVoiceToSignSectionBinding binding;
     MediaRecorder mediaRecorder;
     MediaPlayer mediaPlayer;
 
@@ -67,14 +56,10 @@ public class VoiceToSignSectionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_voice_to_sign_section);
-        // ButterKnife.bind(this);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        binding = ActivityVoiceToSignSectionBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        /*
-        viewPager.setAdapter(new VoiceToSignTabAdapter(getSupportFragmentManager()));
-        tabs.setViewPager(viewPager);
-        */
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         initializeViews();
 
@@ -92,6 +77,13 @@ public class VoiceToSignSectionActivity extends AppCompatActivity {
             Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
             intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
             intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Start Speaking");
+
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivityForResult(intent, 100);
+            } else {
+                Toast.makeText(this, "Speech recognition is not supported on this device", Toast.LENGTH_SHORT).show();
+            }
+
             startActivityForResult(intent, 100);
             /*
             try {
@@ -251,7 +243,7 @@ public class VoiceToSignSectionActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 100 && resultCode == RESULT_OK) {
+        if (requestCode == 100 && resultCode == RESULT_OK) {
             textInput.setText(data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS).get(0));
         }
     }
@@ -264,8 +256,22 @@ public class VoiceToSignSectionActivity extends AppCompatActivity {
     }
 
     private void getMicrophonePermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_DENIED) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, MICROPHONE_PERMISSION_CODE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == MICROPHONE_PERMISSION_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission granted
+                Toast.makeText(this, "Microphone permission granted", Toast.LENGTH_SHORT).show();
+            } else {
+                // Permission denied
+                Toast.makeText(this, "Microphone permission is required", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -282,5 +288,11 @@ public class VoiceToSignSectionActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) onBackPressed();
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        binding = null; // Prevent memory leaks
     }
 }
