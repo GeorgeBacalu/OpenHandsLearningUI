@@ -1,3 +1,6 @@
+plugins {
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
+}
 import org.gradle.api.initialization.resolve.RepositoriesMode
 
 dependencyResolutionManagement {
@@ -8,5 +11,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "LLT_Project_Separate"
+rootProject.name = "OpenHandsLearningUI"
 include ':app'

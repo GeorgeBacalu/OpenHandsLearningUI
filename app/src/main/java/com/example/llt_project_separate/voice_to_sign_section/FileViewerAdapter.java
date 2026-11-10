@@ -69,9 +69,12 @@ public class FileViewerAdapter extends RecyclerView.Adapter<FileViewerAdapter.Fi
 
             // Set click listener for the card view
             binding.cardView.setOnClickListener(view -> {
+                int position = getBindingAdapterPosition();
+                if (position == RecyclerView.NO_POSITION) return;
+
                 PlaybackFragment playbackFragment = new PlaybackFragment();
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("recordingItem", recordingItems.get(getAdapterPosition()));
+                bundle.putSerializable("recordingItem", recordingItems.get(position));
                 playbackFragment.setArguments(bundle);
 
                 FragmentTransaction fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
