@@ -3,8 +3,6 @@ package com.example.llt_project_separate.voice_to_sign_section;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.media.MediaPlayer;
-import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.view.MenuItem;
@@ -15,7 +13,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -35,8 +34,7 @@ import java.util.Objects;
 public class VoiceToSignSectionActivity extends AppCompatActivity {
 
     private ActivityVoiceToSignSectionBinding binding;
-    MediaRecorder mediaRecorder;
-    MediaPlayer mediaPlayer;
+    private ActivityResultLauncher<Intent> speechRecognitionLauncher;
 
     private static int MICROPHONE_PERMISSION_CODE = 200;
 
@@ -50,11 +48,21 @@ public class VoiceToSignSectionActivity extends AppCompatActivity {
     private TextView categoryNameCardText;
     private RelativeLayout outputContent;
 
-    // @BindView(R.id.tabs) PagerSlidingTabStrip tabs;
-    // @BindView(R.id.pager) ViewPager viewPager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        speechRecognitionLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    Intent resultData = result.getData();
+                    if (result.getResultCode() == RESULT_OK && resultData != null) {
+                        ArrayList<String> recognizedText = resultData.getStringArrayListExtra(
+                                RecognizerIntent.EXTRA_RESULTS);
+                        if (recognizedText != null && !recognizedText.isEmpty()) {
+                            textInput.setText(recognizedText.get(0));
+                        }
+                    }
+                });
         binding = ActivityVoiceToSignSectionBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -76,47 +84,8 @@ public class VoiceToSignSectionActivity extends AppCompatActivity {
             Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
             intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
             intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Start Speaking");
-            startActivityForResult(intent, 100);
-            /*
-            try {
-                mediaRecorder = new MediaRecorder();
-                mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-                mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-                mediaRecorder.setOutputFile(getRecordingFilePath());
-                mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-                mediaRecorder.prepare();
-                mediaRecorder.start();
-                Toast.makeText(this, "Se inregistreaza...", Toast.LENGTH_SHORT).show();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            */
+            speechRecognitionLauncher.launch(intent);
         });
-
-        /*
-        voiceStopRecordingButton.setOnClickListener(v -> {
-            try {
-                mediaRecorder.stop();
-                mediaRecorder.release();
-                mediaRecorder = null;
-                Toast.makeText(this, "Inregistrarea a fost intrerupta", Toast.LENGTH_SHORT).show();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-
-        voiceReplayRecordingButton.setOnClickListener(v -> {
-            try {
-                mediaPlayer = new MediaPlayer();
-                mediaPlayer.setDataSource(getRecordingFilePath());
-                mediaPlayer.prepare();
-                mediaPlayer.start();
-                Toast.makeText(this, "Se reda inregistrarea", Toast.LENGTH_SHORT).show();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-         */
 
         voiceToSignRecyclerView.setAdapter(voiceToSignSectionRecyclerViewAdapter);
         voiceToSignRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -232,14 +201,6 @@ public class VoiceToSignSectionActivity extends AppCompatActivity {
         return getResources().getString(intResource);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 100 && resultCode == RESULT_OK) {
-            textInput.setText(data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS).get(0));
-        }
-    }
-
     private boolean isMicrophonePresent() {
         if (this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_MICROPHONE)) {
             return true;
@@ -253,18 +214,9 @@ public class VoiceToSignSectionActivity extends AppCompatActivity {
         }
     }
 
-    /*
-    private String getRecordingFilePath() {
-        ContextWrapper contextWrapper = new ContextWrapper(getApplicationContext());
-        File musicDirectory = contextWrapper.getExternalFilesDir(Environment.DIRECTORY_MUSIC);
-        File file = new File(musicDirectory, "textRecordingFile" + ".mp3");
-        return file.getPath();
-    }
-     */
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) onBackPressed();
+        if (item.getItemId() == android.R.id.home) getOnBackPressedDispatcher().onBackPressed();
         return super.onOptionsItemSelected(item);
     }
 

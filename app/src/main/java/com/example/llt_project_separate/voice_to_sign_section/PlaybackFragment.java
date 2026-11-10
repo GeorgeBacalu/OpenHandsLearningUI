@@ -7,12 +7,15 @@ import android.graphics.LightingColorFilter;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.SeekBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.core.os.BundleCompat;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.llt_project_separate.R;
@@ -25,7 +28,7 @@ public class PlaybackFragment extends DialogFragment {
 
     private FragmentPlaybackBinding binding;
     private RecordingItem recordingItem;
-    private Handler handler = new Handler();
+    private final Handler handler = new Handler(Looper.getMainLooper());
     private MediaPlayer mediaPlayer;
     private boolean isPlaying = false;
     long minutes = 0;
@@ -34,7 +37,11 @@ public class PlaybackFragment extends DialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        recordingItem = (RecordingItem) getArguments().getSerializable("recordingItem");
+        recordingItem = BundleCompat.getSerializable(
+                requireArguments(), "recordingItem", RecordingItem.class);
+        if (recordingItem == null) {
+            throw new IllegalStateException("Missing recording item argument");
+        }
         minutes = TimeUnit.MILLISECONDS.toMinutes(recordingItem.getLength());
         seconds = TimeUnit.MILLISECONDS.toSeconds(recordingItem.getLength()) - TimeUnit.MINUTES.toSeconds(minutes);
     }
@@ -98,8 +105,8 @@ public class PlaybackFragment extends DialogFragment {
 
     private void setSeekbarValues() {
         ColorFilter colorFilter = new LightingColorFilter(
-                getResources().getColor(R.color.light_blue),
-                getResources().getColor(R.color.light_blue)
+                ContextCompat.getColor(requireContext(), R.color.light_blue),
+                ContextCompat.getColor(requireContext(), R.color.light_blue)
         );
         binding.seekbar.getProgressDrawable().setColorFilter(colorFilter);
         binding.seekbar.getThumb().setColorFilter(colorFilter);

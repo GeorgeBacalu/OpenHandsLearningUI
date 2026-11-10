@@ -158,7 +158,6 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".voice_to_sign_section.RecordingService" />
     </application>
 
 </manifest>
