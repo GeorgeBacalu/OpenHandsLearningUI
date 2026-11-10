@@ -2,7 +2,7 @@ package com.example.llt_project_separate.general.new_category;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,12 +12,13 @@ import com.example.llt_project_separate.MainActivity;
 import com.example.llt_project_separate.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.Objects;
 
 public class NewCategoryActivity extends AppCompatActivity {
     private TabLayout tabLayout;
-    private ViewPager viewPager;
+    private ViewPager2 viewPager;
     private FloatingActionButton toHomePageButton;
     float v = 0;
 
@@ -34,13 +35,12 @@ public class NewCategoryActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        tabLayout.addTab(tabLayout.newTab().setText("Subcategorie"));
-        tabLayout.addTab(tabLayout.newTab().setText("Categorie"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        final NewCategoryFormAdapter adapter = new NewCategoryFormAdapter(getSupportFragmentManager(), this, tabLayout.getTabCount());
+        final NewCategoryFormAdapter adapter = new NewCategoryFormAdapter(this, 2);
         viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        new TabLayoutMediator(tabLayout, viewPager, (tab, position) ->
+                tab.setText(position == 0 ? "Subcategorie" : "Categorie")).attach();
 
         toHomePageButton.setTranslationY(300);
         tabLayout.setTranslationY(300);
@@ -60,7 +60,7 @@ public class NewCategoryActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) onBackPressed();
+        if (item.getItemId() == android.R.id.home) getOnBackPressedDispatcher().onBackPressed();
         return super.onOptionsItemSelected(item);
     }
 }

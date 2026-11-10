@@ -55,18 +55,6 @@
 <!--            android:textSize="18sp"-->
 <!--            android:textStyle="bold" />-->
 
-<!--        <com.melnykov.fab.FloatingActionButton-->
-<!--            android:id="@+id/recordingButton"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_below="@+id/recordingStatusText"-->
-<!--            android:layout_centerHorizontal="true"-->
-<!--            android:layout_marginTop="25dp"-->
-<!--            android:clickable="true"-->
-<!--            android:focusable="true"-->
-<!--            android:src="@drawable/ic_mic_white"-->
-<!--            app:fab_colorNormal="@color/light_blue" />-->
-
         <LinearLayout
             android:id="@+id/recordingButtonsContainer"
             android:layout_width="wrap_content"

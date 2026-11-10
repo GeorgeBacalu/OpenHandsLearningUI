@@ -1,33 +1,29 @@
 package com.example.llt_project_separate.general.new_category;
 
-import android.content.Context;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-public class NewCategoryFormAdapter extends FragmentPagerAdapter {
-    private final Context context;
-    int numberOfTabs;
+public class NewCategoryFormAdapter extends FragmentStateAdapter {
+    private final int numberOfTabs;
 
-    public NewCategoryFormAdapter(FragmentManager fm, Context context, int numberOfTabs) {
-        super(fm);
-        this.context = context;
+    public NewCategoryFormAdapter(@NonNull FragmentActivity activity, int numberOfTabs) {
+        super(activity);
         this.numberOfTabs = numberOfTabs;
     }
 
     @NonNull
-    public Fragment getItem(int position) {
+    public Fragment createFragment(int position) {
         switch(position) {
             case 0: return new NewSubcategoryTabFragment();
             case 1: return new NewCategoryTabFragment();
-            default: return null;
+            default: throw new IllegalArgumentException("Unknown category tab: " + position);
         }
     }
 
     @Override
-    public int getCount() {
+    public int getItemCount() {
         return numberOfTabs;
     }
 }
