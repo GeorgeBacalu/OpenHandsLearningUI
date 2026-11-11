@@ -74,7 +74,7 @@ shared OHL vector mark.
 UI screens observe lifecycle-aware results instead of holding Retrofit callbacks.
 ViewModels cancel superseded requests and cancel outstanding work when cleared;
 queued results from cancelled searches cannot overwrite newer results. The shared
-HTTP client has explicit connection, read, and call timeouts. JSON codecs exchange stable media keys and ISO dates. Resolved Android resource
+HTTP client has explicit connection, read, and call timeouts. JSON codecs exchange UUID references, stable media keys, and ISO dates. Resolved Android resource
 IDs are transient client fields and are never sent to the API. The backend's checked-in
 OpenAPI contract is served at `/openapi.json`.
 
@@ -92,7 +92,7 @@ The main user button opens profile selection, with an option to create a profile
 Favorites require a selected profile and send its UUID with every request;
 switching profiles reloads favorite state. Selection is stored locally and is not
 a login or authorization mechanism. Use these Android changes with the backend's
-V7 schema and updated API contract. Text and voice conversion share an immutable local Unicode-to-media-key dictionary.
+V8 schema and updated API contract. Text and voice conversion share an immutable local Unicode-to-media-key dictionary.
 Letter lookup works without a backend connection; uppercase/lowercase, Romanian
 diacritics, legacy cedilla spellings, Unicode composition, and whitespace are
 normalized consistently. The dictionary is created once and every conversion
@@ -117,3 +117,15 @@ Release sources: [Android 17](https://developer.android.com/about/versions/17),
 [Android Gradle Plugin](https://developer.android.com/build/releases/agp-9-5-0-release-notes),
 [AndroidX](https://developer.android.com/jetpack/androidx/versions), and
 [Gradle](https://gradle.org/releases/).
+
+## School directory
+
+The backend provides Romania-only counties, localities and schools in the
+`counties`, `cities` and `schools` tables.
+`SchoolDirectoryApi` and the learning repository expose parent-filtered directory
+queries. City and school searches support `name`, `offset` and `limit` (maximum
+200); they do not require downloading the entire national directory.
+Schools use `name` and `cityId`; user references use `schoolId`.
+The school CRUD endpoint is `/api/schools`. Existing profile entry still accepts
+a school UUID.
+Directory imports run explicitly on the backend.
