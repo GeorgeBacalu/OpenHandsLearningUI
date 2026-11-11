@@ -1,5 +1,6 @@
 package com.project.ohl.presentation.video_section.objects;
 
+import com.project.ohl.domain.model.CatalogIds;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -48,14 +49,12 @@ public class ObjectsRecyclerViewAdapter extends RecyclerView.Adapter<ObjectsRecy
         Glide.with(objectsContext).asBitmap().load(objects.get(position).getImageSource()).into(holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent;
-            switch(objects.get(position).getId()) {
-                case 88: intent = new Intent(objectsContext, HomeActivity.class); break;
-                case 89: intent = new Intent(objectsContext, OutsideActivity.class); break;
-                case 90: intent = new Intent(objectsContext, ClassActivity.class); break;
-                case 91: intent = new Intent(objectsContext, ShopActivity.class); break;
-                case 92: intent = new Intent(objectsContext, CityActivity.class); break;
-                default: throw new NullPointerException("Invalid Selection");
-            }
+            if (CatalogIds.HOME.equals(objects.get(position).getId())) intent = new Intent(objectsContext, HomeActivity.class);
+            else if (CatalogIds.OUTSIDE.equals(objects.get(position).getId())) intent = new Intent(objectsContext, OutsideActivity.class);
+            else if (CatalogIds.CLASSROOM.equals(objects.get(position).getId())) intent = new Intent(objectsContext, ClassActivity.class);
+            else if (CatalogIds.SHOP.equals(objects.get(position).getId())) intent = new Intent(objectsContext, ShopActivity.class);
+            else if (CatalogIds.CITY.equals(objects.get(position).getId())) intent = new Intent(objectsContext, CityActivity.class);
+            else throw new IllegalArgumentException("Unknown catalog entry");
             objectsContext.startActivity(intent);
         });
     }

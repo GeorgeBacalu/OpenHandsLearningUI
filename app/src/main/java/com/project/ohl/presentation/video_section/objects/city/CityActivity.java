@@ -1,5 +1,6 @@
 package com.project.ohl.presentation.video_section.objects.city;
 
+import com.project.ohl.domain.model.CatalogIds;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,7 +49,7 @@ public class CityActivity extends AppCompatActivity {
       cityRecyclerView.setAdapter(cityAdapter);
       cityRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-      LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndSectionIdAndName(92, 1, ""), result -> {
+      LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndSectionIdAndName(CatalogIds.CITY, CatalogIds.SECTION_VIDEO, ""), result -> {
             if (result.error() != null) {
             Toast.makeText(CityActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
 
@@ -62,7 +63,7 @@ public class CityActivity extends AppCompatActivity {
 
       searchBarIcon.setOnClickListener(v -> {
          String searchBarInputText = searchBarInput.getText().toString().toLowerCase(java.util.Locale.ROOT);
-         LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndSectionIdAndName(92, 1, searchBarInputText), result -> {
+         LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndSectionIdAndName(CatalogIds.CITY, CatalogIds.SECTION_VIDEO, searchBarInputText), result -> {
             if (result.error() != null) {
                Toast.makeText(CityActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
 

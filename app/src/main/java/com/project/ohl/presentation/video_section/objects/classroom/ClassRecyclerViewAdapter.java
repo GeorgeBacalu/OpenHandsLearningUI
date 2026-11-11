@@ -50,10 +50,10 @@ public class ClassRecyclerViewAdapter extends RecyclerView.Adapter<ClassRecycler
         Glide.with(classContext).asBitmap().load(classObjects.get(position).getImageSource()).into(holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(classContext, VideoPlayerActivity.class);
-            if (classObjects.get(position).getId() < 0) {
+            if (classObjects.get(position).getId() == null) {
                 throw new NullPointerException("Invalid Selection");
             }
-            intent.putExtra(CATEGORY_ID, classObjects.get(position).getId());
+            intent.putExtra(CATEGORY_ID, classObjects.get(position).getId().toString());
             intent.putExtra(CATEGORY_NAME, classObjects.get(position).getName());
             intent.putExtra(CATEGORY_IMAGE, classObjects.get(position).getImageSource());
             classContext.startActivity(intent);

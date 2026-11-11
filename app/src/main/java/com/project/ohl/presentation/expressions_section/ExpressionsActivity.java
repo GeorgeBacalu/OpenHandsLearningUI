@@ -1,5 +1,6 @@
 package com.project.ohl.presentation.expressions_section;
 
+import com.project.ohl.domain.model.CatalogIds;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -46,7 +47,7 @@ public class ExpressionsActivity extends AppCompatActivity {
       recyclerView.setAdapter(adapter);
       recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-      LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndSectionIdAndName(null, 4, ""), result -> {
+      LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndSectionIdAndName(null, CatalogIds.SECTION_EXPRESSIONS, ""), result -> {
             if (result.error() != null) {
             Toast.makeText(ExpressionsActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
 
@@ -60,7 +61,7 @@ public class ExpressionsActivity extends AppCompatActivity {
 
       searchIcon.setOnClickListener(v -> {
          String searchBarText = searchBar.getText().toString().toLowerCase(java.util.Locale.ROOT);
-         LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndSectionIdAndName(null, 4, searchBarText), result -> {
+         LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndSectionIdAndName(null, CatalogIds.SECTION_EXPRESSIONS, searchBarText), result -> {
             if (result.error() != null) {
                Toast.makeText(ExpressionsActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
 

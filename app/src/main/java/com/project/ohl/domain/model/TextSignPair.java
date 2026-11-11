@@ -1,8 +1,9 @@
 package com.project.ohl.domain.model;
 
+import java.util.UUID;
 public class TextSignPair {
 
-    private Long id;
+    private UUID id;
     private String letter;
     private int imageSource;
 
@@ -11,17 +12,17 @@ public class TextSignPair {
         this.imageSource = imageSource;
     }
 
-    public TextSignPair(Long id, String letter, int imageSource) {
+    public TextSignPair(UUID id, String letter, int imageSource) {
         this.id = id;
         this.letter = letter;
         this.imageSource = imageSource;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

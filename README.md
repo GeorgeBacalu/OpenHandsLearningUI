@@ -78,6 +78,13 @@ HTTP client has explicit connection, read, and call timeouts. JSON codecs map
 `imageId`/`iconId` and ISO dates to the Java models. The backend's checked-in
 OpenAPI contract is served at `/openapi.json`.
 
+Entity IDs, references, requests, and navigation use UUIDs. `CatalogIds` contains
+the stable UUIDs of built-in sections and categories from the API's UUID migration.
+Use the API and Android UUID versions together. Image and icon resource numbers
+remain integers. Room schema version 3 migrates recording IDs to UUIDs while
+preserving recording metadata and audio paths, including upgrades from versions
+1 and 2.
+
 Favorites are read and changed through the API repository. The obsolete local
 favorites and duplicate catalog in SharedPreferences have been removed. Existing
 recordings in `saved_recordings.db` migrate to Room without deleting their rows;

@@ -48,10 +48,10 @@ public class  WildAnimalsRecyclerViewAdapter extends RecyclerView.Adapter<WildAn
         Glide.with(wildAnimalsContext).asBitmap().load(wildAnimals.get(position).getImageSource()).into(holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(wildAnimalsContext, VideoPlayerActivity.class);
-            if (wildAnimals.get(position).getId() < 0) {
+            if (wildAnimals.get(position).getId() == null) {
                 throw new NullPointerException("Invalid Selection");
             }
-            intent.putExtra(CATEGORY_ID, wildAnimals.get(position).getId());
+            intent.putExtra(CATEGORY_ID, wildAnimals.get(position).getId().toString());
             intent.putExtra(CATEGORY_NAME, wildAnimals.get(position).getName());
             intent.putExtra(CATEGORY_IMAGE, wildAnimals.get(position).getImageSource());
             wildAnimalsContext.startActivity(intent);

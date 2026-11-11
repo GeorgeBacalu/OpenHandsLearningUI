@@ -1,5 +1,6 @@
 package com.project.ohl.data.remote;
 
+import java.util.UUID;
 import com.project.ohl.domain.model.Section;
 import java.util.List;
 import retrofit2.Call;
@@ -16,14 +17,14 @@ public interface SectionApi {
    Call<List<Section>> getAllSections();
 
    @GET("/api/sections/{id}")
-   Call<Section> getSectionById(@Path("id") int id);
+   Call<Section> getSectionById(@Path("id") UUID id);
 
    @POST("/api/sections")
    Call<Section> saveSection(@Body Section section);
 
    @PUT("/api/sections/{id}")
-   Call<Section> updateSectionById(@Body Section section, @Path("id") int id);
+   Call<Section> updateSectionById(@Body Section section, @Path("id") UUID id);
 
    @DELETE("/api/sections/{id}")
-   Call<Void> deleteSectionById(@Path("id") int id);
+   Call<Void> deleteSectionById(@Path("id") UUID id);
 }

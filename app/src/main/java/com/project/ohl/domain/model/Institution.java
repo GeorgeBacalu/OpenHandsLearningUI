@@ -1,25 +1,26 @@
 package com.project.ohl.domain.model;
 
+import java.util.UUID;
 public class Institution {
 
-   private Long id;
+   private UUID id;
    private String school;
    private String classroom;
 
    public Institution() {
    }
 
-   public Institution(Long id, String school, String classroom) {
+   public Institution(UUID id, String school, String classroom) {
       this.id = id;
       this.school = school;
       this.classroom = classroom;
    }
 
-   public Long getId() {
+   public UUID getId() {
       return id;
    }
 
-   public void setId(Long id) {
+   public void setId(UUID id) {
       this.id = id;
    }
 

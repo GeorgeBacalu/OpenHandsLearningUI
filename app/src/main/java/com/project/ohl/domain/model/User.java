@@ -1,10 +1,11 @@
 package com.project.ohl.domain.model;
 
+import java.util.UUID;
 import java.time.LocalDate;
 
 public class User {
 
-   private Long id;
+   private UUID id;
 
    private String name;
 
@@ -18,14 +19,14 @@ public class User {
 
    private LocalDate birthday;
 
-   private Long institutionId;
+   private UUID institutionId;
 
-   private Long roleId;
+   private UUID roleId;
 
    public User() {
    }
 
-   public User(Long id, String name, String email, String password, String mobile, String address, LocalDate birthday, Long institutionId, Long roleId) {
+   public User(UUID id, String name, String email, String password, String mobile, String address, LocalDate birthday, UUID institutionId, UUID roleId) {
       this.id = id;
       this.name = name;
       this.email = email;
@@ -37,11 +38,11 @@ public class User {
       this.roleId = roleId;
    }
 
-   public Long getId() {
+   public UUID getId() {
       return id;
    }
 
-   public void setId(Long id) {
+   public void setId(UUID id) {
       this.id = id;
    }
 
@@ -93,19 +94,19 @@ public class User {
       this.birthday = birthday;
    }
 
-   public Long getInstitutionId() {
+   public UUID getInstitutionId() {
       return institutionId;
    }
 
-   public void setInstitutionId(Long institutionId) {
+   public void setInstitutionId(UUID institutionId) {
       this.institutionId = institutionId;
    }
 
-   public Long getRoleId() {
+   public UUID getRoleId() {
       return roleId;
    }
 
-   public void setRoleId(Long roleId) {
+   public void setRoleId(UUID roleId) {
       this.roleId = roleId;
    }
 

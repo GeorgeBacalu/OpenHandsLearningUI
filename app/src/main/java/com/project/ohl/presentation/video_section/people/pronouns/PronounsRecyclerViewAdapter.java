@@ -45,10 +45,10 @@ public class PronounsRecyclerViewAdapter extends RecyclerView.Adapter<PronounsRe
         holder.categoryName.setText(pronouns.get(position).getName());
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(pronounsContext, VideoPlayerActivity.class);
-            if (pronouns.get(position).getId() < 0) {
+            if (pronouns.get(position).getId() == null) {
                 throw new NullPointerException("Invalid Selection");
             }
-            intent.putExtra(CATEGORY_ID, pronouns.get(position).getId());
+            intent.putExtra(CATEGORY_ID, pronouns.get(position).getId().toString());
             intent.putExtra(CATEGORY_NAME, pronouns.get(position).getName());
             pronounsContext.startActivity(intent);
         });

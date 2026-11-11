@@ -1,5 +1,6 @@
 package com.project.ohl.data.remote;
 
+import java.util.UUID;
 import com.project.ohl.domain.model.Institution;
 import java.util.List;
 import retrofit2.Call;
@@ -16,14 +17,14 @@ public interface InstitutionApi {
    Call<List<Institution>> getAllInstitutions();
 
    @GET("/api/institutions/{id}")
-   Call<Institution> getInstitutionById(@Path("id") Long id);
+   Call<Institution> getInstitutionById(@Path("id") UUID id);
 
    @POST("/api/institutions")
    Call<Institution> saveInstitution(@Body Institution institution);
 
    @PUT("/api/institutions/{id}")
-   Call<Institution> updateInstitutionById(@Body Institution institution, @Path("id") Long id);
+   Call<Institution> updateInstitutionById(@Body Institution institution, @Path("id") UUID id);
 
    @DELETE("/api/institutions/{id")
-   Call<Void> deleteInstitutionById(@Path("id") Long id);
+   Call<Void> deleteInstitutionById(@Path("id") UUID id);
 }
