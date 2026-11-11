@@ -74,8 +74,8 @@ shared OHL vector mark.
 UI screens observe lifecycle-aware results instead of holding Retrofit callbacks.
 ViewModels cancel superseded requests and cancel outstanding work when cleared;
 queued results from cancelled searches cannot overwrite newer results. The shared
-HTTP client has explicit connection, read, and call timeouts. JSON codecs map
-`imageId`/`iconId` and ISO dates to the Java models. The backend's checked-in
+HTTP client has explicit connection, read, and call timeouts. JSON codecs exchange stable media keys and ISO dates. Resolved Android resource
+IDs are transient client fields and are never sent to the API. The backend's checked-in
 OpenAPI contract is served at `/openapi.json`.
 
 Entity IDs and references use UUIDs. Built-in navigation and catalog filters use
@@ -88,7 +88,11 @@ The main user button opens profile selection, with an option to create a profile
 Favorites require a selected profile and send its UUID with every request;
 switching profiles reloads favorite state. Selection is stored locally and is not
 a login or authorization mechanism. Use these Android changes with the backend's
-V2 normalized schema and updated API contract.
+V3 schema and updated API contract. Text and voice signs both load the same API
+catalog and resolve its `mediaKey` values. The retained `dactilema_a` image belongs
+to the matching line-drawing collection; the unrelated photographic `a.png` was
+removed. Unicode letter lookup handles case fallback, Romanian diacritics, spaces,
+and empty input without a second hardcoded sign catalog.
 
 Favorites are read and changed through the API repository. The obsolete local
 favorites and duplicate catalog in SharedPreferences have been removed. Existing
