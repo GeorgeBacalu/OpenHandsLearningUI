@@ -4,16 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".video_section.single_category.CategoryActivity"
+    tools:context=".presentation.video_section.single_category.CategoryActivity"
     android:background="#212121">
 
-<!--    <ImageView-->
-<!--        android:id="@+id/toVideoSectionPageButton"-->
-<!--        android:layout_width="40dp"-->
-<!--        android:layout_height="40dp"-->
-<!--        android:layout_marginLeft="30dp"-->
-<!--        android:layout_marginTop="25dp"-->
-<!--        android:src="@drawable/ic_arrow_circle_left" />-->
 
     <FrameLayout
         android:id="@+id/videoViewContainer"
@@ -73,29 +66,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!--        <androidx.cardview.widget.CardView-->
-            <!--            android:layout_width="wrap_content"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:layout_below="@+id/selectedItemName"-->
-            <!--            android:layout_centerHorizontal="true"-->
-            <!--            android:layout_marginTop="10dp"-->
-            <!--            app:cardCornerRadius="7dp"-->
-            <!--            android:backgroundTint="@color/light_blue"-->
-            <!--            app:cardElevation="3dp">-->
 
-            <!--            <Button-->
-            <!--                android:id="@+id/favoriteButton"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="30dp"-->
-            <!--                android:text="Adauga la favorite"-->
-            <!--                android:textAllCaps="false"-->
-            <!--                android:letterSpacing="0.02"-->
-            <!--                android:textSize="11dp"-->
-            <!--                android:backgroundTint="@color/light_blue"-->
-            <!--                android:textColor="@color/dark"-->
-            <!--                android:paddingHorizontal="3dp" />-->
 
-            <!--        </androidx.cardview.widget.CardView>-->
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/favoriteButton"
