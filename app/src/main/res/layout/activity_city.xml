@@ -33,11 +33,6 @@
             android:layout_marginStart="50dp"
             android:layout_marginTop="20dp">
 
-<!--            <ImageView-->
-<!--                android:id="@+id/toPrevPageButton"-->
-<!--                android:layout_width="40dp"-->
-<!--                android:layout_height="40dp"-->
-<!--                android:src="@drawable/ic_arrow_circle_left" />-->
 
             <TextView
                 android:id="@+id/animalsSectionHeaderText"
