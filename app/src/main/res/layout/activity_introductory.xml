@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.general.on_boarding.IntroductoryActivity">
+    tools:context=".general.on_boarding.IntroductoryActivity">
 
     <ImageView
         android:id="@+id/backgroundImage"
@@ -36,7 +36,7 @@
         android:id="@+id/logo"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@drawable/openhandslearning_logo"
+        android:src="@drawable/llt_logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -71,5 +71,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appName" />
 
+<!--        <com.cuberto.liquid_swipe.LiquidPager-->
+<!--            android:id="@+id/pager"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

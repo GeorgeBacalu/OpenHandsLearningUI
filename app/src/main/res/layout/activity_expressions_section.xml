@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="-20dp"
-    tools:context=".presentation.expressions_section.ExpressionsActivity">
+    tools:context=".expressions_section.ExpressionsActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
