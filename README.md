@@ -17,11 +17,13 @@ Set the Android SDK location in your local, untracked `local.properties`, or set
 On macOS/Linux, use `./gradlew`. Run `:app:connectedDebugAndroidTest` with an
 emulator or device connected to execute instrumentation tests.
 
-The upgrade validation builds debug, unsigned release, and instrumentation APKs,
-and passes the unit test. Lint reports 19 missing-translation errors and 581
-warnings in existing resources/code; `abortOnError = false` allows the build to
-complete. Review `app/build/reports/lint-results-debug.html` for the details.
-Instrumentation tests still need to be executed on a device or emulator.
+The validation includes debug, unsigned release, unit tests, lint, and
+instrumentation APK compilation. With a connected device, run
+`:app:connectedDebugAndroidTest` to verify lifecycle cancellation and migration of
+the legacy recording database. Test databases use separate names and are removed
+after verification. Architecture tests enforce the domain/data/presentation
+boundaries. Lint fails the build on errors; remaining warnings largely concern
+resources and icons, including resources resolved dynamically by name.
 
 The emulator connects to `http://10.0.2.2:8080/` by default. Override this with
 `-PapiBaseUrl=http://your-server:8080/` when building for a physical device.
@@ -32,8 +34,12 @@ Updated against stable releases on 2026-11-11: Android 17 (compile API 37.2,
 target API 37), Build Tools 37.0.0, Android Gradle Plugin 9.5.1, Gradle 9.9.1, and
 Kotlin Gradle Plugin/compiler 2.4.21 (for Java 25 target support).
 The Gradle distribution is pinned with its SHA-256 checksum. AndroidX, Material,
-Kotlin standard library, Glide, Gson, Lottie, Retrofit, and instrumentation test
+Kotlin standard library, Glide, Gson, Lottie, Retrofit, OkHttp, Lifecycle, Room, and instrumentation test
 dependencies use their latest stable releases from Google Maven and Maven Central.
+
+The additional architecture components use Lifecycle 2.11.0, Room 2.8.5,
+OkHttp 5.5.1, and core library desugaring 2.1.5. Desugaring supports ISO dates on
+all supported Android versions.
 
 The minimum supported Android version is Android 7.0 (API 24).
 The API 37 target enables Android 17 behavior changes; test the app's screens,
@@ -54,7 +60,31 @@ DrawerLayout and Fragment dependencies used by application code are explicit.
 The namespace is `com.project.ohl`; the installed application ID remains
 `com.example.llt_project_separate`.
 
-Generated build files and IDE configuration are ignored at all module levels.
+## Architecture
+
+- `domain/model`: plain Java models with no Android, Retrofit, Gson, or Room dependencies.
+- `domain/repository`: repository, cancellable request, and result contracts.
+- `data/remote`: Retrofit endpoints, HTTP repository, shared OkHttp connection pool, and JSON codecs.
+- `data/local`: Room recording database, migration, and observable repository.
+- `presentation`: Activities, Fragments, adapters, and lifecycle ViewModels.
+- `app`: dependency wiring at the application boundary.
+
+UI screens observe lifecycle-aware results instead of holding Retrofit callbacks.
+ViewModels cancel superseded requests and cancel outstanding work when cleared;
+queued results from cancelled searches cannot overwrite newer results. The shared
+HTTP client has explicit connection, read, and call timeouts. JSON codecs map
+`imageId`/`iconId` and ISO dates to the Java models. The backend's checked-in
+OpenAPI contract is served at `/openapi.json`.
+
+Favorites are read and changed through the API repository. The obsolete local
+favorites and duplicate catalog in SharedPreferences have been removed. Existing
+recordings in `saved_recordings.db` migrate to Room without deleting their rows;
+the recording filename and filesystem path remain distinct. A shared resource resolver caches image lookups and normalizes Romanian diacritics
+independently of the device locale. Room queries run off
+the main thread and observations are detached when their ViewModel is cleared.
+
+Generated build files and IDE configuration, including `.idea` directories, are
+ignored at all module levels.
 
 Release sources: [Android 17](https://developer.android.com/about/versions/17),
 [SDK packages](https://dl.google.com/android/repository/repository2-3.xml),
