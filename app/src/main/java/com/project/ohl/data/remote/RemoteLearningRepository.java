@@ -4,7 +4,6 @@ import com.project.ohl.domain.model.Category;
 import com.project.ohl.domain.model.Institution;
 import com.project.ohl.domain.model.Role;
 import com.project.ohl.domain.model.Section;
-import com.project.ohl.domain.model.TextSignPair;
 import com.project.ohl.domain.model.User;
 import com.project.ohl.domain.repository.LearningRepository;
 import com.project.ohl.domain.repository.Request;
@@ -23,7 +22,6 @@ public final class RemoteLearningRepository implements LearningRepository {
     private final InstitutionApi institutionApi;
     private final UserApi userApi;
     private final SectionApi sectionApi;
-    private final TextSignPairApi textSignPairApi;
 
     public RemoteLearningRepository(Retrofit retrofit) {
         categoryApi = retrofit.create(CategoryApi.class);
@@ -31,7 +29,6 @@ public final class RemoteLearningRepository implements LearningRepository {
         institutionApi = retrofit.create(InstitutionApi.class);
         userApi = retrofit.create(UserApi.class);
         sectionApi = retrofit.create(SectionApi.class);
-        textSignPairApi = retrofit.create(TextSignPairApi.class);
     }
 
     private static <T> Request<T> adapt(Call<T> prototype) {
@@ -54,30 +51,10 @@ public final class RemoteLearningRepository implements LearningRepository {
         };
     }
 
-    @Override
-    public Request<List<TextSignPair>> getAllTextSignPairs() {
-        return adapt(textSignPairApi.getAllTextSignPairs());
-    }
 
-    @Override
-    public Request<TextSignPair> getTextSignPairById(UUID id) {
-        return adapt(textSignPairApi.getTextSignPairById(id));
-    }
 
-    @Override
-    public Request<TextSignPair> saveTextSignPair(TextSignPair textSignPair) {
-        return adapt(textSignPairApi.saveTextSignPair(textSignPair));
-    }
 
-    @Override
-    public Request<TextSignPair> updateTextSignPairById(TextSignPair textSignPair, UUID id) {
-        return adapt(textSignPairApi.updateTextSignPairById(textSignPair, id));
-    }
 
-    @Override
-    public Request<Void> deleteTextSignPairById(UUID id) {
-        return adapt(textSignPairApi.deleteTextSignPairById(id));
-    }
 
     @Override
     public Request<List<Role>> getAllRoles() {

@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -24,12 +23,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.project.ohl.R;
 import com.project.ohl.databinding.ActivityVoiceToSignSectionBinding;
 import com.project.ohl.domain.model.SignText;
-import com.project.ohl.domain.model.TextSignPair;
-import com.project.ohl.presentation.LearningViewModel;
 import com.project.ohl.presentation.MainActivity;
 import com.project.ohl.presentation.MediaResources;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import static android.R.id.home;
@@ -92,27 +88,16 @@ public class VoiceToSignSectionActivity extends AppCompatActivity {
         voiceToSignRecyclerView.setAdapter(voiceToSignSectionRecyclerViewAdapter);
         voiceToSignRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-        LearningViewModel.of(this).<List<TextSignPair>>load(this, "getAllTextSignPairs",
-                repository -> repository.getAllTextSignPairs(), result -> {
-            if (result.error() != null) {
-                Toast.makeText(this, R.string.request_failed, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            List<TextSignPair> textSignPairs = result.value();
-            MediaResources.bindSigns(this, textSignPairs);
-
-            outputContent.setVisibility(View.GONE);
-            categoryNameCardText.setText("");
-
-            confirmButton.setOnClickListener(v -> {
-                outputContent.setVisibility(View.VISIBLE);
-                String inputText = textInput.getText().toString();
-                if (inputText.isEmpty()) return;
-                List<TextSignPair> textSignPairsList = SignText.translate(inputText, textSignPairs);
-                categoryNameCardText.setText(inputText);
-                textInput.setText("");
-                voiceToSignSectionRecyclerViewAdapter.setTextSignPairs(textSignPairsList);
-            });
+        outputContent.setVisibility(View.GONE);
+        categoryNameCardText.setText("");
+        confirmButton.setOnClickListener(view -> {
+            String input = textInput.getText().toString();
+            var signs = SignText.translate(input);
+            MediaResources.bindSigns(this, signs);
+            voiceToSignSectionRecyclerViewAdapter.setTextSignPairs(signs);
+            categoryNameCardText.setText(input);
+            outputContent.setVisibility(signs.isEmpty() ? View.GONE : View.VISIBLE);
+            textInput.setText("");
         });
     }
 

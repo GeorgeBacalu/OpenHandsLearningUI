@@ -4,7 +4,6 @@ import com.google.gson.JsonParseException;
 import com.project.ohl.data.remote.JsonCodec;
 import com.project.ohl.domain.model.Category;
 import com.project.ohl.domain.model.Section;
-import com.project.ohl.domain.model.TextSignPair;
 import com.project.ohl.domain.model.User;
 import java.time.LocalDate;
 import org.junit.Test;
@@ -26,8 +25,6 @@ public class JsonCodecTest {
         var section = gson.fromJson("{\"mediaKey\":\"video_section\",\"iconKey\":\"ic_video_section\"}", Section.class);
         section.setIcon(456);
         assertFalse(gson.toJson(section).contains("\"icon\":"));
-        var sign = gson.fromJson("{\"letter\":\"Ă\",\"mediaKey\":\"dactilema_a\"}", TextSignPair.class);
-        assertEquals("dactilema_a", sign.getMediaKey());
     }
 
     @Test public void keepsCatalogIdentityAndMediaIndependentOfDisplayNames() {

@@ -4,17 +4,11 @@ import com.project.ohl.domain.model.Category;
 import com.project.ohl.domain.model.Institution;
 import com.project.ohl.domain.model.Role;
 import com.project.ohl.domain.model.Section;
-import com.project.ohl.domain.model.TextSignPair;
 import com.project.ohl.domain.model.User;
 import java.util.List;
 import java.util.UUID;
 
 public interface LearningRepository {
-    Request<List<TextSignPair>> getAllTextSignPairs();
-    Request<TextSignPair> getTextSignPairById(UUID id);
-    Request<TextSignPair> saveTextSignPair(TextSignPair textSignPair);
-    Request<TextSignPair> updateTextSignPairById(TextSignPair textSignPair, UUID id);
-    Request<Void> deleteTextSignPairById(UUID id);
     Request<List<Role>> getAllRoles();
     Request<Role> getRoleById(UUID id);
     Request<Role> saveRole(Role role);
