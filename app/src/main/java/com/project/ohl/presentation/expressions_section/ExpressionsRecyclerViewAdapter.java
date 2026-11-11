@@ -49,8 +49,8 @@ public class ExpressionsRecyclerViewAdapter extends RecyclerView.Adapter<Express
 
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(context, VideoPlayerActivity.class);
-            if (expressions.get(position).getId() < 0) throw new NullPointerException("Invalid Selection");
-            intent.putExtra(CATEGORY_ID, expressions.get(position).getId());
+            if (expressions.get(position).getId() == null) throw new NullPointerException("Invalid Selection");
+            intent.putExtra(CATEGORY_ID, expressions.get(position).getId().toString());
             intent.putExtra(CATEGORY_NAME, expressions.get(position).getName());
             intent.putExtra(CATEGORY_IMAGE, expressions.get(position).getImageSource());
             context.startActivity(intent);

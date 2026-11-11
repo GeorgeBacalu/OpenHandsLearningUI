@@ -48,10 +48,10 @@ public class NumbersRecyclerViewAdapter extends RecyclerView.Adapter<NumbersRecy
         Glide.with(numbersContext).asBitmap().load(numbers.get(position).getImageSource()).into(holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(numbersContext, VideoPlayerActivity.class);
-            if (numbers.get(position).getId() < 0) {
+            if (numbers.get(position).getId() == null) {
                 throw new NullPointerException("Invalid Selection");
             }
-            intent.putExtra(CATEGORY_ID, numbers.get(position).getId());
+            intent.putExtra(CATEGORY_ID, numbers.get(position).getId().toString());
             intent.putExtra(CATEGORY_NAME, numbers.get(position).getName());
             intent.putExtra(CATEGORY_IMAGE, numbers.get(position).getImageSource());
             numbersContext.startActivity(intent);

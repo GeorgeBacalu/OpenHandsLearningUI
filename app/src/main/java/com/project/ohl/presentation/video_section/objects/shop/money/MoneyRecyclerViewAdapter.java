@@ -50,10 +50,10 @@ public class MoneyRecyclerViewAdapter extends RecyclerView.Adapter<MoneyRecycler
         Glide.with(moneyContext).asBitmap().load(moneyUnits.get(position).getImageSource()).into(holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(moneyContext, VideoPlayerActivity.class);
-            if (moneyUnits.get(position).getId() < 0) {
+            if (moneyUnits.get(position).getId() == null) {
                 throw new NullPointerException("Invalid Selection");
             }
-            intent.putExtra(CATEGORY_ID, moneyUnits.get(position).getId());
+            intent.putExtra(CATEGORY_ID, moneyUnits.get(position).getId().toString());
             intent.putExtra(CATEGORY_NAME, moneyUnits.get(position).getName());
             intent.putExtra(CATEGORY_IMAGE, moneyUnits.get(position).getImageSource());
             moneyContext.startActivity(intent);

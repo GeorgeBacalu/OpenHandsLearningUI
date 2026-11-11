@@ -48,10 +48,10 @@ public class FamilyMembersRecyclerViewAdapter extends RecyclerView.Adapter<Famil
         Glide.with(familyMembersContext).asBitmap().load(familyMembers.get(position).getImageSource()).into(holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(familyMembersContext, VideoPlayerActivity.class);
-            if (familyMembers.get(position).getId() < 0) {
+            if (familyMembers.get(position).getId() == null) {
                 throw new NullPointerException("Invalid Selection");
             }
-            intent.putExtra(CATEGORY_ID, familyMembers.get(position).getId());
+            intent.putExtra(CATEGORY_ID, familyMembers.get(position).getId().toString());
             intent.putExtra(CATEGORY_NAME, familyMembers.get(position).getName());
             intent.putExtra(CATEGORY_IMAGE, familyMembers.get(position).getImageSource());
             familyMembersContext.startActivity(intent);

@@ -1,5 +1,6 @@
 package com.project.ohl.presentation.user;
 
+import java.util.UUID;
 import android.os.Bundle;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -47,7 +48,7 @@ public class UserActivity extends AppCompatActivity {
          try {
             LocalDate date = birthday.isBlank() ? null : LocalDate.parse(birthday);
             user = new User(null, name, email, password, mobile, address, date,
-                    Long.valueOf(institutionId), Long.valueOf(roleId));
+                    UUID.fromString(institutionId), UUID.fromString(roleId));
          } catch (IllegalArgumentException | java.time.DateTimeException exception) {
             Toast.makeText(this, R.string.invalid_user_input, Toast.LENGTH_SHORT).show();
             return;

@@ -1,5 +1,6 @@
 package com.project.ohl.presentation.video_section.animals.household;
 
+import java.util.UUID;
 import static com.project.ohl.presentation.video_section.VideoPlayerActivity.CATEGORY_ID;
 import static com.project.ohl.presentation.video_section.VideoPlayerActivity.CATEGORY_IMAGE;
 import static com.project.ohl.presentation.video_section.VideoPlayerActivity.CATEGORY_NAME;
@@ -48,10 +49,10 @@ public class HouseholdAnimalsRecyclerViewAdapter extends RecyclerView.Adapter<Ho
         Glide.with(householdAnimalsContext).asBitmap().load(householdAnimals.get(position).getImageSource()).into(holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(householdAnimalsContext, VideoPlayerActivity.class);
-            if (householdAnimals.get(position).getId() < 0) throw new NullPointerException("Invalid Selection");
+            if (householdAnimals.get(position).getId() == null) throw new NullPointerException("Invalid Selection");
 
-            int id = householdAnimals.get(position).getId();
-            intent.putExtra(CATEGORY_ID, id);
+            UUID id = householdAnimals.get(position).getId();
+            intent.putExtra(CATEGORY_ID, id.toString());
             String name = householdAnimals.get(position).getName();
             intent.putExtra(CATEGORY_NAME, name);
             Integer imageSource = householdAnimals.get(position).getImageSource();

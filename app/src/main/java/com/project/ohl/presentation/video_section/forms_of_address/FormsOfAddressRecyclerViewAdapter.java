@@ -48,10 +48,10 @@ public class FormsOfAddressRecyclerViewAdapter extends RecyclerView.Adapter<Form
         Glide.with(formsOfAddressContext).asBitmap().load(formsOfAddress.get(position).getImageSource()).into(holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(formsOfAddressContext, VideoPlayerActivity.class);
-            if (formsOfAddress.get(position).getId() < 0) {
+            if (formsOfAddress.get(position).getId() == null) {
                 throw new NullPointerException("Invalid Selection");
             }
-            intent.putExtra(CATEGORY_ID, formsOfAddress.get(position).getId());
+            intent.putExtra(CATEGORY_ID, formsOfAddress.get(position).getId().toString());
             intent.putExtra(CATEGORY_NAME, formsOfAddress.get(position).getName());
             intent.putExtra(CATEGORY_IMAGE, formsOfAddress.get(position).getImageSource());
             formsOfAddressContext.startActivity(intent);

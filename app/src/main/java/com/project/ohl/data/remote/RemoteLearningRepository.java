@@ -1,5 +1,6 @@
 package com.project.ohl.data.remote;
 
+import java.util.UUID;
 import com.project.ohl.domain.model.Category;
 import com.project.ohl.domain.model.Institution;
 import com.project.ohl.domain.model.Role;
@@ -59,7 +60,7 @@ public final class RemoteLearningRepository implements LearningRepository {
     }
 
     @Override
-    public Request<TextSignPair> getTextSignPairById(Long id) {
+    public Request<TextSignPair> getTextSignPairById(UUID id) {
         return adapt(textSignPairApi.getTextSignPairById(id));
     }
 
@@ -69,12 +70,12 @@ public final class RemoteLearningRepository implements LearningRepository {
     }
 
     @Override
-    public Request<TextSignPair> updateTextSignPairById(TextSignPair textSignPair, Long id) {
+    public Request<TextSignPair> updateTextSignPairById(TextSignPair textSignPair, UUID id) {
         return adapt(textSignPairApi.updateTextSignPairById(textSignPair, id));
     }
 
     @Override
-    public Request<Void> deleteTextSignPairById(Long id) {
+    public Request<Void> deleteTextSignPairById(UUID id) {
         return adapt(textSignPairApi.deleteTextSignPairById(id));
     }
 
@@ -84,7 +85,7 @@ public final class RemoteLearningRepository implements LearningRepository {
     }
 
     @Override
-    public Request<Role> getRoleById(Long id) {
+    public Request<Role> getRoleById(UUID id) {
         return adapt(roleApi.getRoleById(id));
     }
 
@@ -94,12 +95,12 @@ public final class RemoteLearningRepository implements LearningRepository {
     }
 
     @Override
-    public Request<Role> updateRoleById(Role role, Long id) {
+    public Request<Role> updateRoleById(Role role, UUID id) {
         return adapt(roleApi.updateRoleById(role, id));
     }
 
     @Override
-    public Request<Void> deleteRoleById(Long id) {
+    public Request<Void> deleteRoleById(UUID id) {
         return adapt(roleApi.deleteRoleById(id));
     }
 
@@ -109,7 +110,7 @@ public final class RemoteLearningRepository implements LearningRepository {
     }
 
     @Override
-    public Request<Institution> getInstitutionById(Long id) {
+    public Request<Institution> getInstitutionById(UUID id) {
         return adapt(institutionApi.getInstitutionById(id));
     }
 
@@ -119,12 +120,12 @@ public final class RemoteLearningRepository implements LearningRepository {
     }
 
     @Override
-    public Request<Institution> updateInstitutionById(Institution institution, Long id) {
+    public Request<Institution> updateInstitutionById(Institution institution, UUID id) {
         return adapt(institutionApi.updateInstitutionById(institution, id));
     }
 
     @Override
-    public Request<Void> deleteInstitutionById(Long id) {
+    public Request<Void> deleteInstitutionById(UUID id) {
         return adapt(institutionApi.deleteInstitutionById(id));
     }
 
@@ -134,7 +135,7 @@ public final class RemoteLearningRepository implements LearningRepository {
     }
 
     @Override
-    public Request<User> getUserById(Long id) {
+    public Request<User> getUserById(UUID id) {
         return adapt(userApi.getUserById(id));
     }
 
@@ -144,12 +145,12 @@ public final class RemoteLearningRepository implements LearningRepository {
     }
 
     @Override
-    public Request<User> updateUserById(User user, Long id) {
+    public Request<User> updateUserById(User user, UUID id) {
         return adapt(userApi.updateUserById(user, id));
     }
 
     @Override
-    public Request<Void> deleteUserById(Long id) {
+    public Request<Void> deleteUserById(UUID id) {
         return adapt(userApi.deleteUserById(id));
     }
 
@@ -159,7 +160,7 @@ public final class RemoteLearningRepository implements LearningRepository {
     }
 
     @Override
-    public Request<Section> getSectionById(int id) {
+    public Request<Section> getSectionById(UUID id) {
         return adapt(sectionApi.getSectionById(id));
     }
 
@@ -169,12 +170,12 @@ public final class RemoteLearningRepository implements LearningRepository {
     }
 
     @Override
-    public Request<Section> updateSectionById(Section section, int id) {
+    public Request<Section> updateSectionById(Section section, UUID id) {
         return adapt(sectionApi.updateSectionById(section, id));
     }
 
     @Override
-    public Request<Void> deleteSectionById(int id) {
+    public Request<Void> deleteSectionById(UUID id) {
         return adapt(sectionApi.deleteSectionById(id));
     }
 
@@ -184,7 +185,7 @@ public final class RemoteLearningRepository implements LearningRepository {
     }
 
     @Override
-    public Request<Category> getCategoryById(Integer id) {
+    public Request<Category> getCategoryById(UUID id) {
         return adapt(categoryApi.getCategoryById(id));
     }
 
@@ -194,17 +195,17 @@ public final class RemoteLearningRepository implements LearningRepository {
     }
 
     @Override
-    public Request<Category> updateCategoryById(Category category, Integer id) {
+    public Request<Category> updateCategoryById(Category category, UUID id) {
         return adapt(categoryApi.updateCategoryById(category, id));
     }
 
     @Override
-    public Request<Void> deleteCategoryById(Integer id) {
+    public Request<Void> deleteCategoryById(UUID id) {
         return adapt(categoryApi.deleteCategoryById(id));
     }
 
     @Override
-    public Request<List<Category>> getCategoriesByParentIdAndSectionIdAndName(Integer parentId, Integer sectionId, String name) {
+    public Request<List<Category>> getCategoriesByParentIdAndSectionIdAndName(UUID parentId, UUID sectionId, String name) {
         return adapt(categoryApi.getCategoriesByParentIdAndSectionIdAndName(parentId, sectionId, name));
     }
 
@@ -214,12 +215,12 @@ public final class RemoteLearningRepository implements LearningRepository {
     }
 
     @Override
-    public Request<Category> saveFavorite(Integer categoryId) {
+    public Request<Category> saveFavorite(UUID categoryId) {
         return adapt(categoryApi.saveFavorite(categoryId));
     }
 
     @Override
-    public Request<Category> deleteFavorite(Integer categoryId) {
+    public Request<Category> deleteFavorite(UUID categoryId) {
         return adapt(categoryApi.deleteFavorite(categoryId));
     }
 

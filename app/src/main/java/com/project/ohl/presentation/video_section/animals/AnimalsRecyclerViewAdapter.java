@@ -1,5 +1,7 @@
 package com.project.ohl.presentation.video_section.animals;
 
+import java.util.UUID;
+import com.project.ohl.domain.model.CatalogIds;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -45,12 +47,10 @@ public class AnimalsRecyclerViewAdapter extends RecyclerView.Adapter<AnimalsRecy
         Glide.with(animalsContext).asBitmap().load(animals.get(position).getImageSource()).into(holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent;
-            int id = animals.get(position).getId();
-            switch(id) {
-                case 64: intent = new Intent(animalsContext, HouseholdAnimalsActivity.class); break;
-                case 65: intent = new Intent(animalsContext, WildAnimalsActivity.class); break;
-                default: throw new NullPointerException("Invalid Selection");
-            }
+            UUID id = animals.get(position).getId();
+            if (CatalogIds.HOUSEHOLD_ANIMALS.equals(id)) intent = new Intent(animalsContext, HouseholdAnimalsActivity.class);
+            else if (CatalogIds.WILD_ANIMALS.equals(id)) intent = new Intent(animalsContext, WildAnimalsActivity.class);
+            else throw new IllegalArgumentException("Unknown catalog entry");
             animalsContext.startActivity(intent);
         });
     }

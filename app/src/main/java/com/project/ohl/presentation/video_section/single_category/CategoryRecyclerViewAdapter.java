@@ -60,7 +60,7 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
             Intent intent = new Intent(categoryContext, VideoPlayerActivity.class);
             int current = holder.getBindingAdapterPosition();
             if (current == RecyclerView.NO_POSITION) return;
-            intent.putExtra(CATEGORY_ID, categories.get(current).getId());
+            intent.putExtra(CATEGORY_ID, categories.get(current).getId().toString());
             intent.putExtra(CATEGORY_NAME, categories.get(current).getName());
             intent.putExtra(CATEGORY_IMAGE, categories.get(current).getImageSource());
             categoryContext.startActivity(intent);

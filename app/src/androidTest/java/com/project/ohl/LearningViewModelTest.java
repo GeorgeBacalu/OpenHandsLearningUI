@@ -14,6 +14,7 @@ import com.project.ohl.presentation.LearningViewModel;
 import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 import org.junit.Test;
@@ -39,21 +40,23 @@ public class LearningViewModelTest {
                     cancelled.add(flag);
                     return () -> flag.set(true);
                 });
-        var received = new ArrayList<Integer>();
+        UUID oldId = UUID.randomUUID();
+        UUID currentId = UUID.randomUUID();
+        var received = new ArrayList<UUID>();
         var model = new LearningViewModel(repository);
         var store = new ViewModelStore();
         var owner = new Owner();
         instrumentation.runOnMainSync(() -> {
             store.put("learning", model);
             owner.lifecycle.setCurrentState(Lifecycle.State.STARTED);
-            model.<Category>load(owner, "search", r -> r.getCategoryById(1), result -> received.add(result.value().getId()));
-            callbacks.get(0).accept(Result.success(new Category(1, "Old")));
-            model.<Category>load(owner, "search", r -> r.getCategoryById(2), result -> received.add(result.value().getId()));
-            callbacks.get(1).accept(Result.success(new Category(2, "Current")));
+            model.<Category>load(owner, "search", r -> r.getCategoryById(oldId), result -> received.add(result.value().getId()));
+            callbacks.get(0).accept(Result.success(new Category(oldId, "Old")));
+            model.<Category>load(owner, "search", r -> r.getCategoryById(currentId), result -> received.add(result.value().getId()));
+            callbacks.get(1).accept(Result.success(new Category(currentId, "Current")));
         });
         instrumentation.waitForIdleSync();
         assertTrue(cancelled.get(0).get());
-        assertEquals(List.of(2), received);
+        assertEquals(List.of(currentId), received);
         instrumentation.runOnMainSync(() -> {
             owner.lifecycle.setCurrentState(Lifecycle.State.DESTROYED);
             store.clear();

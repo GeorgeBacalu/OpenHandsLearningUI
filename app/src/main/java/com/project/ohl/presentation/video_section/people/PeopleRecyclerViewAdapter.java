@@ -1,5 +1,6 @@
 package com.project.ohl.presentation.video_section.people;
 
+import com.project.ohl.domain.model.CatalogIds;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -47,11 +48,9 @@ public class PeopleRecyclerViewAdapter extends RecyclerView.Adapter<PeopleRecycl
         Glide.with(peopleContext).asBitmap().load(people.get(position).getImageSource()).into(holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent;
-            switch(people.get(position).getId()) {
-                case 155: intent = new Intent(peopleContext, FamilyMembersActivity.class); break;
-                case 156: intent = new Intent(peopleContext, PronounsActivity.class); break;
-                default: throw new NullPointerException("Invalid Selection");
-            }
+            if (CatalogIds.FAMILY_MEMBERS.equals(people.get(position).getId())) intent = new Intent(peopleContext, FamilyMembersActivity.class);
+            else if (CatalogIds.PRONOUNS.equals(people.get(position).getId())) intent = new Intent(peopleContext, PronounsActivity.class);
+            else throw new IllegalArgumentException("Unknown catalog entry");
             peopleContext.startActivity(intent);
         });
     }

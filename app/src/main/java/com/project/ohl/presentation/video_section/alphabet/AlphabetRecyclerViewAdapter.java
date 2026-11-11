@@ -48,8 +48,8 @@ public class AlphabetRecyclerViewAdapter extends RecyclerView.Adapter<AlphabetRe
         Glide.with(alphabetContext).asBitmap().load(letters.get(position).getImageSource()).into(holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(alphabetContext, VideoPlayerActivity.class);
-            if (letters.get(position).getId() < 0) throw new NullPointerException("Invalid Selection");
-            intent.putExtra(CATEGORY_ID, letters.get(position).getId());
+            if (letters.get(position).getId() == null) throw new NullPointerException("Invalid Selection");
+            intent.putExtra(CATEGORY_ID, letters.get(position).getId().toString());
             intent.putExtra(CATEGORY_NAME, letters.get(position).getName());
             intent.putExtra(CATEGORY_IMAGE, letters.get(position).getImageSource());
             alphabetContext.startActivity(intent);
