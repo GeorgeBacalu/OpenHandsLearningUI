@@ -1,18 +1,16 @@
 package com.project.ohl.presentation.voice_to_sign_section;
 
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
 import com.project.ohl.databinding.FragmentFileViewerBinding;
-
+import com.project.ohl.presentation.RecordingsViewModel;
 import java.util.ArrayList;
 
 public class FileViewerFragment extends Fragment {
@@ -42,7 +40,7 @@ public class FileViewerFragment extends Fragment {
 
         fileViewerAdapter = new FileViewerAdapter(requireActivity(), new ArrayList<>());
         binding.recordingsRecyclerView.setAdapter(fileViewerAdapter);
-        new androidx.lifecycle.ViewModelProvider(this).get(com.project.ohl.presentation.RecordingsViewModel.class)
+        new ViewModelProvider(this).get(RecordingsViewModel.class)
                 .recordings().observe(getViewLifecycleOwner(), items -> fileViewerAdapter.setRecordings(items));
     }
 

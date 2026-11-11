@@ -1,9 +1,9 @@
 package com.project.ohl.data.local;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-import androidx.annotation.NonNull;
 import com.project.ohl.domain.model.RecordingItem;
 import java.util.UUID;
 

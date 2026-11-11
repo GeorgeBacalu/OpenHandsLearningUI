@@ -1,11 +1,5 @@
 package com.project.ohl.presentation.general.favorites;
 
-import android.widget.Toast;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,20 +7,36 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-
-import com.project.ohl.presentation.MainActivity;
+import android.widget.Toast;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.project.ohl.R;
 import com.project.ohl.domain.model.Category;
 import com.project.ohl.presentation.LearningViewModel;
+import com.project.ohl.presentation.MainActivity;
+import com.project.ohl.presentation.MediaResources;
+import com.project.ohl.presentation.UserProfiles;
+import com.project.ohl.presentation.user.UserListActivity;
 import com.project.ohl.presentation.video_section.VideoSectionActivity;
 import com.project.ohl.presentation.video_section.single_category.CategoryRecyclerViewAdapter;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
+import java.util.UUID;
 
+import static android.R.id.home;
 
 public class FavoritesActivity extends AppCompatActivity {
+   private final ActivityResultLauncher<Intent> profiles = registerForActivityResult(
+         new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (UserProfiles.id(this) == null) finish(); else recreate();
+         });
+   private UUID selectedProfile;
    private RecyclerView recyclerView;
    private CategoryRecyclerViewAdapter adapter;
    private FloatingActionButton homePageButton;
@@ -38,8 +48,13 @@ public class FavoritesActivity extends AppCompatActivity {
    @Override
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
+      selectedProfile = UserProfiles.id(this);
       setContentView(R.layout.activity_favorites);
       Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+      if (UserProfiles.id(this) == null) {
+         profiles.launch(new Intent(this, UserListActivity.class));
+         return;
+      }
       initializeViews();
 
       homePageButton.setOnClickListener(v -> {
@@ -50,13 +65,13 @@ public class FavoritesActivity extends AppCompatActivity {
       recyclerView.setAdapter(adapter);
       recyclerView.setLayoutManager(new LinearLayoutManager(FavoritesActivity.this));
 
-      LearningViewModel.of(this).<List<Category>>load(this, "favorites", repository -> repository.getFavoriteCategories(), result -> {
+      LearningViewModel.of(this).<List<Category>>load(this, "favorites", repository -> repository.getFavoriteCategories(UserProfiles.id(this)), result -> {
             if (result.error() != null) {
             Toast.makeText(FavoritesActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
 
             } else {
                List<Category> favoriteCategories = result.value();
-               com.project.ohl.presentation.MediaResources.bindImages(this, favoriteCategories);
+               MediaResources.bindImages(this, favoriteCategories);
                adapter.setCategories(favoriteCategories);
                if (adapter.getItemCount() == 0) {
                   setContentView(R.layout.no_favorites);
@@ -68,14 +83,14 @@ public class FavoritesActivity extends AppCompatActivity {
         });
 
       searchIcon.setOnClickListener(v -> {
-         String searchBarInputText = searchBar.getText().toString().toLowerCase(java.util.Locale.ROOT);
-         LearningViewModel.of(this).<List<Category>>load(this, "favorites", repository -> repository.getFavoritesByName(searchBarInputText), result -> {
+         String searchBarInputText = searchBar.getText().toString().toLowerCase(Locale.ROOT);
+         LearningViewModel.of(this).<List<Category>>load(this, "favorites", repository -> repository.getFavoritesByName(UserProfiles.id(this), searchBarInputText), result -> {
             if (result.error() != null) {
                Toast.makeText(FavoritesActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
 
             } else {
                   List<Category> filteredFavoriteCategories = result.value();
-                  com.project.ohl.presentation.MediaResources.bindImages(this, filteredFavoriteCategories);
+                  MediaResources.bindImages(this, filteredFavoriteCategories);
                   searchBar.setText("");
                   adapter.setCategories(filteredFavoriteCategories);
                   adapter.notifyDataSetChanged();
@@ -88,7 +103,7 @@ public class FavoritesActivity extends AppCompatActivity {
    private void initializeViews() {
       recyclerView = findViewById(R.id.recycler_view);
       adapter = new CategoryRecyclerViewAdapter(this, category ->
-            LearningViewModel.of(this).<Category>load(this, "removeFavorite", repository -> repository.deleteFavorite(category.getId()), result -> {
+            LearningViewModel.of(this).<Category>load(this, "removeFavorite", repository -> repository.deleteFavorite(UserProfiles.id(this), category.getId()), result -> {
                if (result.isSuccess()) recreate();
                else Toast.makeText(this, R.string.request_failed, Toast.LENGTH_SHORT).show();
             }));
@@ -97,9 +112,14 @@ public class FavoritesActivity extends AppCompatActivity {
       searchIcon = findViewById(R.id.search_icon);
    }
 
+   @Override protected void onResume() {
+      super.onResume();
+      if (selectedProfile != null && !Objects.equals(selectedProfile, UserProfiles.id(this))) recreate();
+   }
+
    @Override
    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-      if (item.getItemId() == android.R.id.home) getOnBackPressedDispatcher().onBackPressed();
+      if (item.getItemId() == home) getOnBackPressedDispatcher().onBackPressed();
       return super.onOptionsItemSelected(item);
    }
 }

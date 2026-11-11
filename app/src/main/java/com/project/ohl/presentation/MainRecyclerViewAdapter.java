@@ -1,8 +1,5 @@
 package com.project.ohl.presentation;
 
-import com.project.ohl.domain.model.CatalogIds;
-import com.project.ohl.R;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -12,18 +9,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
-import com.project.ohl.presentation.expressions_section.ExpressionsActivity;
+import com.project.ohl.R;
+import com.project.ohl.domain.model.CatalogCodes;
 import com.project.ohl.domain.model.Section;
+import com.project.ohl.presentation.expressions_section.ExpressionsActivity;
 import com.project.ohl.presentation.text_to_sign_section.TextToSignSectionActivity;
 import com.project.ohl.presentation.video_section.VideoSectionActivity;
 import com.project.ohl.presentation.voice_to_sign_section.VoiceToSignSectionActivity;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,10 +47,10 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
         Glide.with(context).asBitmap().load(sections.get(position).getIcon()).into(holder.sectionIcon);
         holder.sectionCard.setOnClickListener(v -> {
             Intent intent;
-            if (CatalogIds.SECTION_VIDEO.equals(sections.get(position).getId())) intent = new Intent(context, VideoSectionActivity.class);
-            else if (CatalogIds.SECTION_TEXT_TO_SIGN.equals(sections.get(position).getId())) intent = new Intent(context, TextToSignSectionActivity.class);
-            else if (CatalogIds.SECTION_VOICE_TO_SIGN.equals(sections.get(position).getId())) intent = new Intent(context, VoiceToSignSectionActivity.class);
-            else if (CatalogIds.SECTION_EXPRESSIONS.equals(sections.get(position).getId())) intent = new Intent(context, ExpressionsActivity.class);
+            if (CatalogCodes.SECTION_VIDEO.equals(sections.get(position).getCode())) intent = new Intent(context, VideoSectionActivity.class);
+            else if (CatalogCodes.SECTION_TEXT_TO_SIGN.equals(sections.get(position).getCode())) intent = new Intent(context, TextToSignSectionActivity.class);
+            else if (CatalogCodes.SECTION_VOICE_TO_SIGN.equals(sections.get(position).getCode())) intent = new Intent(context, VoiceToSignSectionActivity.class);
+            else if (CatalogCodes.SECTION_EXPRESSIONS.equals(sections.get(position).getCode())) intent = new Intent(context, ExpressionsActivity.class);
             else throw new IllegalArgumentException("Unknown catalog entry");
             context.startActivity(intent);
         });

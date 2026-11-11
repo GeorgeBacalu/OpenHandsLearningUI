@@ -1,12 +1,16 @@
 package com.project.ohl.domain.model;
 
 import java.util.UUID;
+
 public class Section {
 
     private UUID id;
+    private String code;
+    private String mediaKey;
+    private String iconKey;
     private String name;
-    private int icon;
-    private int imageSource;
+    private transient int icon;
+    private transient int imageSource;
 
     public Section(UUID id, String name, int icon, int imageSource) {
         this.id = id;
@@ -51,4 +55,13 @@ public class Section {
     public String toString() {
         return "Section{" + "id=" + id + ", name='" + name + '\'' + ", icon=" + icon + ", imageSource=" + imageSource + '}';
     }
+    public String getCode() { return code; }
+    public void setCode(String value) { code = value; }
+
+    public String getMediaKey() { return mediaKey; }
+    public void setMediaKey(String value) { mediaKey = value; }
+
+    public String getIconKey() { return iconKey; }
+    public void setIconKey(String value) { iconKey = value; }
+
 }

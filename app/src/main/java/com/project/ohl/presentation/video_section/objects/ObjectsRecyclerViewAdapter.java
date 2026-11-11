@@ -1,6 +1,5 @@
 package com.project.ohl.presentation.video_section.objects;
 
-import com.project.ohl.domain.model.CatalogIds;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -10,20 +9,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
-import com.project.ohl.domain.model.Category;
 import com.project.ohl.R;
+import com.project.ohl.domain.model.CatalogCodes;
+import com.project.ohl.domain.model.Category;
 import com.project.ohl.presentation.video_section.objects.city.CityActivity;
 import com.project.ohl.presentation.video_section.objects.classroom.ClassActivity;
 import com.project.ohl.presentation.video_section.objects.home.HomeActivity;
 import com.project.ohl.presentation.video_section.objects.outside.OutsideActivity;
 import com.project.ohl.presentation.video_section.objects.shop.ShopActivity;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,11 +46,11 @@ public class ObjectsRecyclerViewAdapter extends RecyclerView.Adapter<ObjectsRecy
         Glide.with(objectsContext).asBitmap().load(objects.get(position).getImageSource()).into(holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent;
-            if (CatalogIds.HOME.equals(objects.get(position).getId())) intent = new Intent(objectsContext, HomeActivity.class);
-            else if (CatalogIds.OUTSIDE.equals(objects.get(position).getId())) intent = new Intent(objectsContext, OutsideActivity.class);
-            else if (CatalogIds.CLASSROOM.equals(objects.get(position).getId())) intent = new Intent(objectsContext, ClassActivity.class);
-            else if (CatalogIds.SHOP.equals(objects.get(position).getId())) intent = new Intent(objectsContext, ShopActivity.class);
-            else if (CatalogIds.CITY.equals(objects.get(position).getId())) intent = new Intent(objectsContext, CityActivity.class);
+            if (CatalogCodes.HOME.equals(objects.get(position).getCode())) intent = new Intent(objectsContext, HomeActivity.class);
+            else if (CatalogCodes.OUTSIDE.equals(objects.get(position).getCode())) intent = new Intent(objectsContext, OutsideActivity.class);
+            else if (CatalogCodes.CLASSROOM.equals(objects.get(position).getCode())) intent = new Intent(objectsContext, ClassActivity.class);
+            else if (CatalogCodes.SHOP.equals(objects.get(position).getCode())) intent = new Intent(objectsContext, ShopActivity.class);
+            else if (CatalogCodes.CITY.equals(objects.get(position).getCode())) intent = new Intent(objectsContext, CityActivity.class);
             else throw new IllegalArgumentException("Unknown catalog entry");
             objectsContext.startActivity(intent);
         });

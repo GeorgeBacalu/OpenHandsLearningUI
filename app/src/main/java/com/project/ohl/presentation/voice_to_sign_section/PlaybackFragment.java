@@ -1,7 +1,5 @@
 package com.project.ohl.presentation.voice_to_sign_section;
 
-import com.project.ohl.domain.model.RecordingItem;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.graphics.ColorFilter;
@@ -13,17 +11,16 @@ import android.os.Looper;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.SeekBar;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.core.os.BundleCompat;
 import androidx.fragment.app.DialogFragment;
-
 import com.project.ohl.R;
 import com.project.ohl.databinding.FragmentPlaybackBinding;
-
+import com.project.ohl.domain.model.RecordingItem;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class PlaybackFragment extends DialogFragment {
@@ -67,7 +64,7 @@ public class PlaybackFragment extends DialogFragment {
         });
 
         binding.fileNameTextView.setText(recordingItem.getName());
-        binding.fileLengthTextView.setText(String.format(java.util.Locale.getDefault(), "%02d:%02d", minutes, seconds));
+        binding.fileLengthTextView.setText(String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds));
 
         builder.setView(binding.getRoot());
         dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
@@ -122,7 +119,7 @@ public class PlaybackFragment extends DialogFragment {
 
                     long minutes = TimeUnit.MILLISECONDS.toMinutes(mediaPlayer.getCurrentPosition());
                     long seconds = TimeUnit.MILLISECONDS.toSeconds(mediaPlayer.getCurrentPosition()) - TimeUnit.MINUTES.toSeconds(minutes);
-                    binding.currentProgressTextView.setText(String.format(java.util.Locale.getDefault(), "%02d:%02d", minutes, seconds));
+                    binding.currentProgressTextView.setText(String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds));
                     updateSeekBar();
                 } else if (mediaPlayer == null && fromUser) {
                     try {
@@ -174,7 +171,7 @@ public class PlaybackFragment extends DialogFragment {
                 binding.seekbar.setProgress(currentPosition);
                 long minutes = TimeUnit.MILLISECONDS.toMinutes(currentPosition);
                 long seconds = TimeUnit.MILLISECONDS.toSeconds(currentPosition) - TimeUnit.MINUTES.toSeconds(minutes);
-                binding.currentProgressTextView.setText(String.format(java.util.Locale.getDefault(), "%02d:%02d", minutes, seconds));
+                binding.currentProgressTextView.setText(String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds));
                 updateSeekBar();
             }
         }
