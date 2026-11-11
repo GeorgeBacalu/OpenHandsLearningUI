@@ -1,5 +1,6 @@
 package com.project.ohl.data.remote;
 
+import java.util.UUID;
 import com.project.ohl.domain.model.User;
 import java.util.List;
 import retrofit2.Call;
@@ -16,14 +17,14 @@ public interface UserApi {
    Call<List<User>> getAllUsers();
 
    @GET("/api/users/{id}")
-   Call<User> getUserById(@Path("id") Long id);
+   Call<User> getUserById(@Path("id") UUID id);
 
    @POST("/api/users")
    Call<User> saveUser(@Body User user);
 
    @PUT("/api/users/{id}")
-   Call<User> updateUserById(@Body User user, @Path("id") Long id);
+   Call<User> updateUserById(@Body User user, @Path("id") UUID id);
 
    @DELETE("/api/users/{id}")
-   Call<Void> deleteUserById(@Path("id") Long id);
+   Call<Void> deleteUserById(@Path("id") UUID id);
 }

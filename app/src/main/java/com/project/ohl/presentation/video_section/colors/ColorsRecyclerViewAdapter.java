@@ -50,8 +50,8 @@ public class ColorsRecyclerViewAdapter extends RecyclerView.Adapter<ColorsRecycl
         Glide.with(colorsContext).asBitmap().load(colors.get(position).getImageSource()).into(holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(colorsContext, VideoPlayerActivity.class);
-            if (colors.get(position).getId() < 0) throw new NullPointerException("Invalid Selection");
-            intent.putExtra(CATEGORY_ID, colors.get(position).getId());
+            if (colors.get(position).getId() == null) throw new NullPointerException("Invalid Selection");
+            intent.putExtra(CATEGORY_ID, colors.get(position).getId().toString());
             intent.putExtra(CATEGORY_NAME, colors.get(position).getName());
             intent.putExtra(CATEGORY_IMAGE, colors.get(position).getImageSource());
             colorsContext.startActivity(intent);

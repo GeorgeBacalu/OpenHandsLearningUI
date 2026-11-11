@@ -1,8 +1,9 @@
 package com.project.ohl.domain.model;
 
+import java.util.UUID;
 public class Category {
 
-    private int id;
+    private UUID id;
 
     private String name;
 
@@ -12,17 +13,17 @@ public class Category {
 
     private Boolean isFavorite = false;
 
-    private Long parentId;
+    private UUID parentId;
 
-    private Long sectionId;
+    private UUID sectionId;
 
-    public Category(int id, String name) {
+    public Category(UUID id, String name) {
         this.id = id;
         this.name = name;
         this.isExpanded = false;
     }
 
-    public Category(int id, String name, int imageSource) {
+    public Category(UUID id, String name, int imageSource) {
         this.id = id;
         this.name = name;
         this.imageSource = imageSource;
@@ -32,7 +33,7 @@ public class Category {
     public Category() {
     }
 
-    public Category(int id, String name, Integer imageSource, Boolean isExpanded, Boolean isFavorite, Long parentId, Long sectionId) {
+    public Category(UUID id, String name, Integer imageSource, Boolean isExpanded, Boolean isFavorite, UUID parentId, UUID sectionId) {
         this.id = id;
         this.name = name;
         this.imageSource = imageSource;
@@ -42,11 +43,11 @@ public class Category {
         this.sectionId = sectionId;
     }
 
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -74,19 +75,19 @@ public class Category {
         isFavorite = favorite;
     }
 
-    public Long getParentId() {
+    public UUID getParentId() {
         return parentId;
     }
 
-    public void setParentId(Long parentId) {
+    public void setParentId(UUID parentId) {
         this.parentId = parentId;
     }
 
-    public Long getSectionId() {
+    public UUID getSectionId() {
         return sectionId;
     }
 
-    public void setSectionId(Long sectionId) {
+    public void setSectionId(UUID sectionId) {
         this.sectionId = sectionId;
     }
 

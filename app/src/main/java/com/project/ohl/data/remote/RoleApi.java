@@ -1,5 +1,6 @@
 package com.project.ohl.data.remote;
 
+import java.util.UUID;
 import com.project.ohl.domain.model.Role;
 import java.util.List;
 import retrofit2.Call;
@@ -16,14 +17,14 @@ public interface RoleApi {
    Call<List<Role>> getAllRoles();
 
    @GET("/api/roles/{id}")
-   Call<Role> getRoleById(@Path("id") Long id);
+   Call<Role> getRoleById(@Path("id") UUID id);
 
    @POST("/api/roles")
    Call<Role> saveRole(@Body Role role);
 
    @PUT("/api/roles/{id}")
-   Call<Role> updateRoleById(@Body Role role, @Path("id") Long id);
+   Call<Role> updateRoleById(@Body Role role, @Path("id") UUID id);
 
    @DELETE("/api/roles/{id}")
-   Call<Void> deleteRoleById(@Path("id") Long id);
+   Call<Void> deleteRoleById(@Path("id") UUID id);
 }

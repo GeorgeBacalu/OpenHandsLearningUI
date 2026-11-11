@@ -50,10 +50,10 @@ public class VerbsRecyclerViewAdapter extends RecyclerView.Adapter<VerbsRecycler
         Glide.with(verbsContext).asBitmap().load(verbs.get(position).getImageSource()).into(holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(verbsContext, VideoPlayerActivity.class);
-            if (verbs.get(position).getId() < 0) {
+            if (verbs.get(position).getId() == null) {
                 throw new NullPointerException("Invalid Selection");
             }
-            intent.putExtra(CATEGORY_ID, verbs.get(position).getId());
+            intent.putExtra(CATEGORY_ID, verbs.get(position).getId().toString());
             intent.putExtra(CATEGORY_NAME, verbs.get(position).getName());
             intent.putExtra(CATEGORY_IMAGE, verbs.get(position).getImageSource());
             verbsContext.startActivity(intent);

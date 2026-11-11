@@ -1,24 +1,25 @@
 package com.project.ohl.domain.model;
 
+import java.util.UUID;
 import com.project.ohl.domain.model.enums.Authority;
 
 public class Role {
-   private Long id;
+   private UUID id;
    private Authority authority;
 
    public Role() {
    }
 
-   public Role(Long id, Authority authority) {
+   public Role(UUID id, Authority authority) {
       this.id = id;
       this.authority = authority;
    }
 
-   public Long getId() {
+   public UUID getId() {
       return id;
    }
 
-   public void setId(Long id) {
+   public void setId(UUID id) {
       this.id = id;
    }
 

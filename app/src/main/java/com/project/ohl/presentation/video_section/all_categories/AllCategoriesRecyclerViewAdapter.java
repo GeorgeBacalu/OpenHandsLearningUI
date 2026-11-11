@@ -48,8 +48,8 @@ public class AllCategoriesRecyclerViewAdapter extends RecyclerView.Adapter<AllCa
         Glide.with(categoriesContext).asBitmap().load(categories.get(position).getImageSource()).into(holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(categoriesContext, VideoPlayerActivity.class);
-            if (categories.get(position).getId() < 0) throw new NullPointerException("Invalid Selection");
-            intent.putExtra(CATEGORY_ID, categories.get(position).getId());
+            if (categories.get(position).getId() == null) throw new NullPointerException("Invalid Selection");
+            intent.putExtra(CATEGORY_ID, categories.get(position).getId().toString());
             intent.putExtra(CATEGORY_NAME, categories.get(position).getName());
             intent.putExtra(CATEGORY_IMAGE, categories.get(position).getImageSource());
             categoriesContext.startActivity(intent);

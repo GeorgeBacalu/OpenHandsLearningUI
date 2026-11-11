@@ -1,5 +1,6 @@
 package com.project.ohl.presentation;
 
+import com.project.ohl.domain.model.CatalogIds;
 import com.project.ohl.R;
 
 import android.annotation.SuppressLint;
@@ -50,13 +51,11 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
         Glide.with(context).asBitmap().load(sections.get(position).getIcon()).into(holder.sectionIcon);
         holder.sectionCard.setOnClickListener(v -> {
             Intent intent;
-            switch(sections.get(position).getId()) {
-                case 1: intent = new Intent(context, VideoSectionActivity.class); break;
-                case 2: intent = new Intent(context, TextToSignSectionActivity.class); break;
-                case 3: intent = new Intent(context, VoiceToSignSectionActivity.class); break;
-                case 4: intent = new Intent(context, ExpressionsActivity.class); break;
-                default: throw new NullPointerException("Invalid Selection");
-            }
+            if (CatalogIds.SECTION_VIDEO.equals(sections.get(position).getId())) intent = new Intent(context, VideoSectionActivity.class);
+            else if (CatalogIds.SECTION_TEXT_TO_SIGN.equals(sections.get(position).getId())) intent = new Intent(context, TextToSignSectionActivity.class);
+            else if (CatalogIds.SECTION_VOICE_TO_SIGN.equals(sections.get(position).getId())) intent = new Intent(context, VoiceToSignSectionActivity.class);
+            else if (CatalogIds.SECTION_EXPRESSIONS.equals(sections.get(position).getId())) intent = new Intent(context, ExpressionsActivity.class);
+            else throw new IllegalArgumentException("Unknown catalog entry");
             context.startActivity(intent);
         });
     }

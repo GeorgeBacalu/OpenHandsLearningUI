@@ -48,10 +48,10 @@ public class EmotionsRecyclerViewAdapter extends RecyclerView.Adapter<EmotionsRe
         Glide.with(emotionsContext).asBitmap().load(emotions.get(position).getImageSource()).into(holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(emotionsContext, VideoPlayerActivity.class);
-            if (emotions.get(position).getId() < 0) {
+            if (emotions.get(position).getId() == null) {
                 throw new NullPointerException("Invalid Selection");
             }
-            intent.putExtra(CATEGORY_ID, emotions.get(position).getId());
+            intent.putExtra(CATEGORY_ID, emotions.get(position).getId().toString());
             intent.putExtra(CATEGORY_NAME, emotions.get(position).getName());
             intent.putExtra(CATEGORY_IMAGE, emotions.get(position).getImageSource());
             emotionsContext.startActivity(intent);

@@ -1,5 +1,6 @@
 package com.project.ohl.data.remote;
 
+import java.util.UUID;
 import com.project.ohl.domain.model.Category;
 import java.util.List;
 import retrofit2.Call;
@@ -18,19 +19,19 @@ public interface CategoryApi {
    Call<List<Category>> getAllCategories();
 
    @GET("/api/categories/{id}")
-   Call<Category> getCategoryById(@Path("id") Integer id);
+   Call<Category> getCategoryById(@Path("id") UUID id);
 
    @POST("/api/categories")
    Call<Category> saveCategory(@Body Category category);
 
    @PUT("/api/categories/{id}")
-   Call<Category> updateCategoryById(@Body Category category, @Path("id") Integer id);
+   Call<Category> updateCategoryById(@Body Category category, @Path("id") UUID id);
 
    @DELETE("/api/categories/{id}")
-   Call<Void> deleteCategoryById(@Path("id") Integer id);
+   Call<Void> deleteCategoryById(@Path("id") UUID id);
 
    @GET("/api/categories/filter")
-   Call<List<Category>> getCategoriesByParentIdAndSectionIdAndName(@Query("parentId") Integer parentId, @Query("sectionId") Integer sectionId, @Query("name") String name);
+   Call<List<Category>> getCategoriesByParentIdAndSectionIdAndName(@Query("parentId") UUID parentId, @Query("sectionId") UUID sectionId, @Query("name") String name);
 
    @GET("/api/categories/favorites")
    Call<List<Category>> getFavoriteCategories();
@@ -39,8 +40,8 @@ public interface CategoryApi {
    Call<List<Category>> getFavoritesByName(@Query("name") String name);
 
    @PATCH("/api/categories/favorites/save")
-   Call<Category> saveFavorite(@Query("categoryId") Integer categoryId);
+   Call<Category> saveFavorite(@Query("categoryId") UUID categoryId);
 
    @PATCH("/api/categories/favorites/delete")
-   Call<Category> deleteFavorite(@Query("categoryId") Integer categoryId);
+   Call<Category> deleteFavorite(@Query("categoryId") UUID categoryId);
 }

@@ -48,10 +48,10 @@ public class OutsideRecyclerViewAdapter extends RecyclerView.Adapter<OutsideRecy
         Glide.with(outsideContext).asBitmap().load(outsideObjects.get(position).getImageSource()).into(holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(outsideContext, VideoPlayerActivity.class);
-            if (outsideObjects.get(position).getId() < 0) {
+            if (outsideObjects.get(position).getId() == null) {
                 throw new NullPointerException("Invalid Selection");
             }
-            intent.putExtra(CATEGORY_ID, outsideObjects.get(position).getId());
+            intent.putExtra(CATEGORY_ID, outsideObjects.get(position).getId().toString());
             intent.putExtra(CATEGORY_NAME, outsideObjects.get(position).getName());
             intent.putExtra(CATEGORY_IMAGE, outsideObjects.get(position).getImageSource());
             outsideContext.startActivity(intent);

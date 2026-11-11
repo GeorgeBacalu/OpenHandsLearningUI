@@ -50,10 +50,10 @@ public class CityRecyclerViewAdapter extends RecyclerView.Adapter<CityRecyclerVi
         Glide.with(cityContext).asBitmap().load(cityObjects.get(position).getImageSource()).into(holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(cityContext, VideoPlayerActivity.class);
-            if (cityObjects.get(position).getId() < 0) {
+            if (cityObjects.get(position).getId() == null) {
                 throw new NullPointerException("Invalid Selection");
             }
-            intent.putExtra(CATEGORY_ID, cityObjects.get(position).getId());
+            intent.putExtra(CATEGORY_ID, cityObjects.get(position).getId().toString());
             intent.putExtra(CATEGORY_NAME, cityObjects.get(position).getName());
             intent.putExtra(CATEGORY_IMAGE, cityObjects.get(position).getImageSource());
             cityContext.startActivity(intent);

@@ -50,10 +50,10 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
         Glide.with(homeContext).asBitmap().load(homeObjects.get(position).getImageSource()).into(holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(homeContext, VideoPlayerActivity.class);
-            if (homeObjects.get(position).getId() < 0) {
+            if (homeObjects.get(position).getId() == null) {
                 throw new NullPointerException("Invalid Selection");
             }
-            intent.putExtra(CATEGORY_ID, homeObjects.get(position).getId());
+            intent.putExtra(CATEGORY_ID, homeObjects.get(position).getId().toString());
             intent.putExtra(CATEGORY_NAME, homeObjects.get(position).getName());
             intent.putExtra(CATEGORY_IMAGE, homeObjects.get(position).getImageSource());
             homeContext.startActivity(intent);

@@ -1,5 +1,6 @@
 package com.project.ohl.presentation.video_section.numbers;
 
+import com.project.ohl.domain.model.CatalogIds;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,7 +49,7 @@ public class NumbersActivity extends AppCompatActivity {
       numbersRecyclerView.setAdapter(numbersAdapter);
       numbersRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-      LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndSectionIdAndName(2, 1, ""), result -> {
+      LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndSectionIdAndName(CatalogIds.NUMBERS, CatalogIds.SECTION_VIDEO, ""), result -> {
             if (result.error() != null) {
             Toast.makeText(NumbersActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
 
@@ -62,7 +63,7 @@ public class NumbersActivity extends AppCompatActivity {
 
       searchBarIcon.setOnClickListener(v -> {
          String searchBarInputText = searchBarInput.getText().toString().toLowerCase(java.util.Locale.ROOT);
-         LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndSectionIdAndName(2, 1, searchBarInputText), result -> {
+         LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndSectionIdAndName(CatalogIds.NUMBERS, CatalogIds.SECTION_VIDEO, searchBarInputText), result -> {
             if (result.error() != null) {
                Toast.makeText(NumbersActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
 

@@ -1,5 +1,6 @@
 package com.project.ohl.presentation.video_section.objects.shop;
 
+import com.project.ohl.domain.model.CatalogIds;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -47,11 +48,9 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<ShopRecyclerVi
         Glide.with(shopContext).asBitmap().load(shopObjects.get(position).getImageSource()).into(holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent;
-            switch(shopObjects.get(position).getId()) {
-                case 127: intent = new Intent(shopContext, MoneyActivity.class); break;
-                case 128: intent = new Intent(shopContext, ProductsActivity.class); break;
-                default: throw new NullPointerException("Invalid Selection");
-            }
+            if (CatalogIds.MONEY.equals(shopObjects.get(position).getId())) intent = new Intent(shopContext, MoneyActivity.class);
+            else if (CatalogIds.PRODUCTS.equals(shopObjects.get(position).getId())) intent = new Intent(shopContext, ProductsActivity.class);
+            else throw new IllegalArgumentException("Unknown catalog entry");
             shopContext.startActivity(intent);
         });
     }

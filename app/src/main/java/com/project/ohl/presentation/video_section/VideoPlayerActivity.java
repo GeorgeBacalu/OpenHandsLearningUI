@@ -1,5 +1,6 @@
 package com.project.ohl.presentation.video_section;
 
+import java.util.UUID;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -40,11 +41,12 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         if(intent != null) {
-            int categoryId = intent.getIntExtra(CATEGORY_ID, -1);
+            String categoryIdText = intent.getStringExtra(CATEGORY_ID);
+            UUID categoryId = categoryIdText == null ? null : UUID.fromString(categoryIdText);
             int imageSubject = intent.getIntExtra(CATEGORY_IMAGE, -1);
             String categoryName = intent.getStringExtra(CATEGORY_NAME);
 
-            if(categoryId != -1) {
+            if(categoryId != null) {
                 favoriteButton.setEnabled(false);
                 LearningViewModel.of(this).<Category>load(this, "category", repository -> repository.getCategoryById(categoryId), result -> {
                     if (result.isSuccess() && result.value() != null) {

@@ -48,10 +48,10 @@ public class ProductsRecyclerViewAdapter extends RecyclerView.Adapter<ProductsRe
         Glide.with(productsContext).asBitmap().load(products.get(position).getImageSource()).into(holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(productsContext, VideoPlayerActivity.class);
-            if (products.get(position).getId() < 0) {
+            if (products.get(position).getId() == null) {
                 throw new NullPointerException("Invalid Selection");
             }
-            intent.putExtra(CATEGORY_ID, products.get(position).getId());
+            intent.putExtra(CATEGORY_ID, products.get(position).getId().toString());
             intent.putExtra(CATEGORY_NAME, products.get(position).getName());
             intent.putExtra(CATEGORY_IMAGE, products.get(position).getImageSource());
             productsContext.startActivity(intent);

@@ -1,5 +1,6 @@
 package com.project.ohl.presentation.video_section;
 
+import com.project.ohl.domain.model.CatalogIds;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -54,18 +55,16 @@ public class VideoSectionRecyclerViewAdapter extends RecyclerView.Adapter<VideoS
         Glide.with(mainContext).asBitmap().load(mainCategories.get(position).getImageSource()).into(holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent;
-            switch(mainCategories.get(position).getId()) {
-                case 1: intent = new Intent(mainContext, AlphabetActivity.class); break;
-                case 2: intent = new Intent(mainContext, NumbersActivity.class); break;
-                case 3: intent = new Intent(mainContext, ColorsActivity.class); break;
-                case 4: intent = new Intent(mainContext, AnimalsActivity.class); break;
-                case 5: intent = new Intent(mainContext, ObjectsActivity.class); break;
-                case 6: intent = new Intent(mainContext, PeopleActivity.class); break;
-                case 7: intent = new Intent(mainContext, EmotionsActivity.class); break;
-                case 8: intent = new Intent(mainContext, VerbsActivity.class); break;
-                case 9: intent = new Intent(mainContext, FormsOfAddressActivity.class); break;
-                default: throw new NullPointerException("Invalid Selection");
-            }
+            if (CatalogIds.ALPHABET.equals(mainCategories.get(position).getId())) intent = new Intent(mainContext, AlphabetActivity.class);
+            else if (CatalogIds.NUMBERS.equals(mainCategories.get(position).getId())) intent = new Intent(mainContext, NumbersActivity.class);
+            else if (CatalogIds.COLORS.equals(mainCategories.get(position).getId())) intent = new Intent(mainContext, ColorsActivity.class);
+            else if (CatalogIds.ANIMALS.equals(mainCategories.get(position).getId())) intent = new Intent(mainContext, AnimalsActivity.class);
+            else if (CatalogIds.OBJECTS.equals(mainCategories.get(position).getId())) intent = new Intent(mainContext, ObjectsActivity.class);
+            else if (CatalogIds.PEOPLE.equals(mainCategories.get(position).getId())) intent = new Intent(mainContext, PeopleActivity.class);
+            else if (CatalogIds.EMOTIONS.equals(mainCategories.get(position).getId())) intent = new Intent(mainContext, EmotionsActivity.class);
+            else if (CatalogIds.VERBS.equals(mainCategories.get(position).getId())) intent = new Intent(mainContext, VerbsActivity.class);
+            else if (CatalogIds.FORMS_OF_ADDRESS.equals(mainCategories.get(position).getId())) intent = new Intent(mainContext, FormsOfAddressActivity.class);
+            else throw new IllegalArgumentException("Unknown catalog entry");
             mainContext.startActivity(intent);
         });
     }

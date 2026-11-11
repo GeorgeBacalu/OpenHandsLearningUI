@@ -3,11 +3,13 @@ package com.project.ohl.data.local;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.annotation.NonNull;
 import com.project.ohl.domain.model.RecordingItem;
+import java.util.UUID;
 
 @Entity(tableName = "saved_recordings_table")
 public class RecordingEntity {
-    @PrimaryKey(autoGenerate = true) public long id;
+    @NonNull @PrimaryKey public UUID id = UUID.randomUUID();
     public String name;
     public String path;
     public Long length;

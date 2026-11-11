@@ -1,5 +1,6 @@
 package com.project.ohl.data.remote;
 
+import java.util.UUID;
 import com.project.ohl.domain.model.TextSignPair;
 import java.util.List;
 import retrofit2.Call;
@@ -16,14 +17,14 @@ public interface TextSignPairApi {
    Call<List<TextSignPair>> getAllTextSignPairs();
 
    @GET("/api/letter-sign-pairs/{id}")
-   Call<TextSignPair> getTextSignPairById(@Path("id") Long id);
+   Call<TextSignPair> getTextSignPairById(@Path("id") UUID id);
 
    @POST("/api/letter-sign-pairs")
    Call<TextSignPair> saveTextSignPair(@Body TextSignPair textSignPair);
 
    @PUT("/api/letter-sign-pairs/{id}")
-   Call<TextSignPair> updateTextSignPairById(@Body TextSignPair textSignPair, @Path("id") Long id);
+   Call<TextSignPair> updateTextSignPairById(@Body TextSignPair textSignPair, @Path("id") UUID id);
 
    @DELETE("/api/letter-sign-pairs/{id}")
-   Call<Void> deleteTextSignPairById(@Path("id") Long id);
+   Call<Void> deleteTextSignPairById(@Path("id") UUID id);
 }

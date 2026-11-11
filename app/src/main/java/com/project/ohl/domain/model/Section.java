@@ -1,24 +1,25 @@
 package com.project.ohl.domain.model;
 
+import java.util.UUID;
 public class Section {
 
-    private int id;
+    private UUID id;
     private String name;
     private int icon;
     private int imageSource;
 
-    public Section(int id, String name, int icon, int imageSource) {
+    public Section(UUID id, String name, int icon, int imageSource) {
         this.id = id;
         this.name = name;
         this.icon = icon;
         this.imageSource = imageSource;
     }
 
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
