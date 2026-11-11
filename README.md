@@ -1,2 +1,102 @@
-# LLT_PA_Proj
-Let's Learn Together an app for special kids with special needs.
+# OpenHandsLearning
+
+Android application for learning sign language.
+
+## Build and test
+
+Install JDK 25 and Android Studio. Both the Gradle daemon and Java compiler use
+JDK 25, and Java sources target Java 25. JDK 17 is not required.
+Set the Android SDK location in your local, untracked `local.properties`, or set
+`ANDROID_HOME`. Install Android SDK Platform
+37.2 and Build Tools 37.0.0, and accept the SDK licenses in Android Studio.
+
+```powershell
+.\gradlew.bat clean :app:assembleDebug :app:assembleRelease :app:testDebugUnitTest :app:lintDebug :app:assembleDebugAndroidTest
+```
+
+On macOS/Linux, use `./gradlew`. Run `:app:connectedDebugAndroidTest` with an
+emulator or device connected to execute instrumentation tests.
+
+The validation includes debug, unsigned release, unit tests, lint, and
+instrumentation APK compilation. With a connected device, run
+`:app:connectedDebugAndroidTest` to verify lifecycle cancellation and migration of
+the legacy recording database. Test databases use separate names and are removed
+after verification. Architecture tests enforce the domain/data/presentation
+boundaries. Lint fails the build on errors; remaining warnings largely concern
+resources and icons, including resources resolved dynamically by name.
+
+The emulator connects to `http://10.0.2.2:8080/` by default. Override this with
+`-PapiBaseUrl=http://your-server:8080/` when building for a physical device.
+
+## Dependency baseline
+
+Updated against stable releases on 2026-11-11: Android 17 (compile API 37.2,
+target API 37), Build Tools 37.0.0, Android Gradle Plugin 9.5.1, Gradle 9.9.1, and
+Kotlin Gradle Plugin/compiler 2.4.21 (for Java 25 target support).
+The Gradle distribution is pinned with its SHA-256 checksum. AndroidX, Material,
+Kotlin standard library, Glide, Gson, Lottie, Retrofit, OkHttp, Lifecycle, Room, and instrumentation test
+dependencies use their latest stable releases from Google Maven and Maven Central.
+
+The additional architecture components use Lifecycle 2.11.0, Room 2.8.5,
+OkHttp 5.5.1, and core library desugaring 2.1.5. Desugaring supports ISO dates on
+all supported Android versions.
+
+The minimum supported Android version is Android 7.0 (API 24).
+The API 37 target enables Android 17 behavior changes; test the app's screens,
+permissions, media, and navigation on a device before distributing a release.
+
+## Build configuration
+
+`gradle/libs.versions.toml` is the source of Android SDK, Java, plugin, and library
+versions. Plugin and dependency repositories are declared in `settings.gradle`.
+The Java toolchain sets the Java 25 compiler and bytecode target; the daemon's
+Java 25 requirement is in `gradle/gradle-daemon-jvm.properties`.
+
+The build uses the plugins DSL and AGP's built-in Kotlin support. The Kotlin
+plugin is resolved without applying the separate Kotlin Android plugin. Java
+sources use AndroidX Core directly; unused Navigation dependencies, Glide's
+unused annotation processor, and obsolete Kotlin module exclusions were removed.
+DrawerLayout and Fragment dependencies used by application code are explicit.
+The namespace and application ID are both `com.project.ohl`. Android installs this
+as a separate application from builds published with the previous application ID.
+The display name is `OpenHandsLearning`, and launcher and in-app logos use a
+shared OHL vector mark.
+
+## Architecture
+
+- `domain/model`: plain Java models with no Android, Retrofit, Gson, or Room dependencies.
+- `domain/repository`: repository, cancellable request, and result contracts.
+- `data/remote`: Retrofit endpoints, HTTP repository, shared OkHttp connection pool, and JSON codecs.
+- `data/local`: Room recording database, migration, and observable repository.
+- `presentation`: Activities, Fragments, adapters, and lifecycle ViewModels.
+- `app`: dependency wiring at the application boundary.
+
+UI screens observe lifecycle-aware results instead of holding Retrofit callbacks.
+ViewModels cancel superseded requests and cancel outstanding work when cleared;
+queued results from cancelled searches cannot overwrite newer results. The shared
+HTTP client has explicit connection, read, and call timeouts. JSON codecs map
+`imageId`/`iconId` and ISO dates to the Java models. The backend's checked-in
+OpenAPI contract is served at `/openapi.json`.
+
+Entity IDs, references, requests, and navigation use UUIDs. `CatalogIds` contains
+the stable UUIDs of built-in sections and categories from the API's UUID migration.
+Use the API and Android UUID versions together. Image and icon resource numbers
+remain integers. Room schema version 3 migrates recording IDs to UUIDs while
+preserving recording metadata and audio paths, including upgrades from versions
+1 and 2.
+
+Favorites are read and changed through the API repository. The obsolete local
+favorites and duplicate catalog in SharedPreferences have been removed. Existing
+recordings in `saved_recordings.db` migrate to Room without deleting their rows;
+the recording filename and filesystem path remain distinct. A shared resource resolver caches image lookups and normalizes Romanian diacritics
+independently of the device locale. Room queries run off
+the main thread and observations are detached when their ViewModel is cleared.
+
+Generated build files and IDE configuration, including `.idea` directories, are
+ignored at all module levels.
+
+Release sources: [Android 17](https://developer.android.com/about/versions/17),
+[SDK packages](https://dl.google.com/android/repository/repository2-3.xml),
+[Android Gradle Plugin](https://developer.android.com/build/releases/agp-9-5-0-release-notes),
+[AndroidX](https://developer.android.com/jetpack/androidx/versions), and
+[Gradle](https://gradle.org/releases/).
