@@ -21,7 +21,7 @@ android {
     buildToolsVersion = libs.versions.buildTools.get()
 
     defaultConfig {
-        applicationId = 'com.example.llt_project_separate'
+        applicationId = 'com.project.ohl'
         minSdk = libs.versions.minSdk.get().toInteger()
         targetSdk = libs.versions.compileSdk.get().toInteger()
         versionCode = 1
