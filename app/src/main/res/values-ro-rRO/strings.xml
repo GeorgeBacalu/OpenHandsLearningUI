@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Let\'s Learn Together!</string>
+    <string name="app_name">OpenHandsLearning</string>
 
     <string name="activity_introductory">Introductory Activity</string>
     <string name="activity_video_section">Secţiune Video</string>
@@ -398,4 +398,46 @@
     <string name="am_sa_va_fac_cunostinta">AM SĂ VĂ FAC CUNOŞTINŢĂ</string>
     <string name="as_dori_sa_iti_cer_sfatul">AŞ DORI SĂ ÎŢI CER SFATUL</string>
 
+
+   <string name="ă">ă</string>
+
+   <string name="â">â</string>
+
+   <string name="î">î</string>
+
+   <string name="ş">ş</string>
+
+   <string name="ţ">ţ</string>
+
+   <string name="Ă">Ă</string>
+
+   <string name="Â">Â</string>
+
+   <string name="Î">Î</string>
+
+   <string name="Ş">Ş</string>
+
+   <string name="Ţ">Ţ</string>
+
+   <string name="form_name">Name</string>
+
+   <string name="form_email">Email</string>
+
+   <string name="form_password">Password</string>
+
+   <string name="form_mobile">Mobile</string>
+
+   <string name="form_address">Address</string>
+
+   <string name="form_birthday">Birthday</string>
+
+   <string name="form_institution_id">Institution ID</string>
+
+   <string name="form_role_id">Role ID</string>
+
+   <string name="save_user">Save User</string>
+    <string name="request_failed">Cererea a eșuat. Încearcă din nou.</string>
+    <string name="add_favorite">Adaugă la favorite</string>
+    <string name="remove_favorite">Elimină favorit</string>
+    <string name="invalid_user_input">Verifică data (AAAA-LL-ZZ) și identificatorii numerici.</string>
 </resources>

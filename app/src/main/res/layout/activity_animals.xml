@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".video_section.animals.AnimalsActivity">
+    tools:context=".presentation.video_section.animals.AnimalsActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

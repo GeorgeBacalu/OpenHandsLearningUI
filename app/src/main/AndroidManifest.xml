@@ -20,135 +20,135 @@
        android:theme="@style/Theme.LLT_Project_Current"
        android:usesCleartextTraffic="true">
         <activity
-           android:name=".user.UserActivity"
+           android:name=".presentation.user.UserActivity"
            android:exported="false"
            android:label="User Activity" />
         <activity
-           android:name=".SettingsActivity"
+           android:name=".presentation.SettingsActivity"
            android:exported="false"
            android:label="@string/title_activity_settings" />
         <activity
-           android:name=".general.on_boarding.IntroductoryActivity"
+           android:name=".presentation.general.on_boarding.IntroductoryActivity"
            android:exported="false"
            android:label="@string/activity_introductory" />
         <activity
-           android:name=".general.new_category.NewCategoryActivity"
+           android:name=".presentation.general.new_category.NewCategoryActivity"
            android:exported="false"
            android:label="@string/activity_new_category" />
         <activity
-           android:name=".video_section.single_category.CategoryActivity"
+           android:name=".presentation.video_section.single_category.CategoryActivity"
            android:exported="false"
            android:label="@string/activity_category" />
         <activity
-           android:name=".video_section.all_categories.AllCategoriesActivity"
+           android:name=".presentation.video_section.all_categories.AllCategoriesActivity"
            android:exported="false"
            android:label="@string/activity_all_categories" />
         <activity
-           android:name=".general.favorites.FavoritesActivity"
+           android:name=".presentation.general.favorites.FavoritesActivity"
            android:exported="false"
            android:label="@string/activity_favorite_categories" />
         <activity
-           android:name=".video_section.people.pronouns.PronounsActivity"
+           android:name=".presentation.video_section.people.pronouns.PronounsActivity"
            android:exported="false"
            android:label="@string/activity_pronouns" />
         <activity
-           android:name=".video_section.people.family_members.FamilyMembersActivity"
+           android:name=".presentation.video_section.people.family_members.FamilyMembersActivity"
            android:exported="false"
            android:label="@string/activity_family_members" />
         <activity
-           android:name=".video_section.objects.shop.products.ProductsActivity"
+           android:name=".presentation.video_section.objects.shop.products.ProductsActivity"
            android:exported="false"
            android:label="@string/activity_products" />
         <activity
-           android:name=".video_section.objects.shop.money.MoneyActivity"
+           android:name=".presentation.video_section.objects.shop.money.MoneyActivity"
            android:exported="false"
            android:label="@string/activity_money" />
         <activity
-           android:name=".video_section.objects.city.CityActivity"
+           android:name=".presentation.video_section.objects.city.CityActivity"
            android:exported="false"
            android:label="@string/activity_city" />
         <activity
-           android:name=".video_section.objects.shop.ShopActivity"
+           android:name=".presentation.video_section.objects.shop.ShopActivity"
            android:exported="false"
            android:label="@string/activity_shop" />
         <activity
-           android:name=".video_section.objects.classroom.ClassActivity"
+           android:name=".presentation.video_section.objects.classroom.ClassActivity"
            android:exported="false"
            android:label="@string/activity_class" />
         <activity
-           android:name=".video_section.objects.outside.OutsideActivity"
+           android:name=".presentation.video_section.objects.outside.OutsideActivity"
            android:exported="false"
            android:label="@string/activity_outside" />
         <activity
-           android:name=".video_section.objects.home.HomeActivity"
+           android:name=".presentation.video_section.objects.home.HomeActivity"
            android:exported="false"
            android:label="@string/activity_home" />
         <activity
-           android:name=".video_section.VideoPlayerActivity"
+           android:name=".presentation.video_section.VideoPlayerActivity"
            android:exported="false"
            android:label="@string/activity_video_player" />
         <activity
-           android:name=".video_section.animals.wild.WildAnimalsActivity"
+           android:name=".presentation.video_section.animals.wild.WildAnimalsActivity"
            android:exported="false"
            android:label="@string/activity_wild_animals" />
         <activity
-           android:name=".video_section.animals.household.HouseholdAnimalsActivity"
+           android:name=".presentation.video_section.animals.household.HouseholdAnimalsActivity"
            android:exported="false"
            android:label="@string/activity_household_animals" />
         <activity
-           android:name=".video_section.verbs.VerbsActivity"
+           android:name=".presentation.video_section.verbs.VerbsActivity"
            android:exported="false"
            android:label="@string/activity_verbs" />
         <activity
-           android:name=".video_section.emotions.EmotionsActivity"
+           android:name=".presentation.video_section.emotions.EmotionsActivity"
            android:exported="false"
            android:label="@string/activity_emotions" />
         <activity
-           android:name=".video_section.people.PeopleActivity"
+           android:name=".presentation.video_section.people.PeopleActivity"
            android:exported="false"
            android:label="@string/activity_people" />
         <activity
-           android:name=".video_section.objects.ObjectsActivity"
+           android:name=".presentation.video_section.objects.ObjectsActivity"
            android:exported="false"
            android:label="@string/activity_objects" />
         <activity
-           android:name=".video_section.colors.ColorsActivity"
+           android:name=".presentation.video_section.colors.ColorsActivity"
            android:exported="false"
            android:label="@string/activity_colors" />
         <activity
-           android:name=".video_section.numbers.NumbersActivity"
+           android:name=".presentation.video_section.numbers.NumbersActivity"
            android:exported="false"
            android:label="@string/activity_numbers" />
         <activity
-           android:name=".video_section.alphabet.AlphabetActivity"
+           android:name=".presentation.video_section.alphabet.AlphabetActivity"
            android:exported="false"
            android:label="@string/activity_alphabet" />
         <activity
-           android:name=".video_section.animals.AnimalsActivity"
+           android:name=".presentation.video_section.animals.AnimalsActivity"
            android:exported="false"
            android:label="@string/activity_animals" />
         <activity
-           android:name=".video_section.forms_of_address.FormsOfAddressActivity"
+           android:name=".presentation.video_section.forms_of_address.FormsOfAddressActivity"
            android:exported="false"
            android:label="@string/activity_forms_of_address" />
         <activity
-           android:name=".expressions_section.ExpressionsActivity"
+           android:name=".presentation.expressions_section.ExpressionsActivity"
            android:exported="false"
            android:label="@string/activity_expressions_section" />
         <activity
-           android:name=".voice_to_sign_section.VoiceToSignSectionActivity"
+           android:name=".presentation.voice_to_sign_section.VoiceToSignSectionActivity"
            android:exported="false"
            android:label="@string/activity_voice_to_sign_section" />
         <activity
-           android:name=".text_to_sign_section.TextToSignSectionActivity"
+           android:name=".presentation.text_to_sign_section.TextToSignSectionActivity"
            android:exported="false"
            android:label="@string/activity_text_to_sign_section" />
         <activity
-           android:name=".video_section.VideoSectionActivity"
+           android:name=".presentation.video_section.VideoSectionActivity"
            android:exported="false"
            android:label="@string/activity_video_section" />
         <activity
-           android:name=".MainActivity"
+           android:name=".presentation.MainActivity"
            android:exported="true"
            android:theme="@style/Alternative">
             <intent-filter>

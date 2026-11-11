@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".video_section.objects.shop.ShopActivity">
+    tools:context=".presentation.video_section.objects.shop.ShopActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
