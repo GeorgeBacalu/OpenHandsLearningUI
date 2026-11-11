@@ -41,7 +41,7 @@ public interface LearningRepository {
     Request<Category> saveCategory(Category category);
     Request<Category> updateCategoryById(Category category, UUID id);
     Request<Void> deleteCategoryById(UUID id);
-    Request<List<Category>> getCategoriesByParentCodeAndSectionCodeAndName(String parentCode, String sectionCode, String name);
+    Request<List<Category>> getCategoriesByParentIdAndSectionIdAndName(UUID parentId, UUID sectionId, String name);
     Request<List<Category>> getFavoriteCategories(UUID userId);
     Request<Category> saveFavorite(UUID userId, UUID categoryId);
     Request<Category> deleteFavorite(UUID userId, UUID categoryId);

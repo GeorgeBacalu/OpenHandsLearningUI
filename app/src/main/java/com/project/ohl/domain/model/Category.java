@@ -5,7 +5,6 @@ import java.util.UUID;
 public class Category {
 
     private UUID id;
-    private String code;
     private String mediaKey;
 
     private String name;
@@ -114,8 +113,6 @@ public class Category {
              ", sectionId=" + sectionId +
              '}';
     }
-    public String getCode() { return code; }
-    public void setCode(String value) { code = value; }
 
     public String getMediaKey() { return mediaKey; }
     public void setMediaKey(String value) { mediaKey = value; }

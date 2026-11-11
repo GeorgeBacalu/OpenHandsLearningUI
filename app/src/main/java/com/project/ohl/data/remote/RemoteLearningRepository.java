@@ -208,8 +208,8 @@ public final class RemoteLearningRepository implements LearningRepository {
     }
 
     @Override
-    public Request<List<Category>> getCategoriesByParentCodeAndSectionCodeAndName(String parentCode, String sectionCode, String name) {
-        return adapt(categoryApi.getCategoriesByParentCodeAndSectionCodeAndName(parentCode, sectionCode, name));
+    public Request<List<Category>> getCategoriesByParentIdAndSectionIdAndName(UUID parentId, UUID sectionId, String name) {
+        return adapt(categoryApi.getCategoriesByParentIdAndSectionIdAndName(parentId, sectionId, name));
     }
 
     @Override

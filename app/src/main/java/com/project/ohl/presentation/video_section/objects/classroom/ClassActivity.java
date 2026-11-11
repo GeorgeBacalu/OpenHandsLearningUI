@@ -13,14 +13,15 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.project.ohl.R;
-import com.project.ohl.domain.model.CatalogCodes;
 import com.project.ohl.domain.model.Category;
+import com.project.ohl.presentation.CategoryNavigation;
 import com.project.ohl.presentation.LearningViewModel;
 import com.project.ohl.presentation.MainActivity;
 import com.project.ohl.presentation.MediaResources;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.UUID;
 
 import static android.R.id.home;
 
@@ -36,6 +37,8 @@ public class ClassActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        UUID sectionId = CategoryNavigation.sectionId(this);
+        UUID parentId = CategoryNavigation.parentId(this);
         setContentView(R.layout.activity_class);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
@@ -49,7 +52,7 @@ public class ClassActivity extends AppCompatActivity {
         classRecyclerView.setAdapter(classAdapter);
         classRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-        LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentCodeAndSectionCodeAndName(CatalogCodes.CLASSROOM, CatalogCodes.SECTION_VIDEO, ""), result -> {
+        LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndSectionIdAndName(parentId, sectionId, ""), result -> {
             if (result.error() != null) {
                 Toast.makeText(ClassActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
 
@@ -63,7 +66,7 @@ public class ClassActivity extends AppCompatActivity {
 
         searchBarIcon.setOnClickListener(v -> {
             String searchBarInputText = searchBarInput.getText().toString().toLowerCase(Locale.ROOT);
-            LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentCodeAndSectionCodeAndName(CatalogCodes.CLASSROOM, CatalogCodes.SECTION_VIDEO, searchBarInputText), result -> {
+            LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndSectionIdAndName(parentId, sectionId, searchBarInputText), result -> {
             if (result.error() != null) {
                     Toast.makeText(ClassActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
 
