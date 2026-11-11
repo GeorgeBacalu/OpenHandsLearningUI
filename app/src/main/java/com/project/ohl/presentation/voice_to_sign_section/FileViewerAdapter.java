@@ -1,21 +1,20 @@
 package com.project.ohl.presentation.voice_to_sign_section;
 
-import com.project.ohl.domain.model.RecordingItem;
-
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.project.ohl.databinding.RecordingItemCardViewBinding;
-
+import com.project.ohl.domain.model.RecordingItem;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class FileViewerAdapter extends RecyclerView.Adapter<FileViewerAdapter.FileViewerViewHolder> {
@@ -41,7 +40,7 @@ public class FileViewerAdapter extends RecyclerView.Adapter<FileViewerAdapter.Fi
         long minutes = TimeUnit.MILLISECONDS.toMinutes(recordingItem.getLength());
         long seconds = TimeUnit.MILLISECONDS.toSeconds(recordingItem.getLength()) - TimeUnit.MINUTES.toSeconds(minutes);
         holder.binding.fileNameText.setText(recordingItem.getName());
-        holder.binding.fileLengthText.setText(String.format(java.util.Locale.getDefault(), "%02d:%02d", minutes, seconds));
+        holder.binding.fileLengthText.setText(String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds));
         holder.binding.fileTimeAdded.setText(DateUtils.formatDateTime(context, recordingItem.getTimeAdded(), DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NUMERIC_DATE | DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_YEAR));
     }
 
@@ -50,8 +49,8 @@ public class FileViewerAdapter extends RecyclerView.Adapter<FileViewerAdapter.Fi
         return recordingItems.size();
     }
 
-    @android.annotation.SuppressLint("NotifyDataSetChanged")
-    public void setRecordings(java.util.List<RecordingItem> items) {
+    @SuppressLint("NotifyDataSetChanged")
+    public void setRecordings(List<RecordingItem> items) {
         recordingItems = new ArrayList<>(items);
         notifyDataSetChanged();
     }

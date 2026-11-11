@@ -1,9 +1,5 @@
 package com.project.ohl.presentation.video_section.all_categories;
 
-import static com.project.ohl.presentation.video_section.single_category.CategoryActivity.CATEGORY_ID;
-import static com.project.ohl.presentation.video_section.single_category.CategoryActivity.CATEGORY_NAME;
-import static com.project.ohl.presentation.video_section.VideoPlayerActivity.CATEGORY_IMAGE;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -13,18 +9,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
-import com.project.ohl.domain.model.Category;
 import com.project.ohl.R;
+import com.project.ohl.domain.model.Category;
 import com.project.ohl.presentation.video_section.VideoPlayerActivity;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.project.ohl.presentation.video_section.VideoPlayerActivity.CATEGORY_IMAGE;
+import static com.project.ohl.presentation.video_section.single_category.CategoryActivity.CATEGORY_ID;
+import static com.project.ohl.presentation.video_section.single_category.CategoryActivity.CATEGORY_NAME;
 
 public class AllCategoriesRecyclerViewAdapter extends RecyclerView.Adapter<AllCategoriesRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "AllCategoriesAdapter";

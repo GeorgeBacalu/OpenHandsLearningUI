@@ -7,7 +7,11 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import com.project.ohl.data.local.RecordingDatabase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 @RunWith(AndroidJUnit4.class)
 public class RecordingMigrationTest {

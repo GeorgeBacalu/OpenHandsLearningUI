@@ -1,6 +1,5 @@
 package com.project.ohl.presentation.video_section;
 
-import com.project.ohl.domain.model.CatalogIds;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -10,14 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
-import com.project.ohl.domain.model.Category;
 import com.project.ohl.R;
+import com.project.ohl.domain.model.CatalogCodes;
+import com.project.ohl.domain.model.Category;
 import com.project.ohl.presentation.video_section.alphabet.AlphabetActivity;
 import com.project.ohl.presentation.video_section.animals.AnimalsActivity;
 import com.project.ohl.presentation.video_section.colors.ColorsActivity;
@@ -27,7 +25,6 @@ import com.project.ohl.presentation.video_section.numbers.NumbersActivity;
 import com.project.ohl.presentation.video_section.objects.ObjectsActivity;
 import com.project.ohl.presentation.video_section.people.PeopleActivity;
 import com.project.ohl.presentation.video_section.verbs.VerbsActivity;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,15 +52,15 @@ public class VideoSectionRecyclerViewAdapter extends RecyclerView.Adapter<VideoS
         Glide.with(mainContext).asBitmap().load(mainCategories.get(position).getImageSource()).into(holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent;
-            if (CatalogIds.ALPHABET.equals(mainCategories.get(position).getId())) intent = new Intent(mainContext, AlphabetActivity.class);
-            else if (CatalogIds.NUMBERS.equals(mainCategories.get(position).getId())) intent = new Intent(mainContext, NumbersActivity.class);
-            else if (CatalogIds.COLORS.equals(mainCategories.get(position).getId())) intent = new Intent(mainContext, ColorsActivity.class);
-            else if (CatalogIds.ANIMALS.equals(mainCategories.get(position).getId())) intent = new Intent(mainContext, AnimalsActivity.class);
-            else if (CatalogIds.OBJECTS.equals(mainCategories.get(position).getId())) intent = new Intent(mainContext, ObjectsActivity.class);
-            else if (CatalogIds.PEOPLE.equals(mainCategories.get(position).getId())) intent = new Intent(mainContext, PeopleActivity.class);
-            else if (CatalogIds.EMOTIONS.equals(mainCategories.get(position).getId())) intent = new Intent(mainContext, EmotionsActivity.class);
-            else if (CatalogIds.VERBS.equals(mainCategories.get(position).getId())) intent = new Intent(mainContext, VerbsActivity.class);
-            else if (CatalogIds.FORMS_OF_ADDRESS.equals(mainCategories.get(position).getId())) intent = new Intent(mainContext, FormsOfAddressActivity.class);
+            if (CatalogCodes.ALPHABET.equals(mainCategories.get(position).getCode())) intent = new Intent(mainContext, AlphabetActivity.class);
+            else if (CatalogCodes.NUMBERS.equals(mainCategories.get(position).getCode())) intent = new Intent(mainContext, NumbersActivity.class);
+            else if (CatalogCodes.COLORS.equals(mainCategories.get(position).getCode())) intent = new Intent(mainContext, ColorsActivity.class);
+            else if (CatalogCodes.ANIMALS.equals(mainCategories.get(position).getCode())) intent = new Intent(mainContext, AnimalsActivity.class);
+            else if (CatalogCodes.OBJECTS.equals(mainCategories.get(position).getCode())) intent = new Intent(mainContext, ObjectsActivity.class);
+            else if (CatalogCodes.PEOPLE.equals(mainCategories.get(position).getCode())) intent = new Intent(mainContext, PeopleActivity.class);
+            else if (CatalogCodes.EMOTIONS.equals(mainCategories.get(position).getCode())) intent = new Intent(mainContext, EmotionsActivity.class);
+            else if (CatalogCodes.VERBS.equals(mainCategories.get(position).getCode())) intent = new Intent(mainContext, VerbsActivity.class);
+            else if (CatalogCodes.FORMS_OF_ADDRESS.equals(mainCategories.get(position).getCode())) intent = new Intent(mainContext, FormsOfAddressActivity.class);
             else throw new IllegalArgumentException("Unknown catalog entry");
             mainContext.startActivity(intent);
         });

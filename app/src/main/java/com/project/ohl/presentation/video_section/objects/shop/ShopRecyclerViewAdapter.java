@@ -1,6 +1,5 @@
 package com.project.ohl.presentation.video_section.objects.shop;
 
-import com.project.ohl.domain.model.CatalogIds;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -10,17 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
+import com.project.ohl.R;
+import com.project.ohl.domain.model.CatalogCodes;
 import com.project.ohl.domain.model.Category;
 import com.project.ohl.presentation.video_section.objects.shop.money.MoneyActivity;
 import com.project.ohl.presentation.video_section.objects.shop.products.ProductsActivity;
-import com.project.ohl.R;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,8 +45,8 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<ShopRecyclerVi
         Glide.with(shopContext).asBitmap().load(shopObjects.get(position).getImageSource()).into(holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent;
-            if (CatalogIds.MONEY.equals(shopObjects.get(position).getId())) intent = new Intent(shopContext, MoneyActivity.class);
-            else if (CatalogIds.PRODUCTS.equals(shopObjects.get(position).getId())) intent = new Intent(shopContext, ProductsActivity.class);
+            if (CatalogCodes.MONEY.equals(shopObjects.get(position).getCode())) intent = new Intent(shopContext, MoneyActivity.class);
+            else if (CatalogCodes.PRODUCTS.equals(shopObjects.get(position).getCode())) intent = new Intent(shopContext, ProductsActivity.class);
             else throw new IllegalArgumentException("Unknown catalog entry");
             shopContext.startActivity(intent);
         });

@@ -1,8 +1,8 @@
 package com.project.ohl.data.remote;
 
-import java.util.UUID;
 import com.project.ohl.domain.model.Role;
 import java.util.List;
+import java.util.UUID;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;

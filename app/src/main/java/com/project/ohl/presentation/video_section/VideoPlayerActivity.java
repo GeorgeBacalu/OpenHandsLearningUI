@@ -1,9 +1,5 @@
 package com.project.ohl.presentation.video_section;
 
-import java.util.UUID;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -13,14 +9,19 @@ import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
-
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
-import com.project.ohl.domain.model.Category;
 import com.project.ohl.R;
-
+import com.project.ohl.domain.model.Category;
 import com.project.ohl.presentation.LearningViewModel;
+import com.project.ohl.presentation.MediaResources;
+import com.project.ohl.presentation.UserProfiles;
+import com.project.ohl.presentation.user.UserListActivity;
 import java.util.Objects;
+import java.util.UUID;
 
+import static android.R.id.home;
 
 public class VideoPlayerActivity extends AppCompatActivity {
     public static final String CATEGORY_ID = "categoryId";
@@ -30,11 +31,13 @@ public class VideoPlayerActivity extends AppCompatActivity {
     private TextView categoryName;
     private ImageView categoryImage;
     private Button favoriteButton;
+    private UUID selectedProfile;
     private VideoView videoView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        selectedProfile = UserProfiles.id(this);
         setContentView(R.layout.activity_video_player);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         initializeViews();
@@ -48,7 +51,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
             if(categoryId != null) {
                 favoriteButton.setEnabled(false);
-                LearningViewModel.of(this).<Category>load(this, "category", repository -> repository.getCategoryById(categoryId), result -> {
+                LearningViewModel.of(this).<Category>load(this, "category", repository -> repository.getCategoryById(categoryId, selectedProfile), result -> {
                     if (result.isSuccess() && result.value() != null) {
                         setData(result.value(), imageSubject);
                         handleFavorite(result.value());
@@ -61,16 +64,9 @@ public class VideoPlayerActivity extends AppCompatActivity {
             finish();
             return;
         }
-        String videoSubject = intent.getStringExtra(CATEGORY_NAME).toLowerCase(java.util.Locale.ROOT);
-        String videoSubjectFormatted = com.project.ohl.presentation.MediaResources.resourceName(videoSubject);
-
-        String uriPath = "android.resource://" + getPackageName() + "/raw/" + videoSubjectFormatted;
-        videoView.setVideoPath(uriPath);
-
         MediaController mediaController = new MediaController(this);
         mediaController.setAnchorView(videoView);
         videoView.setMediaController(mediaController);
-        videoView.start();
     }
 
     @Override
@@ -94,17 +90,26 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
     private void setData(Category category, int imageSubject) {
         categoryName.setText(category.getName());
+        String key = category.getMediaKey() == null ? MediaResources.resourceName(category.getName()) : category.getMediaKey();
+        videoView.setVideoPath("android.resource://" + getPackageName() + "/raw/" + key);
+        videoView.start();
         Glide.with(this).asBitmap().load(imageSubject).into(categoryImage);
     }
 
     private void handleFavorite(Category category) {
+        if (selectedProfile == null) {
+            favoriteButton.setEnabled(true);
+            favoriteButton.setText(R.string.choose_profile);
+            favoriteButton.setOnClickListener(view -> startActivity(new Intent(this, UserListActivity.class)));
+            return;
+        }
         boolean favorite = Boolean.TRUE.equals(category.getFavorite());
         favoriteButton.setEnabled(true);
         favoriteButton.setText(favorite ? R.string.remove_favorite : R.string.add_favorite);
         favoriteButton.setOnClickListener(view -> {
             favoriteButton.setEnabled(false);
             LearningViewModel.of(this).<Category>load(this, "favorite", repository -> favorite
-                    ? repository.deleteFavorite(category.getId()) : repository.saveFavorite(category.getId()), result -> {
+                    ? repository.deleteFavorite(UserProfiles.id(this), category.getId()) : repository.saveFavorite(UserProfiles.id(this), category.getId()), result -> {
                 favoriteButton.setEnabled(true);
                 if (result.isSuccess() && result.value() != null) handleFavorite(result.value());
                 else Toast.makeText(this, R.string.request_failed, Toast.LENGTH_SHORT).show();
@@ -113,9 +118,14 @@ public class VideoPlayerActivity extends AppCompatActivity {
     }
 
 
+    @Override protected void onResume() {
+        super.onResume();
+        if (!Objects.equals(selectedProfile, UserProfiles.id(this))) recreate();
+    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) getOnBackPressedDispatcher().onBackPressed();
+        if (item.getItemId() == home) getOnBackPressedDispatcher().onBackPressed();
         return super.onOptionsItemSelected(item);
     }
 }

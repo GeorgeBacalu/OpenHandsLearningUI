@@ -1,14 +1,14 @@
 package com.project.ohl.presentation;
 
-import com.project.ohl.R;
-
 import android.os.Bundle;
 import android.view.MenuItem;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceFragmentCompat;
+import com.project.ohl.R;
+
+import static android.R.id.home;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -37,7 +37,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) getOnBackPressedDispatcher().onBackPressed();
+        if (item.getItemId() == home) getOnBackPressedDispatcher().onBackPressed();
         return super.onOptionsItemSelected(item);
     }
 }

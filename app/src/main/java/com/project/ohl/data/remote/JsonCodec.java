@@ -14,11 +14,7 @@ public final class JsonCodec {
     private JsonCodec() {}
 
     public static Gson create() {
-        return new GsonBuilder().setFieldNamingStrategy(field -> switch (field.getName()) {
-            case "imageSource" -> "imageId";
-            case "icon" -> "iconId";
-            default -> field.getName();
-        }).registerTypeAdapter(LocalDate.class, new TypeAdapter<LocalDate>() {
+        return new GsonBuilder().registerTypeAdapter(LocalDate.class, new TypeAdapter<LocalDate>() {
             @Override public void write(JsonWriter writer, LocalDate value) throws IOException {
                 writer.value(value.toString());
             }

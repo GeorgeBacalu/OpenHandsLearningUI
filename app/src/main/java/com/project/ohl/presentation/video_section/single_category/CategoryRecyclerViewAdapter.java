@@ -1,9 +1,5 @@
 package com.project.ohl.presentation.video_section.single_category;
 
-import static com.project.ohl.presentation.video_section.VideoPlayerActivity.CATEGORY_ID;
-import static com.project.ohl.presentation.video_section.VideoPlayerActivity.CATEGORY_IMAGE;
-import static com.project.ohl.presentation.video_section.VideoPlayerActivity.CATEGORY_NAME;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -17,27 +13,29 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
-import com.project.ohl.domain.model.Category;
 import com.project.ohl.R;
+import com.project.ohl.domain.model.Category;
 import com.project.ohl.presentation.video_section.VideoPlayerActivity;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
+
+import static com.project.ohl.presentation.video_section.VideoPlayerActivity.CATEGORY_ID;
+import static com.project.ohl.presentation.video_section.VideoPlayerActivity.CATEGORY_IMAGE;
+import static com.project.ohl.presentation.video_section.VideoPlayerActivity.CATEGORY_NAME;
 
 public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "CategoryAdapter";
     private List<Category> categories = new ArrayList<>();
     private final Context categoryContext;
-    private final java.util.function.Consumer<Category> onRemove;
+    private final Consumer<Category> onRemove;
 
-    public CategoryRecyclerViewAdapter(Context categoryContext, java.util.function.Consumer<Category> onRemove) {
+    public CategoryRecyclerViewAdapter(Context categoryContext, Consumer<Category> onRemove) {
         this.categoryContext = categoryContext;
         this.onRemove = onRemove;
     }
