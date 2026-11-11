@@ -2,7 +2,6 @@ package com.project.ohl.presentation.video_section.people;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +13,8 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.project.ohl.R;
-import com.project.ohl.domain.model.CatalogCodes;
 import com.project.ohl.domain.model.Category;
-import com.project.ohl.presentation.video_section.people.family_members.FamilyMembersActivity;
-import com.project.ohl.presentation.video_section.people.pronouns.PronounsActivity;
+import com.project.ohl.presentation.CategoryNavigation;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,11 +41,9 @@ public class PeopleRecyclerViewAdapter extends RecyclerView.Adapter<PeopleRecycl
         holder.categoryName.setText(people.get(position).getName());
         Glide.with(peopleContext).asBitmap().load(people.get(position).getImageSource()).into(holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
-            Intent intent;
-            if (CatalogCodes.FAMILY_MEMBERS.equals(people.get(position).getCode())) intent = new Intent(peopleContext, FamilyMembersActivity.class);
-            else if (CatalogCodes.PRONOUNS.equals(people.get(position).getCode())) intent = new Intent(peopleContext, PronounsActivity.class);
-            else throw new IllegalArgumentException("Unknown catalog entry");
-            peopleContext.startActivity(intent);
+            int current = holder.getBindingAdapterPosition();
+            if (current == RecyclerView.NO_POSITION) return;
+            peopleContext.startActivity(CategoryNavigation.intent(peopleContext, people.get(current)));
         });
     }
 

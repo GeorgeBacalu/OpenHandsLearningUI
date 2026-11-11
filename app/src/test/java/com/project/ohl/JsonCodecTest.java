@@ -31,9 +31,8 @@ public class JsonCodecTest {
     }
 
     @Test public void keepsCatalogIdentityAndMediaIndependentOfDisplayNames() {
-        var category = JsonCodec.create().fromJson("{\"code\":\"ALPHABET\",\"mediaKey\":\"alfabet\",\"name\":\"Alphabet\"}", Category.class);
+        var category = JsonCodec.create().fromJson("{\"mediaKey\":\"alfabet\",\"name\":\"Alphabet\"}", Category.class);
         category.setName("Translated alphabet");
-        assertEquals("ALPHABET", category.getCode());
         assertEquals("alfabet", category.getMediaKey());
         var section = JsonCodec.create().fromJson("{\"code\":\"VIDEO\",\"mediaKey\":\"video_section\",\"iconKey\":\"ic_video_section\"}", Section.class);
         assertEquals("VIDEO", section.getCode());

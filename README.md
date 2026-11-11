@@ -78,8 +78,12 @@ HTTP client has explicit connection, read, and call timeouts. JSON codecs exchan
 IDs are transient client fields and are never sent to the API. The backend's checked-in
 OpenAPI contract is served at `/openapi.json`.
 
-Entity IDs and references use UUIDs. Built-in navigation and catalog filters use
-`CatalogCodes` strings instead of database UUID constants. Category images and
+Entity IDs and references use UUIDs. Category navigation uses the selected parent UUID and section UUID. A single
+UUID-to-activity registry selects the dedicated category screens, so category
+renames do not change the selected screen or its child query. The canonical
+catalog UUIDs in that registry match the existing database records. New UUIDs
+use the shared category browser, which loads direct children and opens the video
+for a leaf. Main section selection still uses section codes. Category images and
 videos use `mediaKey`; sections also provide `iconKey`, so translating display
 names does not change resource lookup. Room schema version 3 preserves recordings
 from versions 1 and 2 while migrating local IDs to UUIDs.
@@ -88,7 +92,7 @@ The main user button opens profile selection, with an option to create a profile
 Favorites require a selected profile and send its UUID with every request;
 switching profiles reloads favorite state. Selection is stored locally and is not
 a login or authorization mechanism. Use these Android changes with the backend's
-V3 schema and updated API contract. Text and voice signs both load the same API
+V6 schema and updated API contract. Text and voice signs both load the same API
 catalog and resolve its `mediaKey` values. The retained `dactilema_a` image belongs
 to the matching line-drawing collection; the unrelated photographic `a.png` was
 removed. Unicode letter lookup handles case fallback, Romanian diacritics, spaces,

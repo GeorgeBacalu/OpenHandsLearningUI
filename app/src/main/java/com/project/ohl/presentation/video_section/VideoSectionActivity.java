@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.project.ohl.R;
-import com.project.ohl.domain.model.CatalogCodes;
 import com.project.ohl.domain.model.Category;
+import com.project.ohl.presentation.CategoryNavigation;
 import com.project.ohl.presentation.LearningViewModel;
 import com.project.ohl.presentation.MainActivity;
 import com.project.ohl.presentation.MediaResources;
@@ -24,6 +24,7 @@ import com.project.ohl.presentation.general.new_category.NewCategoryActivity;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.UUID;
 
 import static android.R.id.home;
 
@@ -40,6 +41,7 @@ public class VideoSectionActivity extends AppCompatActivity {
    @Override
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
+      UUID sectionId = CategoryNavigation.sectionId(this);
       setContentView(R.layout.activity_video_section);
       Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
@@ -63,7 +65,7 @@ public class VideoSectionActivity extends AppCompatActivity {
       mainCategoriesRecyclerView.setAdapter(mainCategoriesAdapter);
       mainCategoriesRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-      LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentCodeAndSectionCodeAndName(null, CatalogCodes.SECTION_VIDEO, ""), result -> {
+      LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndSectionIdAndName(null, sectionId, ""), result -> {
             if (result.error() != null) {
             Toast.makeText(VideoSectionActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
 
@@ -77,7 +79,7 @@ public class VideoSectionActivity extends AppCompatActivity {
 
       searchBarIcon.setOnClickListener(v -> {
          String searchBarInputText = searchBarInput.getText().toString().toLowerCase(Locale.ROOT);
-         LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentCodeAndSectionCodeAndName(null, CatalogCodes.SECTION_VIDEO, searchBarInputText), result -> {
+         LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndSectionIdAndName(null, sectionId, searchBarInputText), result -> {
             if (result.error() != null) {
                Toast.makeText(VideoSectionActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
 
