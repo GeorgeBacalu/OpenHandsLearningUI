@@ -11,25 +11,25 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.project.ohl.presentation.MainActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.project.ohl.R;
 import com.project.ohl.databinding.ActivityVoiceToSignSectionBinding;
 import com.project.ohl.domain.model.TextSignPair;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
+import com.project.ohl.presentation.MainActivity;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
+
+import static android.R.id.home;
 
 public class VoiceToSignSectionActivity extends AppCompatActivity {
 
@@ -162,7 +162,7 @@ public class VoiceToSignSectionActivity extends AppCompatActivity {
         confirmButton.setOnClickListener(v -> {
             outputContent.setVisibility(View.VISIBLE);
             String inputTextUnformatted = textInput.getText().toString();
-            String inputText = inputTextUnformatted.substring(0, 1).toUpperCase(java.util.Locale.ROOT) + inputTextUnformatted.substring(1).toLowerCase(java.util.Locale.ROOT);
+            String inputText = inputTextUnformatted.substring(0, 1).toUpperCase(Locale.ROOT) + inputTextUnformatted.substring(1).toLowerCase(Locale.ROOT);
             if (inputText.equals("")) {
                 throw new RuntimeException("Introdu un text");
             }
@@ -176,7 +176,7 @@ public class VoiceToSignSectionActivity extends AppCompatActivity {
                     }
                 }
             }
-            categoryNameCardText.setText(inputText.substring(0, 1).toUpperCase(java.util.Locale.ROOT) + inputText.substring(1).toLowerCase(java.util.Locale.ROOT));
+            categoryNameCardText.setText(inputText.substring(0, 1).toUpperCase(Locale.ROOT) + inputText.substring(1).toLowerCase(Locale.ROOT));
             textInput.setText("");
             voiceToSignSectionRecyclerViewAdapter.setTextSignPairs(textSignPairsList);
         });
@@ -212,7 +212,7 @@ public class VoiceToSignSectionActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) getOnBackPressedDispatcher().onBackPressed();
+        if (item.getItemId() == home) getOnBackPressedDispatcher().onBackPressed();
         return super.onOptionsItemSelected(item);
     }
 

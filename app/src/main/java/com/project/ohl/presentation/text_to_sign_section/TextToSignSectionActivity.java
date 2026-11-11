@@ -1,11 +1,5 @@
 package com.project.ohl.presentation.text_to_sign_section;
 
-import android.widget.Toast;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,16 +9,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.project.ohl.presentation.MainActivity;
+import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.project.ohl.R;
 import com.project.ohl.domain.model.TextSignPair;
 import com.project.ohl.presentation.LearningViewModel;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
+import com.project.ohl.presentation.MainActivity;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
+
+import static android.R.id.home;
 
 public class TextToSignSectionActivity extends AppCompatActivity {
     private RecyclerView textToSignRecyclerView;
@@ -61,7 +61,7 @@ public class TextToSignSectionActivity extends AppCompatActivity {
                 List<TextSignPair> textSignPairs = result.value();
                 for (TextSignPair textSignPair : textSignPairs) {
                    String letter = textSignPair.getLetter();
-                   String name = letter == " " ? "space" : "dactilema_" + letter.replace(" ", "_").toLowerCase(java.util.Locale.ROOT);
+                   String name = letter == " " ? "space" : "dactilema_" + letter.replace(" ", "_").toLowerCase(Locale.ROOT);
                    int drawableId = getResources().getIdentifier(name, "drawable", getPackageName());
                    textSignPair.setImageSource(drawableId);
                 }
@@ -73,7 +73,7 @@ public class TextToSignSectionActivity extends AppCompatActivity {
                 confirmButton.setOnClickListener(v -> {
                    outputContent.setVisibility(View.VISIBLE);
                    String inputTextUnformatted = textInput.getText().toString();
-                   String inputText = inputTextUnformatted.substring(0, 1).toUpperCase(java.util.Locale.ROOT) + inputTextUnformatted.substring(1).toLowerCase(java.util.Locale.ROOT);
+                   String inputText = inputTextUnformatted.substring(0, 1).toUpperCase(Locale.ROOT) + inputTextUnformatted.substring(1).toLowerCase(Locale.ROOT);
                    if(inputText.equals("")) {
                       throw new RuntimeException("Introdu un text");
                    }
@@ -87,7 +87,7 @@ public class TextToSignSectionActivity extends AppCompatActivity {
                          }
                       }
                    }
-                   categoryNameCardText.setText(inputText.substring(0, 1).toUpperCase(java.util.Locale.ROOT) + inputText.substring(1).toLowerCase(java.util.Locale.ROOT));
+                   categoryNameCardText.setText(inputText.substring(0, 1).toUpperCase(Locale.ROOT) + inputText.substring(1).toLowerCase(Locale.ROOT));
                    textInput.setText("");
                    textToSignSectionRecyclerViewAdapter.setTextSignPairs(textSignPairsList);
                 });
@@ -110,7 +110,7 @@ public class TextToSignSectionActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) getOnBackPressedDispatcher().onBackPressed();
+        if (item.getItemId() == home) getOnBackPressedDispatcher().onBackPressed();
         return super.onOptionsItemSelected(item);
     }
 }

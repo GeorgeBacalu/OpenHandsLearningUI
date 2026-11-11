@@ -440,4 +440,6 @@
     <string name="add_favorite">Adaugă la favorite</string>
     <string name="remove_favorite">Elimină favorit</string>
     <string name="invalid_user_input">Verifică data (AAAA-LL-ZZ) și identificatorii UUID.</string>
+    <string name="choose_profile">Alege profilul</string>
+    <string name="create_profile">Creează un profil</string>
 </resources>

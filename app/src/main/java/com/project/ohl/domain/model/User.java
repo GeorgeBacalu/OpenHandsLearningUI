@@ -1,11 +1,12 @@
 package com.project.ohl.domain.model;
 
-import java.util.UUID;
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class User {
 
    private UUID id;
+   private UUID classroomId;
 
    private String name;
 
@@ -123,4 +124,7 @@ public class User {
            ", roleId=" + roleId +
            '}';
    }
+   public UUID getClassroomId() { return classroomId; }
+   public void setClassroomId(UUID value) { classroomId = value; }
+
 }

@@ -24,6 +24,6 @@ public final class MediaResources {
     }
 
     public static void bindImages(Context context, List<Category> categories) {
-        for (Category category : categories) category.setImageSource(drawable(context, category.getName()));
+        for (Category category : categories) category.setImageSource(drawable(context, category.getMediaKey() == null ? category.getName() : category.getMediaKey()));
     }
 }

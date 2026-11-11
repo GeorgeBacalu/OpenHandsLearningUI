@@ -12,6 +12,7 @@ import com.project.ohl.domain.repository.Request;
 import com.project.ohl.domain.repository.Result;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Function;
 
 public final class LearningViewModel extends ViewModel {
@@ -30,7 +31,7 @@ public final class LearningViewModel extends ViewModel {
         var previous = requests.remove(key);
         if (previous != null) previous.cancel();
         var state = new MutableLiveData<Result<T>>();
-        var active = new java.util.concurrent.atomic.AtomicBoolean(true);
+        var active = new AtomicBoolean(true);
         state.observe(owner, result -> { if (active.get()) observer.onChanged(result); });
         var cancellation = operation.apply(repository).start(state::postValue);
         requests.put(key, () -> { active.set(false); cancellation.cancel(); });

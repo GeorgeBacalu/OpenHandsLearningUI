@@ -1,7 +1,5 @@
 package com.project.ohl.presentation.video_section.animals;
 
-import java.util.UUID;
-import com.project.ohl.domain.model.CatalogIds;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -11,19 +9,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
-import com.project.ohl.domain.model.Category;
 import com.project.ohl.R;
+import com.project.ohl.domain.model.CatalogCodes;
+import com.project.ohl.domain.model.Category;
 import com.project.ohl.presentation.video_section.animals.household.HouseholdAnimalsActivity;
 import com.project.ohl.presentation.video_section.animals.wild.WildAnimalsActivity;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class AnimalsRecyclerViewAdapter extends RecyclerView.Adapter<AnimalsRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "AnimalsAdapter";
@@ -48,8 +45,8 @@ public class AnimalsRecyclerViewAdapter extends RecyclerView.Adapter<AnimalsRecy
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent;
             UUID id = animals.get(position).getId();
-            if (CatalogIds.HOUSEHOLD_ANIMALS.equals(id)) intent = new Intent(animalsContext, HouseholdAnimalsActivity.class);
-            else if (CatalogIds.WILD_ANIMALS.equals(id)) intent = new Intent(animalsContext, WildAnimalsActivity.class);
+            if (CatalogCodes.HOUSEHOLD_ANIMALS.equals(id)) intent = new Intent(animalsContext, HouseholdAnimalsActivity.class);
+            else if (CatalogCodes.WILD_ANIMALS.equals(id)) intent = new Intent(animalsContext, WildAnimalsActivity.class);
             else throw new IllegalArgumentException("Unknown catalog entry");
             animalsContext.startActivity(intent);
         });

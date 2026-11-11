@@ -1,14 +1,19 @@
 package com.project.ohl;
 
+import com.google.gson.JsonParseException;
 import com.project.ohl.data.remote.JsonCodec;
 import com.project.ohl.domain.model.Category;
 import com.project.ohl.domain.model.Section;
 import com.project.ohl.domain.model.User;
-import com.google.gson.JsonParseException;
 import java.time.LocalDate;
 import java.util.UUID;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 
 public class JsonCodecTest {
     @Test public void usesTheApiImageAndIconFields() {
@@ -23,6 +28,16 @@ public class JsonCodecTest {
         var section = gson.fromJson("{\"id\":\"00000000-0000-4000-8000-000000000001\",\"name\":\"Video\",\"iconId\":3,\"imageId\":4}", Section.class);
         assertEquals(3, section.getIcon());
         assertEquals(4, section.getImageSource());
+    }
+
+    @Test public void keepsCatalogIdentityAndMediaIndependentOfDisplayNames() {
+        var category = JsonCodec.create().fromJson("{\"code\":\"ALPHABET\",\"mediaKey\":\"alfabet\",\"name\":\"Alphabet\"}", Category.class);
+        category.setName("Translated alphabet");
+        assertEquals("ALPHABET", category.getCode());
+        assertEquals("alfabet", category.getMediaKey());
+        var section = JsonCodec.create().fromJson("{\"code\":\"VIDEO\",\"mediaKey\":\"video_section\",\"iconKey\":\"ic_video_section\"}", Section.class);
+        assertEquals("VIDEO", section.getCode());
+        assertEquals("ic_video_section", section.getIconKey());
     }
 
     @Test public void roundTripsIsoDatesWithoutReflectingIntoJavaTime() {
