@@ -8,8 +8,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.project.ohl.R;
 import com.project.ohl.domain.model.User;
 import com.project.ohl.presentation.LearningViewModel;
-import java.time.DateTimeException;
-import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -19,9 +17,7 @@ public class UserActivity extends AppCompatActivity {
    private TextInputEditText nameInput;
    private TextInputEditText emailInput;
    private TextInputEditText passwordInput;
-   private TextInputEditText mobileInput;
-   private TextInputEditText addressInput;
-   private TextInputEditText birthdayInput;
+   private TextInputEditText phoneInput;
    private TextInputEditText schoolIdInput;
    private TextInputEditText roleIdInput;
    private MaterialButton saveUserButton;
@@ -39,18 +35,15 @@ public class UserActivity extends AppCompatActivity {
          String name = String.valueOf(nameInput.getText());
          String email = String.valueOf(emailInput.getText());
          String password = String.valueOf(passwordInput.getText());
-         String mobile = String.valueOf(mobileInput.getText());
-         String address = String.valueOf(addressInput.getText());
-         String birthday = String.valueOf(birthdayInput.getText());
+         String phone = String.valueOf(phoneInput.getText());
          String schoolId = String.valueOf(schoolIdInput.getText());
          String roleId = String.valueOf(roleIdInput.getText());
 
          final User user;
          try {
-            LocalDate date = birthday.isBlank() ? null : LocalDate.parse(birthday);
-            user = new User(null, name, email, password, mobile, address, date,
+            user = new User(null, name, email, password, phone,
                     UUID.fromString(schoolId), UUID.fromString(roleId));
-         } catch (IllegalArgumentException | DateTimeException exception) {
+         } catch (IllegalArgumentException exception) {
             Toast.makeText(this, R.string.invalid_user_input, Toast.LENGTH_SHORT).show();
             return;
          }
@@ -75,9 +68,7 @@ public class UserActivity extends AppCompatActivity {
       nameInput = findViewById(R.id.form_textFieldName);
       emailInput = findViewById(R.id.form_textFieldEmail);
       passwordInput = findViewById(R.id.form_textFieldPassword);
-      mobileInput = findViewById(R.id.form_textFieldMobile);
-      addressInput = findViewById(R.id.form_textFieldAddress);
-      birthdayInput = findViewById(R.id.form_textFieldBirthday);
+      phoneInput = findViewById(R.id.form_textFieldPhone);
       schoolIdInput = findViewById(R.id.form_textFieldSchoolId);
       roleIdInput = findViewById(R.id.form_textFieldRoleId);
       saveUserButton = findViewById(R.id.button_saveUser);

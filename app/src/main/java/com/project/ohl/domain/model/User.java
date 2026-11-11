@@ -1,6 +1,5 @@
 package com.project.ohl.domain.model;
 
-import java.time.LocalDate;
 import java.util.UUID;
 
 public class User {
@@ -13,11 +12,7 @@ public class User {
 
    private String password;
 
-   private String mobile;
-
-   private String address;
-
-   private LocalDate birthday;
+   private String phone;
 
    private UUID schoolId;
 
@@ -26,14 +21,12 @@ public class User {
    public User() {
    }
 
-   public User(UUID id, String name, String email, String password, String mobile, String address, LocalDate birthday, UUID schoolId, UUID roleId) {
+   public User(UUID id, String name, String email, String password, String phone, UUID schoolId, UUID roleId) {
       this.id = id;
       this.name = name;
       this.email = email;
       this.password = password;
-      this.mobile = mobile;
-      this.address = address;
-      this.birthday = birthday;
+      this.phone = phone;
       this.schoolId = schoolId;
       this.roleId = roleId;
    }
@@ -70,28 +63,12 @@ public class User {
       this.password = password;
    }
 
-   public String getMobile() {
-      return mobile;
+   public String getPhone() {
+      return phone;
    }
 
-   public void setMobile(String mobile) {
-      this.mobile = mobile;
-   }
-
-   public String getAddress() {
-      return address;
-   }
-
-   public void setAddress(String address) {
-      this.address = address;
-   }
-
-   public LocalDate getBirthday() {
-      return birthday;
-   }
-
-   public void setBirthday(LocalDate birthday) {
-      this.birthday = birthday;
+   public void setPhone(String phone) {
+      this.phone = phone;
    }
 
    public UUID getSchoolId() {
@@ -112,13 +89,11 @@ public class User {
 
    @Override
    public String toString() {
-      return "UserDto{" +
+      return "User{" +
            "id=" + id +
            ", name='" + name + '\'' +
            ", email='" + email + '\'' +
-           ", mobile='" + mobile + '\'' +
-           ", address='" + address + '\'' +
-           ", birthday=" + birthday +
+           ", phone='" + phone + '\'' +
            ", schoolId=" + schoolId +
            ", roleId=" + roleId +
            '}';
