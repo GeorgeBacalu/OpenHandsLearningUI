@@ -1,7 +1,9 @@
 package com.project.ohl.domain.repository;
 
+import com.project.ohl.domain.model.County;
+import com.project.ohl.domain.model.City;
 import com.project.ohl.domain.model.Category;
-import com.project.ohl.domain.model.Institution;
+import com.project.ohl.domain.model.School;
 import com.project.ohl.domain.model.Role;
 import com.project.ohl.domain.model.Section;
 import com.project.ohl.domain.model.User;
@@ -9,16 +11,19 @@ import java.util.List;
 import java.util.UUID;
 
 public interface LearningRepository {
+    Request<List<County>> getCounties();
+    Request<List<City>> getCities(UUID countyId, String name, int offset, int limit);
+    Request<List<School>> getSchools(UUID cityId, String name, int offset, int limit);
     Request<List<Role>> getAllRoles();
     Request<Role> getRoleById(UUID id);
     Request<Role> saveRole(Role role);
     Request<Role> updateRoleById(Role role, UUID id);
     Request<Void> deleteRoleById(UUID id);
-    Request<List<Institution>> getAllInstitutions();
-    Request<Institution> getInstitutionById(UUID id);
-    Request<Institution> saveInstitution(Institution institution);
-    Request<Institution> updateInstitutionById(Institution institution, UUID id);
-    Request<Void> deleteInstitutionById(UUID id);
+    Request<List<School>> getAllSchools();
+    Request<School> getSchoolById(UUID id);
+    Request<School> saveSchool(School school);
+    Request<School> updateSchoolById(School school, UUID id);
+    Request<Void> deleteSchoolById(UUID id);
     Request<List<User>> getAllUsers();
     Request<User> getUserById(UUID id);
     Request<User> saveUser(User user);

@@ -4,6 +4,9 @@ import com.google.gson.JsonParseException;
 import com.project.ohl.data.remote.JsonCodec;
 import com.project.ohl.domain.model.Category;
 import com.project.ohl.domain.model.Section;
+import com.project.ohl.domain.model.School;
+import com.project.ohl.domain.model.City;
+import java.util.UUID;
 import com.project.ohl.domain.model.User;
 import java.time.LocalDate;
 import org.junit.Test;
@@ -43,6 +46,19 @@ public class JsonCodecTest {
         assertTrue(gson.toJson(user).contains("\"birthday\":\"2000-02-29\""));
         assertNull(gson.fromJson("{\"birthday\":null}", User.class).getBirthday());
         assertThrows(JsonParseException.class, () -> gson.fromJson("{\"birthday\":\"2001-02-29\"}", User.class));
+    }
+
+    @Test public void exchangesSchoolAndLocationUuids() {
+        var gson = JsonCodec.create();
+        String id = "00000000-0000-4000-8000-000000000104";
+        var school = gson.fromJson("{\"name\":\"School A\",\"cityId\":\"" + id + "\"}", School.class);
+        assertEquals("School A", school.getName());
+        assertEquals(UUID.fromString(id), school.getCityId());
+        var city = gson.fromJson("{\"name\":\"Cluj\",\"countyId\":\"" + id + "\"}", City.class);
+        assertEquals(UUID.fromString(id), city.getCountyId());
+        var user = gson.fromJson("{\"schoolId\":\"" + id + "\"}", User.class);
+        assertEquals(UUID.fromString(id), user.getSchoolId());
+        assertFalse(gson.toJson(user).contains("institutionId"));
     }
 
     @Test public void userDebugOutputDoesNotExposePasswords() {
