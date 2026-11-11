@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="-10dp"
-    tools:context=".text_to_sign_section.TextToSignSectionActivity">
+    tools:context=".presentation.text_to_sign_section.TextToSignSectionActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -148,32 +148,7 @@
 
                     </LinearLayout>
 
-<!--                    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--                        android:id="@+id/slideBackwards"-->
-<!--                        android:layout_width="50dp"-->
-<!--                        android:layout_height="50dp"-->
-<!--                        android:layout_marginTop="20dp"-->
-<!--                        android:backgroundTint="@color/light_blue"-->
-<!--                        android:contentDescription="@string/backward_slider_button"-->
-<!--                        android:src="@drawable/ic_arrow_left"-->
-<!--                        app:backgroundTint="@color/white"-->
-<!--                        app:borderWidth="1dp"-->
-<!--                        app:rippleColor="@color/white"-->
-<!--                        app:tint="@color/white" />-->
 
-<!--                    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--                        android:id="@+id/slideForwards"-->
-<!--                        android:layout_width="50dp"-->
-<!--                        android:layout_height="50dp"-->
-<!--                        android:layout_alignParentEnd="true"-->
-<!--                        android:layout_marginTop="20dp"-->
-<!--                        android:backgroundTint="@color/light_blue"-->
-<!--                        android:contentDescription="@string/forward_slider_button"-->
-<!--                        android:src="@drawable/ic_arrow_right"-->
-<!--                        app:backgroundTint="@color/white"-->
-<!--                        app:borderWidth="1dp"-->
-<!--                        app:rippleColor="@color/white"-->
-<!--                        app:tint="@color/white" />-->
 
                 </RelativeLayout>
 

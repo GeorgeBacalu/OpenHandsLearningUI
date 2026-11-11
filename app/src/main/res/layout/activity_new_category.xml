@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".general.new_category.NewCategoryActivity">
+    tools:context=".presentation.general.new_category.NewCategoryActivity">
 
     <ImageView
         android:id="@+id/imageView"
@@ -37,7 +37,7 @@
         android:id="@+id/imageView2"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:src="@drawable/llt_logo"
+        android:src="@drawable/openhandslearning_logo"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

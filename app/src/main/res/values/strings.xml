@@ -1,7 +1,5 @@
 <resources>
-   <string name="app_name">Let\'s Learn Together!</string>
-
-   // all activities
+   <string name="app_name">OpenHandsLearning</string>
 
    <string name="activity_introductory">Introductory Activity</string>
    <string name="activity_video_section">Sectiune Video</string>
@@ -37,21 +35,13 @@
    <string name="activity_favorite_categories">Categorii Favorite</string>
    <string name="activity_new_category">Categorie Noua</string>
 
-   // main activity
-
    <string name="video_section">Sectiune Video</string>
    <string name="text_to_sign_section">Sectiune Text - Dactilema</string>
    <string name="voice_to_sign_section">Sectiune Voce - Dactilema</string>
    <string name="expressions_section">Sectiune Expresii</string>
 
-   // navigation drawer
-
    <string name="navigation_drawer_open">Open navigation drawer</string>
    <string name="navigation_drawer_close">Close navigation drawer</string>
-
-   // video section
-
-   // header titles sections
 
    <string name="header_title_video_section">SECTIUNE VIDEO</string>
    <string name="header_title_text_to_sign_section">SECTIUNE TEXT - DACTILEMA</string>
@@ -62,8 +52,6 @@
    <string name="header_subtitle_text_to_sign_section">Introdu un text si lasa-ne pe noi sa-l traducem in limbajul semnelor!</string>
    <string name="header_subtitle_voice_to_sign_section">Introdu un mesaj vocal si lasa-ne pe noi sa-l traducem in limbajul semnelor!</string>
    <string name="header_subtitle_expressions_section">Te ajutam sa traduci expresii in limbajul semnelor.</string>
-
-   // header title main categories
 
    <string name="header_title_alphabet">ALFABET</string>
    <string name="header_title_animals">ANIMALE</string>
@@ -105,33 +93,23 @@
    <string name="category_header_image">Category Header Image</string>
    <string name="category_header_overlay">Category Header Overlay</string>
 
-   // favorites activity
-
    <string name="header_title_favorites">Favorite</string>
    <string name="no_favorites_image">No Favorites Image</string>
    <string name="first_message">Se pare ca nu ai nici o categorie adaugata momentan!</string>
    <string name="second_message">Navigheaza printre colectiile disponibile si adauga cateva la favorite!</string>
    <string name="browse_collections">Acceseaza colectiile</string>
 
-   // introductory activity starting page
-
    <string name="background_image">Background Image</string>
    <string name="background_overlay">Background Overlay</string>
 
-   // main activity
-
    <string name="app_logo">App Logo</string>
    <string name="welcome_text">Bine ai venit!</string>
-   <string name="project_name">Let\'s Learn Together</string>
+   <string name="project_name">OpenHandsLearning</string>
    <string name="project_description">Impreuna facilitam procesul de invatare al copiilor cu deficiente de auz.</string>
 
    <string name="rectangle">rectangle</string>
 
-   // video section activity
-
    <string name="header_text">Adauga categorie noua</string>
-
-   // text-to-sign activity
 
    <string name="input_placeholder_text_to_sign">Introduceti un text…</string>
    <string name="confirm_button">Confirma</string>
@@ -141,18 +119,12 @@
    <string name="backward_slider_button">Backward Slider Button</string>
    <string name="forward_slider_button">Forward Slider Button</string>
 
-   // new category form activity
-
    <string name="add_new_category">Add New Category</string>
    <string name="category_name">Introduceti numele categoriei</string>
    <string name="load_image">Incarcati o imagine</string>
    <string name="load_video">Incarcati un videoclip</string>
    <string name="save_category">Salveaza categoria</string>
    <string name="save_subcategory">Salveaza subcategoria</string>
-
-   // all categories strings
-
-   // alphabet
 
    <string name="A">A</string>
    <string name="B">B</string>
@@ -181,8 +153,6 @@
    <string name="Y">Y</string>
    <string name="Z">Z</string>
 
-   // numbers
-
    <string name="ZERO">ZERO</string>
    <string name="UNU">UNU</string>
    <string name="DOI">DOI</string>
@@ -194,8 +164,6 @@
    <string name="OPT">OPT</string>
    <string name="NOUA">NOUA</string>
    <string name="ZECE">ZECE</string>
-
-   // colors
 
    <string name="ROSU">ROSU</string>
    <string name="PORTOCALIU">PORTOCALIU</string>
@@ -211,10 +179,6 @@
    <string name="GRI">GRI</string>
    <string name="NEGRU">NEGRU</string>
 
-   // animals
-
-   // // household
-
    <string name="CAINE">CAINE</string>
    <string name="PISICA">PISICA</string>
    <string name="PORC">PORC</string>
@@ -229,8 +193,6 @@
    <string name="OAIE">OAIE</string>
    <string name="RATA">RATA</string>
 
-   // // wild
-
    <string name="LUP">LUP</string>
    <string name="VULPE">VULPE</string>
    <string name="ARICI">ARICI</string>
@@ -240,10 +202,6 @@
    <string name="URS_POLAR">URS POLAR</string>
    <string name="ELEFANT">ELEFANT</string>
    <string name="CROCODIL">CROCODIL</string>
-
-   // objects
-
-   // // home
 
    <string name="PAT">PAT</string>
    <string name="TELEVIZOR">TELEVIZOR</string>
@@ -255,8 +213,6 @@
    <string name="FRIGIDER">FRIGIDER</string>
    <string name="CUTIT">CUTIT</string>
 
-   // // outside
-
    <string name="TOPOR">TOPOR</string>
    <string name="POARTA">POARTA</string>
    <string name="GEAM">GEAM</string>
@@ -267,8 +223,6 @@
    <string name="BEC">BEC</string>
    <string name="LOPATA">LOPATA</string>
    <string name="USA">USA</string>
-
-   // // class
 
    <string name="MANUAL">MANUAL</string>
    <string name="PIX">PIX</string>
@@ -286,16 +240,10 @@
    <string name="CREION">CREION</string>
    <string name="CAIET">CAIET</string>
 
-   // // shop
-
-   // // // money
-
    <string name="EURO">EURO</string>
    <string name="DOLAR">DOLAR</string>
    <string name="MONEDA">MONEDA</string>
    <string name="BANCNOTA">BANCNOTA</string>
-
-   // // // products
 
    <string name="SUC">SUC</string>
    <string name="PRAJITURA">PRAJITURA</string>
@@ -310,8 +258,6 @@
    <string name="ARDEI">ARDEI</string>
    <string name="BRANZA">BRANZA</string>
 
-   // // city
-
    <string name="SCOALA">SCOALA</string>
    <string name="LEAGAN">LEAGAN</string>
    <string name="SPITAL">SPITAL</string>
@@ -323,10 +269,6 @@
    <string name="TRAMVAI">TRAMVAI</string>
    <string name="POLITIE">POLITIE</string>
 
-   // people
-
-   // // family members
-
    <string name="TATA">TATA</string>
    <string name="MAMA">MAMA</string>
    <string name="FRATE">FRATE</string>
@@ -336,8 +278,6 @@
    <string name="BUNIC_BUNICA">BUNIC/BUNICA</string>
    <string name="NAS_NASA">NAS/NASA</string>
 
-   // // pronouns
-
    <string name="EU">EU</string>
    <string name="TU">TU</string>
    <string name="EL">EL</string>
@@ -345,8 +285,6 @@
    <string name="NOI">NOI</string>
    <string name="VOI">VOI</string>
    <string name="EI_ELE">EI/ELE</string>
-
-   // emotions
 
    <string name="VESEL">VESEL</string>
    <string name="SATURAT">SATURAT</string>
@@ -362,8 +300,6 @@
    <string name="LINISTIT">LINISTIT</string>
    <string name="CUMINTE">CUMINTE</string>
 
-   // verbs
-
    <string name="CONSTRUI">CONSTRUI</string>
    <string name="SCRIE">SCRIE</string>
    <string name="TRAGE">TRAGE</string>
@@ -377,14 +313,10 @@
    <string name="SPUNE">SPUNE</string>
    <string name="SE_UITA">SE UITA</string>
 
-   // forms of address
-
    <string name="VA_ROG">VA ROG</string>
    <string name="MULTUMESC">MULTUMESC</string>
    <string name="SCUZE">SCUZE</string>
    <string name="HAI">HAI</string>
-
-   // subcategories that hold other categories
 
    <string name="DOMESTICE">DOMESTICE</string>
    <string name="SALBATICE">SALBATICE</string>
@@ -398,8 +330,6 @@
    <string name="MEMBRII_FAMILIEI">MEMBRII FAMILIEI</string>
    <string name="PRONUME">PRONUME</string>
 
-   // main categories
-
    <string name="ALFABET">ALFABET</string>
    <string name="NUMERE">NUMERE</string>
    <string name="CULORI">CULORI</string>
@@ -409,8 +339,6 @@
    <string name="EMOTII">EMOTII</string>
    <string name="VERBE">VERBE</string>
    <string name="FORMULE_DE_ADRESARE">FORMULE DE ADRESARE</string>
-
-   // text to sign section
 
    <string name="a">a</string>
    <string name="b">b</string>
@@ -439,8 +367,6 @@
    <string name="y">y</string>
    <string name="z">z</string>
 
-   // settings
-
    <string name="nav_home">Acasa</string>
    <string name="nav_video">Sectiune video</string>
    <string name="nav_text_to_sign">Sectiune Text - Dactilema</string>
@@ -448,27 +374,20 @@
    <string name="nav_expressions">Sectiune Expresii</string>
    <string name="nav_settings">Preferinte aplicatie</string>
 
-   // settings activity
-
    <string name="title_activity_settings">Preferinte aplicatie</string>
    <string name="header_title_settings">SETARI</string>
 
-   <!-- Preference Titles -->
    <string name="messages_header">Messages</string>
    <string name="sync_header">Sync</string>
 
-   <!-- Messages Preferences -->
    <string name="signature_title">Your signature</string>
    <string name="reply_title">Default reply action</string>
 
-   <!-- Sync Preferences -->
    <string name="sync_title">Sync email periodically</string>
    <string name="attachment_title">Download incoming attachments</string>
    <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
    <string name="attachment_summary_off">Only download attachments when manually requested</string>
-
-   // expressions section
 
    <string name="aceasta_este_prietena_mea">ACEASTA ESTE PRIETENA MEA</string>
    <string name="acesta_este_colegul_meu">ACESTA ESTE COLEGUL MEU</string>
@@ -496,4 +415,8 @@
    <string name="form_role_id">Role ID</string>
    <string name="save_user">Save User</string>
 
+    <string name="request_failed">Cererea a eșuat. Încearcă din nou.</string>
+    <string name="add_favorite">Adaugă la favorite</string>
+    <string name="remove_favorite">Elimină favorit</string>
+    <string name="invalid_user_input">Verifică data (AAAA-LL-ZZ) și identificatorii UUID.</string>
 </resources>
