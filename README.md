@@ -92,7 +92,7 @@ The main user button opens profile selection, with an option to create a profile
 Favorites require a selected profile and send its UUID with every request;
 switching profiles reloads favorite state. Selection is stored locally and is not
 a login or authorization mechanism. Use these Android changes with the backend's
-V11 schema and updated API contract. Text and voice conversion share an immutable local Unicode-to-media-key dictionary.
+V12 schema and updated API contract. Text and voice conversion share an immutable local Unicode-to-media-key dictionary.
 Letter lookup works without a backend connection; uppercase/lowercase, Romanian
 diacritics, legacy cedilla spellings, Unicode composition, and whitespace are
 normalized consistently. The dictionary is created once and every conversion
@@ -136,3 +136,6 @@ Profiles contain ID, name, email, phone, password, role ID and school ID.
 The creation form uses `phone` and no longer requests address or birthday.
 Passwords are sent only for account changes; the backend hashes them with BCrypt
 and never includes hashes in profile responses.
+
+Favorites are stored by the backend as user/category pairs in `favorites`, without
+a creation timestamp. The existing per-profile favorites API is unchanged.
