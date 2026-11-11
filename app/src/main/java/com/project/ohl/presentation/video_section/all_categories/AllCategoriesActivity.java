@@ -1,20 +1,19 @@
 package com.project.ohl.presentation.video_section.all_categories;
 
+import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
-import android.view.MenuItem;
-
 import com.project.ohl.R;
-
 import com.project.ohl.domain.model.Category;
 import com.project.ohl.presentation.LearningViewModel;
 import java.util.List;
 import java.util.Objects;
+
+import static android.R.id.home;
 
 public class AllCategoriesActivity extends AppCompatActivity {
    private RecyclerView categoriesRecyclerView;
@@ -48,7 +47,7 @@ public class AllCategoriesActivity extends AppCompatActivity {
 
    @Override
    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-      if (item.getItemId() == android.R.id.home) getOnBackPressedDispatcher().onBackPressed();
+      if (item.getItemId() == home) getOnBackPressedDispatcher().onBackPressed();
       return super.onOptionsItemSelected(item);
    }
 }

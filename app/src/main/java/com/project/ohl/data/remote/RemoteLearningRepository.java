@@ -1,16 +1,16 @@
 package com.project.ohl.data.remote;
 
-import java.util.UUID;
 import com.project.ohl.domain.model.Category;
 import com.project.ohl.domain.model.Institution;
 import com.project.ohl.domain.model.Role;
 import com.project.ohl.domain.model.Section;
 import com.project.ohl.domain.model.TextSignPair;
 import com.project.ohl.domain.model.User;
-import java.util.List;
 import com.project.ohl.domain.repository.LearningRepository;
 import com.project.ohl.domain.repository.Request;
 import com.project.ohl.domain.repository.Result;
+import java.util.List;
+import java.util.UUID;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.HttpException;
@@ -186,8 +186,11 @@ public final class RemoteLearningRepository implements LearningRepository {
 
     @Override
     public Request<Category> getCategoryById(UUID id) {
-        return adapt(categoryApi.getCategoryById(id));
+        return getCategoryById(id, null);
     }
+
+    @Override
+    public Request<Category> getCategoryById(UUID id, UUID userId) { return adapt(categoryApi.getCategoryById(id, userId)); }
 
     @Override
     public Request<Category> saveCategory(Category category) {
@@ -205,27 +208,27 @@ public final class RemoteLearningRepository implements LearningRepository {
     }
 
     @Override
-    public Request<List<Category>> getCategoriesByParentIdAndSectionIdAndName(UUID parentId, UUID sectionId, String name) {
-        return adapt(categoryApi.getCategoriesByParentIdAndSectionIdAndName(parentId, sectionId, name));
+    public Request<List<Category>> getCategoriesByParentCodeAndSectionCodeAndName(String parentCode, String sectionCode, String name) {
+        return adapt(categoryApi.getCategoriesByParentCodeAndSectionCodeAndName(parentCode, sectionCode, name));
     }
 
     @Override
-    public Request<List<Category>> getFavoriteCategories() {
-        return adapt(categoryApi.getFavoriteCategories());
+    public Request<List<Category>> getFavoriteCategories(UUID userId) {
+        return adapt(categoryApi.getFavoriteCategories(userId));
     }
 
     @Override
-    public Request<Category> saveFavorite(UUID categoryId) {
-        return adapt(categoryApi.saveFavorite(categoryId));
+    public Request<Category> saveFavorite(UUID userId, UUID categoryId) {
+        return adapt(categoryApi.saveFavorite(userId, categoryId));
     }
 
     @Override
-    public Request<Category> deleteFavorite(UUID categoryId) {
-        return adapt(categoryApi.deleteFavorite(categoryId));
+    public Request<Category> deleteFavorite(UUID userId, UUID categoryId) {
+        return adapt(categoryApi.deleteFavorite(userId, categoryId));
     }
 
     @Override
-    public Request<List<Category>> getFavoritesByName(String name) {
-        return adapt(categoryApi.getFavoritesByName(name));
+    public Request<List<Category>> getFavoritesByName(UUID userId, String name) {
+        return adapt(categoryApi.getFavoritesByName(userId, name));
     }
 }

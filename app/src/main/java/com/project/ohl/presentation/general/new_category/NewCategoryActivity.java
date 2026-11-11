@@ -1,20 +1,19 @@
 package com.project.ohl.presentation.general.new_category;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager2.widget.ViewPager2;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-
-import com.project.ohl.presentation.MainActivity;
-import com.project.ohl.R;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-
+import com.project.ohl.R;
+import com.project.ohl.presentation.MainActivity;
 import java.util.Objects;
+
+import static android.R.id.home;
 
 public class NewCategoryActivity extends AppCompatActivity {
     private TabLayout tabLayout;
@@ -60,7 +59,7 @@ public class NewCategoryActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) getOnBackPressedDispatcher().onBackPressed();
+        if (item.getItemId() == home) getOnBackPressedDispatcher().onBackPressed();
         return super.onOptionsItemSelected(item);
     }
 }

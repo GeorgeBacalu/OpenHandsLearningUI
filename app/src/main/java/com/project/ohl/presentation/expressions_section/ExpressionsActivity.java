@@ -1,28 +1,28 @@
 package com.project.ohl.presentation.expressions_section;
 
-import com.project.ohl.domain.model.CatalogIds;
-import android.widget.Toast;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageView;
-
-import com.project.ohl.presentation.MainActivity;
+import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.project.ohl.R;
+import com.project.ohl.domain.model.CatalogCodes;
 import com.project.ohl.domain.model.Category;
 import com.project.ohl.presentation.LearningViewModel;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
+import com.project.ohl.presentation.MainActivity;
+import com.project.ohl.presentation.MediaResources;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
+import static android.R.id.home;
 
 public class ExpressionsActivity extends AppCompatActivity {
    private RecyclerView recyclerView;
@@ -47,27 +47,27 @@ public class ExpressionsActivity extends AppCompatActivity {
       recyclerView.setAdapter(adapter);
       recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-      LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndSectionIdAndName(null, CatalogIds.SECTION_EXPRESSIONS, ""), result -> {
+      LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentCodeAndSectionCodeAndName(null, CatalogCodes.SECTION_EXPRESSIONS, ""), result -> {
             if (result.error() != null) {
             Toast.makeText(ExpressionsActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
 
             } else {
                List<Category> expressions = result.value();
-               com.project.ohl.presentation.MediaResources.bindImages(this, expressions);
+               MediaResources.bindImages(this, expressions);
                adapter.setExpressions(expressions);
 
             }
         });
 
       searchIcon.setOnClickListener(v -> {
-         String searchBarText = searchBar.getText().toString().toLowerCase(java.util.Locale.ROOT);
-         LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndSectionIdAndName(null, CatalogIds.SECTION_EXPRESSIONS, searchBarText), result -> {
+         String searchBarText = searchBar.getText().toString().toLowerCase(Locale.ROOT);
+         LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentCodeAndSectionCodeAndName(null, CatalogCodes.SECTION_EXPRESSIONS, searchBarText), result -> {
             if (result.error() != null) {
                Toast.makeText(ExpressionsActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
 
             } else {
                   List<Category> filteredExpressions = result.value();
-                  com.project.ohl.presentation.MediaResources.bindImages(this, filteredExpressions);
+                  MediaResources.bindImages(this, filteredExpressions);
                   searchBar.setText("");
                   adapter.setExpressions(filteredExpressions);
                   adapter.notifyDataSetChanged();
@@ -87,7 +87,7 @@ public class ExpressionsActivity extends AppCompatActivity {
 
    @Override
    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-      if (item.getItemId() == android.R.id.home) getOnBackPressedDispatcher().onBackPressed();
+      if (item.getItemId() == home) getOnBackPressedDispatcher().onBackPressed();
       return super.onOptionsItemSelected(item);
    }
 }

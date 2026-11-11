@@ -1,7 +1,7 @@
 package com.project.ohl.domain.model;
 
-import java.util.UUID;
 import com.project.ohl.domain.model.enums.Authority;
+import java.util.UUID;
 
 public class Role {
    private UUID id;

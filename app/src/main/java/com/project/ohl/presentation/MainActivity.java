@@ -1,6 +1,5 @@
 package com.project.ohl.presentation;
 
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +7,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,17 +14,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.project.ohl.domain.model.Section;
-import com.project.ohl.presentation.LearningViewModel;
-import com.project.ohl.presentation.user.UserActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.navigation.NavigationView;
-
 import com.project.ohl.R;
-
+import com.project.ohl.domain.model.Section;
+import com.project.ohl.presentation.user.UserListActivity;
 import java.util.List;
-
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
    private RecyclerView sectionsRecyclerView;
@@ -57,15 +50,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                List<Section> sections = result.value();
                for (Section section : sections) {
                   String name = section.getName();
-                  section.setIcon(getResources().getIdentifier("ic_" + name.replace(" ", "_").toLowerCase(java.util.Locale.ROOT), "drawable", getPackageName()));
-                  section.setImageSource(getResources().getIdentifier(name.replace(" ", "_").toLowerCase(java.util.Locale.ROOT), "drawable", getPackageName()));
+                  section.setIcon(MediaResources.drawable(this, section.getIconKey() == null ? "ic_" + name : section.getIconKey()));
+                  section.setImageSource(MediaResources.drawable(this, section.getMediaKey() == null ? name : section.getMediaKey()));
                }
                sectionsAdapter.setSections(sections);
 
             }
         });
 
-      userNavigationButton.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, UserActivity.class)));
+      userNavigationButton.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, UserListActivity.class)));
 
       toolbar = findViewById(R.id.toolbar);
       setSupportActionBar(toolbar);

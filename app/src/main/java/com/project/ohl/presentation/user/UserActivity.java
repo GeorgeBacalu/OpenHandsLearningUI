@@ -1,16 +1,17 @@
 package com.project.ohl.presentation.user;
 
-import java.util.UUID;
 import android.os.Bundle;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
 import com.project.ohl.R;
 import com.project.ohl.domain.model.User;
 import com.project.ohl.presentation.LearningViewModel;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textfield.TextInputEditText;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -49,7 +50,7 @@ public class UserActivity extends AppCompatActivity {
             LocalDate date = birthday.isBlank() ? null : LocalDate.parse(birthday);
             user = new User(null, name, email, password, mobile, address, date,
                     UUID.fromString(institutionId), UUID.fromString(roleId));
-         } catch (IllegalArgumentException | java.time.DateTimeException exception) {
+         } catch (IllegalArgumentException | DateTimeException exception) {
             Toast.makeText(this, R.string.invalid_user_input, Toast.LENGTH_SHORT).show();
             return;
          }

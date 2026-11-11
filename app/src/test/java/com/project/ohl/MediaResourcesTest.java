@@ -3,6 +3,7 @@ package com.project.ohl;
 import com.project.ohl.presentation.MediaResources;
 import java.util.Locale;
 import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 
 public class MediaResourcesTest {

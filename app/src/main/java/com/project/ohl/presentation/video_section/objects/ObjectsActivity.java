@@ -1,28 +1,28 @@
 package com.project.ohl.presentation.video_section.objects;
 
-import com.project.ohl.domain.model.CatalogIds;
-import android.widget.Toast;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageView;
-
-import com.project.ohl.domain.model.Category;
-import com.project.ohl.presentation.MainActivity;
-import com.project.ohl.R;
-import com.project.ohl.presentation.LearningViewModel;
+import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
+import com.project.ohl.R;
+import com.project.ohl.domain.model.CatalogCodes;
+import com.project.ohl.domain.model.Category;
+import com.project.ohl.presentation.LearningViewModel;
+import com.project.ohl.presentation.MainActivity;
+import com.project.ohl.presentation.MediaResources;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
+import static android.R.id.home;
 
 public class ObjectsActivity extends AppCompatActivity {
    private RecyclerView objectsRecyclerView;
@@ -49,27 +49,27 @@ public class ObjectsActivity extends AppCompatActivity {
       objectsRecyclerView.setAdapter(objectsAdapter);
       objectsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-      LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndSectionIdAndName(CatalogIds.OBJECTS, CatalogIds.SECTION_VIDEO, ""), result -> {
+      LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentCodeAndSectionCodeAndName(CatalogCodes.OBJECTS, CatalogCodes.SECTION_VIDEO, ""), result -> {
             if (result.error() != null) {
             Toast.makeText(ObjectsActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
 
             } else {
                List<Category> objects = result.value();
-               com.project.ohl.presentation.MediaResources.bindImages(this, objects);
+               MediaResources.bindImages(this, objects);
                objectsAdapter.setObjects(objects);
 
             }
         });
 
       searchBarIcon.setOnClickListener(v -> {
-         String searchBarInputText = searchBarInput.getText().toString().toLowerCase(java.util.Locale.ROOT);
-         LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndSectionIdAndName(CatalogIds.OBJECTS, CatalogIds.SECTION_VIDEO, searchBarInputText), result -> {
+         String searchBarInputText = searchBarInput.getText().toString().toLowerCase(Locale.ROOT);
+         LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentCodeAndSectionCodeAndName(CatalogCodes.OBJECTS, CatalogCodes.SECTION_VIDEO, searchBarInputText), result -> {
             if (result.error() != null) {
                Toast.makeText(ObjectsActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
 
             } else {
                   List<Category> filteredObjects = result.value();
-                  com.project.ohl.presentation.MediaResources.bindImages(this, filteredObjects);
+                  MediaResources.bindImages(this, filteredObjects);
                   searchBarInput.setText("");
                   objectsAdapter.setObjects(filteredObjects);
 
@@ -88,7 +88,7 @@ public class ObjectsActivity extends AppCompatActivity {
 
    @Override
    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-      if (item.getItemId() == android.R.id.home) getOnBackPressedDispatcher().onBackPressed();
+      if (item.getItemId() == home) getOnBackPressedDispatcher().onBackPressed();
       return super.onOptionsItemSelected(item);
    }
 }

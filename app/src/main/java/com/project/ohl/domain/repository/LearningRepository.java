@@ -1,6 +1,5 @@
 package com.project.ohl.domain.repository;
 
-import java.util.UUID;
 import com.project.ohl.domain.model.Category;
 import com.project.ohl.domain.model.Institution;
 import com.project.ohl.domain.model.Role;
@@ -8,6 +7,7 @@ import com.project.ohl.domain.model.Section;
 import com.project.ohl.domain.model.TextSignPair;
 import com.project.ohl.domain.model.User;
 import java.util.List;
+import java.util.UUID;
 
 public interface LearningRepository {
     Request<List<TextSignPair>> getAllTextSignPairs();
@@ -37,12 +37,13 @@ public interface LearningRepository {
     Request<Void> deleteSectionById(UUID id);
     Request<List<Category>> getAllCategories();
     Request<Category> getCategoryById(UUID id);
+    Request<Category> getCategoryById(UUID id, UUID userId);
     Request<Category> saveCategory(Category category);
     Request<Category> updateCategoryById(Category category, UUID id);
     Request<Void> deleteCategoryById(UUID id);
-    Request<List<Category>> getCategoriesByParentIdAndSectionIdAndName(UUID parentId, UUID sectionId, String name);
-    Request<List<Category>> getFavoriteCategories();
-    Request<Category> saveFavorite(UUID categoryId);
-    Request<Category> deleteFavorite(UUID categoryId);
-    Request<List<Category>> getFavoritesByName(String name);
+    Request<List<Category>> getCategoriesByParentCodeAndSectionCodeAndName(String parentCode, String sectionCode, String name);
+    Request<List<Category>> getFavoriteCategories(UUID userId);
+    Request<Category> saveFavorite(UUID userId, UUID categoryId);
+    Request<Category> deleteFavorite(UUID userId, UUID categoryId);
+    Request<List<Category>> getFavoritesByName(UUID userId, String name);
 }
