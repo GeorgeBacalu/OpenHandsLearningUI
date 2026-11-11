@@ -92,8 +92,12 @@ The main user button opens profile selection, with an option to create a profile
 Favorites require a selected profile and send its UUID with every request;
 switching profiles reloads favorite state. Selection is stored locally and is not
 a login or authorization mechanism. Use these Android changes with the backend's
-V6 schema and updated API contract. Text and voice signs both load the same API
-catalog and resolve its `mediaKey` values. The retained `dactilema_a` image belongs
+V7 schema and updated API contract. Text and voice conversion share an immutable local Unicode-to-media-key dictionary.
+Letter lookup works without a backend connection; uppercase/lowercase, Romanian
+diacritics, legacy cedilla spellings, Unicode composition, and whitespace are
+normalized consistently. The dictionary is created once and every conversion
+returns fresh display models. The retired letter-sign API and remote CRUD client
+have been removed. The retained `dactilema_a` image belongs
 to the matching line-drawing collection; the unrelated photographic `a.png` was
 removed. Unicode letter lookup handles case fallback, Romanian diacritics, spaces,
 and empty input without a second hardcoded sign catalog.
