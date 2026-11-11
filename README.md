@@ -38,8 +38,8 @@ Kotlin standard library, Glide, Gson, Lottie, Retrofit, OkHttp, Lifecycle, Room,
 dependencies use their latest stable releases from Google Maven and Maven Central.
 
 The additional architecture components use Lifecycle 2.11.0, Room 2.8.5,
-OkHttp 5.5.1, and core library desugaring 2.1.5. Desugaring supports ISO dates on
-all supported Android versions.
+OkHttp 5.5.1, and core library desugaring 2.1.5. Desugaring supports the Java library APIs used by the application
+on all supported Android versions.
 
 The minimum supported Android version is Android 7.0 (API 24).
 The API 37 target enables Android 17 behavior changes; test the app's screens,
@@ -74,7 +74,7 @@ shared OHL vector mark.
 UI screens observe lifecycle-aware results instead of holding Retrofit callbacks.
 ViewModels cancel superseded requests and cancel outstanding work when cleared;
 queued results from cancelled searches cannot overwrite newer results. The shared
-HTTP client has explicit connection, read, and call timeouts. JSON codecs exchange UUID references, stable media keys, and ISO dates. Resolved Android resource
+HTTP client has explicit connection, read, and call timeouts. JSON codecs exchange UUID references and stable media keys. Resolved Android resource
 IDs are transient client fields and are never sent to the API. The backend's checked-in
 OpenAPI contract is served at `/openapi.json`.
 
@@ -92,7 +92,7 @@ The main user button opens profile selection, with an option to create a profile
 Favorites require a selected profile and send its UUID with every request;
 switching profiles reloads favorite state. Selection is stored locally and is not
 a login or authorization mechanism. Use these Android changes with the backend's
-V10 schema and updated API contract. Text and voice conversion share an immutable local Unicode-to-media-key dictionary.
+V11 schema and updated API contract. Text and voice conversion share an immutable local Unicode-to-media-key dictionary.
 Letter lookup works without a backend connection; uppercase/lowercase, Romanian
 diacritics, legacy cedilla spellings, Unicode composition, and whitespace are
 normalized consistently. The dictionary is created once and every conversion
@@ -129,3 +129,10 @@ Schools use `name` and `cityId`; user references use `schoolId`.
 The school CRUD endpoint is `/api/schools`. Existing profile entry still accepts
 a school UUID. User profiles no longer carry classroom assignments.
 Directory imports run explicitly on the backend.
+
+## User profiles
+
+Profiles contain ID, name, email, phone, password, role ID and school ID.
+The creation form uses `phone` and no longer requests address or birthday.
+Passwords are sent only for account changes; the backend hashes them with BCrypt
+and never includes hashes in profile responses.
