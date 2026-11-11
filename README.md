@@ -57,8 +57,10 @@ plugin is resolved without applying the separate Kotlin Android plugin. Java
 sources use AndroidX Core directly; unused Navigation dependencies, Glide's
 unused annotation processor, and obsolete Kotlin module exclusions were removed.
 DrawerLayout and Fragment dependencies used by application code are explicit.
-The namespace is `com.project.ohl`; the installed application ID remains
-`com.example.llt_project_separate`.
+The namespace and application ID are both `com.project.ohl`. Android installs this
+as a separate application from builds published with the previous application ID.
+The display name is `OpenHandsLearning`, and launcher and in-app logos use a
+shared OHL vector mark.
 
 ## Architecture
 
