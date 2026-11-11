@@ -9,8 +9,8 @@ public class Section {
     private String mediaKey;
     private String iconKey;
     private String name;
-    private int icon;
-    private int imageSource;
+    private transient int icon;
+    private transient int imageSource;
 
     public Section(UUID id, String name, int icon, int imageSource) {
         this.id = id;

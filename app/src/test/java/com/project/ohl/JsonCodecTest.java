@@ -4,9 +4,9 @@ import com.google.gson.JsonParseException;
 import com.project.ohl.data.remote.JsonCodec;
 import com.project.ohl.domain.model.Category;
 import com.project.ohl.domain.model.Section;
+import com.project.ohl.domain.model.TextSignPair;
 import com.project.ohl.domain.model.User;
 import java.time.LocalDate;
-import java.util.UUID;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -16,18 +16,18 @@ import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 public class JsonCodecTest {
-    @Test public void usesTheApiImageAndIconFields() {
+    @Test public void exchangesStableMediaKeysWithoutDeviceResourceIds() {
         var gson = JsonCodec.create();
-        var category = gson.fromJson("{\"id\":\"00000000-0000-4000-8000-00000000002a\",\"name\":\"A\",\"imageId\":7,\"parentId\":\"00000000-0000-4000-8000-000000000002\",\"sectionId\":\"00000000-0000-4000-8000-000000000001\"}", Category.class);
-        assertEquals(UUID.fromString("00000000-0000-4000-8000-00000000002a"), category.getId());
-        assertEquals(Integer.valueOf(7), category.getImageSource());
-        assertEquals(UUID.fromString("00000000-0000-4000-8000-000000000002"), category.getParentId());
-        assertTrue(gson.toJson(category).contains("\"id\":\"00000000-0000-4000-8000-00000000002a\""));
-        assertTrue(gson.toJson(category).contains("\"imageId\":7"));
+        var category = gson.fromJson("{\"mediaKey\":\"dactilema_a\"}", Category.class);
+        category.setImageSource(123);
+        assertEquals("dactilema_a", category.getMediaKey());
         assertFalse(gson.toJson(category).contains("imageSource"));
-        var section = gson.fromJson("{\"id\":\"00000000-0000-4000-8000-000000000001\",\"name\":\"Video\",\"iconId\":3,\"imageId\":4}", Section.class);
-        assertEquals(3, section.getIcon());
-        assertEquals(4, section.getImageSource());
+        assertFalse(gson.toJson(category).contains("imageId"));
+        var section = gson.fromJson("{\"mediaKey\":\"video_section\",\"iconKey\":\"ic_video_section\"}", Section.class);
+        section.setIcon(456);
+        assertFalse(gson.toJson(section).contains("\"icon\":"));
+        var sign = gson.fromJson("{\"letter\":\"Ă\",\"mediaKey\":\"dactilema_a\"}", TextSignPair.class);
+        assertEquals("dactilema_a", sign.getMediaKey());
     }
 
     @Test public void keepsCatalogIdentityAndMediaIndependentOfDisplayNames() {

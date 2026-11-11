@@ -2,6 +2,7 @@ package com.project.ohl.presentation;
 
 import android.content.Context;
 import com.project.ohl.domain.model.Category;
+import com.project.ohl.domain.model.TextSignPair;
 import java.text.Normalizer;
 import java.util.List;
 import java.util.Locale;
@@ -21,6 +22,10 @@ public final class MediaResources {
         String key = context.getPackageName() + ":" + resource;
         return DRAWABLES.computeIfAbsent(key, ignored ->
                 context.getResources().getIdentifier(resource, "drawable", context.getPackageName()));
+    }
+
+    public static void bindSigns(Context context, List<TextSignPair> signs) {
+        for (TextSignPair sign : signs) sign.setImageSource(drawable(context, sign.getMediaKey()));
     }
 
     public static void bindImages(Context context, List<Category> categories) {

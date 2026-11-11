@@ -10,7 +10,7 @@ public class Category {
 
     private String name;
 
-    private Integer imageSource;
+    private transient Integer imageSource;
 
     private Boolean isExpanded = false;
 
