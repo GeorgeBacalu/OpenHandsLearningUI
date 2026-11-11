@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".video_section.forms_of_address.FormsOfAddressActivity">
+    tools:context=".presentation.video_section.forms_of_address.FormsOfAddressActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
