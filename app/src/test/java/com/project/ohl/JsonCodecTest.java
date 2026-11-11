@@ -59,6 +59,7 @@ public class JsonCodecTest {
         var user = gson.fromJson("{\"schoolId\":\"" + id + "\"}", User.class);
         assertEquals(UUID.fromString(id), user.getSchoolId());
         assertFalse(gson.toJson(user).contains("institutionId"));
+        assertFalse(gson.toJson(user).contains("classroomId"));
     }
 
     @Test public void userDebugOutputDoesNotExposePasswords() {

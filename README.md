@@ -92,7 +92,7 @@ The main user button opens profile selection, with an option to create a profile
 Favorites require a selected profile and send its UUID with every request;
 switching profiles reloads favorite state. Selection is stored locally and is not
 a login or authorization mechanism. Use these Android changes with the backend's
-V8 schema and updated API contract. Text and voice conversion share an immutable local Unicode-to-media-key dictionary.
+V9 schema and updated API contract. Text and voice conversion share an immutable local Unicode-to-media-key dictionary.
 Letter lookup works without a backend connection; uppercase/lowercase, Romanian
 diacritics, legacy cedilla spellings, Unicode composition, and whitespace are
 normalized consistently. The dictionary is created once and every conversion
@@ -127,5 +127,5 @@ queries. City and school searches support `name`, `offset` and `limit` (maximum
 200); they do not require downloading the entire national directory.
 Schools use `name` and `cityId`; user references use `schoolId`.
 The school CRUD endpoint is `/api/schools`. Existing profile entry still accepts
-a school UUID.
+a school UUID. User profiles no longer carry classroom assignments.
 Directory imports run explicitly on the backend.
