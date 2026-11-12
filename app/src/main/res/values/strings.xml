@@ -412,4 +412,5 @@
     <string name="activity_expressions">Expresii</string>
     <string name="header_title_expressions">EXPRESII</string>
     <string name="header_subtitle_expressions">Alege o expresie pentru a vedea traducerea în limbajul semnelor.</string>
+    <string name="register">Înregistrează-te</string>
 </resources>
