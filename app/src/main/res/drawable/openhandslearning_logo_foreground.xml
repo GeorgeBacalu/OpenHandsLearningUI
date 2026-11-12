@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="108dp"
-    android:height="108dp"
-    android:viewportWidth="108"
-    android:viewportHeight="108">
-    <path
-        android:fillColor="#00000000"
-        android:strokeColor="#6CF5E5"
-        android:strokeWidth="4"
-        android:strokeLineCap="square"
-        android:strokeLineJoin="round"
-        android:pathData="M32,41H38Q42,41 42,45V63Q42,67 38,67H32Q28,67 28,63V45Q28,41 32,41Z M50,41V67 M63,41V67 M50,54H63 M71,41V67H80" />
-</vector>
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+    android:inset="4dp">
+    <bitmap
+        android:src="@drawable/openhandslearning_mark"
+        android:gravity="fill"
+        android:filter="true"
+        android:antialias="true" />
+</inset>
