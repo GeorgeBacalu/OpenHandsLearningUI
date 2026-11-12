@@ -144,26 +144,6 @@ public final class RemoteLearningRepository implements LearningRepository {
     }
 
     @Override
-    public Request<Section> getSectionById(UUID id) {
-        return adapt(sectionApi.getSectionById(id));
-    }
-
-    @Override
-    public Request<Section> saveSection(Section section) {
-        return adapt(sectionApi.saveSection(section));
-    }
-
-    @Override
-    public Request<Section> updateSectionById(Section section, UUID id) {
-        return adapt(sectionApi.updateSectionById(section, id));
-    }
-
-    @Override
-    public Request<Void> deleteSectionById(UUID id) {
-        return adapt(sectionApi.deleteSectionById(id));
-    }
-
-    @Override
     public Request<List<Category>> getAllCategories() {
         return adapt(categoryApi.getAllCategories());
     }

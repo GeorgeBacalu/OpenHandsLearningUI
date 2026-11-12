@@ -30,10 +30,6 @@ public interface LearningRepository {
     Request<User> updateUserById(User user, UUID id);
     Request<Void> deleteUserById(UUID id);
     Request<List<Section>> getAllSections();
-    Request<Section> getSectionById(UUID id);
-    Request<Section> saveSection(Section section);
-    Request<Section> updateSectionById(Section section, UUID id);
-    Request<Void> deleteSectionById(UUID id);
     Request<List<Category>> getAllCategories();
     Request<Category> getCategoryById(UUID id);
     Request<Category> getCategoryById(UUID id, UUID userId);
