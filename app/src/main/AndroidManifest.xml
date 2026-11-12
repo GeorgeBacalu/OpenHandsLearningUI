@@ -140,10 +140,6 @@
            android:exported="false"
            android:label="@string/activity_voice_to_sign_section" />
         <activity
-           android:name=".presentation.text_to_sign_section.TextToSignSectionActivity"
-           android:exported="false"
-           android:label="@string/activity_text_to_sign_section" />
-        <activity
            android:name=".presentation.video_section.VideoSectionActivity"
            android:exported="false"
            android:label="@string/activity_video_section" />

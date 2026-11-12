@@ -11,7 +11,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 import com.project.ohl.domain.model.SignText;
 import com.project.ohl.presentation.MediaResources;
-import com.project.ohl.presentation.text_to_sign_section.TextToSignSectionActivity;
 import com.project.ohl.presentation.voice_to_sign_section.VoiceToSignSectionActivity;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,10 +28,6 @@ public class SignMediaTest {
         var signs = SignText.translate("aăâbcd efg h iîjklmnopqrsşștţțuvwxyz AĂÂÎȘȚ");
         MediaResources.bindSigns(context, signs);
         assertTrue(signs.stream().allMatch(sign -> sign.getImageSource() != 0));
-    }
-
-    @Test public void textScreenConvertsImmediatelyWithoutLoadingAnApiCatalog() {
-        checkScreen(TextToSignSectionActivity.class, R.id.textToSignRecyclerView);
     }
 
     @Test public void voiceScreenUsesTheSameLocalConversion() {

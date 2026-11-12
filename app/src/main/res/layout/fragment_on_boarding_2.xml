@@ -9,7 +9,7 @@
         android:id="@+id/fragmentImage"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:src="@drawable/text_to_sign_section"
+        android:src="@drawable/voice_to_sign_section"
         app:layout_constraintVertical_bias=".3"
         app:layout_constraintHorizontal_bias=".3"
         app:layout_constraintBottom_toBottomOf="parent"

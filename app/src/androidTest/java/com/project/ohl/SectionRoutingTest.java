@@ -1,13 +1,14 @@
 package com.project.ohl;
 
 import android.app.Activity;
+import android.content.ComponentName;
+import android.content.pm.PackageManager;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 import com.project.ohl.domain.model.Section;
 import com.project.ohl.presentation.CategoryNavigation;
 import com.project.ohl.presentation.SectionNavigation;
 import com.project.ohl.presentation.expressions_section.ExpressionsActivity;
-import com.project.ohl.presentation.text_to_sign_section.TextToSignSectionActivity;
 import com.project.ohl.presentation.video_section.VideoSectionActivity;
 import com.project.ohl.presentation.voice_to_sign_section.VoiceToSignSectionActivity;
 import java.util.Map;
@@ -16,13 +17,22 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 
 @RunWith(AndroidJUnit4.class)
 public class SectionRoutingTest {
+    @Test public void retiredTextScreenIsNotDeclared() {
+        var context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        var component = new ComponentName(context.getPackageName(),
+                "com.project.ohl.presentation.text_to_sign_section.TextToSignSectionActivity");
+        assertThrows(PackageManager.NameNotFoundException.class,
+                () -> context.getPackageManager().getActivityInfo(component, 0));
+        assertEquals(0, context.getResources().getIdentifier("nav_text_to_sign", "string", context.getPackageName()));
+    }
+
     @Test public void renamedSectionsKeepTheirDedicatedScreensAndSelectedUuids() {
         Map<UUID, Class<? extends Activity>> screens = Map.of(
                 UUID.fromString("20a6880c-2e37-32e3-8e45-07a17e99a000"), VideoSectionActivity.class,
-                UUID.fromString("80008ad8-872e-3c12-96a0-209f2b699d92"), TextToSignSectionActivity.class,
                 UUID.fromString("07329929-eb4b-3793-8b2d-f6364d711a79"), VoiceToSignSectionActivity.class,
                 UUID.fromString("1deb5200-b06d-3977-9426-e2ea373195f9"), ExpressionsActivity.class);
         var context = InstrumentationRegistry.getInstrumentation().getTargetContext();
@@ -40,7 +50,7 @@ public class SectionRoutingTest {
     @Test public void newSectionsUseTheirOwnUuidInTheCategoryBrowser() {
         var context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         UUID id = UUID.randomUUID();
-        var intent = SectionNavigation.intent(context, new Section(id, "Text to Sign Section", 0, 0));
+        var intent = SectionNavigation.intent(context, new Section(id, "Voice to Sign Section", 0, 0));
         assertEquals(VideoSectionActivity.class.getName(), intent.getComponent().getClassName());
         assertEquals(id.toString(), intent.getStringExtra(CategoryNavigation.SECTION_ID));
     }

@@ -4,7 +4,6 @@
 
     <string name="activity_introductory">Introductory Activity</string>
     <string name="activity_video_section">Secţiune Video</string>
-    <string name="activity_text_to_sign_section">Secţiune Text - Dactilemă</string>
     <string name="activity_voice_to_sign_section">Secţiune Voce - Dactilemă</string>
     <string name="activity_expressions_section">Secţiune Expresii</string>
 
@@ -37,7 +36,6 @@
     <string name="activity_new_category">Categorie Nouă</string>
 
     <string name="video_section">Secţiune Video</string>
-    <string name="text_to_sign_section">Secţiune Text - Dactilemă</string>
     <string name="voice_to_sign_section">Secţiune Voce - Dactilemă</string>
     <string name="expressions_section">Secţiune Expresii</string>
 
@@ -45,12 +43,10 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="header_title_video_section">SECŢIUNE VIDEO</string>
-    <string name="header_title_text_to_sign_section">SECŢIUNE TEXT - DACTILEMĂ</string>
     <string name="header_title_voice_to_sign_section">SECŢIUNE VOCE - DACTILEMĂ</string>
     <string name="header_title_expressions_section">SECŢIUNE EXPRESII</string>
 
     <string name="header_subtitle_video_section">Alege categoria dorită şi vizionează un scurt videoclip cu traducerea acesteia în limbajul semnelor.</string>
-    <string name="header_subtitle_text_to_sign_section">Introdu un text şi lasă-ne pe noi să-l traducem în limbajul semnelor!</string>
     <string name="header_subtitle_voice_to_sign_section">Introdu un mesaj vocal şi lasă-ne pe noi să-l traducem în limbajul semnelor!</string>
     <string name="header_subtitle_expressions_section">Te ajutăm să traduci expresii în limbajul semnelor.</string>
 
@@ -370,7 +366,6 @@
 
     <string name="nav_home">Acasă</string>
     <string name="nav_video">Secţiune video</string>
-    <string name="nav_text_to_sign">Secţiune Text - Dactilemă</string>
     <string name="nav_voice_to_sign">Secţiune Voce - Dactilemă</string>
     <string name="nav_expressions">Secţiune Expresii</string>
     <string name="nav_settings">Preferinţe aplicaţie</string>
