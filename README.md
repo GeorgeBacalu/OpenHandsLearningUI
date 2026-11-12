@@ -84,8 +84,9 @@ renames do not change the selected screen or its child query. The canonical
 catalog UUIDs in that registry match the existing database records. New UUIDs
 use the shared category browser, which loads direct children and opens the video
 for a leaf. Main section selection uses a UUID-to-activity registry; new section
-UUIDs open the category browser. The API supplies the fixed Video → Text to Sign →
-Voice to Sign → Expressions order; the client preserves it. Category images and videos use `mediaKey`; sections also provide `iconKey`, so translating display
+UUIDs open the category browser. The API supplies the fixed Video → Voice to Sign →
+Expressions order; the client preserves it. Category images and videos use `mediaKey`;
+sections also provide `iconKey`, so translating display
 names does not change resource lookup. Room schema version 3 preserves recordings
 from versions 1 and 2 while migrating local IDs to UUIDs.
 
@@ -93,11 +94,14 @@ The main user button opens profile selection, with an option to create a profile
 Favorites require a selected profile and send its UUID with every request;
 switching profiles reloads favorite state. Selection is stored locally and is not
 a login or authorization mechanism. Use these Android changes with the backend's
-V13 schema and updated API contract. Text and voice conversion share an immutable local Unicode-to-media-key dictionary.
+V14 schema and updated API contract. Voice to Sign supports typed text and speech
+recognition using an immutable local Unicode-to-media-key dictionary.
 Letter lookup works without a backend connection; uppercase/lowercase, Romanian
 diacritics, legacy cedilla spellings, Unicode composition, and whitespace are
 normalized consistently. The dictionary is created once and every conversion
-returns fresh display models. The retired letter-sign API and remote CRUD client
+returns fresh display models. The standalone Text to Sign section, screen and
+navigation entry have been removed.
+The retired letter-sign API and remote CRUD client
 have been removed. The retained `dactilema_a` image belongs
 to the matching line-drawing collection; the unrelated photographic `a.png` was
 removed. Unicode letter lookup handles case fallback, Romanian diacritics, spaces,
