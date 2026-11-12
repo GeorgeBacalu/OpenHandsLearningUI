@@ -151,3 +151,18 @@ and never includes hashes in profile responses.
 
 Favorites are stored by the backend as user/category pairs in `favorites`, without
 a creation timestamp. The existing per-profile favorites API is unchanged.
+
+## App icon
+
+The launcher and in-app logo use `app/src/main/res/drawable-nodpi/openhandslearning_mark.png`:
+open palms support a book and heart in ivory, teal and coral on navy. Adaptive
+icons include mask-safe padding; legacy launcher aliases use the same artwork.
+The artwork was made with the built-in image-generation tool.
+
+Final image prompt:
+
+> Refine this into a final square Android app icon for OpenHandsLearning. Redraw a COMPLETE clean emblem: two welcoming warm ivory open palms gently supporting a teal open book with ivory pages, and one small coral heart above the book. Show all three elements clearly. Smooth crisp edges and solid flat fills only; remove every stray speckle, fringe, texture and shadow. Use a perfectly uniform solid midnight navy #132B45 background covering the ENTIRE square. Keep all artwork within the central 58% of the canvas, visually centered both horizontally and vertically, with generous navy padding for Android adaptive icon masks. Bold elegant geometry, friendly modern care-and-education identity, clear negative space, no words, no letters, no border, no rounded square outline, no gradients.
+
+For a USB-connected phone preview, run `adb reverse tcp:8080 tcp:8080`, keep the API
+running on the computer's port 8080, and build with
+`-PapiBaseUrl=http://127.0.0.1:8080/`. The phone uses USB forwarding while connected.
