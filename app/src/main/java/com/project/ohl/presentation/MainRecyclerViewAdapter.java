@@ -2,7 +2,6 @@ package com.project.ohl.presentation;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,11 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.project.ohl.R;
 import com.project.ohl.domain.model.Section;
-import com.project.ohl.domain.model.SectionCodes;
-import com.project.ohl.presentation.expressions_section.ExpressionsActivity;
-import com.project.ohl.presentation.text_to_sign_section.TextToSignSectionActivity;
-import com.project.ohl.presentation.video_section.VideoSectionActivity;
-import com.project.ohl.presentation.voice_to_sign_section.VoiceToSignSectionActivity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,14 +42,7 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
         holder.sectionCard.setOnClickListener(v -> {
             int current = holder.getBindingAdapterPosition();
             if (current == RecyclerView.NO_POSITION) return;
-            Intent intent;
-            if (SectionCodes.SECTION_VIDEO.equals(sections.get(current).getCode())) intent = new Intent(context, VideoSectionActivity.class);
-            else if (SectionCodes.SECTION_TEXT_TO_SIGN.equals(sections.get(current).getCode())) intent = new Intent(context, TextToSignSectionActivity.class);
-            else if (SectionCodes.SECTION_VOICE_TO_SIGN.equals(sections.get(current).getCode())) intent = new Intent(context, VoiceToSignSectionActivity.class);
-            else if (SectionCodes.SECTION_EXPRESSIONS.equals(sections.get(current).getCode())) intent = new Intent(context, ExpressionsActivity.class);
-            else throw new IllegalArgumentException("Unknown catalog entry");
-            intent.putExtra(CategoryNavigation.SECTION_ID, sections.get(current).getId().toString());
-            context.startActivity(intent);
+            context.startActivity(SectionNavigation.intent(context, sections.get(current)));
         });
     }
 
