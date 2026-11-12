@@ -6,11 +6,11 @@ import android.content.pm.PackageManager;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 import com.project.ohl.domain.model.Section;
+import com.project.ohl.domain.model.SectionType;
 import com.project.ohl.presentation.SectionNavigation;
 import com.project.ohl.presentation.video_section.VideoSectionActivity;
 import com.project.ohl.presentation.voice_to_sign_section.VoiceToSignSectionActivity;
 import java.util.Map;
-import java.util.UUID;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -29,10 +29,10 @@ public class SectionRoutingTest {
         assertEquals(0, context.getResources().getIdentifier("nav_text_to_sign", "string", context.getPackageName()));
     }
 
-    @Test public void renamedSectionsKeepTheirDedicatedScreensAndSelectedUuids() {
-        Map<UUID, Class<? extends Activity>> screens = Map.of(
-                UUID.fromString("20a6880c-2e37-32e3-8e45-07a17e99a000"), VideoSectionActivity.class,
-                UUID.fromString("07329929-eb4b-3793-8b2d-f6364d711a79"), VoiceToSignSectionActivity.class);
+    @Test public void renamedSectionsKeepTheirDedicatedScreensAndTypes() {
+        Map<SectionType, Class<? extends Activity>> screens = Map.of(
+                SectionType.VIDEO, VideoSectionActivity.class,
+                SectionType.VOICE_TO_SIGN, VoiceToSignSectionActivity.class);
         var context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         screens.forEach((id, screen) -> {
             var section = new Section(id, "Original name", 0, 0);
@@ -45,11 +45,4 @@ public class SectionRoutingTest {
         });
     }
 
-    @Test public void newSectionsUseTheCategoryBrowser() {
-        var context = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        UUID id = UUID.randomUUID();
-        var intent = SectionNavigation.intent(context, new Section(id, "Voice to Sign Section", 0, 0));
-        assertEquals(VideoSectionActivity.class.getName(), intent.getComponent().getClassName());
-        assertFalse(intent.hasExtra("sectionId"));
-    }
 }

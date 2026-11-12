@@ -83,11 +83,15 @@ UUID-to-activity registry selects the dedicated category screens, so category
 renames do not change the selected screen or its child query. The canonical
 catalog UUIDs in that registry match the existing database records. New UUIDs
 use the shared category browser, which loads direct children and opens the video
-for a leaf. Main section selection uses a UUID-to-activity registry; new section
-UUIDs open the category browser. The API supplies the fixed Video → Voice to Sign order; the client preserves it. Category images and videos use `mediaKey`;
+for a leaf. Main section selection uses fixed VIDEO and VOICE_TO_SIGN types.
+The read-only API menu supplies Video → Voice to Sign order; the client preserves it. Category images and videos use `mediaKey`;
 sections also provide `iconKey`, so translating display
 names does not change resource lookup. Room schema version 3 preserves recordings
 from versions 1 and 2 while migrating local IDs to UUIDs.
+
+Section metadata is defined exclusively in API code. The sections table and section
+mutation/detail endpoints are removed; Android reads `/api/sections` and routes by
+type without section UUIDs. Section titles can change without changing routing.
 
 `Expresii` is a parent category in Video. Its UUID opens the expression child-category
 screen with search; existing expression media and favorites remain available.
@@ -97,7 +101,7 @@ The main user button opens profile selection, with an option to create a profile
 Favorites require a selected profile and send its UUID with every request;
 switching profiles reloads favorite state. Selection is stored locally and is not
 a login or authorization mechanism. Use these Android changes with the backend's
-V14 schema and updated API contract. Voice to Sign supports typed text and speech
+V15 schema and updated API contract. Voice to Sign supports typed text and speech
 recognition using an immutable local Unicode-to-media-key dictionary.
 Letter lookup works without a backend connection; uppercase/lowercase, Romanian
 diacritics, legacy cedilla spellings, Unicode composition, and whitespace are
