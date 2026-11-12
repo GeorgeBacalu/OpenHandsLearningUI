@@ -1,4 +1,4 @@
-package com.project.ohl.presentation.expressions_section;
+package com.project.ohl.presentation.video_section.expressions;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -36,8 +36,8 @@ public class ExpressionsActivity extends AppCompatActivity {
    @Override
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
-      UUID sectionId = CategoryNavigation.sectionId(this);
-      setContentView(R.layout.activity_expressions_section);
+      UUID parentId = CategoryNavigation.parentId(this);
+      setContentView(R.layout.activity_expressions);
       Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
       initializeViews();
 
@@ -49,7 +49,7 @@ public class ExpressionsActivity extends AppCompatActivity {
       recyclerView.setAdapter(adapter);
       recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-      LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndSectionIdAndName(null, sectionId, ""), result -> {
+      LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndName(parentId, ""), result -> {
             if (result.error() != null) {
             Toast.makeText(ExpressionsActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
 
@@ -63,7 +63,7 @@ public class ExpressionsActivity extends AppCompatActivity {
 
       searchIcon.setOnClickListener(v -> {
          String searchBarText = searchBar.getText().toString().toLowerCase(Locale.ROOT);
-         LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndSectionIdAndName(null, sectionId, searchBarText), result -> {
+         LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndName(parentId, searchBarText), result -> {
             if (result.error() != null) {
                Toast.makeText(ExpressionsActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
 

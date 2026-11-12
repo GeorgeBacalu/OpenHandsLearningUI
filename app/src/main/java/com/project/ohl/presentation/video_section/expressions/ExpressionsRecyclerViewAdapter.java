@@ -1,4 +1,4 @@
-package com.project.ohl.presentation.expressions_section;
+package com.project.ohl.presentation.video_section.expressions;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

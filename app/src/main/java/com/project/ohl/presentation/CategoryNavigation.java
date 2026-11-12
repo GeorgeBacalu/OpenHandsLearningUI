@@ -11,6 +11,7 @@ import com.project.ohl.presentation.video_section.animals.household.HouseholdAni
 import com.project.ohl.presentation.video_section.animals.wild.WildAnimalsActivity;
 import com.project.ohl.presentation.video_section.colors.ColorsActivity;
 import com.project.ohl.presentation.video_section.emotions.EmotionsActivity;
+import com.project.ohl.presentation.video_section.expressions.ExpressionsActivity;
 import com.project.ohl.presentation.video_section.forms_of_address.FormsOfAddressActivity;
 import com.project.ohl.presentation.video_section.numbers.NumbersActivity;
 import com.project.ohl.presentation.video_section.objects.ObjectsActivity;
@@ -33,8 +34,8 @@ import static com.project.ohl.presentation.video_section.VideoPlayerActivity.CAT
 
 public final class CategoryNavigation {
     public static final String PARENT_ID = "parentId";
-    public static final String SECTION_ID = "sectionId";
     private static final Map<UUID, Class<? extends Activity>> SCREENS = Map.ofEntries(
+            Map.entry(UUID.fromString("1deb5200-b06d-3977-9426-e2ea373195f9"), ExpressionsActivity.class),
             Map.entry(UUID.fromString("990e2591-117c-3b04-9146-dbdf0ca772b4"), AlphabetActivity.class),
             Map.entry(UUID.fromString("f4b19888-b0c4-3210-82d0-f7819ee177f1"), AnimalsActivity.class),
             Map.entry(UUID.fromString("9460c84d-d209-38a0-9cff-233fdbc0f93d"), CityActivity.class),
@@ -65,17 +66,12 @@ public final class CategoryNavigation {
     public static Intent intent(Context context, Category category) {
         return new Intent(context, screen(category.getId()))
                 .putExtra(PARENT_ID, category.getId().toString())
-                .putExtra(SECTION_ID, category.getSectionId().toString())
                 .putExtra(CATEGORY_NAME, category.getName())
                 .putExtra(CATEGORY_IMAGE, category.getImageSource() == null ? 0 : category.getImageSource().intValue());
     }
 
     public static UUID parentId(Activity activity) {
         return requiredId(activity.getIntent(), PARENT_ID);
-    }
-
-    public static UUID sectionId(Activity activity) {
-        return requiredId(activity.getIntent(), SECTION_ID);
     }
 
     private static UUID requiredId(Intent intent, String key) {

@@ -24,7 +24,6 @@ import com.project.ohl.presentation.general.new_category.NewCategoryActivity;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.UUID;
 
 import static android.R.id.home;
 
@@ -41,7 +40,7 @@ public class VideoSectionActivity extends AppCompatActivity {
    @Override
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
-      UUID sectionId = CategoryNavigation.sectionId(this);
+
       setContentView(R.layout.activity_video_section);
       Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
@@ -65,7 +64,7 @@ public class VideoSectionActivity extends AppCompatActivity {
       mainCategoriesRecyclerView.setAdapter(mainCategoriesAdapter);
       mainCategoriesRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-      LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndSectionIdAndName(null, sectionId, ""), result -> {
+      LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndName(null, ""), result -> {
             if (result.error() != null) {
             Toast.makeText(VideoSectionActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
 
@@ -79,7 +78,7 @@ public class VideoSectionActivity extends AppCompatActivity {
 
       searchBarIcon.setOnClickListener(v -> {
          String searchBarInputText = searchBarInput.getText().toString().toLowerCase(Locale.ROOT);
-         LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndSectionIdAndName(null, sectionId, searchBarInputText), result -> {
+         LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndName(null, searchBarInputText), result -> {
             if (result.error() != null) {
                Toast.makeText(VideoSectionActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
 

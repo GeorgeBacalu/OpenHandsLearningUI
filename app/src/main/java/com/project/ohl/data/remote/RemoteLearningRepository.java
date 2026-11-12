@@ -192,8 +192,8 @@ public final class RemoteLearningRepository implements LearningRepository {
     }
 
     @Override
-    public Request<List<Category>> getCategoriesByParentIdAndSectionIdAndName(UUID parentId, UUID sectionId, String name) {
-        return adapt(categoryApi.getCategoriesByParentIdAndSectionIdAndName(parentId, sectionId, name));
+    public Request<List<Category>> getCategoriesByParentIdAndName(UUID parentId, String name) {
+        return adapt(categoryApi.getCategoriesByParentIdAndName(parentId, name));
     }
 
     @Override

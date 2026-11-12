@@ -78,23 +78,26 @@ HTTP client has explicit connection, read, and call timeouts. JSON codecs exchan
 IDs are transient client fields and are never sent to the API. The backend's checked-in
 OpenAPI contract is served at `/openapi.json`.
 
-Entity IDs and references use UUIDs. Category navigation uses the selected parent UUID and section UUID. A single
+Entity IDs and references use UUIDs. Category navigation uses the selected parent UUID. A single
 UUID-to-activity registry selects the dedicated category screens, so category
 renames do not change the selected screen or its child query. The canonical
 catalog UUIDs in that registry match the existing database records. New UUIDs
 use the shared category browser, which loads direct children and opens the video
 for a leaf. Main section selection uses a UUID-to-activity registry; new section
-UUIDs open the category browser. The API supplies the fixed Video → Voice to Sign →
-Expressions order; the client preserves it. Category images and videos use `mediaKey`;
+UUIDs open the category browser. The API supplies the fixed Video → Voice to Sign order; the client preserves it. Category images and videos use `mediaKey`;
 sections also provide `iconKey`, so translating display
 names does not change resource lookup. Room schema version 3 preserves recordings
 from versions 1 and 2 while migrating local IDs to UUIDs.
+
+`Expresii` is a parent category in Video. Its UUID opens the expression child-category
+screen with search; existing expression media and favorites remain available.
+Category requests use parentId and name only, and category models have no sectionId.
 
 The main user button opens profile selection, with an option to create a profile.
 Favorites require a selected profile and send its UUID with every request;
 switching profiles reloads favorite state. Selection is stored locally and is not
 a login or authorization mechanism. Use these Android changes with the backend's
-V13 schema and updated API contract. Voice to Sign supports typed text and speech
+V14 schema and updated API contract. Voice to Sign supports typed text and speech
 recognition using an immutable local Unicode-to-media-key dictionary.
 Letter lookup works without a backend connection; uppercase/lowercase, Romanian
 diacritics, legacy cedilla spellings, Unicode composition, and whitespace are

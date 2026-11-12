@@ -13,10 +13,6 @@
             android:id="@+id/navVoiceToSign"
             android:title="@string/nav_voice_to_sign"
             android:icon="@drawable/ic_voice_to_sign_section_black"/>
-        <item
-            android:id="@+id/navExpressions"
-            android:title="@string/nav_expressions"
-            android:icon="@drawable/ic_expressions_section_black"/>
     </group>
     <group android:checkableBehavior="single">
         <item

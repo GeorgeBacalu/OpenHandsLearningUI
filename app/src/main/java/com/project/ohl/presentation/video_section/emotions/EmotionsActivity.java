@@ -37,7 +37,7 @@ public class EmotionsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UUID sectionId = CategoryNavigation.sectionId(this);
+
         UUID parentId = CategoryNavigation.parentId(this);
         setContentView(R.layout.activity_emotions);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -52,7 +52,7 @@ public class EmotionsActivity extends AppCompatActivity {
         emotionsRecyclerView.setAdapter(emotionsAdapter);
         emotionsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-        LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndSectionIdAndName(parentId, sectionId, ""), result -> {
+        LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndName(parentId, ""), result -> {
             if (result.error() != null) {
                 Toast.makeText(EmotionsActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
 
@@ -66,7 +66,7 @@ public class EmotionsActivity extends AppCompatActivity {
 
         searchBarIcon.setOnClickListener(v -> {
             String searchBarInputText = searchBarInput.getText().toString().toLowerCase(Locale.ROOT);
-            LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndSectionIdAndName(parentId, sectionId, searchBarInputText), result -> {
+            LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndName(parentId, searchBarInputText), result -> {
             if (result.error() != null) {
                     Toast.makeText(EmotionsActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
 

@@ -31,7 +31,7 @@ public interface CategoryApi {
    Call<Void> deleteCategoryById(@Path("id") UUID id);
 
    @GET("/api/categories/filter")
-   Call<List<Category>> getCategoriesByParentIdAndSectionIdAndName(@Query("parentId") UUID parentId, @Query("sectionId") UUID sectionId, @Query("name") String name);
+   Call<List<Category>> getCategoriesByParentIdAndName(@Query("parentId") UUID parentId, @Query("name") String name);
 
    @GET("/api/categories/favorites")
    Call<List<Category>> getFavoriteCategories(@Query("userId") UUID userId);
