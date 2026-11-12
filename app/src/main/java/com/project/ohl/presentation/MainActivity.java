@@ -14,7 +14,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.navigation.NavigationView;
 import com.project.ohl.R;
 import com.project.ohl.domain.model.Section;
@@ -29,7 +28,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
    private NavigationView navigationView;
    private ActionBarDrawerToggle toggle;
    private Toolbar toolbar;
-   private MaterialButton registerButton;
 
 
    @Override
@@ -58,9 +56,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-      registerButton.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, UserActivity.class)));
-
       toolbar = findViewById(R.id.toolbar);
+      toolbar.setTitleTextAppearance(this, R.style.HomeToolbarTitle);
       setSupportActionBar(toolbar);
 
       drawerLayout = findViewById(R.id.drawerLayout);
@@ -78,14 +75,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
    private void initializeViews() {
       sectionsRecyclerView = findViewById(R.id.sectionsRecyclerView);
       sectionsAdapter = new MainRecyclerViewAdapter(this);
-      registerButton = findViewById(R.id.button_register);
    }
 
    @Override
    public boolean onCreateOptionsMenu(Menu menu) {
       MenuInflater menuInflater = getMenuInflater();
       menuInflater.inflate(R.menu.action_bar_menu, menu);
+      menu.findItem(R.id.navRegisterActionBar).getActionView().findViewById(R.id.button_register)
+              .setOnClickListener(view -> startActivity(new Intent(this, UserActivity.class)));
       return super.onCreateOptionsMenu(menu);
+   }
+
+   @Override
+   public boolean onPrepareOptionsMenu(Menu menu) {
+      boolean hasProfile = UserProfiles.id(this) != null;
+      menu.findItem(R.id.navRegisterActionBar).setVisible(!hasProfile);
+      menu.findItem(R.id.navSettingsActionBar).setVisible(hasProfile);
+      return super.onPrepareOptionsMenu(menu);
+   }
+
+   @Override
+   protected void onResume() {
+      super.onResume();
+      invalidateOptionsMenu();
    }
 
    @Override
@@ -93,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
       if (item.getItemId() == R.id.navSettingsActionBar) {
          Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
          startActivity(intent);
+         return true;
       }
       return super.onOptionsItemSelected(item);
    }
