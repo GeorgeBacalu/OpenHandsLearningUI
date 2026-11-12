@@ -27,6 +27,7 @@ public class UserActivity extends AppCompatActivity {
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_user);
+      setTitle(R.string.register);
       Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
       initializeViews();
@@ -62,6 +63,12 @@ public class UserActivity extends AppCompatActivity {
             }
         });
       });
+   }
+
+   @Override
+   public boolean onSupportNavigateUp() {
+      finish();
+      return true;
    }
 
    private void initializeViews() {

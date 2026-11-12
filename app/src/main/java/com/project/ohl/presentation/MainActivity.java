@@ -18,7 +18,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.navigation.NavigationView;
 import com.project.ohl.R;
 import com.project.ohl.domain.model.Section;
-import com.project.ohl.presentation.user.UserListActivity;
+import com.project.ohl.presentation.user.UserActivity;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
    private NavigationView navigationView;
    private ActionBarDrawerToggle toggle;
    private Toolbar toolbar;
-   private MaterialButton userNavigationButton;
+   private MaterialButton registerButton;
 
 
    @Override
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-      userNavigationButton.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, UserListActivity.class)));
+      registerButton.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, UserActivity.class)));
 
       toolbar = findViewById(R.id.toolbar);
       setSupportActionBar(toolbar);
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
    private void initializeViews() {
       sectionsRecyclerView = findViewById(R.id.sectionsRecyclerView);
       sectionsAdapter = new MainRecyclerViewAdapter(this);
-      userNavigationButton = findViewById(R.id.button_userNavigation);
+      registerButton = findViewById(R.id.button_register);
    }
 
    @Override

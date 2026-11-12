@@ -31,8 +31,18 @@
                 android:background="@color/main_blue"
                 android:padding="10dp">
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_register"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:minHeight="48dp"
+                    android:text="@string/register"
+                    android:textAllCaps="false" />
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/logo"
+                    android:layout_below="@id/button_register"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp">
@@ -152,20 +162,11 @@
 
                 </RelativeLayout>
 
-                <com.google.android.material.button.MaterialButton
-                   android:id="@+id/button_userNavigation"
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:layout_below="@id/sectionsContainer"
-                   android:layout_marginTop="8dp"
-                   android:minHeight="60dp"
-                   android:text="Navigate to User" />
-
                 <RelativeLayout
                     android:id="@+id/homeDecorations"
                     android:layout_width="match_parent"
                     android:layout_height="114dp"
-                    android:layout_below="@id/button_userNavigation"
+                    android:layout_below="@id/sectionsContainer"
                     android:layout_marginTop="8dp"
                     android:importantForAccessibility="noHideDescendants">
 
