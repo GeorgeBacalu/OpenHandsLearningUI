@@ -32,7 +32,7 @@ public class AllCategoriesActivity extends AppCompatActivity {
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       UUID parentId = CategoryNavigation.parentId(this);
-      UUID sectionId = CategoryNavigation.sectionId(this);
+
       setContentView(R.layout.activity_all_categories);
       Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
@@ -40,7 +40,7 @@ public class AllCategoriesActivity extends AppCompatActivity {
 
       categoriesRecyclerView.setAdapter(categoriesAdapter);
       categoriesRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-      LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndSectionIdAndName(parentId, sectionId, ""), result -> {
+      LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndName(parentId, ""), result -> {
             if (result.error() != null) {
             Toast.makeText(AllCategoriesActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
 

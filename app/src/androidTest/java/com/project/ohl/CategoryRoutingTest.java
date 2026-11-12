@@ -9,6 +9,7 @@ import com.project.ohl.domain.model.Category;
 import com.project.ohl.presentation.CategoryNavigation;
 import com.project.ohl.presentation.video_section.all_categories.AllCategoriesActivity;
 import com.project.ohl.presentation.video_section.alphabet.AlphabetActivity;
+import com.project.ohl.presentation.video_section.expressions.ExpressionsActivity;
 import com.project.ohl.presentation.video_section.animals.household.HouseholdAnimalsActivity;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -30,12 +31,19 @@ import static org.junit.Assert.assertTrue;
 @RunWith(AndroidJUnit4.class)
 public class CategoryRoutingTest {
     private static final UUID ALPHABET = UUID.fromString("990e2591-117c-3b04-9146-dbdf0ca772b4");
-    private static final UUID VIDEO = UUID.fromString("20a6880c-2e37-32e3-8e45-07a17e99a000");
 
     private Category category(UUID id, String name) {
         var category = new Category(id, name);
-        category.setSectionId(VIDEO);
         return category;
+    }
+
+    @Test public void expressionsOpenTheirChildCategoriesByParentUuid() {
+        Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        UUID id = UUID.fromString("1deb5200-b06d-3977-9426-e2ea373195f9");
+        var intent = CategoryNavigation.intent(context, category(id, "Expresii"));
+        assertEquals(ExpressionsActivity.class.getName(), intent.getComponent().getClassName());
+        assertEquals(id.toString(), intent.getStringExtra(CategoryNavigation.PARENT_ID));
+        assertFalse(intent.hasExtra("sectionId"));
     }
 
     @Test public void renamedParentsKeepTheirDedicatedScreenAndSelectedUuid() {
@@ -47,7 +55,7 @@ public class CategoryRoutingTest {
         assertEquals(AlphabetActivity.class.getName(), original.getComponent().getClassName());
         assertEquals(original.getComponent(), renamed.getComponent());
         assertEquals(ALPHABET.toString(), renamed.getStringExtra(CategoryNavigation.PARENT_ID));
-        assertEquals(VIDEO.toString(), renamed.getStringExtra(CategoryNavigation.SECTION_ID));
+        assertFalse(renamed.hasExtra("sectionId"));
         assertFalse(renamed.hasExtra("parentCode"));
     }
 
@@ -77,7 +85,7 @@ public class CategoryRoutingTest {
                         String line;
                         while ((line = reader.readLine()) != null && !line.isEmpty()) {}
                         byte[] body = ("[{\"id\":\"00000000-0000-4000-8000-000000000001\","
-                                + "\"name\":\"A\",\"parentId\":\"" + ALPHABET + "\",\"sectionId\":\"" + VIDEO + "\"}]")
+                                + "\"name\":\"A\",\"parentId\":\"" + ALPHABET + "\"}]")
                                 .getBytes(StandardCharsets.UTF_8);
                         var output = socket.getOutputStream();
                         output.write(("HTTP/1.1 200 OK\r\nContent-Type: application/json\r\nContent-Length: "
@@ -96,7 +104,7 @@ public class CategoryRoutingTest {
             var parent = category(ALPHABET, "Alfabet");
             for (String label : new String[]{"Alfabet", "Translated parent"}) {
                 parent.setName(label);
-                var response = api.getCategoriesByParentIdAndSectionIdAndName(parent.getId(), parent.getSectionId(), "").execute();
+                var response = api.getCategoriesByParentIdAndName(parent.getId(), "").execute();
                 assertTrue(response.isSuccessful());
                 assertEquals(ALPHABET, response.body().get(0).getParentId());
             }
@@ -106,7 +114,7 @@ public class CategoryRoutingTest {
             assertEquals(2, requests.size());
             assertEquals(requests.get(0), requests.get(1));
             assertTrue(requests.get(0).contains("parentId=" + ALPHABET));
-            assertTrue(requests.get(0).contains("sectionId=" + VIDEO));
+            assertFalse(requests.get(0).contains("sectionId="));
             assertFalse(requests.get(0).contains("parentCode"));
             assertFalse(requests.get(0).contains("Alfabet"));
         }

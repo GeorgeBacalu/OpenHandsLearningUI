@@ -31,6 +31,7 @@ public class JsonCodecTest {
         var category = JsonCodec.create().fromJson("{\"mediaKey\":\"alfabet\",\"name\":\"Alphabet\"}", Category.class);
         category.setName("Translated alphabet");
         assertEquals("alfabet", category.getMediaKey());
+        assertFalse(JsonCodec.create().toJson(category).contains("sectionId"));
         var section = JsonCodec.create().fromJson("{\"id\":\"20a6880c-2e37-32e3-8e45-07a17e99a000\",\"mediaKey\":\"video_section\",\"iconKey\":\"ic_video_section\"}", Section.class);
         section.setName("Translated video section");
         assertEquals(UUID.fromString("20a6880c-2e37-32e3-8e45-07a17e99a000"), section.getId());
