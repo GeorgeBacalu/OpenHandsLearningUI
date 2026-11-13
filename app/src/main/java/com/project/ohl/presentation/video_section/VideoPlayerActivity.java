@@ -47,7 +47,6 @@ public class VideoPlayerActivity extends AppCompatActivity {
             String categoryIdText = intent.getStringExtra(CATEGORY_ID);
             UUID categoryId = categoryIdText == null ? null : UUID.fromString(categoryIdText);
             int imageSubject = intent.getIntExtra(CATEGORY_IMAGE, -1);
-            String categoryName = intent.getStringExtra(CATEGORY_NAME);
 
             if(categoryId != null) {
                 favoriteButton.setEnabled(false);
@@ -91,8 +90,11 @@ public class VideoPlayerActivity extends AppCompatActivity {
     private void setData(Category category, int imageSubject) {
         categoryName.setText(category.getName());
         String key = category.getMediaKey() == null ? MediaResources.resourceName(category.getName()) : category.getMediaKey();
-        videoView.setVideoPath("android.resource://" + getPackageName() + "/raw/" + key);
-        videoView.start();
+        int video = MediaResources.raw(this, key);
+        if (video != 0) {
+            videoView.setVideoPath("android.resource://" + getPackageName() + "/" + video);
+            videoView.start();
+        } else Toast.makeText(this, R.string.request_failed, Toast.LENGTH_SHORT).show();
         Glide.with(this).asBitmap().load(imageSubject).into(categoryImage);
     }
 

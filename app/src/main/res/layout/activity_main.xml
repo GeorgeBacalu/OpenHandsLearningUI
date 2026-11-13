@@ -85,9 +85,13 @@
 
                     <TextView
                         android:id="@+id/welcomeMessage"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
+                        android:layout_toEndOf="@id/decoration_rectangle2"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="76dp"
+                        android:gravity="center"
                         android:layout_marginTop="8dp"
                         android:fontFamily="@font/source_sans_pro_semibold"
                         android:text="@string/welcome_text"
@@ -110,9 +114,9 @@
                         android:id="@+id/decoration_rectangle2"
                         android:layout_width="40dp"
                         android:layout_height="52dp"
-                        android:layout_toStartOf="@id/projectTitle"
+                        android:layout_alignParentStart="true"
                         android:layout_alignTop="@id/welcomeMessage"
-                        android:layout_marginEnd="16dp"
+                        android:layout_marginStart="20dp"
                         android:importantForAccessibility="no"
                         app:cardBackgroundColor="@color/translucent_dark_blue"
                         app:cardElevation="2dp" />

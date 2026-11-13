@@ -41,7 +41,7 @@ public class ColorsRecyclerViewAdapter extends RecyclerView.Adapter<ColorsRecycl
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(colors.get(position).getName());
         Glide.with(colorsContext).asBitmap().load(colors.get(position).getImageSource()).into(holder.categoryImage);

@@ -41,7 +41,7 @@ public class CityRecyclerViewAdapter extends RecyclerView.Adapter<CityRecyclerVi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(cityObjects.get(position).getName());
         Glide.with(cityContext).asBitmap().load(cityObjects.get(position).getImageSource()).into(holder.categoryImage);

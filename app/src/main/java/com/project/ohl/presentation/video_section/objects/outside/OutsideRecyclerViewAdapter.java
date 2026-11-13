@@ -39,7 +39,7 @@ public class OutsideRecyclerViewAdapter extends RecyclerView.Adapter<OutsideRecy
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(outsideObjects.get(position).getName());
         Glide.with(outsideContext).asBitmap().load(outsideObjects.get(position).getImageSource()).into(holder.categoryImage);

@@ -41,7 +41,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(homeObjects.get(position).getName());
         Glide.with(homeContext).asBitmap().load(homeObjects.get(position).getImageSource()).into(holder.categoryImage);

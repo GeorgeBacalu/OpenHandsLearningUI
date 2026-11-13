@@ -41,7 +41,7 @@ public class ClassRecyclerViewAdapter extends RecyclerView.Adapter<ClassRecycler
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(classObjects.get(position).getName());
         Glide.with(classContext).asBitmap().load(classObjects.get(position).getImageSource()).into(holder.categoryImage);

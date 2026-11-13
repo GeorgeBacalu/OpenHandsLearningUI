@@ -1,6 +1,5 @@
 package com.project.ohl.presentation;
 
-import android.annotation.SuppressLint;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
@@ -125,6 +124,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
    @Override
    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+      if (item.getItemId() == R.id.navRegisterActionBar) {
+         startActivity(new Intent(this, UserActivity.class));
+         return true;
+      }
       if (item.getItemId() == R.id.navSettingsActionBar) {
          if (!sessionVerified || UserSession.id() == null) return true;
          Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
@@ -134,7 +137,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
       return super.onOptionsItemSelected(item);
    }
 
-   @SuppressLint("NonConstantResourceId")
    @Override
    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
       if (item.getItemId() == R.id.navLogin) startActivity(new Intent(this, LoginActivity.class));

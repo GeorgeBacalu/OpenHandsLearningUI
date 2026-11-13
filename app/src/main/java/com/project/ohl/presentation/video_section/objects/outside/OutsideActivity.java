@@ -1,6 +1,5 @@
 package com.project.ohl.presentation.video_section.objects.outside;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -31,8 +30,6 @@ public class OutsideActivity extends AppCompatActivity {
     private FloatingActionButton toHomePageFabButton;
     private EditText searchBarInput;
     private ImageView searchBarIcon;
-
-    @SuppressLint("NotifyDataSetChanged")
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

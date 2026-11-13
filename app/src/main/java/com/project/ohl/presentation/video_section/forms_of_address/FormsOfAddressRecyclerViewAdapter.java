@@ -39,7 +39,7 @@ public class FormsOfAddressRecyclerViewAdapter extends RecyclerView.Adapter<Form
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(formsOfAddress.get(position).getName());
         Glide.with(formsOfAddressContext).asBitmap().load(formsOfAddress.get(position).getImageSource()).into(holder.categoryImage);

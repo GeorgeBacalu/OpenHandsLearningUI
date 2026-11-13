@@ -5,11 +5,11 @@
         android:id="@+id/navRegisterActionBar"
         android:title="@string/register"
         app:actionLayout="@layout/home_register_action"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/navSettingsActionBar"
         android:title="@string/nav_settings"
         android:icon="@drawable/ic_settings"
         android:visible="false"
-        app:showAsAction="always"/>
+        app:showAsAction="ifRoom"/>
 </menu>
