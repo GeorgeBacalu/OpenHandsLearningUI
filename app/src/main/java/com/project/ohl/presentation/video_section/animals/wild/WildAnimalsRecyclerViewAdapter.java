@@ -39,7 +39,7 @@ public class  WildAnimalsRecyclerViewAdapter extends RecyclerView.Adapter<WildAn
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(wildAnimals.get(position).getName());
         Glide.with(wildAnimalsContext).asBitmap().load(wildAnimals.get(position).getImageSource()).into(holder.categoryImage);

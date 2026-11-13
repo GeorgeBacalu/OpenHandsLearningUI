@@ -39,7 +39,7 @@ public class NumbersRecyclerViewAdapter extends RecyclerView.Adapter<NumbersRecy
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(numbers.get(position).getName());
         Glide.with(numbersContext).asBitmap().load(numbers.get(position).getImageSource()).into(holder.categoryImage);

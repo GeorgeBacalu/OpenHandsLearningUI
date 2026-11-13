@@ -22,8 +22,9 @@ instrumentation APK compilation. With a connected device, run
 `:app:connectedDebugAndroidTest` to verify lifecycle cancellation and migration of
 the legacy recording database. Test databases use separate names and are removed
 after verification. Architecture tests enforce the domain/data/presentation
-boundaries. Lint fails the build on errors; remaining warnings largely concern
-resources and icons, including resources resolved dynamically by name.
+boundaries. Lint treats warnings as errors. The two reusable navigation layouts
+retain their intentionally colored partial backgrounds with scoped `Overdraw`
+exceptions; full-screen backgrounds use their activity themes.
 
 The emulator connects to `http://10.0.2.2:8080/` by default. Override this with
 `-PapiBaseUrl=http://your-server:8080/` when building for a physical device.
@@ -117,8 +118,12 @@ and empty input without a second hardcoded sign catalog.
 Favorites are read and changed through the API repository. The obsolete local
 favorites and duplicate catalog in SharedPreferences have been removed. Existing
 recordings in `saved_recordings.db` migrate to Room without deleting their rows;
-the recording filename and filesystem path remain distinct. A shared resource resolver caches image lookups and normalizes Romanian diacritics
-independently of the device locale. Room queries run off
+the recording filename and filesystem path remain distinct. A shared resource
+resolver normalizes Romanian diacritics and resolves compiled resource IDs through
+`res/values/media_catalog.xml`, without reflective resource lookup. Add each new
+packaged image or video to this catalog; unit tests verify complete coverage,
+including every sign-dictionary image. Bitmap artwork uses `drawable-nodpi`, while
+UI icons use vectors. Room queries run off
 the main thread and observations are detached when their ViewModel is cleared.
 
 Generated build files and IDE configuration, including `.idea` directories, are

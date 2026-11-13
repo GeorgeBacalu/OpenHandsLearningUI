@@ -37,7 +37,7 @@ public class PronounsRecyclerViewAdapter extends RecyclerView.Adapter<PronounsRe
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(pronouns.get(position).getName());
         holder.categoryCard.setOnClickListener(v -> {

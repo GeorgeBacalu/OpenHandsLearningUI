@@ -83,6 +83,7 @@ public class PlaybackFragment extends DialogFragment {
 
     private void startPlaying() throws IOException {
         binding.fabPlay.setImageResource(R.drawable.ic_media_pause);
+        binding.fabPlay.setContentDescription(getString(R.string.pause_recording));
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setDataSource(recordingItem.getPath());
         mediaPlayer.prepare();
@@ -98,6 +99,7 @@ public class PlaybackFragment extends DialogFragment {
 
     private void pausePlaying() {
         binding.fabPlay.setImageResource(R.drawable.ic_media_play);
+        binding.fabPlay.setContentDescription(getString(R.string.play_recording));
         handler.removeCallbacks(runnable);
         mediaPlayer.pause();
     }
@@ -152,6 +154,7 @@ public class PlaybackFragment extends DialogFragment {
 
     private void stopPlaying() {
         binding.fabPlay.setImageResource(R.drawable.ic_media_play);
+        binding.fabPlay.setContentDescription(getString(R.string.play_recording));
         handler.removeCallbacks(runnable);
         mediaPlayer.stop();
         mediaPlayer.reset();

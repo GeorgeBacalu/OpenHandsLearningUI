@@ -1,6 +1,5 @@
 package com.project.ohl.presentation.video_section;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -15,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.project.ohl.R;
 import com.project.ohl.domain.model.Category;
-import com.project.ohl.presentation.CategoryNavigation;
 import com.project.ohl.presentation.LearningViewModel;
 import com.project.ohl.presentation.MainActivity;
 import com.project.ohl.presentation.MediaResources;
@@ -34,8 +32,6 @@ public class VideoSectionActivity extends AppCompatActivity {
    private FloatingActionButton homePageButton, addCategoryButton;
    private EditText searchBarInput;
    private ImageView searchBarIcon;
-
-   @SuppressLint("NotifyDataSetChanged")
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {

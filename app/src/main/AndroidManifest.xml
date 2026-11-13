@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-   xmlns:tools="http://schemas.android.com/tools">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission
        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-       tools:ignore="ScopedStorage" />
+       android:maxSdkVersion="28" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
 
@@ -31,6 +30,7 @@
            android:label="@string/title_activity_settings" />
         <activity
            android:name=".presentation.general.on_boarding.IntroductoryActivity"
+           android:theme="@style/Theme.OpenHandsLearning.Introductory"
            android:exported="false"
            android:label="@string/activity_introductory" />
         <activity
@@ -39,6 +39,7 @@
            android:label="@string/activity_new_category" />
         <activity
            android:name=".presentation.video_section.single_category.CategoryActivity"
+           android:theme="@style/Theme.OpenHandsLearning.CatalogMedia"
            android:exported="false"
            android:label="@string/activity_category" />
         <activity
@@ -87,6 +88,7 @@
            android:label="@string/activity_home" />
         <activity
            android:name=".presentation.video_section.VideoPlayerActivity"
+           android:theme="@style/Theme.OpenHandsLearning.CatalogMedia"
            android:exported="false"
            android:label="@string/activity_video_player" />
         <activity

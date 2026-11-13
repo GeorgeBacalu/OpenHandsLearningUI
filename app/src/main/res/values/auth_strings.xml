@@ -26,6 +26,5 @@
     <string name="select_school">Selectează școala din listă.</string>
     <string name="directory_failed">Lista școlilor nu a putut fi încărcată. Verifică conexiunea și redeschide formularul.</string>
     <string name="login_to_favorite">Autentifică-te pentru favorite</string>
-    <string name="session_expired">Sesiunea a expirat. Autentifică-te din nou.</string>
     <string name="local_network_required">Permite accesul la rețeaua locală din setările telefonului pentru a conecta aplicația.</string>
 </resources>
