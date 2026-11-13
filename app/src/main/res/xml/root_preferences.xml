@@ -24,7 +24,6 @@
             app:key="theme"
             app:summary="Alege intre modul luminos si cel intunecat in functie de preferintele tale"
             app:title="Tema aplicatie" />
-        />
 
     </PreferenceCategory>
 
@@ -36,4 +35,5 @@
 
     </PreferenceCategory>
 
+    <Preference app:key="logout" app:title="@string/logout" app:summary="@string/logout_summary" />
 </PreferenceScreen>

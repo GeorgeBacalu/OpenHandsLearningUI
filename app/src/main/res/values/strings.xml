@@ -395,20 +395,10 @@
    <string name="Î">Î</string>
    <string name="Ş">Ş</string>
    <string name="Ţ">Ţ</string>
-   <string name="form_name">Name</string>
-   <string name="form_email">Email</string>
-   <string name="form_password">Password</string>
-   <string name="form_phone">Phone</string>
-   <string name="form_school_id">School ID</string>
-   <string name="form_role_id">Role ID</string>
-   <string name="save_user">Save User</string>
 
     <string name="request_failed">Cererea a eșuat. Încearcă din nou.</string>
     <string name="add_favorite">Adaugă la favorite</string>
     <string name="remove_favorite">Elimină favorit</string>
-    <string name="invalid_user_input">Verifică identificatorii școlii și rolului.</string>
-    <string name="choose_profile">Alege profilul</string>
-    <string name="create_profile">Creează un profil</string>
     <string name="activity_expressions">Expresii</string>
     <string name="header_title_expressions">EXPRESII</string>
     <string name="header_subtitle_expressions">Alege o expresie pentru a vedea traducerea în limbajul semnelor.</string>

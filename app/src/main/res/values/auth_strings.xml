@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="login">Autentifică-te</string>
+    <string name="logout">Deconectează-te</string>
+    <string name="logout_summary">Închide sesiunea pe acest dispozitiv.</string>
+    <string name="account_name">Nume</string>
+    <string name="account_email">Email</string>
+    <string name="account_password">Parolă</string>
+    <string name="account_phone">Telefon</string>
+    <string name="confirm_password">Confirmă parola</string>
+    <string name="county">Județ</string>
+    <string name="city">Localitate</string>
+    <string name="school">Școală</string>
+    <string name="already_registered">Ai deja un cont? Autentifică-te</string>
+    <string name="need_account">Nu ai un cont? Înregistrează-te</string>
+    <string name="invalid_credentials">Email sau parolă incorectă.</string>
+    <string name="email_already_registered">Există deja un cont cu acest email. Autentifică-te.</string>
+    <string name="login_throttled">Prea multe încercări. Încearcă din nou peste 15 minute.</string>
+    <string name="invalid_registration">Verifică datele introduse și școala selectată.</string>
+    <string name="invalid_email">Introdu o adresă de email validă.</string>
+    <string name="required_field">Completează acest câmp.</string>
+    <string name="password_policy">Folosește cel puțin 15 caractere.</string>
+    <string name="password_too_long">Parola este prea lungă. Scurteaz-o.</string>
+    <string name="password_mismatch">Parolele nu coincid.</string>
+    <string name="invalid_phone">Introdu un număr de telefon de 10 cifre, începând cu 0.</string>
+    <string name="select_school">Selectează școala din listă.</string>
+    <string name="directory_failed">Lista școlilor nu a putut fi încărcată. Verifică conexiunea și redeschide formularul.</string>
+    <string name="login_to_favorite">Autentifică-te pentru favorite</string>
+    <string name="session_expired">Sesiunea a expirat. Autentifică-te din nou.</string>
+    <string name="local_network_required">Permite accesul la rețeaua locală din setările telefonului pentru a conecta aplicația.</string>
+</resources>

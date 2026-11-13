@@ -12,13 +12,15 @@
         android:maxSdkVersion="32" />
 
     <application
+       android:name=".app.OpenHandsLearningApp"
        android:allowBackup="true"
        android:icon="@mipmap/openhandslearning"
        android:label="@string/app_name"
        android:roundIcon="@mipmap/openhandslearning"
        android:supportsRtl="true"
        android:theme="@style/Theme.OpenHandsLearning"
-       android:usesCleartextTraffic="true">
+       android:usesCleartextTraffic="false">
+        <activity android:name=".presentation.user.LoginActivity" android:exported="false" android:label="@string/login" />
         <activity
            android:name=".presentation.user.UserActivity"
            android:exported="false"

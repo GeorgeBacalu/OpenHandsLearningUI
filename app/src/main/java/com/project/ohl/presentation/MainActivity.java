@@ -1,13 +1,17 @@
 package com.project.ohl.presentation;
 
 import android.annotation.SuppressLint;
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Build;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -18,6 +22,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.project.ohl.R;
 import com.project.ohl.domain.model.Section;
 import com.project.ohl.presentation.user.UserActivity;
+import com.project.ohl.presentation.user.LoginActivity;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -28,6 +33,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
    private NavigationView navigationView;
    private ActionBarDrawerToggle toggle;
    private Toolbar toolbar;
+   private boolean sessionVerified;
+   private final ActivityResultLauncher<String> localNetworkPermission = registerForActivityResult(
+           new ActivityResultContracts.RequestPermission(), granted -> {
+               if (granted) { loadSections(); refreshSession(); }
+               else Toast.makeText(this, R.string.local_network_required, Toast.LENGTH_LONG).show();
+           });
 
 
    @Override
@@ -39,22 +50,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
       sectionsRecyclerView.setAdapter(sectionsAdapter);
       sectionsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-
-      LearningViewModel.of(this).<List<Section>>load(this, "getAllSections", repository -> repository.getAllSections(), result -> {
-            if (result.error() != null) {
-            Toast.makeText(MainActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
-
-            } else {
-               List<Section> sections = result.value();
-               for (Section section : sections) {
-                  String name = section.getName();
-                  section.setIcon(MediaResources.drawable(this, section.getIconKey() == null ? "ic_" + name : section.getIconKey()));
-                  section.setImageSource(MediaResources.drawable(this, section.getMediaKey() == null ? name : section.getMediaKey()));
-               }
-               sectionsAdapter.setSections(sections);
-
-            }
-        });
 
       toolbar = findViewById(R.id.toolbar);
       toolbar.setTitleTextAppearance(this, R.style.HomeToolbarTitle);
@@ -70,6 +65,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
       navigationView = findViewById(R.id.navigationView);
       navigationView.setNavigationItemSelectedListener(this);
+      if (LocalApiAccess.allowed(this)) loadSections();
+      else if (Build.VERSION.SDK_INT >= 37) localNetworkPermission.launch(Manifest.permission.ACCESS_LOCAL_NETWORK);
+   }
+
+   private void loadSections() {
+      LearningViewModel.of(this).<List<Section>>load(this, "getAllSections", repository -> repository.getAllSections(), result -> {
+          if (!result.isSuccess() || result.value() == null) {
+              Toast.makeText(this, R.string.request_failed, Toast.LENGTH_SHORT).show();
+              return;
+          }
+          for (Section section : result.value()) {
+              String name = section.getName();
+              section.setIcon(MediaResources.drawable(this, section.getIconKey() == null ? "ic_" + name : section.getIconKey()));
+              section.setImageSource(MediaResources.drawable(this, section.getMediaKey() == null ? name : section.getMediaKey()));
+          }
+          sectionsAdapter.setSections(result.value());
+      });
    }
 
    private void initializeViews() {
@@ -88,21 +100,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
    @Override
    public boolean onPrepareOptionsMenu(Menu menu) {
-      boolean hasProfile = UserProfiles.id(this) != null;
-      menu.findItem(R.id.navRegisterActionBar).setVisible(!hasProfile);
-      menu.findItem(R.id.navSettingsActionBar).setVisible(hasProfile);
+      boolean signedIn = sessionVerified && UserSession.id() != null;
+      menu.findItem(R.id.navRegisterActionBar).setVisible(!signedIn);
+      menu.findItem(R.id.navSettingsActionBar).setVisible(signedIn);
+      navigationView.getMenu().findItem(R.id.navSettings).setVisible(signedIn);
+      navigationView.getMenu().findItem(R.id.navLogin).setVisible(!signedIn);
       return super.onPrepareOptionsMenu(menu);
    }
 
    @Override
    protected void onResume() {
       super.onResume();
+      sessionVerified = false;
       invalidateOptionsMenu();
+      if (LocalApiAccess.allowed(this)) refreshSession();
+   }
+
+   private void refreshSession() {
+      AuthenticationViewModel.of(this).load(this, repository -> repository.current(), result -> {
+          sessionVerified = result.isSuccess() && result.value() != null;
+          invalidateOptionsMenu();
+      });
    }
 
    @Override
    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
       if (item.getItemId() == R.id.navSettingsActionBar) {
+         if (!sessionVerified || UserSession.id() == null) return true;
          Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
          startActivity(intent);
          return true;
@@ -113,6 +137,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
    @SuppressLint("NonConstantResourceId")
    @Override
    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+      if (item.getItemId() == R.id.navLogin) startActivity(new Intent(this, LoginActivity.class));
+      if (item.getItemId() == R.id.navSettings && sessionVerified && UserSession.id() != null)
+          startActivity(new Intent(this, SettingsActivity.class));
+      drawerLayout.closeDrawers();
       return true;
    }
 
