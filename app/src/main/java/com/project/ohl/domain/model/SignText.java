@@ -1,23 +1,45 @@
 package com.project.ohl.domain.model;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
+import java.util.Map;
 
 public final class SignText {
+    private static final Map<Integer, String> DICTIONARY = createDictionary();
+
     private SignText() {}
 
-    public static List<TextSignPair> translate(String text, List<TextSignPair> catalog) {
-        var byLetter = new HashMap<String, TextSignPair>();
-        for (TextSignPair sign : catalog) byLetter.putIfAbsent(sign.getLetter(), sign);
+    public static Map<Integer, String> dictionary() {
+        return DICTIONARY;
+    }
+
+    private static Map<Integer, String> createDictionary() {
+        var signs = new HashMap<Integer, String>();
+        for (char letter = 'A'; letter <= 'Z'; letter++)
+            signs.put((int) letter, "dactilema_" + Character.toLowerCase(letter));
+        signs.put((int) 'Ă', "dactilema_a");
+        signs.put((int) 'Â', "dactilema_a");
+        signs.put((int) 'Î', "dactilema_i");
+        signs.put((int) 'Ș', "dactilema_s");
+        signs.put((int) 'Ț', "dactilema_t");
+        signs.put((int) ' ', "space");
+        return Map.copyOf(signs);
+    }
+
+    public static List<TextSignPair> translate(String text) {
         var result = new ArrayList<TextSignPair>();
-        text.codePoints().forEach(value -> {
-            String letter = new String(Character.toChars(value)).replace('ş', 'ș').replace('ţ', 'ț')
-                    .replace('Ş', 'Ș').replace('Ţ', 'Ț');
-            var sign = byLetter.get(letter);
-            if (sign == null) sign = byLetter.get(letter.toUpperCase(Locale.ROOT));
-            if (sign != null) result.add(new TextSignPair(letter, sign.getImageSource()));
+        Normalizer.normalize(text, Normalizer.Form.NFC).codePoints().forEach(value -> {
+            int letter = Character.isWhitespace(value) ? ' ' : Character.toUpperCase(value);
+            letter = switch (letter) {
+                case 'Ş' -> 'Ș';
+                case 'Ţ' -> 'Ț';
+                default -> letter;
+            };
+            String mediaKey = DICTIONARY.get(letter);
+            if (mediaKey != null)
+                result.add(new TextSignPair(new String(Character.toChars(value)), mediaKey));
         });
         return result;
     }

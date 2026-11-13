@@ -1,4 +1,4 @@
-package com.project.ohl.presentation.expressions_section;
+package com.project.ohl.presentation.video_section.expressions;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -13,14 +13,15 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.project.ohl.R;
-import com.project.ohl.domain.model.CatalogCodes;
 import com.project.ohl.domain.model.Category;
+import com.project.ohl.presentation.CategoryNavigation;
 import com.project.ohl.presentation.LearningViewModel;
 import com.project.ohl.presentation.MainActivity;
 import com.project.ohl.presentation.MediaResources;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.UUID;
 
 import static android.R.id.home;
 
@@ -35,7 +36,8 @@ public class ExpressionsActivity extends AppCompatActivity {
    @Override
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
-      setContentView(R.layout.activity_expressions_section);
+      UUID parentId = CategoryNavigation.parentId(this);
+      setContentView(R.layout.activity_expressions);
       Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
       initializeViews();
 
@@ -47,7 +49,7 @@ public class ExpressionsActivity extends AppCompatActivity {
       recyclerView.setAdapter(adapter);
       recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-      LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentCodeAndSectionCodeAndName(null, CatalogCodes.SECTION_EXPRESSIONS, ""), result -> {
+      LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndName(parentId, ""), result -> {
             if (result.error() != null) {
             Toast.makeText(ExpressionsActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
 
@@ -61,7 +63,7 @@ public class ExpressionsActivity extends AppCompatActivity {
 
       searchIcon.setOnClickListener(v -> {
          String searchBarText = searchBar.getText().toString().toLowerCase(Locale.ROOT);
-         LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentCodeAndSectionCodeAndName(null, CatalogCodes.SECTION_EXPRESSIONS, searchBarText), result -> {
+         LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndName(parentId, searchBarText), result -> {
             if (result.error() != null) {
                Toast.makeText(ExpressionsActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
 

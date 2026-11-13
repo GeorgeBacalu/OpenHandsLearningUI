@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item>
-        <shape android:shape="oval">
-            <solid android:color="@color/openhandslearning_logo_background" />
-        </shape>
-    </item>
-    <item android:drawable="@drawable/openhandslearning_logo_foreground" />
-</layer-list>
+<bitmap xmlns:android="http://schemas.android.com/apk/res/android"
+    android:src="@drawable/openhandslearning_mark"
+    android:gravity="fill"
+    android:filter="true"
+    android:antialias="true" />

@@ -2,29 +2,10 @@ package com.project.ohl.data.remote;
 
 import com.project.ohl.domain.model.Section;
 import java.util.List;
-import java.util.UUID;
 import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.DELETE;
 import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.PUT;
-import retrofit2.http.Path;
 
 public interface SectionApi {
-
-   @GET("/api/sections")
-   Call<List<Section>> getAllSections();
-
-   @GET("/api/sections/{id}")
-   Call<Section> getSectionById(@Path("id") UUID id);
-
-   @POST("/api/sections")
-   Call<Section> saveSection(@Body Section section);
-
-   @PUT("/api/sections/{id}")
-   Call<Section> updateSectionById(@Body Section section, @Path("id") UUID id);
-
-   @DELETE("/api/sections/{id}")
-   Call<Void> deleteSectionById(@Path("id") UUID id);
+    @GET("/api/sections")
+    Call<List<Section>> getAllSections();
 }

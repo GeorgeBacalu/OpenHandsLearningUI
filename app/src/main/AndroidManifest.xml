@@ -132,17 +132,13 @@
            android:exported="false"
            android:label="@string/activity_forms_of_address" />
         <activity
-           android:name=".presentation.expressions_section.ExpressionsActivity"
-           android:exported="false"
-           android:label="@string/activity_expressions_section" />
-        <activity
            android:name=".presentation.voice_to_sign_section.VoiceToSignSectionActivity"
            android:exported="false"
            android:label="@string/activity_voice_to_sign_section" />
         <activity
-           android:name=".presentation.text_to_sign_section.TextToSignSectionActivity"
+           android:name=".presentation.video_section.expressions.ExpressionsActivity"
            android:exported="false"
-           android:label="@string/activity_text_to_sign_section" />
+           android:label="@string/activity_expressions" />
         <activity
            android:name=".presentation.video_section.VideoSectionActivity"
            android:exported="false"

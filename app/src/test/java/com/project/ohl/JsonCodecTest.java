@@ -1,18 +1,18 @@
 package com.project.ohl;
 
-import com.google.gson.JsonParseException;
 import com.project.ohl.data.remote.JsonCodec;
 import com.project.ohl.domain.model.Category;
 import com.project.ohl.domain.model.Section;
-import com.project.ohl.domain.model.TextSignPair;
+import com.project.ohl.domain.model.SectionType;
+import com.project.ohl.domain.model.School;
+import com.project.ohl.domain.model.City;
+import java.util.UUID;
+import java.util.Set;
 import com.project.ohl.domain.model.User;
-import java.time.LocalDate;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 public class JsonCodecTest {
@@ -26,27 +26,46 @@ public class JsonCodecTest {
         var section = gson.fromJson("{\"mediaKey\":\"video_section\",\"iconKey\":\"ic_video_section\"}", Section.class);
         section.setIcon(456);
         assertFalse(gson.toJson(section).contains("\"icon\":"));
-        var sign = gson.fromJson("{\"letter\":\"Ă\",\"mediaKey\":\"dactilema_a\"}", TextSignPair.class);
-        assertEquals("dactilema_a", sign.getMediaKey());
     }
 
     @Test public void keepsCatalogIdentityAndMediaIndependentOfDisplayNames() {
-        var category = JsonCodec.create().fromJson("{\"code\":\"ALPHABET\",\"mediaKey\":\"alfabet\",\"name\":\"Alphabet\"}", Category.class);
+        var category = JsonCodec.create().fromJson("{\"mediaKey\":\"alfabet\",\"name\":\"Alphabet\"}", Category.class);
         category.setName("Translated alphabet");
-        assertEquals("ALPHABET", category.getCode());
         assertEquals("alfabet", category.getMediaKey());
-        var section = JsonCodec.create().fromJson("{\"code\":\"VIDEO\",\"mediaKey\":\"video_section\",\"iconKey\":\"ic_video_section\"}", Section.class);
-        assertEquals("VIDEO", section.getCode());
+        assertFalse(JsonCodec.create().toJson(category).contains("sectionId"));
+        var section = JsonCodec.create().fromJson("{\"type\":\"VIDEO\",\"mediaKey\":\"video_section\",\"iconKey\":\"ic_video_section\"}", Section.class);
+        section.setName("Translated video section");
+        assertEquals(SectionType.VIDEO, section.getType());
+        assertEquals("video_section", section.getMediaKey());
+        assertFalse(JsonCodec.create().toJson(section).contains("\"code\""));
         assertEquals("ic_video_section", section.getIconKey());
     }
 
-    @Test public void roundTripsIsoDatesWithoutReflectingIntoJavaTime() {
+
+    @Test public void exchangesOnlySupportedProfileFields() {
         var gson = JsonCodec.create();
-        var user = gson.fromJson("{\"id\":\"00000000-0000-4000-8000-000000000001\",\"birthday\":\"2000-02-29\"}", User.class);
-        assertEquals(LocalDate.of(2000, 2, 29), user.getBirthday());
-        assertTrue(gson.toJson(user).contains("\"birthday\":\"2000-02-29\""));
-        assertNull(gson.fromJson("{\"birthday\":null}", User.class).getBirthday());
-        assertThrows(JsonParseException.class, () -> gson.fromJson("{\"birthday\":\"2001-02-29\"}", User.class));
+        var id = UUID.fromString("00000000-0000-4000-8000-000000000001");
+        var user = new User(id, "Profile", "profile@example.test", "test-password", "0712345678", id, id);
+        var value = gson.toJsonTree(user).getAsJsonObject();
+        assertEquals(Set.of("id", "name", "email", "phone", "password", "roleId", "schoolId"), value.keySet());
+        var restored = gson.fromJson(value, User.class);
+        assertEquals("0712345678", restored.getPhone());
+        assertEquals(id, restored.getId());
+        assertFalse(restored.toString().contains("test-password"));
+    }
+
+    @Test public void exchangesSchoolAndLocationUuids() {
+        var gson = JsonCodec.create();
+        String id = "00000000-0000-4000-8000-000000000104";
+        var school = gson.fromJson("{\"name\":\"School A\",\"cityId\":\"" + id + "\"}", School.class);
+        assertEquals("School A", school.getName());
+        assertEquals(UUID.fromString(id), school.getCityId());
+        var city = gson.fromJson("{\"name\":\"Cluj\",\"countyId\":\"" + id + "\"}", City.class);
+        assertEquals(UUID.fromString(id), city.getCountyId());
+        var user = gson.fromJson("{\"schoolId\":\"" + id + "\"}", User.class);
+        assertEquals(UUID.fromString(id), user.getSchoolId());
+        assertFalse(gson.toJson(user).contains("institutionId"));
+        assertFalse(gson.toJson(user).contains("classroomId"));
     }
 
     @Test public void userDebugOutputDoesNotExposePasswords() {

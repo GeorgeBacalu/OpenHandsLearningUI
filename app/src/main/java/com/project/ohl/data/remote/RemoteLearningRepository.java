@@ -1,10 +1,11 @@
 package com.project.ohl.data.remote;
 
+import com.project.ohl.domain.model.County;
+import com.project.ohl.domain.model.City;
 import com.project.ohl.domain.model.Category;
-import com.project.ohl.domain.model.Institution;
+import com.project.ohl.domain.model.School;
 import com.project.ohl.domain.model.Role;
 import com.project.ohl.domain.model.Section;
-import com.project.ohl.domain.model.TextSignPair;
 import com.project.ohl.domain.model.User;
 import com.project.ohl.domain.repository.LearningRepository;
 import com.project.ohl.domain.repository.Request;
@@ -20,18 +21,26 @@ import retrofit2.Retrofit;
 public final class RemoteLearningRepository implements LearningRepository {
     private final CategoryApi categoryApi;
     private final RoleApi roleApi;
-    private final InstitutionApi institutionApi;
+    private final SchoolApi schoolApi;
+    private final SchoolDirectoryApi directoryApi;
     private final UserApi userApi;
     private final SectionApi sectionApi;
-    private final TextSignPairApi textSignPairApi;
 
     public RemoteLearningRepository(Retrofit retrofit) {
         categoryApi = retrofit.create(CategoryApi.class);
         roleApi = retrofit.create(RoleApi.class);
-        institutionApi = retrofit.create(InstitutionApi.class);
+        schoolApi = retrofit.create(SchoolApi.class);
+        directoryApi = retrofit.create(SchoolDirectoryApi.class);
         userApi = retrofit.create(UserApi.class);
         sectionApi = retrofit.create(SectionApi.class);
-        textSignPairApi = retrofit.create(TextSignPairApi.class);
+    }
+
+    @Override public Request<List<County>> getCounties() { return adapt(directoryApi.getCounties()); }
+    @Override public Request<List<City>> getCities(UUID countyId, String name, int offset, int limit) {
+        return adapt(directoryApi.getCities(countyId, name, offset, limit));
+    }
+    @Override public Request<List<School>> getSchools(UUID cityId, String name, int offset, int limit) {
+        return adapt(directoryApi.getSchools(cityId, name, offset, limit));
     }
 
     private static <T> Request<T> adapt(Call<T> prototype) {
@@ -52,31 +61,6 @@ public final class RemoteLearningRepository implements LearningRepository {
             });
             return call::cancel;
         };
-    }
-
-    @Override
-    public Request<List<TextSignPair>> getAllTextSignPairs() {
-        return adapt(textSignPairApi.getAllTextSignPairs());
-    }
-
-    @Override
-    public Request<TextSignPair> getTextSignPairById(UUID id) {
-        return adapt(textSignPairApi.getTextSignPairById(id));
-    }
-
-    @Override
-    public Request<TextSignPair> saveTextSignPair(TextSignPair textSignPair) {
-        return adapt(textSignPairApi.saveTextSignPair(textSignPair));
-    }
-
-    @Override
-    public Request<TextSignPair> updateTextSignPairById(TextSignPair textSignPair, UUID id) {
-        return adapt(textSignPairApi.updateTextSignPairById(textSignPair, id));
-    }
-
-    @Override
-    public Request<Void> deleteTextSignPairById(UUID id) {
-        return adapt(textSignPairApi.deleteTextSignPairById(id));
     }
 
     @Override
@@ -105,28 +89,28 @@ public final class RemoteLearningRepository implements LearningRepository {
     }
 
     @Override
-    public Request<List<Institution>> getAllInstitutions() {
-        return adapt(institutionApi.getAllInstitutions());
+    public Request<List<School>> getAllSchools() {
+        return adapt(schoolApi.getAllSchools());
     }
 
     @Override
-    public Request<Institution> getInstitutionById(UUID id) {
-        return adapt(institutionApi.getInstitutionById(id));
+    public Request<School> getSchoolById(UUID id) {
+        return adapt(schoolApi.getSchoolById(id));
     }
 
     @Override
-    public Request<Institution> saveInstitution(Institution institution) {
-        return adapt(institutionApi.saveInstitution(institution));
+    public Request<School> saveSchool(School school) {
+        return adapt(schoolApi.saveSchool(school));
     }
 
     @Override
-    public Request<Institution> updateInstitutionById(Institution institution, UUID id) {
-        return adapt(institutionApi.updateInstitutionById(institution, id));
+    public Request<School> updateSchoolById(School school, UUID id) {
+        return adapt(schoolApi.updateSchoolById(school, id));
     }
 
     @Override
-    public Request<Void> deleteInstitutionById(UUID id) {
-        return adapt(institutionApi.deleteInstitutionById(id));
+    public Request<Void> deleteSchoolById(UUID id) {
+        return adapt(schoolApi.deleteSchoolById(id));
     }
 
     @Override
@@ -160,26 +144,6 @@ public final class RemoteLearningRepository implements LearningRepository {
     }
 
     @Override
-    public Request<Section> getSectionById(UUID id) {
-        return adapt(sectionApi.getSectionById(id));
-    }
-
-    @Override
-    public Request<Section> saveSection(Section section) {
-        return adapt(sectionApi.saveSection(section));
-    }
-
-    @Override
-    public Request<Section> updateSectionById(Section section, UUID id) {
-        return adapt(sectionApi.updateSectionById(section, id));
-    }
-
-    @Override
-    public Request<Void> deleteSectionById(UUID id) {
-        return adapt(sectionApi.deleteSectionById(id));
-    }
-
-    @Override
     public Request<List<Category>> getAllCategories() {
         return adapt(categoryApi.getAllCategories());
     }
@@ -208,8 +172,8 @@ public final class RemoteLearningRepository implements LearningRepository {
     }
 
     @Override
-    public Request<List<Category>> getCategoriesByParentCodeAndSectionCodeAndName(String parentCode, String sectionCode, String name) {
-        return adapt(categoryApi.getCategoriesByParentCodeAndSectionCodeAndName(parentCode, sectionCode, name));
+    public Request<List<Category>> getCategoriesByParentIdAndName(UUID parentId, String name) {
+        return adapt(categoryApi.getCategoriesByParentIdAndName(parentId, name));
     }
 
     @Override
