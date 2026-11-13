@@ -3,9 +3,7 @@
 
    <string name="activity_introductory">Introductory Activity</string>
    <string name="activity_video_section">Sectiune Video</string>
-   <string name="activity_text_to_sign_section">Sectiune Text - Dactilema</string>
    <string name="activity_voice_to_sign_section">Sectiune Voce - Dactilema</string>
-   <string name="activity_expressions_section">Sectiune Expresii</string>
 
    <string name="activity_alphabet">Alfabet</string>
    <string name="activity_numbers">Numere</string>
@@ -36,22 +34,16 @@
    <string name="activity_new_category">Categorie Noua</string>
 
    <string name="video_section">Sectiune Video</string>
-   <string name="text_to_sign_section">Sectiune Text - Dactilema</string>
    <string name="voice_to_sign_section">Sectiune Voce - Dactilema</string>
-   <string name="expressions_section">Sectiune Expresii</string>
 
    <string name="navigation_drawer_open">Open navigation drawer</string>
    <string name="navigation_drawer_close">Close navigation drawer</string>
 
    <string name="header_title_video_section">SECTIUNE VIDEO</string>
-   <string name="header_title_text_to_sign_section">SECTIUNE TEXT - DACTILEMA</string>
    <string name="header_title_voice_to_sign_section">SECTIUNE VOCE - DACTILEMA</string>
-   <string name="header_title_expressions_section">SECTIUNE EXPRESII</string>
 
    <string name="header_subtitle_video_section">Alege categoria dorita si vizioneaza un scurt videoclip cu traducerea acesteia in limbajul semnelor.</string>
-   <string name="header_subtitle_text_to_sign_section">Introdu un text si lasa-ne pe noi sa-l traducem in limbajul semnelor!</string>
    <string name="header_subtitle_voice_to_sign_section">Introdu un mesaj vocal si lasa-ne pe noi sa-l traducem in limbajul semnelor!</string>
-   <string name="header_subtitle_expressions_section">Te ajutam sa traduci expresii in limbajul semnelor.</string>
 
    <string name="header_title_alphabet">ALFABET</string>
    <string name="header_title_animals">ANIMALE</string>
@@ -369,9 +361,7 @@
 
    <string name="nav_home">Acasa</string>
    <string name="nav_video">Sectiune video</string>
-   <string name="nav_text_to_sign">Sectiune Text - Dactilema</string>
    <string name="nav_voice_to_sign">Sectiune Voce - Dactilema</string>
-   <string name="nav_expressions">Sectiune Expresii</string>
    <string name="nav_settings">Preferinte aplicatie</string>
 
    <string name="title_activity_settings">Preferinte aplicatie</string>
@@ -408,17 +398,18 @@
    <string name="form_name">Name</string>
    <string name="form_email">Email</string>
    <string name="form_password">Password</string>
-   <string name="form_mobile">Mobile</string>
-   <string name="form_address">Address</string>
-   <string name="form_birthday">Birthday</string>
-   <string name="form_institution_id">Institution ID</string>
+   <string name="form_phone">Phone</string>
+   <string name="form_school_id">School ID</string>
    <string name="form_role_id">Role ID</string>
    <string name="save_user">Save User</string>
 
     <string name="request_failed">Cererea a eșuat. Încearcă din nou.</string>
     <string name="add_favorite">Adaugă la favorite</string>
     <string name="remove_favorite">Elimină favorit</string>
-    <string name="invalid_user_input">Verifică data (AAAA-LL-ZZ) și identificatorii UUID.</string>
+    <string name="invalid_user_input">Verifică identificatorii școlii și rolului.</string>
     <string name="choose_profile">Alege profilul</string>
     <string name="create_profile">Creează un profil</string>
+    <string name="activity_expressions">Expresii</string>
+    <string name="header_title_expressions">EXPRESII</string>
+    <string name="header_subtitle_expressions">Alege o expresie pentru a vedea traducerea în limbajul semnelor.</string>
 </resources>

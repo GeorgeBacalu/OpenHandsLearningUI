@@ -2,7 +2,6 @@ package com.project.ohl.presentation.video_section.all_categories;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,13 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.project.ohl.R;
 import com.project.ohl.domain.model.Category;
-import com.project.ohl.presentation.video_section.VideoPlayerActivity;
+import com.project.ohl.presentation.CategoryNavigation;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.project.ohl.presentation.video_section.VideoPlayerActivity.CATEGORY_IMAGE;
-import static com.project.ohl.presentation.video_section.single_category.CategoryActivity.CATEGORY_ID;
-import static com.project.ohl.presentation.video_section.single_category.CategoryActivity.CATEGORY_NAME;
 
 public class AllCategoriesRecyclerViewAdapter extends RecyclerView.Adapter<AllCategoriesRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "AllCategoriesAdapter";
@@ -44,12 +40,9 @@ public class AllCategoriesRecyclerViewAdapter extends RecyclerView.Adapter<AllCa
         holder.categoryName.setText(categories.get(position).getName());
         Glide.with(categoriesContext).asBitmap().load(categories.get(position).getImageSource()).into(holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
-            Intent intent = new Intent(categoriesContext, VideoPlayerActivity.class);
-            if (categories.get(position).getId() == null) throw new NullPointerException("Invalid Selection");
-            intent.putExtra(CATEGORY_ID, categories.get(position).getId().toString());
-            intent.putExtra(CATEGORY_NAME, categories.get(position).getName());
-            intent.putExtra(CATEGORY_IMAGE, categories.get(position).getImageSource());
-            categoriesContext.startActivity(intent);
+            int current = holder.getBindingAdapterPosition();
+            if (current == RecyclerView.NO_POSITION) return;
+            categoriesContext.startActivity(CategoryNavigation.intent(categoriesContext, categories.get(current)));
         });
     }
 

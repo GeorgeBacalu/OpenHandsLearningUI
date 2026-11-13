@@ -38,36 +38,20 @@
          android:inputType="textPassword" />
 
       <com.google.android.material.textfield.TextInputEditText
-         android:id="@+id/form_textFieldMobile"
+         android:id="@+id/form_textFieldPhone"
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
          android:layout_marginBottom="10dp"
-         android:hint="@string/form_mobile"
+         android:hint="@string/form_phone"
+         android:inputType="phone"
          android:minHeight="48dp" />
 
       <com.google.android.material.textfield.TextInputEditText
-         android:id="@+id/form_textFieldAddress"
+         android:id="@+id/form_textFieldSchoolId"
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
          android:layout_marginBottom="10dp"
-         android:hint="@string/form_address"
-         android:minHeight="48dp" />
-
-
-      <com.google.android.material.textfield.TextInputEditText
-         android:id="@+id/form_textFieldBirthday"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:layout_marginBottom="10dp"
-         android:hint="@string/form_birthday"
-         android:minHeight="48dp" />
-
-      <com.google.android.material.textfield.TextInputEditText
-         android:id="@+id/form_textFieldInstitutionId"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:layout_marginBottom="10dp"
-         android:hint="@string/form_institution_id"
+         android:hint="@string/form_school_id"
          android:minHeight="48dp" />
 
       <com.google.android.material.textfield.TextInputEditText

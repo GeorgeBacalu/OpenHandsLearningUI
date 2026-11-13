@@ -1,12 +1,10 @@
 package com.project.ohl.domain.model;
 
-import java.time.LocalDate;
 import java.util.UUID;
 
 public class User {
 
    private UUID id;
-   private UUID classroomId;
 
    private String name;
 
@@ -14,28 +12,22 @@ public class User {
 
    private String password;
 
-   private String mobile;
+   private String phone;
 
-   private String address;
-
-   private LocalDate birthday;
-
-   private UUID institutionId;
+   private UUID schoolId;
 
    private UUID roleId;
 
    public User() {
    }
 
-   public User(UUID id, String name, String email, String password, String mobile, String address, LocalDate birthday, UUID institutionId, UUID roleId) {
+   public User(UUID id, String name, String email, String password, String phone, UUID schoolId, UUID roleId) {
       this.id = id;
       this.name = name;
       this.email = email;
       this.password = password;
-      this.mobile = mobile;
-      this.address = address;
-      this.birthday = birthday;
-      this.institutionId = institutionId;
+      this.phone = phone;
+      this.schoolId = schoolId;
       this.roleId = roleId;
    }
 
@@ -71,36 +63,20 @@ public class User {
       this.password = password;
    }
 
-   public String getMobile() {
-      return mobile;
+   public String getPhone() {
+      return phone;
    }
 
-   public void setMobile(String mobile) {
-      this.mobile = mobile;
+   public void setPhone(String phone) {
+      this.phone = phone;
    }
 
-   public String getAddress() {
-      return address;
+   public UUID getSchoolId() {
+      return schoolId;
    }
 
-   public void setAddress(String address) {
-      this.address = address;
-   }
-
-   public LocalDate getBirthday() {
-      return birthday;
-   }
-
-   public void setBirthday(LocalDate birthday) {
-      this.birthday = birthday;
-   }
-
-   public UUID getInstitutionId() {
-      return institutionId;
-   }
-
-   public void setInstitutionId(UUID institutionId) {
-      this.institutionId = institutionId;
+   public void setSchoolId(UUID schoolId) {
+      this.schoolId = schoolId;
    }
 
    public UUID getRoleId() {
@@ -113,18 +89,14 @@ public class User {
 
    @Override
    public String toString() {
-      return "UserDto{" +
+      return "User{" +
            "id=" + id +
            ", name='" + name + '\'' +
            ", email='" + email + '\'' +
-           ", mobile='" + mobile + '\'' +
-           ", address='" + address + '\'' +
-           ", birthday=" + birthday +
-           ", institutionId=" + institutionId +
+           ", phone='" + phone + '\'' +
+           ", schoolId=" + schoolId +
            ", roleId=" + roleId +
            '}';
    }
-   public UUID getClassroomId() { return classroomId; }
-   public void setClassroomId(UUID value) { classroomId = value; }
 
 }

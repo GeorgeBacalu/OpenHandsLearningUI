@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="-20dp"
-    tools:context=".presentation.expressions_section.ExpressionsActivity">
+    tools:context=".presentation.video_section.expressions.ExpressionsActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="320dp"
             android:contentDescription="@string/section_header_image"
-            android:src="@drawable/expressions_section_header" />
+            android:src="@drawable/expressions_header" />
 
         <ImageView
             android:id="@+id/expressions_section_header_overlay"
@@ -37,7 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/source_sans_pro_black"
-                android:text="@string/header_title_expressions_section"
+                android:text="@string/header_title_expressions"
                 android:textColor="@color/white"
                 android:textSize="25sp" />
 
@@ -48,7 +48,7 @@
                 android:layout_below="@id/header_title"
                 android:layout_marginTop="25dp"
                 android:fontFamily="@font/source_sans_pro_regular"
-                android:text="@string/header_subtitle_expressions_section"
+                android:text="@string/header_subtitle_expressions"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
         </RelativeLayout>

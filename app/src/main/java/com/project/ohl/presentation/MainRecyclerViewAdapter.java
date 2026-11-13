@@ -2,7 +2,6 @@ package com.project.ohl.presentation;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,12 +13,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.project.ohl.R;
-import com.project.ohl.domain.model.CatalogCodes;
 import com.project.ohl.domain.model.Section;
-import com.project.ohl.presentation.expressions_section.ExpressionsActivity;
-import com.project.ohl.presentation.text_to_sign_section.TextToSignSectionActivity;
-import com.project.ohl.presentation.video_section.VideoSectionActivity;
-import com.project.ohl.presentation.voice_to_sign_section.VoiceToSignSectionActivity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,13 +40,9 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
         Glide.with(context).asBitmap().load(sections.get(position).getImageSource()).into(holder.sectionImage);
         Glide.with(context).asBitmap().load(sections.get(position).getIcon()).into(holder.sectionIcon);
         holder.sectionCard.setOnClickListener(v -> {
-            Intent intent;
-            if (CatalogCodes.SECTION_VIDEO.equals(sections.get(position).getCode())) intent = new Intent(context, VideoSectionActivity.class);
-            else if (CatalogCodes.SECTION_TEXT_TO_SIGN.equals(sections.get(position).getCode())) intent = new Intent(context, TextToSignSectionActivity.class);
-            else if (CatalogCodes.SECTION_VOICE_TO_SIGN.equals(sections.get(position).getCode())) intent = new Intent(context, VoiceToSignSectionActivity.class);
-            else if (CatalogCodes.SECTION_EXPRESSIONS.equals(sections.get(position).getCode())) intent = new Intent(context, ExpressionsActivity.class);
-            else throw new IllegalArgumentException("Unknown catalog entry");
-            context.startActivity(intent);
+            int current = holder.getBindingAdapterPosition();
+            if (current == RecyclerView.NO_POSITION) return;
+            context.startActivity(SectionNavigation.intent(context, sections.get(current)));
         });
     }
 

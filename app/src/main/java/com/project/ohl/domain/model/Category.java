@@ -5,7 +5,6 @@ import java.util.UUID;
 public class Category {
 
     private UUID id;
-    private String code;
     private String mediaKey;
 
     private String name;
@@ -18,7 +17,6 @@ public class Category {
 
     private UUID parentId;
 
-    private UUID sectionId;
 
     public Category(UUID id, String name) {
         this.id = id;
@@ -36,14 +34,13 @@ public class Category {
     public Category() {
     }
 
-    public Category(UUID id, String name, Integer imageSource, Boolean isExpanded, Boolean isFavorite, UUID parentId, UUID sectionId) {
+    public Category(UUID id, String name, Integer imageSource, Boolean isExpanded, Boolean isFavorite, UUID parentId) {
         this.id = id;
         this.name = name;
         this.imageSource = imageSource;
         this.isExpanded = isExpanded;
         this.isFavorite = isFavorite;
         this.parentId = parentId;
-        this.sectionId = sectionId;
     }
 
     public UUID getId() {
@@ -86,14 +83,6 @@ public class Category {
         this.parentId = parentId;
     }
 
-    public UUID getSectionId() {
-        return sectionId;
-    }
-
-    public void setSectionId(UUID sectionId) {
-        this.sectionId = sectionId;
-    }
-
     public Integer getImageSource() {
         return imageSource;
     }
@@ -111,11 +100,8 @@ public class Category {
              ", isExpanded=" + isExpanded +
              ", isFavorite=" + isFavorite +
              ", parentId=" + parentId +
-             ", sectionId=" + sectionId +
              '}';
     }
-    public String getCode() { return code; }
-    public void setCode(String value) { code = value; }
 
     public String getMediaKey() { return mediaKey; }
     public void setMediaKey(String value) { mediaKey = value; }

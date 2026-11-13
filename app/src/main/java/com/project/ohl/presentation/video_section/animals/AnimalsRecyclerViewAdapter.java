@@ -2,7 +2,6 @@ package com.project.ohl.presentation.video_section.animals;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,13 +13,10 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.project.ohl.R;
-import com.project.ohl.domain.model.CatalogCodes;
 import com.project.ohl.domain.model.Category;
-import com.project.ohl.presentation.video_section.animals.household.HouseholdAnimalsActivity;
-import com.project.ohl.presentation.video_section.animals.wild.WildAnimalsActivity;
+import com.project.ohl.presentation.CategoryNavigation;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class AnimalsRecyclerViewAdapter extends RecyclerView.Adapter<AnimalsRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "AnimalsAdapter";
@@ -43,12 +39,9 @@ public class AnimalsRecyclerViewAdapter extends RecyclerView.Adapter<AnimalsRecy
         holder.categoryName.setText(animals.get(position).getName());
         Glide.with(animalsContext).asBitmap().load(animals.get(position).getImageSource()).into(holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
-            Intent intent;
-            UUID id = animals.get(position).getId();
-            if (CatalogCodes.HOUSEHOLD_ANIMALS.equals(id)) intent = new Intent(animalsContext, HouseholdAnimalsActivity.class);
-            else if (CatalogCodes.WILD_ANIMALS.equals(id)) intent = new Intent(animalsContext, WildAnimalsActivity.class);
-            else throw new IllegalArgumentException("Unknown catalog entry");
-            animalsContext.startActivity(intent);
+            int current = holder.getBindingAdapterPosition();
+            if (current == RecyclerView.NO_POSITION) return;
+            animalsContext.startActivity(CategoryNavigation.intent(animalsContext, animals.get(current)));
         });
     }
 
