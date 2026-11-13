@@ -97,11 +97,11 @@ type without section UUIDs. Section titles can change without changing routing.
 screen with search; existing expression media and favorites remain available.
 Category requests use parentId and name only, and category models have no sectionId.
 
-The main user button opens profile selection, with an option to create a profile.
-Favorites require a selected profile and send its UUID with every request;
-switching profiles reloads favorite state. Selection is stored locally and is not
-a login or authorization mechanism. Use these Android changes with the backend's
-V15 schema and updated API contract. Voice to Sign supports typed text and speech
+The navigation bar shows registration for guests and settings only after
+`/api/auth/me` confirms a server-authenticated account. Login is available from
+the registration form and navigation drawer. Profile selection has been removed.
+Favorites use the authenticated user's UUID, which the server checks against the
+session. Use these changes with the secured API and V15 schema. Voice to Sign supports typed text and speech
 recognition using an immutable local Unicode-to-media-key dictionary.
 Letter lookup works without a backend connection; uppercase/lowercase, Romanian
 diacritics, legacy cedilla spellings, Unicode composition, and whitespace are
@@ -138,19 +138,32 @@ The backend provides Romania-only counties, localities and schools in the
 queries. City and school searches support `name`, `offset` and `limit` (maximum
 200); they do not require downloading the entire national directory.
 Schools use `name` and `cityId`; user references use `schoolId`.
-The school CRUD endpoint is `/api/schools`. Existing profile entry still accepts
-a school UUID. User profiles no longer carry classroom assignments.
+Registration uses searchable county, locality and school selectors. Users never
+enter UUIDs or choose their own role. School CRUD remains an administrator API.
 Directory imports run explicitly on the backend.
 
-## User profiles
+## Authentication
 
-Profiles contain ID, name, email, phone, password, role ID and school ID.
-The creation form uses `phone` and no longer requests address or birthday.
-Passwords are sent only for account changes; the backend hashes them with BCrypt
-and never includes hashes in profile responses.
+Registration requires name, email, a password of at least 15 characters, phone,
+and a school from the directory. The API normalizes emails, assigns the USER role,
+hashes passwords with BCrypt, and starts a session. Existing BCrypt accounts can
+log in with their current password. Password confirmation is checked on the phone.
 
-Favorites are stored by the backend as user/category pairs in `favorites`, without
-a creation timestamp. The existing per-profile favorites API is unchanged.
+The app sends session cookies and fetches a fresh CSRF token before mutations.
+The session cookie is encrypted with AES-GCM using Android Keystore and stored
+outside Android backups. Passwords are not persisted. App startup validates the
+stored session with `/api/auth/me`; 401 responses clear the cookie. Settings
+validates the session again and offers logout, which revokes the server session
+and clears the local cookie. Expired sessions require login again.
+
+Release builds require an HTTPS API URL and reject cleartext connections. Debug
+builds request Android 17 local-network permission for private API addresses and
+allow HTTP for local emulator or phone previews; use test credentials on
+that connection. The local HTTP API also requires `SESSION_COOKIE_SECURE=false`.
+Production keeps secure cookies enabled and terminates HTTPS at the API or proxy.
+
+Favorites remain user/category pairs, but selecting or supplying a UUID never
+authenticates a user or authorizes access to another account's favorites.
 
 ## App icon
 

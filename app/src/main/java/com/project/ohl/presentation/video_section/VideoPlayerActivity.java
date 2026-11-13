@@ -16,8 +16,8 @@ import com.project.ohl.R;
 import com.project.ohl.domain.model.Category;
 import com.project.ohl.presentation.LearningViewModel;
 import com.project.ohl.presentation.MediaResources;
-import com.project.ohl.presentation.UserProfiles;
-import com.project.ohl.presentation.user.UserListActivity;
+import com.project.ohl.presentation.UserSession;
+import com.project.ohl.presentation.user.LoginActivity;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -31,13 +31,13 @@ public class VideoPlayerActivity extends AppCompatActivity {
     private TextView categoryName;
     private ImageView categoryImage;
     private Button favoriteButton;
-    private UUID selectedProfile;
+    private UUID authenticatedUserId;
     private VideoView videoView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        selectedProfile = UserProfiles.id(this);
+        authenticatedUserId = UserSession.id();
         setContentView(R.layout.activity_video_player);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         initializeViews();
@@ -51,7 +51,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
             if(categoryId != null) {
                 favoriteButton.setEnabled(false);
-                LearningViewModel.of(this).<Category>load(this, "category", repository -> repository.getCategoryById(categoryId, selectedProfile), result -> {
+                LearningViewModel.of(this).<Category>load(this, "category", repository -> repository.getCategoryById(categoryId, authenticatedUserId), result -> {
                     if (result.isSuccess() && result.value() != null) {
                         setData(result.value(), imageSubject);
                         handleFavorite(result.value());
@@ -97,10 +97,10 @@ public class VideoPlayerActivity extends AppCompatActivity {
     }
 
     private void handleFavorite(Category category) {
-        if (selectedProfile == null) {
+        if (authenticatedUserId == null) {
             favoriteButton.setEnabled(true);
-            favoriteButton.setText(R.string.choose_profile);
-            favoriteButton.setOnClickListener(view -> startActivity(new Intent(this, UserListActivity.class)));
+            favoriteButton.setText(R.string.login_to_favorite);
+            favoriteButton.setOnClickListener(view -> startActivity(new Intent(this, LoginActivity.class)));
             return;
         }
         boolean favorite = Boolean.TRUE.equals(category.getFavorite());
@@ -109,7 +109,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
         favoriteButton.setOnClickListener(view -> {
             favoriteButton.setEnabled(false);
             LearningViewModel.of(this).<Category>load(this, "favorite", repository -> favorite
-                    ? repository.deleteFavorite(UserProfiles.id(this), category.getId()) : repository.saveFavorite(UserProfiles.id(this), category.getId()), result -> {
+                    ? repository.deleteFavorite(UserSession.id(), category.getId()) : repository.saveFavorite(UserSession.id(), category.getId()), result -> {
                 favoriteButton.setEnabled(true);
                 if (result.isSuccess() && result.value() != null) handleFavorite(result.value());
                 else Toast.makeText(this, R.string.request_failed, Toast.LENGTH_SHORT).show();
@@ -120,7 +120,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
     @Override protected void onResume() {
         super.onResume();
-        if (!Objects.equals(selectedProfile, UserProfiles.id(this))) recreate();
+        if (!Objects.equals(authenticatedUserId, UserSession.id())) recreate();
     }
 
     @Override

@@ -20,8 +20,8 @@ import com.project.ohl.domain.model.Category;
 import com.project.ohl.presentation.LearningViewModel;
 import com.project.ohl.presentation.MainActivity;
 import com.project.ohl.presentation.MediaResources;
-import com.project.ohl.presentation.UserProfiles;
-import com.project.ohl.presentation.user.UserListActivity;
+import com.project.ohl.presentation.UserSession;
+import com.project.ohl.presentation.user.LoginActivity;
 import com.project.ohl.presentation.video_section.VideoSectionActivity;
 import com.project.ohl.presentation.video_section.single_category.CategoryRecyclerViewAdapter;
 import java.util.List;
@@ -32,11 +32,11 @@ import java.util.UUID;
 import static android.R.id.home;
 
 public class FavoritesActivity extends AppCompatActivity {
-   private final ActivityResultLauncher<Intent> profiles = registerForActivityResult(
+   private final ActivityResultLauncher<Intent> login = registerForActivityResult(
          new ActivityResultContracts.StartActivityForResult(), result -> {
-            if (UserProfiles.id(this) == null) finish(); else recreate();
+            if (UserSession.id() == null) finish(); else recreate();
          });
-   private UUID selectedProfile;
+   private UUID authenticatedUserId;
    private RecyclerView recyclerView;
    private CategoryRecyclerViewAdapter adapter;
    private FloatingActionButton homePageButton;
@@ -48,11 +48,11 @@ public class FavoritesActivity extends AppCompatActivity {
    @Override
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
-      selectedProfile = UserProfiles.id(this);
+      authenticatedUserId = UserSession.id();
       setContentView(R.layout.activity_favorites);
       Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-      if (UserProfiles.id(this) == null) {
-         profiles.launch(new Intent(this, UserListActivity.class));
+      if (UserSession.id() == null) {
+         login.launch(new Intent(this, LoginActivity.class));
          return;
       }
       initializeViews();
@@ -65,7 +65,7 @@ public class FavoritesActivity extends AppCompatActivity {
       recyclerView.setAdapter(adapter);
       recyclerView.setLayoutManager(new LinearLayoutManager(FavoritesActivity.this));
 
-      LearningViewModel.of(this).<List<Category>>load(this, "favorites", repository -> repository.getFavoriteCategories(UserProfiles.id(this)), result -> {
+      LearningViewModel.of(this).<List<Category>>load(this, "favorites", repository -> repository.getFavoriteCategories(UserSession.id()), result -> {
             if (result.error() != null) {
             Toast.makeText(FavoritesActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
 
@@ -84,7 +84,7 @@ public class FavoritesActivity extends AppCompatActivity {
 
       searchIcon.setOnClickListener(v -> {
          String searchBarInputText = searchBar.getText().toString().toLowerCase(Locale.ROOT);
-         LearningViewModel.of(this).<List<Category>>load(this, "favorites", repository -> repository.getFavoritesByName(UserProfiles.id(this), searchBarInputText), result -> {
+         LearningViewModel.of(this).<List<Category>>load(this, "favorites", repository -> repository.getFavoritesByName(UserSession.id(), searchBarInputText), result -> {
             if (result.error() != null) {
                Toast.makeText(FavoritesActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
 
@@ -103,7 +103,7 @@ public class FavoritesActivity extends AppCompatActivity {
    private void initializeViews() {
       recyclerView = findViewById(R.id.recycler_view);
       adapter = new CategoryRecyclerViewAdapter(this, category ->
-            LearningViewModel.of(this).<Category>load(this, "removeFavorite", repository -> repository.deleteFavorite(UserProfiles.id(this), category.getId()), result -> {
+            LearningViewModel.of(this).<Category>load(this, "removeFavorite", repository -> repository.deleteFavorite(UserSession.id(), category.getId()), result -> {
                if (result.isSuccess()) recreate();
                else Toast.makeText(this, R.string.request_failed, Toast.LENGTH_SHORT).show();
             }));
@@ -114,7 +114,7 @@ public class FavoritesActivity extends AppCompatActivity {
 
    @Override protected void onResume() {
       super.onResume();
-      if (selectedProfile != null && !Objects.equals(selectedProfile, UserProfiles.id(this))) recreate();
+      if (authenticatedUserId != null && !Objects.equals(authenticatedUserId, UserSession.id())) recreate();
    }
 
    @Override

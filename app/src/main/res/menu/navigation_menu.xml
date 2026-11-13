@@ -15,8 +15,10 @@
             android:icon="@drawable/ic_voice_to_sign_section_black"/>
     </group>
     <group android:checkableBehavior="single">
+        <item android:id="@+id/navLogin" android:title="@string/login" />
         <item
             android:id="@+id/navSettings"
+            android:visible="false"
             android:title="@string/nav_settings"
             android:icon="@drawable/ic_settings_black"/>
     </group>
