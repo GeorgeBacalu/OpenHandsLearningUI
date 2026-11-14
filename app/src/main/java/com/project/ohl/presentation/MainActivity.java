@@ -11,29 +11,21 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.os.LocaleListCompat;
 import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.google.android.material.navigation.NavigationView;
 import com.project.ohl.R;
 import com.project.ohl.domain.model.Section;
 import com.project.ohl.presentation.user.UserActivity;
-import com.project.ohl.presentation.user.LoginActivity;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
    private RecyclerView sectionsRecyclerView;
    private MainRecyclerViewAdapter sectionsAdapter;
 
-   private DrawerLayout drawerLayout;
-   private NavigationView navigationView;
-   private ActionBarDrawerToggle toggle;
-   private Toolbar toolbar;
    private boolean sessionVerified;
    private final ActivityResultLauncher<String> localNetworkPermission = registerForActivityResult(
            new ActivityResultContracts.RequestPermission(), granted -> {
@@ -53,20 +45,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
       sectionsRecyclerView.setAdapter(sectionsAdapter);
       sectionsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-      toolbar = findViewById(R.id.toolbar);
+      Toolbar toolbar = findViewById(R.id.toolbar);
       toolbar.setTitleTextAppearance(this, R.style.HomeToolbarTitle);
       setSupportActionBar(toolbar);
 
-      drawerLayout = findViewById(R.id.drawerLayout);
-
-
-      toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-
-      drawerLayout.addDrawerListener(toggle);
-      toggle.syncState();
-
-      navigationView = findViewById(R.id.navigationView);
-      navigationView.setNavigationItemSelectedListener(this);
       if (LocalApiAccess.allowed(this)) loadSections();
       else if (Build.VERSION.SDK_INT >= 37) localNetworkPermission.launch(Manifest.permission.ACCESS_LOCAL_NETWORK);
    }
@@ -105,8 +87,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
       boolean signedIn = sessionVerified && UserSession.id() != null;
       menu.findItem(R.id.navRegisterActionBar).setVisible(!signedIn);
       menu.findItem(R.id.navSettingsActionBar).setVisible(signedIn);
-      navigationView.getMenu().findItem(R.id.navSettings).setVisible(signedIn);
-      navigationView.getMenu().findItem(R.id.navLogin).setVisible(!signedIn);
       return super.onPrepareOptionsMenu(menu);
    }
 
@@ -138,15 +118,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
          return true;
       }
       return super.onOptionsItemSelected(item);
-   }
-
-   @Override
-   public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-      if (item.getItemId() == R.id.navLogin) startActivity(new Intent(this, LoginActivity.class));
-      if (item.getItemId() == R.id.navSettings && sessionVerified && UserSession.id() != null)
-          startActivity(new Intent(this, SettingsActivity.class));
-      drawerLayout.closeDrawers();
-      return true;
    }
 
    String getStringResource(int intResource) {

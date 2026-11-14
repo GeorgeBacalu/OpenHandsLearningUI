@@ -29,8 +29,6 @@
     <string name="activity_category">Detalii categorie</string>
     <string name="activity_favorite_categories">Categorii favorite</string>
     <string name="activity_new_category">Categorie nouă</string>
-    <string name="navigation_drawer_open">Deschide meniul de navigare</string>
-    <string name="navigation_drawer_close">Închide meniul de navigare</string>
     <string name="header_title_video_section">SECȚIUNE VIDEO</string>
     <string name="header_title_voice_to_sign_section">VOCE – SEMN</string>
     <string name="header_subtitle_video_section">Alege categoria dorită și urmărește un videoclip cu traducerea în limbajul semnelor.</string>
@@ -93,9 +91,6 @@
     <string name="load_video">Încarcă un videoclip</string>
     <string name="save_category">Salvează categoria</string>
     <string name="save_subcategory">Salvează subcategoria</string>
-    <string name="nav_home">Acasă</string>
-    <string name="nav_video">Secțiune video</string>
-    <string name="nav_voice_to_sign">Voce – semn</string>
     <string name="nav_settings">Setări</string>
     <string name="title_activity_settings">Setări</string>
     <string name="request_failed">Cererea a eșuat. Încearcă din nou.</string>

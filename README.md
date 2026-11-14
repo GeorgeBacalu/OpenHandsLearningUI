@@ -22,9 +22,9 @@ instrumentation APK compilation. With a connected device, run
 `:app:connectedDebugAndroidTest` to verify lifecycle cancellation and migration of
 the legacy recording database. Test databases use separate names and are removed
 after verification. Architecture tests enforce the domain/data/presentation
-boundaries. Lint treats warnings as errors. The two reusable navigation layouts
-retain their intentionally colored partial backgrounds with scoped `Overdraw`
-exceptions; full-screen backgrounds use their activity themes.
+boundaries. Lint treats warnings as errors. The reusable toolbar layout
+retains its intentionally colored partial background with a scoped `Overdraw`
+exception; full-screen backgrounds use their activity themes.
 
 The emulator connects to `http://10.0.2.2:8080/` by default. Override this with
 `-PapiBaseUrl=http://your-server:8080/` when building for a physical device.
@@ -57,7 +57,7 @@ The build uses the plugins DSL and AGP's built-in Kotlin support. The Kotlin
 plugin is resolved without applying the separate Kotlin Android plugin. Java
 sources use AndroidX Core directly; unused Navigation dependencies, Glide's
 unused annotation processor, and obsolete Kotlin module exclusions were removed.
-DrawerLayout and Fragment dependencies used by application code are explicit.
+Fragment dependencies used by application code are explicit.
 The namespace and application ID are both `com.project.ohl`. Android installs this
 as a separate application from builds published with the previous application ID.
 The display name is `Open Hands Learning`, and launcher and in-app logos use a
@@ -100,7 +100,8 @@ Category requests use parentId and name only, and category models have no sectio
 
 The navigation bar shows registration for guests and settings only after
 `/api/auth/me` confirms a server-authenticated account. Login is available from
-the registration form and navigation drawer. Profile selection has been removed.
+the registration form. The side drawer and hamburger button have been removed;
+section cards provide navigation. Profile selection has been removed.
 Favorites use the authenticated user's UUID, which the server checks against the
 session. Use these changes with the secured API and V15 schema. Voice to Sign supports typed text and speech
 recognition using an immutable local Unicode-to-media-key dictionary.
