@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.bumptech.glide.Glide;
 import com.project.ohl.R;
+import com.project.ohl.presentation.MediaResources;
 import com.project.ohl.domain.model.TextSignPair;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +40,7 @@ public class VoiceToSignSectionRecyclerViewAdapter extends RecyclerView.Adapter<
         } else {
             holder.separatingLine.setVisibility(View.VISIBLE);
         }
-        Glide.with(voiceToSignContext).asBitmap().load(textSignPairs.get(position).getImageSource()).into(holder.signImage);
+        MediaResources.loadImage(voiceToSignContext, textSignPairs.get(position).getImageSource(), holder.signImage);
     }
 
     @Override

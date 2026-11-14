@@ -12,8 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-import com.bumptech.glide.Glide;
 import com.project.ohl.R;
+import com.project.ohl.presentation.MediaResources;
 import com.project.ohl.domain.model.Category;
 import com.project.ohl.presentation.video_section.VideoPlayerActivity;
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class ProductsRecyclerViewAdapter extends RecyclerView.Adapter<ProductsRe
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(products.get(position).getName());
-        Glide.with(productsContext).asBitmap().load(products.get(position).getImageSource()).into(holder.categoryImage);
+        MediaResources.loadImage(productsContext, products.get(position).getImageSource(), holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(productsContext, VideoPlayerActivity.class);
             if (products.get(position).getId() == null) {

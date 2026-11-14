@@ -12,8 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-import com.bumptech.glide.Glide;
 import com.project.ohl.R;
+import com.project.ohl.presentation.MediaResources;
 import com.project.ohl.domain.model.Category;
 import com.project.ohl.presentation.video_section.VideoPlayerActivity;
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class EmotionsRecyclerViewAdapter extends RecyclerView.Adapter<EmotionsRe
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(emotions.get(position).getName());
-        Glide.with(emotionsContext).asBitmap().load(emotions.get(position).getImageSource()).into(holder.categoryImage);
+        MediaResources.loadImage(emotionsContext, emotions.get(position).getImageSource(), holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(emotionsContext, VideoPlayerActivity.class);
             if (emotions.get(position).getId() == null) {

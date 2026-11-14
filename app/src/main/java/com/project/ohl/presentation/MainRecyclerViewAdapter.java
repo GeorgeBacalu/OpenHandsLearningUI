@@ -11,7 +11,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-import com.bumptech.glide.Glide;
 import com.project.ohl.R;
 import com.project.ohl.domain.model.Section;
 import java.util.ArrayList;
@@ -37,8 +36,8 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.sectionName.setText(sections.get(position).getName());
-        Glide.with(context).asBitmap().load(sections.get(position).getImageSource()).into(holder.sectionImage);
-        Glide.with(context).asBitmap().load(sections.get(position).getIcon()).into(holder.sectionIcon);
+        MediaResources.loadImage(context, sections.get(position).getImageSource(), holder.sectionImage);
+        MediaResources.loadImage(context, sections.get(position).getIcon(), holder.sectionIcon);
         holder.sectionCard.setOnClickListener(v -> {
             int current = holder.getBindingAdapterPosition();
             if (current == RecyclerView.NO_POSITION) return;

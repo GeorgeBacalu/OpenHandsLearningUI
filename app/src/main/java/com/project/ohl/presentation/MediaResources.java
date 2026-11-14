@@ -1,6 +1,10 @@
 package com.project.ohl.presentation;
 
 import android.content.Context;
+import android.widget.ImageView;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.signature.ObjectKey;
+import java.io.File;
 import androidx.annotation.ArrayRes;
 import com.project.ohl.R;
 import com.project.ohl.domain.model.Category;
@@ -14,7 +18,21 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public final class MediaResources {
     private static final ConcurrentHashMap<Integer, Map<String, Integer>> CATALOGS = new ConcurrentHashMap<>();
+    private static volatile String apkRevision;
     private MediaResources() {}
+
+    public static void loadImage(Context context, int resourceId, ImageView target) {
+        String revision = apkRevision;
+        if (revision == null) {
+            String apk = context.getApplicationInfo().sourceDir;
+            revision = apk + ":" + new File(apk).lastModified();
+            apkRevision = revision;
+        }
+        var configuration = context.getResources().getConfiguration();
+        var signature = new ObjectKey(revision + ":" + configuration.uiMode + ":"
+                + configuration.densityDpi + ":" + configuration.getLocales().toLanguageTags());
+        Glide.with(context).asBitmap().load(resourceId).signature(signature).into(target);
+    }
 
     public static String resourceName(String name) {
         if (name == null) return "";
