@@ -12,8 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-import com.bumptech.glide.Glide;
 import com.project.ohl.R;
+import com.project.ohl.presentation.MediaResources;
 import com.project.ohl.domain.model.Category;
 import com.project.ohl.presentation.video_section.VideoPlayerActivity;
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ public class VerbsRecyclerViewAdapter extends RecyclerView.Adapter<VerbsRecycler
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(verbs.get(position).getName());
-        Glide.with(verbsContext).asBitmap().load(verbs.get(position).getImageSource()).into(holder.categoryImage);
+        MediaResources.loadImage(verbsContext, verbs.get(position).getImageSource(), holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(verbsContext, VideoPlayerActivity.class);
             if (verbs.get(position).getId() == null) {

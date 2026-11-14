@@ -9,8 +9,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import com.bumptech.glide.Glide;
 import com.project.ohl.R;
+import com.project.ohl.presentation.MediaResources;
 import com.project.ohl.domain.model.Category;
 import com.project.ohl.presentation.LearningViewModel;
 import com.project.ohl.presentation.UserSession;
@@ -64,7 +64,7 @@ public class CategoryActivity extends AppCompatActivity {
 
     private void setData(Category category, int imageSubject) {
         categoryName.setText(category.getName());
-        Glide.with(this).asBitmap().load(imageSubject).into(categoryImage);
+        MediaResources.loadImage(this, imageSubject, categoryImage);
     }
 
 

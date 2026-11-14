@@ -123,7 +123,9 @@ the recording filename and filesystem path remain distinct. A shared resource
 resolver normalizes Romanian diacritics and resolves compiled resource IDs through
 `res/values/media_catalog.xml`, without reflective resource lookup. Add each new
 packaged image or video to this catalog; unit tests verify complete coverage,
-including every sign-dictionary image. Bitmap artwork uses `drawable-nodpi`, while
+including every sign-dictionary image. Bundled image loads include the installed APK
+revision and resource configuration in their Glide cache signature, so local
+updates cannot reuse a thumbnail belonging to a reassigned resource ID. Bitmap artwork uses `drawable-nodpi`, while
 UI icons use vectors. Room queries run off
 the main thread and observations are detached when their ViewModel is cleared.
 
