@@ -124,7 +124,6 @@
         <item>@drawable/ic_change_name</item>
         <item>@drawable/ic_files</item>
         <item>@drawable/ic_home</item>
-        <item>@drawable/ic_home_black</item>
         <item>@drawable/ic_media_pause</item>
         <item>@drawable/ic_media_play</item>
         <item>@drawable/ic_media_stop</item>
@@ -132,13 +131,10 @@
         <item>@drawable/ic_reset</item>
         <item>@drawable/ic_search</item>
         <item>@drawable/ic_settings</item>
-        <item>@drawable/ic_settings_black</item>
         <item>@drawable/ic_switch_mode</item>
         <item>@drawable/ic_user</item>
         <item>@drawable/ic_video_section</item>
-        <item>@drawable/ic_video_section_black</item>
         <item>@drawable/ic_voice_to_sign_section</item>
-        <item>@drawable/ic_voice_to_sign_section_black</item>
         <item>@drawable/iepure</item>
         <item>@drawable/incruntat</item>
         <item>@drawable/indigo</item>

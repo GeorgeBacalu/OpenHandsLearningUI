@@ -60,7 +60,6 @@ dependencies {
     implementation libs.androidx.cardview
     implementation libs.androidx.constraintlayout
     implementation libs.androidx.core
-    implementation libs.androidx.drawerlayout
     implementation libs.androidx.fragment
     implementation libs.androidx.preference
     implementation libs.androidx.recyclerview

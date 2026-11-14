@@ -10,7 +10,6 @@ appcompat = "1.8.0"
 cardview = "1.0.0"
 constraintlayout = "2.2.2"
 core = "1.19.1"
-drawerlayout = "1.2.0"
 fragment = "1.9.1"
 preference = "1.2.1"
 recyclerview = "1.4.0"
@@ -35,7 +34,6 @@ androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "a
 androidx-cardview = { module = "androidx.cardview:cardview", version.ref = "cardview" }
 androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
 androidx-core = { module = "androidx.core:core", version.ref = "core" }
-androidx-drawerlayout = { module = "androidx.drawerlayout:drawerlayout", version.ref = "drawerlayout" }
 androidx-fragment = { module = "androidx.fragment:fragment", version.ref = "fragment" }
 androidx-preference = { module = "androidx.preference:preference", version.ref = "preference" }
 androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
