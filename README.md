@@ -1,4 +1,4 @@
-# OpenHandsLearning
+# Open Hands Learning
 
 Android application for learning sign language.
 
@@ -60,7 +60,7 @@ unused annotation processor, and obsolete Kotlin module exclusions were removed.
 DrawerLayout and Fragment dependencies used by application code are explicit.
 The namespace and application ID are both `com.project.ohl`. Android installs this
 as a separate application from builds published with the previous application ID.
-The display name is `OpenHandsLearning`, and launcher and in-app logos use a
+The display name is `Open Hands Learning`, and launcher and in-app logos use a
 shared OHL vector mark.
 
 ## Architecture
@@ -169,6 +169,11 @@ Production keeps secure cookies enabled and terminates HTTPS at the API or proxy
 
 Favorites remain user/category pairs, but selecting or supplying a UUID never
 authenticates a user or authorizes access to another account's favorites.
+
+All app text is Romanian, with modern comma-below diacritics. The app locale is
+Romanian even when the phone uses another system language. Registration, login,
+and logout use „Înregistrare”, „Autentificare”, and „Deconectare”; voice conversion
+uses „semn”. API section types and media keys remain stable.
 
 ## App icon
 
