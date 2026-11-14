@@ -13,6 +13,8 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.os.LocaleListCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
    @Override
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
+      AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("ro-RO"));
       setContentView(R.layout.activity_main);
 
       initializeViews();

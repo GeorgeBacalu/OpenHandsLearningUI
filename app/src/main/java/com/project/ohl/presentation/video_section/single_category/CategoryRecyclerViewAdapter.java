@@ -71,12 +71,12 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
             if (onRemove != null) {
                 holder.removeFromFavoriteButton.setOnClickListener(v -> {
                     AlertDialog.Builder builder = new AlertDialog.Builder(categoryContext);
-                    builder.setMessage("Eşti sigur că vrei să elimini " + categories.get(position).getName() + " de la favorite?");
-                    builder.setPositiveButton("DA", (dialog, which) -> {
+                    builder.setMessage(categoryContext.getString(R.string.remove_favorite_confirmation, categories.get(position).getName()));
+                    builder.setPositiveButton(R.string.yes, (dialog, which) -> {
                         int current = holder.getBindingAdapterPosition();
                         if (current != RecyclerView.NO_POSITION) onRemove.accept(categories.get(current));
                     });
-                    builder.setNegativeButton("NU", (dialog, which) -> {
+                    builder.setNegativeButton(R.string.no, (dialog, which) -> {
                     });
                     builder.create().show();
                 });

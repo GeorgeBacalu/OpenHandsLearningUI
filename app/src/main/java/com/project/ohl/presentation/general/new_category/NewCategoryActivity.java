@@ -39,7 +39,7 @@ public class NewCategoryActivity extends AppCompatActivity {
         final NewCategoryFormAdapter adapter = new NewCategoryFormAdapter(this, 2);
         viewPager.setAdapter(adapter);
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) ->
-                tab.setText(position == 0 ? "Subcategorie" : "Categorie")).attach();
+                tab.setText(position == 0 ? R.string.subcategory_tab : R.string.category_tab)).attach();
 
         toHomePageButton.setTranslationY(300);
         tabLayout.setTranslationY(300);

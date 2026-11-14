@@ -19,11 +19,15 @@
        android:supportsRtl="true"
        android:theme="@style/Theme.OpenHandsLearning"
        android:usesCleartextTraffic="false">
+        <service android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"
+            android:enabled="false" android:exported="false">
+            <meta-data android:name="autoStoreLocales" android:value="true" />
+        </service>
         <activity android:name=".presentation.user.LoginActivity" android:exported="false" android:label="@string/login" />
         <activity
            android:name=".presentation.user.UserActivity"
            android:exported="false"
-           android:label="User Activity" />
+           android:label="@string/register" />
         <activity
            android:name=".presentation.SettingsActivity"
            android:exported="false"

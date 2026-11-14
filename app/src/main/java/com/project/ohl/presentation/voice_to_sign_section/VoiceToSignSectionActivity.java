@@ -81,7 +81,8 @@ public class VoiceToSignSectionActivity extends AppCompatActivity {
         voiceRecordingButton.setOnClickListener(v -> {
             Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
             intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-            intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Start Speaking");
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ro-RO");
+            intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.speech_prompt));
             speechRecognitionLauncher.launch(intent);
         });
 
