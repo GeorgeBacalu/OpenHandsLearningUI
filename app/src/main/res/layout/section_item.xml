@@ -6,8 +6,8 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     style="@style/Widget.OpenHandsLearning.CatalogCard"
-    app:cardBackgroundColor="#EDF1FF"
-    app:strokeColor="#CBD6FA"
+    app:cardBackgroundColor="@color/section_card_surface"
+    app:strokeColor="@color/section_card_border"
     app:cardCornerRadius="22dp"
     app:cardElevation="6dp"
     app:cardMaxElevation="10dp">

@@ -9,12 +9,16 @@ import android.view.View;
 import android.widget.TextView;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
+import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.project.ohl.app.ThemePreferences;
 import java.io.File;
 import java.io.FileOutputStream;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /** Exercises the real layout without changing a developer's signed-in account. */
 @RunWith(AndroidJUnit4.class)
@@ -38,6 +42,11 @@ public class ProfileLayoutTest {
             View root = LayoutInflater.from(context).inflate(R.layout.activity_profile, null);
             root.setBackgroundColor(context.getColor(R.color.auth_background));
             root.findViewById(R.id.profile_content).setVisibility(View.VISIBLE);
+            SwitchMaterial themeSwitch = root.findViewById(R.id.profile_dark_theme);
+            assertNotNull("Theme toggle has a visible thumb", themeSwitch.getThumbDrawable());
+            assertNotNull("Theme toggle has a visible track", themeSwitch.getTrackDrawable());
+            assertEquals("Switch reflects the displayed theme", night, ThemePreferences.isDarkTheme(context));
+            themeSwitch.setChecked(ThemePreferences.isDarkTheme(context));
             text(root, R.id.profile_initials, "AM");
             text(root, R.id.profile_display_name, "Ana Maria Popescu");
             text(root, R.id.profile_name, "Ana Maria Popescu");
@@ -49,12 +58,14 @@ public class ProfileLayoutTest {
             root.measure(View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),
                     View.MeasureSpec.makeMeasureSpec(height, View.MeasureSpec.EXACTLY));
             root.layout(0, 0, width, height);
-            for (int id : new int[]{R.id.profile_change_password, R.id.profile_delete_account, R.id.profile_logout}) {
+            for (int id : new int[]{R.id.profile_change_password, R.id.profile_delete_account, R.id.profile_logout,
+                    R.id.profile_dark_theme}) {
                 View action = root.findViewById(id);
                 assertTrue("Account actions remain touch accessible", action.getMeasuredHeight() >= 48 * density);
                 assertTrue("Account actions fit the content width", action.getMeasuredWidth() <= width - 48 * density);
             }
-            for (int id : new int[]{R.id.profile_display_name, R.id.profile_school, R.id.profile_email}) {
+            for (int id : new int[]{R.id.profile_display_name, R.id.profile_school, R.id.profile_email,
+                    R.id.profile_dark_theme}) {
                 TextView value = root.findViewById(id);
                 assertTrue("Profile text must be fully visible", value.getLayout().getHeight()
                         <= value.getMeasuredHeight() - value.getCompoundPaddingTop() - value.getCompoundPaddingBottom());
