@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.Configuration;
 import androidx.appcompat.app.AppCompatDelegate;
 
-/** Stores the app-wide appearance independently of the signed-in account. */
 public final class ThemePreferences {
     private static final String PREFERENCES = "appearance";
     private static final String NIGHT_MODE = "night_mode";

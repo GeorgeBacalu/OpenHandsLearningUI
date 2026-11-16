@@ -3,8 +3,6 @@ package com.project.ohl;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.media.MediaMetadataRetriever;
-import android.net.Uri;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;

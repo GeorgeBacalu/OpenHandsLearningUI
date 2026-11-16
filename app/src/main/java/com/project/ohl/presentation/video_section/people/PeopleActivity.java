@@ -10,12 +10,12 @@ import com.project.ohl.presentation.AuthenticatedActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.project.ohl.R;
+import com.project.ohl.presentation.video_section.CatalogRecyclerViewAdapter;
 import com.project.ohl.presentation.CategoryPageLayout;
 import com.project.ohl.domain.model.Category;
 import com.project.ohl.presentation.CategoryNavigation;
 import com.project.ohl.presentation.LearningViewModel;
 import com.project.ohl.presentation.CategorySearch;
-import com.project.ohl.presentation.MediaResources;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -24,7 +24,7 @@ import static android.R.id.home;
 
 public class PeopleActivity extends AuthenticatedActivity {
    private RecyclerView peopleRecyclerView;
-   private PeopleRecyclerViewAdapter peopleAdapter;
+   private CatalogRecyclerViewAdapter peopleAdapter;
    private EditText searchBarInput;
    private ImageView searchBarIcon;
 
@@ -50,7 +50,7 @@ public class PeopleActivity extends AuthenticatedActivity {
             } else {
                List<Category> people = result.value();
 
-               peopleAdapter.setPeople(people);
+               peopleAdapter.setCategories(people);
 
             }
         });
@@ -64,7 +64,7 @@ public class PeopleActivity extends AuthenticatedActivity {
             } else {
                   List<Category> filteredPeople = result.value();
 
-                  peopleAdapter.setPeople(filteredPeople);
+                  peopleAdapter.setCategories(filteredPeople);
 
             }
         });
@@ -73,7 +73,7 @@ public class PeopleActivity extends AuthenticatedActivity {
 
    private void initializeViews() {
       peopleRecyclerView = findViewById(R.id.peopleRecyclerView);
-      peopleAdapter = new PeopleRecyclerViewAdapter(this);
+      peopleAdapter = CatalogRecyclerViewAdapter.forCategories(this);
       searchBarInput = findViewById(R.id.searchBarInput);
       searchBarIcon = findViewById(R.id.searchBarIcon);
    }

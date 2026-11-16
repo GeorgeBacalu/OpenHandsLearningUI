@@ -20,7 +20,6 @@ import com.project.ohl.domain.model.Category;
 import com.project.ohl.presentation.AuthenticatedActivity;
 import com.project.ohl.presentation.CategorySearch;
 import com.project.ohl.presentation.LearningViewModel;
-import com.project.ohl.presentation.MediaResources;
 import com.project.ohl.presentation.UserSession;
 import com.project.ohl.presentation.video_section.VideoSectionActivity;
 import com.project.ohl.presentation.video_section.single_category.CategoryRecyclerViewAdapter;

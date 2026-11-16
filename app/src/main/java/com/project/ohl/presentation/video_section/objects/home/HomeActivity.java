@@ -10,12 +10,12 @@ import com.project.ohl.presentation.AuthenticatedActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.project.ohl.R;
+import com.project.ohl.presentation.video_section.CatalogRecyclerViewAdapter;
 import com.project.ohl.presentation.CategoryPageLayout;
 import com.project.ohl.domain.model.Category;
 import com.project.ohl.presentation.CategoryNavigation;
 import com.project.ohl.presentation.LearningViewModel;
 import com.project.ohl.presentation.CategorySearch;
-import com.project.ohl.presentation.MediaResources;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -24,7 +24,7 @@ import static android.R.id.home;
 
 public class HomeActivity extends AuthenticatedActivity {
    private RecyclerView homeRecyclerView;
-   private HomeRecyclerViewAdapter homeAdapter;
+   private CatalogRecyclerViewAdapter homeAdapter;
    private EditText searchBarInput;
    private ImageView searchBarIcon;
 
@@ -50,7 +50,7 @@ public class HomeActivity extends AuthenticatedActivity {
             } else {
                List<Category> homeCategories = result.value();
 
-               homeAdapter.setHomeObjects(homeCategories);
+               homeAdapter.setCategories(homeCategories);
 
             }
         });
@@ -64,7 +64,7 @@ public class HomeActivity extends AuthenticatedActivity {
             } else {
                   List<Category> filteredHomeCategories = result.value();
 
-                  homeAdapter.setHomeObjects(filteredHomeCategories);
+                  homeAdapter.setCategories(filteredHomeCategories);
 
             }
         });
@@ -73,7 +73,7 @@ public class HomeActivity extends AuthenticatedActivity {
 
    private void initializeViews() {
       homeRecyclerView = findViewById(R.id.homeRecyclerView);
-      homeAdapter = new HomeRecyclerViewAdapter(this);
+      homeAdapter = CatalogRecyclerViewAdapter.forVideos(this);
       searchBarInput = findViewById(R.id.searchBarInput);
       searchBarIcon = findViewById(R.id.searchBarIcon);
    }

@@ -10,12 +10,12 @@ import com.project.ohl.presentation.AuthenticatedActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.project.ohl.R;
+import com.project.ohl.presentation.video_section.CatalogRecyclerViewAdapter;
 import com.project.ohl.presentation.CategoryPageLayout;
 import com.project.ohl.domain.model.Category;
 import com.project.ohl.presentation.CategoryNavigation;
 import com.project.ohl.presentation.LearningViewModel;
 import com.project.ohl.presentation.CategorySearch;
-import com.project.ohl.presentation.MediaResources;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -24,7 +24,7 @@ import static android.R.id.home;
 
 public class ColorsActivity extends AuthenticatedActivity {
    private RecyclerView colorsRecyclerView;
-   private ColorsRecyclerViewAdapter colorsAdapter;
+   private CatalogRecyclerViewAdapter colorsAdapter;
    private EditText searchBarInput;
    private ImageView searchBarIcon;
 
@@ -50,7 +50,7 @@ public class ColorsActivity extends AuthenticatedActivity {
             } else {
                List<Category> colors = result.value();
 
-               colorsAdapter.setColors(colors);
+               colorsAdapter.setCategories(colors);
 
             }
         });
@@ -64,7 +64,7 @@ public class ColorsActivity extends AuthenticatedActivity {
             } else {
                   List<Category> filteredColors = result.value();
 
-                  colorsAdapter.setColors(filteredColors);
+                  colorsAdapter.setCategories(filteredColors);
 
             }
         });
@@ -73,7 +73,7 @@ public class ColorsActivity extends AuthenticatedActivity {
 
    private void initializeViews() {
       colorsRecyclerView = findViewById(R.id.colorsRecyclerView);
-      colorsAdapter = new ColorsRecyclerViewAdapter(this);
+      colorsAdapter = CatalogRecyclerViewAdapter.forVideos(this);
       searchBarInput = findViewById(R.id.searchBarInput);
       searchBarIcon = findViewById(R.id.searchBarIcon);
    }
