@@ -56,6 +56,7 @@ public class FavoritesLayoutTest {
     }
 
     private void render(boolean night, float scale, String state, String suffix) {
+        TestMedia.preload();
         var instrumentation = InstrumentationRegistry.getInstrumentation();
         instrumentation.runOnMainSync(() -> {
             var target = instrumentation.getTargetContext();
@@ -82,12 +83,12 @@ public class FavoritesLayoutTest {
             var adapter = new CategoryRecyclerViewAdapter(context, removed::set);
             list.setAdapter(adapter);
             var categories = List.of(
-                    new Category(UUID.randomUUID(), "Acesta este colegul meu", R.drawable.acesta_este_colegul_meu),
-                    new Category(UUID.randomUUID(), "Bunic / Bunică", R.drawable.bunic_bunica),
-                    new Category(UUID.randomUUID(), "Formule de adresare", R.drawable.formule_de_adresare),
-                    new Category(UUID.randomUUID(), "Alfabet", R.drawable.alfabet),
-                    new Category(UUID.randomUUID(), "Emoții", R.drawable.emotii),
-                    new Category(UUID.randomUUID(), "Expresii", R.drawable.expressions_section));
+                    new Category(UUID.randomUUID(), "Acesta este colegul meu", TestMedia.url("acesta_este_colegul_meu")),
+                    new Category(UUID.randomUUID(), "Bunic / Bunică", TestMedia.url("bunic_bunica")),
+                    new Category(UUID.randomUUID(), "Formule de adresare", TestMedia.url("formule_de_adresare")),
+                    new Category(UUID.randomUUID(), "Alfabet", TestMedia.url("alfabet")),
+                    new Category(UUID.randomUUID(), "Emoții", TestMedia.url("emotii")),
+                    new Category(UUID.randomUUID(), "Expresii", TestMedia.url("expressions_section")));
             boolean saved = state.equals("saved"), searching = state.equals("search");
             adapter.setCategories(saved ? categories : List.of());
             ((TextView) root.findViewById(R.id.favorites_count)).setText(context.getResources().getQuantityString(
@@ -120,7 +121,7 @@ public class FavoritesLayoutTest {
                     assertEquals("Heart overlays the top of the image", image.getTop(), remove.getTop());
                     assertEquals("Heart overlays the right edge of the image", image.getRight(), remove.getRight());
                     com.bumptech.glide.Glide.with(context).clear(image);
-                    image.setImageResource(categories.get(index).getImageSource());
+                    image.setImageDrawable(TestMedia.drawable(categories.get(index).getImageUrl()));
                     assertEquals(image.getWidth(), image.getHeight());
                     assertEquals(ImageView.ScaleType.FIT_XY, image.getScaleType());
                     assertEquals(Color.WHITE, ((ColorDrawable) image.getBackground()).getColor());
@@ -150,7 +151,7 @@ public class FavoritesLayoutTest {
                 for (int index = 0; index < categories.size(); index++) {
                     ImageView image = list.findViewHolderForAdapterPosition(index).itemView.findViewById(R.id.categoryImage);
                     com.bumptech.glide.Glide.with(context).clear(image);
-                    image.setImageResource(categories.get(index).getImageSource());
+                    image.setImageDrawable(TestMedia.drawable(categories.get(index).getImageUrl()));
                 }
                 measure(root, width, height);
             } else {

@@ -69,9 +69,8 @@ public class CategoryImageDisplayTest {
         try (var reader = new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8)) {
             catalog = Arrays.asList(new Gson().fromJson(reader, Category[].class));
         } finally { connection.disconnect(); }
-        MediaResources.bindImages(context, catalog);
         var missing = new HashSet<String>();
-        for (var category : catalog) if (category.getImageSource() == 0) missing.add(category.getName());
+        for (var category : catalog) if (category.getImageUrl() == null) missing.add(category.getName());
         var parents = new HashSet<>();
         for (var category : catalog) if (category.getParentId() != null) parents.add(category.getParentId());
         var output = new File(context.getExternalFilesDir(null), "category-image-audit");

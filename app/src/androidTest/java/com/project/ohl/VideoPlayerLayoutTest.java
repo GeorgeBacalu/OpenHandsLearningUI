@@ -31,6 +31,7 @@ public class VideoPlayerLayoutTest {
     }
 
     private void render(boolean night, float fontScale, int widthDp, int heightDp, String suffix) {
+        TestMedia.preload();
         var instrumentation = InstrumentationRegistry.getInstrumentation();
         instrumentation.runOnMainSync(() -> {
             var target = instrumentation.getTargetContext();
@@ -43,19 +44,15 @@ public class VideoPlayerLayoutTest {
             View root = LayoutInflater.from(context).inflate(R.layout.activity_video_player, null);
             root.setBackgroundColor(context.getColor(R.color.auth_background));
             ((TextView) root.findViewById(R.id.categoryName)).setText("Acesta este colegul meu");
-            ((ImageView) root.findViewById(R.id.categoryImage)).setImageResource(R.drawable.formule_de_adresare);
+            ((ImageView) root.findViewById(R.id.categoryImage)).setImageDrawable(TestMedia.drawable(TestMedia.url("formule_de_adresare")));
             root.findViewById(R.id.video_loading).setVisibility(View.GONE);
             for (int id : new int[]{R.id.video_play_pause, R.id.video_replay, R.id.video_progress, R.id.favoriteButton})
                 root.findViewById(id).setEnabled(true);
 
-            // Render a real bundled video frame: a detached VideoView has no surface.
+            // Render a real S3 video frame: a detached VideoView has no surface.
             Bitmap frame;
-            try (var retriever = new MediaMetadataRetriever()) {
-                retriever.setDataSource(context, Uri.parse("android.resource://" + target.getPackageName()
-                        + "/" + R.raw.acesta_este_colegul_meu));
-                frame = retriever.getFrameAtTime(1_000_000);
-            } catch (java.io.IOException error) { throw new AssertionError(error); }
-            assertNotNull("A bundled video frame is available", frame);
+            frame = TestMedia.videoFrame();
+            assertNotNull("An S3 video frame is available", frame);
             var preview = new ImageView(context);
             preview.setScaleType(ImageView.ScaleType.FIT_CENTER);
             preview.setImageBitmap(frame);

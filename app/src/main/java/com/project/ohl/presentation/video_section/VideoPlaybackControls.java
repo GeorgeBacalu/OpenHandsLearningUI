@@ -111,10 +111,10 @@ final class VideoPlaybackControls {
         loading.setVisibility(View.VISIBLE);
     }
 
-    void load(int resourceId) {
-        if (resourceId == 0) { showError(); return; }
+    void load(String url) {
+        if (url == null || !url.startsWith("https://")) { showError(); return; }
         video.setVisibility(View.VISIBLE);
-        video.setVideoPath("android.resource://" + video.getContext().getPackageName() + "/" + resourceId);
+        video.setVideoPath(url);
     }
 
     void showError() {

@@ -44,7 +44,7 @@ public class VerbsRecyclerViewAdapter extends RecyclerView.Adapter<VerbsRecycler
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(verbs.get(position).getName());
-        MediaResources.loadImage(verbsContext, verbs.get(position).getImageSource(), holder.categoryImage);
+        MediaResources.loadImage(verbsContext, verbs.get(position), holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(verbsContext, VideoPlayerActivity.class);
             if (verbs.get(position).getId() == null) {
@@ -52,7 +52,7 @@ public class VerbsRecyclerViewAdapter extends RecyclerView.Adapter<VerbsRecycler
             }
             intent.putExtra(CATEGORY_ID, verbs.get(position).getId().toString());
             intent.putExtra(CATEGORY_NAME, verbs.get(position).getName());
-            intent.putExtra(CATEGORY_IMAGE, verbs.get(position).getImageSource());
+            intent.putExtra(CATEGORY_IMAGE, verbs.get(position).getImageUrl());
             verbsContext.startActivity(intent);
         });
     }

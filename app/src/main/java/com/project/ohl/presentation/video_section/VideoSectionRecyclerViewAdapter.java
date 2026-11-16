@@ -39,7 +39,7 @@ public class VideoSectionRecyclerViewAdapter extends RecyclerView.Adapter<VideoS
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(mainCategories.get(position).getName());
-        MediaResources.loadImage(mainContext, mainCategories.get(position).getImageSource(), holder.categoryImage);
+        MediaResources.loadImage(mainContext, mainCategories.get(position), holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             int current = holder.getBindingAdapterPosition();
             if (current == RecyclerView.NO_POSITION) return;

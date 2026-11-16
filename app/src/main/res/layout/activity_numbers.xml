@@ -36,12 +36,12 @@
                     app:cardElevation="0dp"
                     app:strokeWidth="0dp">
 
-                    <ImageView
+                    <com.project.ohl.presentation.S3ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:contentDescription="@null"
                         style="@style/Widget.OpenHandsLearning.CategoryArtwork"
-                        android:src="@drawable/numere" />
+                        app:mediaName="numere" />
 
                 </com.google.android.material.card.MaterialCardView>
 

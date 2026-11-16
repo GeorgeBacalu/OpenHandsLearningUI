@@ -43,7 +43,7 @@ public class HouseholdAnimalsRecyclerViewAdapter extends RecyclerView.Adapter<Ho
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(householdAnimals.get(position).getName());
-        MediaResources.loadImage(householdAnimalsContext, householdAnimals.get(position).getImageSource(), holder.categoryImage);
+        MediaResources.loadImage(householdAnimalsContext, householdAnimals.get(position), holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(householdAnimalsContext, VideoPlayerActivity.class);
             if (householdAnimals.get(position).getId() == null) throw new NullPointerException("Invalid Selection");
@@ -52,7 +52,7 @@ public class HouseholdAnimalsRecyclerViewAdapter extends RecyclerView.Adapter<Ho
             intent.putExtra(CATEGORY_ID, id.toString());
             String name = householdAnimals.get(position).getName();
             intent.putExtra(CATEGORY_NAME, name);
-            Integer imageSource = householdAnimals.get(position).getImageSource();
+            String imageSource = householdAnimals.get(position).getImageUrl();
             intent.putExtra(CATEGORY_IMAGE, imageSource);
             householdAnimalsContext.startActivity(intent);
         });

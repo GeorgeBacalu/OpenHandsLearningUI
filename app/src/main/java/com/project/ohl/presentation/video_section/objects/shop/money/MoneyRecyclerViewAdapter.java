@@ -44,7 +44,7 @@ public class MoneyRecyclerViewAdapter extends RecyclerView.Adapter<MoneyRecycler
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(moneyUnits.get(position).getName());
-        MediaResources.loadImage(moneyContext, moneyUnits.get(position).getImageSource(), holder.categoryImage);
+        MediaResources.loadImage(moneyContext, moneyUnits.get(position), holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(moneyContext, VideoPlayerActivity.class);
             if (moneyUnits.get(position).getId() == null) {
@@ -52,7 +52,7 @@ public class MoneyRecyclerViewAdapter extends RecyclerView.Adapter<MoneyRecycler
             }
             intent.putExtra(CATEGORY_ID, moneyUnits.get(position).getId().toString());
             intent.putExtra(CATEGORY_NAME, moneyUnits.get(position).getName());
-            intent.putExtra(CATEGORY_IMAGE, moneyUnits.get(position).getImageSource());
+            intent.putExtra(CATEGORY_IMAGE, moneyUnits.get(position).getImageUrl());
             moneyContext.startActivity(intent);
         });
     }

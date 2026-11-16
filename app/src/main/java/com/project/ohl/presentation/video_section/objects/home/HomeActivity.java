@@ -49,7 +49,7 @@ public class HomeActivity extends AuthenticatedActivity {
 
             } else {
                List<Category> homeCategories = result.value();
-               MediaResources.bindImages(this, homeCategories);
+
                homeAdapter.setHomeObjects(homeCategories);
 
             }
@@ -63,7 +63,7 @@ public class HomeActivity extends AuthenticatedActivity {
 
             } else {
                   List<Category> filteredHomeCategories = result.value();
-                  MediaResources.bindImages(this, filteredHomeCategories);
+
                   homeAdapter.setHomeObjects(filteredHomeCategories);
 
             }

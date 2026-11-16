@@ -35,7 +35,7 @@ public class SectionRoutingTest {
                 SectionType.VOICE_TO_SIGN, VoiceToSignSectionActivity.class);
         var context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         screens.forEach((id, screen) -> {
-            var section = new Section(id, "Original name", 0, 0);
+            var section = new Section(id, "Original name", 0, null);
             var original = SectionNavigation.intent(context, section);
             section.setName("Translated and renamed");
             var renamed = SectionNavigation.intent(context, section);

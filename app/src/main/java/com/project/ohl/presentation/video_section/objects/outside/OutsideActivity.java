@@ -49,7 +49,7 @@ public class OutsideActivity extends AuthenticatedActivity {
 
             } else {
                     List<Category> outsideCategories = result.value();
-                    MediaResources.bindImages(this, outsideCategories);
+
                     outsideAdapter.setOutsideObjects(outsideCategories);
 
             }
@@ -63,7 +63,7 @@ public class OutsideActivity extends AuthenticatedActivity {
 
             } else {
                         List<Category> filteredOutsideCategories = result.value();
-                        MediaResources.bindImages(this, filteredOutsideCategories);
+
                         outsideAdapter.setOutsideObjects(filteredOutsideCategories);
 
             }

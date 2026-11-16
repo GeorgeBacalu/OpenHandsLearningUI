@@ -42,7 +42,7 @@ public class OutsideRecyclerViewAdapter extends RecyclerView.Adapter<OutsideRecy
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(outsideObjects.get(position).getName());
-        MediaResources.loadImage(outsideContext, outsideObjects.get(position).getImageSource(), holder.categoryImage);
+        MediaResources.loadImage(outsideContext, outsideObjects.get(position), holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(outsideContext, VideoPlayerActivity.class);
             if (outsideObjects.get(position).getId() == null) {
@@ -50,7 +50,7 @@ public class OutsideRecyclerViewAdapter extends RecyclerView.Adapter<OutsideRecy
             }
             intent.putExtra(CATEGORY_ID, outsideObjects.get(position).getId().toString());
             intent.putExtra(CATEGORY_NAME, outsideObjects.get(position).getName());
-            intent.putExtra(CATEGORY_IMAGE, outsideObjects.get(position).getImageSource());
+            intent.putExtra(CATEGORY_IMAGE, outsideObjects.get(position).getImageUrl());
             outsideContext.startActivity(intent);
         });
     }

@@ -16,6 +16,10 @@ if (localConfigurationFile.exists()) {
 }
 def apiBaseUrl = providers.gradleProperty('apiBaseUrl')
         .orElse(localConfiguration.getProperty('apiBaseUrl', 'http://10.0.2.2:8080/')).get()
+def mediaEnvironment = providers.gradleProperty('mediaEnvironment')
+if (mediaEnvironment.isPresent() && !(mediaEnvironment.get() in ['dev', 'prod'])) {
+    throw new GradleException('mediaEnvironment must be dev or prod')
+}
 
 android {
     namespace = 'com.project.ohl'
@@ -43,6 +47,17 @@ android {
     buildFeatures {
         viewBinding = true
         buildConfig = true
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField 'String', 'MEDIA_BASE_URL', groovy.json.JsonOutput.toJson(
+                    'https://open-hands-learning.s3.us-east-1.amazonaws.com/' + mediaEnvironment.orElse('dev').get() + '/')
+        }
+        release {
+            buildConfigField 'String', 'MEDIA_BASE_URL', groovy.json.JsonOutput.toJson(
+                    'https://open-hands-learning.s3.us-east-1.amazonaws.com/' + mediaEnvironment.orElse('prod').get() + '/')
+        }
     }
 
     lint {
