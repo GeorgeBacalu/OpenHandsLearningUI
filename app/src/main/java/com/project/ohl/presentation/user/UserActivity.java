@@ -23,7 +23,6 @@ import com.project.ohl.domain.model.Registration;
 import com.project.ohl.domain.model.School;
 import com.project.ohl.presentation.AuthenticationViewModel;
 import com.project.ohl.presentation.LearningViewModel;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.UUID;
 
@@ -90,8 +89,7 @@ public class UserActivity extends AppCompatActivity {
             String number = String.valueOf(phone.getText()).strip();
             if (fullName.isBlank()) { name.setError(getString(R.string.required_field)); return; }
             if (!Patterns.EMAIL_ADDRESS.matcher(address).matches()) { email.setError(getString(R.string.invalid_email)); return; }
-            if (secret.length() < 15) { password.setError(getString(R.string.password_policy)); return; }
-            if (secret.getBytes(StandardCharsets.UTF_8).length > 72) { password.setError(getString(R.string.password_too_long)); return; }
+            if (secret.isBlank()) { password.setError(getString(R.string.required_field)); return; }
             if (!secret.equals(String.valueOf(confirmation.getText()))) { confirmation.setError(getString(R.string.password_mismatch)); return; }
             if (!number.matches("0[0-9]{9}")) { phone.setError(getString(R.string.invalid_phone)); return; }
             if (schoolId == null) { schoolInput.setError(getString(R.string.select_school)); return; }
