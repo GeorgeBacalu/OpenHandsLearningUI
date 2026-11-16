@@ -2,8 +2,7 @@ package com.project.ohl.presentation.voice_to_sign_section;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.graphics.ColorFilter;
-import android.graphics.LightingColorFilter;
+import android.content.res.ColorStateList;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -105,12 +104,9 @@ public class PlaybackFragment extends DialogFragment {
     }
 
     private void setSeekbarValues() {
-        ColorFilter colorFilter = new LightingColorFilter(
-                ContextCompat.getColor(requireContext(), R.color.light_blue),
-                ContextCompat.getColor(requireContext(), R.color.light_blue)
-        );
-        binding.seekbar.getProgressDrawable().setColorFilter(colorFilter);
-        binding.seekbar.getThumb().setColorFilter(colorFilter);
+        var accent = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.brand_accent));
+        binding.seekbar.setProgressTintList(accent);
+        binding.seekbar.setThumbTintList(accent);
 
         binding.seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override

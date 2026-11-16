@@ -13,7 +13,7 @@
             android:fontFamily="@font/source_sans_pro_bold"
             android:text="@string/header_title_favorites"
             android:textAllCaps="true"
-            android:textColor="@color/light_blue"
+            android:textColor="@color/brand_accent"
             android:textSize="30sp"
             android:textStyle="bold" />
 

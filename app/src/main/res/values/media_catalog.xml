@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="catalog_drawables">
+        <item>@drawable/brand_button_fill</item>
+        <item>@drawable/brand_gradient_background</item>
+        <item>@drawable/catalog_card_background</item>
+        <item>@drawable/section_card_background</item>
+        <item>@drawable/section_card_footer</item>
+        <item>@drawable/auth_logo_background</item>
+        <item>@drawable/ic_profile</item>
+        <item>@drawable/ic_profile_back</item>
+        <item>@drawable/ic_profile_delete</item>
+        <item>@drawable/ic_profile_lock</item>
+        <item>@drawable/ic_profile_logout</item>
+        <item>@drawable/ic_profile_school</item>
+        <item>@drawable/profile_avatar_background</item>
+        <item>@drawable/profile_header_background</item>
         <item>@drawable/bunic_bunica</item>
         <item>@drawable/nas_nasa</item>
         <item>@drawable/lasa</item>

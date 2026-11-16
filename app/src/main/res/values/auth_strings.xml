@@ -2,7 +2,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:locale="ro">
     <string name="login">Autentificare</string>
     <string name="logout">Deconectare</string>
-    <string name="logout_summary">Închide sesiunea pe acest dispozitiv.</string>
     <string name="account_name">Nume</string>
     <string name="account_email">Adresă de e-mail</string>
     <string name="account_password">Parolă</string>

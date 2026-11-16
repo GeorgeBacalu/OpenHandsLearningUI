@@ -28,6 +28,11 @@ exception; full-screen backgrounds use their activity themes.
 
 The emulator connects to `http://10.0.2.2:8080/` by default. Override this with
 `-PapiBaseUrl=http://your-server:8080/` when building for a physical device.
+For a USB-connected phone, add `apiBaseUrl=http://127.0.0.1:8080/` to the untracked
+`local.properties` file, then run `adb reverse tcp:8080 tcp:8080`. This also configures
+Android Studio builds. Repeat the reverse command after reconnecting the phone;
+the second port must match the running backend. A `-PapiBaseUrl` argument takes
+precedence over the local file. The `10.0.2.2` address is specific to the emulator.
 
 ## Dependency baseline
 
@@ -241,3 +246,23 @@ Final image prompt:
 For a USB-connected phone preview, run `adb reverse tcp:8080 tcp:8080`, keep the API
 running on the computer's port 8080, and build with
 `-PapiBaseUrl=http://127.0.0.1:8080/`. The phone uses USB forwarding while connected.
+
+## Profile
+
+The home toolbar opens Profil, with the signed-in name, email, phone, and the school/city/county combination returned by `/api/auth/me`. The screen supports light and dark themes, large text, loading feedback, and retry after connection failures.
+Password changes require the current password, a new password, and matching confirmation. Account deletion requires an explicit confirmation and the current password; the API removes the account and its favorites. Both successful operations return to login. Logout closes the session on this device. Profile requests survive configuration changes and disable repeated submissions while pending.
+Profile and catalog layout checks cover light/dark themes and large text without calling the account API. To preserve an existing device session, install both APKs as updates and invoke the instrumentation runner directly:
+
+```powershell
+.\gradlew.bat :app:assembleDebug :app:assembleDebugAndroidTest
+adb install -r app/build/outputs/apk/debug/app-debug.apk
+adb install -r app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
+adb shell am instrument -w -e class com.project.ohl.ProfileLayoutTest,com.project.ohl.ProfileViewModelTest,com.project.ohl.CatalogCardLayoutTest com.project.ohl.test/androidx.test.runner.AndroidJUnitRunner
+```
+
+The Gradle connected-test task can uninstall the target app during cleanup; use the direct runner above when preserving local data and the signed-in account matters. Updates must keep the same API origin so the encrypted session remains readable.
+
+## App palette
+
+`values/brand_colors.xml` and its night overrides define the shared indigo gradient, interactive accents, focus/pressed states, and ripple colors. Cards, buttons, search, playback, favorites, authentication, and onboarding use this palette. Category artwork keeps its white square surface.
+The API URL can also be stored as `apiBaseUrl` in the untracked `local.properties`; the `-PapiBaseUrl` build property takes precedence.
