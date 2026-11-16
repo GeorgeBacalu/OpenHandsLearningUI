@@ -1,0 +1,5 @@
+<resources>
+    <color name="favorites_header_surface">#242D48</color>
+    <color name="favorites_badge_surface">#4B2D43</color>
+    <color name="favorites_accent">#FFB7D3</color>
+</resources>

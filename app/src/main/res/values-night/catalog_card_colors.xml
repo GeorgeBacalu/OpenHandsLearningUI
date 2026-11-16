@@ -4,6 +4,5 @@
     <color name="catalog_card_gradient_end">#182239</color>
     <color name="catalog_card_border">#3B4B70</color>
     <color name="catalog_card_text">#EDF2FF</color>
-    <color name="catalog_card_accent">@color/brand_accent</color>
     <color name="catalog_card_ripple">@color/brand_ripple</color>
 </resources>

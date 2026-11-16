@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:locale="ro">
-    <string name="home_headline">Mai aproape,\nsemn cu semn.</string>
+    <string name="home_headline">Învățăm să comunicăm dincolo de cuvinte.</string>
     <string name="home_explore">Alege cum vrei să înveți</string>
     <string name="home_explore_caption">Descoperă limbajul semnelor, în ritmul tău.</string>
     <string name="home_video_description">Urmărește semne și expresii în videoclipuri.</string>
