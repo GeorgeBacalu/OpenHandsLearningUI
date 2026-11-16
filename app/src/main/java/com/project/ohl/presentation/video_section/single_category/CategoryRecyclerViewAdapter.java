@@ -39,7 +39,7 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
         holder.name.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
         holder.image.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
         holder.itemView.setFocusable(true);
-        MediaResources.loadImage(context, category.getImageSource() == null ? 0 : category.getImageSource(), holder.image);
+        MediaResources.loadImage(context, category, holder.image);
         holder.itemView.setContentDescription(context.getString(R.string.favorites_open_category, category.getName()));
         holder.remove.setContentDescription(context.getString(R.string.favorites_remove_category, category.getName()));
         bindRemovalState(holder);

@@ -39,7 +39,7 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<ShopRecyclerVi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(shopObjects.get(position).getName());
-        MediaResources.loadImage(shopContext, shopObjects.get(position).getImageSource(), holder.categoryImage);
+        MediaResources.loadImage(shopContext, shopObjects.get(position), holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             int current = holder.getBindingAdapterPosition();
             if (current == RecyclerView.NO_POSITION) return;

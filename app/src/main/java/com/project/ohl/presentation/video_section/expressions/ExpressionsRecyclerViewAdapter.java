@@ -42,7 +42,7 @@ public class ExpressionsRecyclerViewAdapter extends RecyclerView.Adapter<Express
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(expressions.get(position).getName());
-        MediaResources.loadImage(context, expressions.get(position).getImageSource(), holder.categoryImage);
+        MediaResources.loadImage(context, expressions.get(position), holder.categoryImage);
 
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(context, VideoPlayerActivity.class);

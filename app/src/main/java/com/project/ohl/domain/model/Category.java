@@ -6,6 +6,8 @@ public class Category {
 
     private UUID id;
     private String mediaKey;
+    private String imageUrl;
+    private String videoUrl;
 
     private String name;
 
@@ -103,7 +105,17 @@ public class Category {
              '}';
     }
 
-    public String getMediaKey() { return mediaKey; }
+    public String getMediaKey() {
+        if (imageUrl != null) {
+            String filename = imageUrl.substring(imageUrl.lastIndexOf('/') + 1);
+            return filename.endsWith(".webp") ? filename.substring(0, filename.length() - 5) : filename;
+        }
+        return mediaKey;
+    }
     public void setMediaKey(String value) { mediaKey = value; }
+    public String getImageUrl() { return imageUrl; }
+    public void setImageUrl(String value) { imageUrl = value; }
+    public String getVideoUrl() { return videoUrl; }
+    public void setVideoUrl(String value) { videoUrl = value; }
 
 }

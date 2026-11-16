@@ -42,7 +42,7 @@ public class ProductsRecyclerViewAdapter extends RecyclerView.Adapter<ProductsRe
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(products.get(position).getName());
-        MediaResources.loadImage(productsContext, products.get(position).getImageSource(), holder.categoryImage);
+        MediaResources.loadImage(productsContext, products.get(position), holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(productsContext, VideoPlayerActivity.class);
             if (products.get(position).getId() == null) {

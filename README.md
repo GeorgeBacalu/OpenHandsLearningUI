@@ -90,7 +90,7 @@ renames do not change the selected screen or its child query. The canonical
 catalog UUIDs in that registry match the existing database records. New UUIDs
 use the shared category browser, which loads direct children and opens the video
 for a leaf. Main section selection uses fixed VIDEO and VOICE_TO_SIGN types.
-The read-only API menu supplies Video → Voice to Sign order; the client preserves it. Category images and videos use `mediaKey`;
+The read-only API menu supplies Video → Voice to Sign order; the client preserves it. Categories load `imageUrl` and `videoUrl` from S3;
 sections also provide `iconKey`, so translating display
 names does not change resource lookup. Room schema version 3 preserves recordings
 from versions 1 and 2 while migrating local IDs to UUIDs.
@@ -220,8 +220,8 @@ uses „semn”. API section types and media keys remain stable.
 
 ### Homepage artwork
 
-The main page uses transparent PNG artwork in `app/src/main/res/drawable-nodpi/`:
-`video_section.png`, `voice_to_sign_section.png`, and
+The main page uses transparent WebP artwork (with unchanged PNG logos) in `app/src/main/res/drawable-nodpi/`:
+`video_section.webp`, `voice_to_sign_section.webp`, and
 `openhandslearning_logo_transparent.png`. The logo is registered in the media
 catalog and referenced by `activity_main.xml`. These assets were edited with the
 built-in image-generation tool. Final prompts:
@@ -266,3 +266,34 @@ The Gradle connected-test task can uninstall the target app during cleanup; use 
 
 `values/brand_colors.xml` and its night overrides define the shared indigo gradient, interactive accents, focus/pressed states, and ripple colors. Cards, buttons, search, playback, favorites, authentication, and onboarding use this palette. Category artwork keeps its white square surface.
 The API URL can also be stored as `apiBaseUrl` in the untracked `local.properties`; the `-PapiBaseUrl` build property takes precedence.
+
+## S3 media and compressed fallbacks
+
+The screen layouts, Romanian text, routing and logos are unchanged. Categories
+and sections read permanent `imageUrl` fields, and category playback reads nullable
+`videoUrl`. Remote images retain the existing ImageView sizing and uncropped
+artwork; bundled resources appear immediately and remain available on errors.
+A failed remote video load falls back to the matching bundled clip.
+
+All nonlogo raster images are WebP. PNG artwork retains identical decoded RGBA
+pixels; JPEG photos use WebP quality 90 or higher with maximum encoding effort
+and a full-resolution RGB PSNR threshold of 38 dB. Clips, including the former
+`.m4v` files, are H.264 `.mp4` with faststart, original dimensions, frame rate,
+content and audio. Logos remain their original PNG files and are not uploaded.
+Android resource names are preserved, so layouts, the immutable sign dictionary,
+and A/Ă/Â/Î/Ș/Ț distinctions continue to resolve the same media. Historical
+provenance documents describe original source filenames before this conversion.
+
+Remote media lives in `open-hands-learning/{dev|prod}/categories/...` and
+`{dev|prod}/voice/...`. Category paths follow the complete parent hierarchy;
+voice illustrations use `voice/voice_{mediaKey}.webp`. Category and section URLs
+come from the API. Voice illustration URLs use `BuildConfig.MEDIA_BASE_URL`,
+which selects `dev/` for debug and `prod/` for release. Override with
+`-PmediaEnvironment=dev` or `prod` when intentionally targeting another environment.
+The API must use the same `MEDIA_ENVIRONMENT` value. No AWS credentials are
+stored in Android.
+
+The companion API repository contains `infrastructure/migrate_media.py`, the
+public asset manifest, scoped S3 policies and the explicit backup/upload/public
+verification/database-maintenance workflow. The development database exposes
+category image/video URLs and all voice/section asset URLs in `media_assets`.

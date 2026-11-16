@@ -102,8 +102,10 @@ public class VideoPlayerActivity extends AuthenticatedActivity {
     private void setData(Category category, int imageSubject) {
         categoryName.setText(category.getName());
         String key = category.getMediaKey() == null ? MediaResources.resourceName(category.getName()) : category.getMediaKey();
-        playback.load(MediaResources.raw(this, key));
-        bindImage(imageSubject > 0 ? imageSubject : MediaResources.drawable(this, key));
+        playback.load(category.getVideoUrl(), MediaResources.raw(this, key));
+        int fallback = imageSubject > 0 ? imageSubject : MediaResources.drawable(this, key);
+        ((View) categoryImage.getParent()).setVisibility(category.getImageUrl() != null || fallback > 0 ? View.VISIBLE : View.GONE);
+        MediaResources.loadImage(this, category.getImageUrl(), fallback, categoryImage);
     }
 
     private void bindImage(int resourceId) {

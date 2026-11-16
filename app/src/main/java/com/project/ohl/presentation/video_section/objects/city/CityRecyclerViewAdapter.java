@@ -44,7 +44,7 @@ public class CityRecyclerViewAdapter extends RecyclerView.Adapter<CityRecyclerVi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(cityObjects.get(position).getName());
-        MediaResources.loadImage(cityContext, cityObjects.get(position).getImageSource(), holder.categoryImage);
+        MediaResources.loadImage(cityContext, cityObjects.get(position), holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(cityContext, VideoPlayerActivity.class);
             if (cityObjects.get(position).getId() == null) {

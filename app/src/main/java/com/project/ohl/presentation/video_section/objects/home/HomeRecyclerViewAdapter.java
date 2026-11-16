@@ -44,7 +44,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(homeObjects.get(position).getName());
-        MediaResources.loadImage(homeContext, homeObjects.get(position).getImageSource(), holder.categoryImage);
+        MediaResources.loadImage(homeContext, homeObjects.get(position), holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(homeContext, VideoPlayerActivity.class);
             if (homeObjects.get(position).getId() == null) {

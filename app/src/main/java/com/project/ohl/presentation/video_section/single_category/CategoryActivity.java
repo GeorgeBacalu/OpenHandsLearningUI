@@ -64,7 +64,7 @@ public class CategoryActivity extends AuthenticatedActivity {
 
     private void setData(Category category, int imageSubject) {
         categoryName.setText(category.getName());
-        MediaResources.loadImage(this, imageSubject, categoryImage);
+        MediaResources.loadImage(this, category.getImageUrl(), Math.max(0, imageSubject), categoryImage);
     }
 
 

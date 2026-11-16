@@ -42,7 +42,7 @@ public class EmotionsRecyclerViewAdapter extends RecyclerView.Adapter<EmotionsRe
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(emotions.get(position).getName());
-        MediaResources.loadImage(emotionsContext, emotions.get(position).getImageSource(), holder.categoryImage);
+        MediaResources.loadImage(emotionsContext, emotions.get(position), holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(emotionsContext, VideoPlayerActivity.class);
             if (emotions.get(position).getId() == null) {

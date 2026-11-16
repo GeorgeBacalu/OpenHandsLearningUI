@@ -7,6 +7,7 @@ import com.bumptech.glide.signature.ObjectKey;
 import java.io.File;
 import androidx.annotation.ArrayRes;
 import com.project.ohl.R;
+import com.project.ohl.BuildConfig;
 import com.project.ohl.domain.model.Category;
 import com.project.ohl.domain.model.TextSignPair;
 import java.text.Normalizer;
@@ -20,6 +21,25 @@ public final class MediaResources {
     private static final ConcurrentHashMap<Integer, Map<String, Integer>> CATALOGS = new ConcurrentHashMap<>();
     private static volatile String apkRevision;
     private MediaResources() {}
+
+    public static void loadImage(Context context, Category category, ImageView target) {
+        int fallback = category.getImageSource() == null ? 0 : category.getImageSource();
+        loadImage(context, category.getImageUrl(), fallback, target);
+    }
+
+    public static void loadImage(Context context, String url, int fallback, ImageView target) {
+        if (url == null || url.isBlank()) {
+            loadImage(context, fallback, target);
+            return;
+        }
+        Glide.with(context).asBitmap().load(url).placeholder(fallback).error(fallback)
+                .dontTransform().into(target);
+    }
+
+    public static String voiceUrl(String mediaKey) {
+        String name = resourceName(mediaKey);
+        return BuildConfig.MEDIA_BASE_URL + "voice/" + (name.equals("space") ? name : "voice_" + name) + ".webp";
+    }
 
     public static void loadImage(Context context, int resourceId, ImageView target) {
         String revision = apkRevision;

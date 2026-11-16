@@ -42,7 +42,7 @@ public class NumbersRecyclerViewAdapter extends RecyclerView.Adapter<NumbersRecy
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(numbers.get(position).getName());
-        MediaResources.loadImage(numbersContext, numbers.get(position).getImageSource(), holder.categoryImage);
+        MediaResources.loadImage(numbersContext, numbers.get(position), holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(numbersContext, VideoPlayerActivity.class);
             if (numbers.get(position).getId() == null) {

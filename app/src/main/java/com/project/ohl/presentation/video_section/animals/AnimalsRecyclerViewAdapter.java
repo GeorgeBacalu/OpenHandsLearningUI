@@ -37,7 +37,7 @@ public class AnimalsRecyclerViewAdapter extends RecyclerView.Adapter<AnimalsRecy
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(animals.get(position).getName());
-        MediaResources.loadImage(animalsContext, animals.get(position).getImageSource(), holder.categoryImage);
+        MediaResources.loadImage(animalsContext, animals.get(position), holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             int current = holder.getBindingAdapterPosition();
             if (current == RecyclerView.NO_POSITION) return;

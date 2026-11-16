@@ -42,7 +42,7 @@ public class FormsOfAddressRecyclerViewAdapter extends RecyclerView.Adapter<Form
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(formsOfAddress.get(position).getName());
-        MediaResources.loadImage(formsOfAddressContext, formsOfAddress.get(position).getImageSource(), holder.categoryImage);
+        MediaResources.loadImage(formsOfAddressContext, formsOfAddress.get(position), holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(formsOfAddressContext, VideoPlayerActivity.class);
             if (formsOfAddress.get(position).getId() == null) {

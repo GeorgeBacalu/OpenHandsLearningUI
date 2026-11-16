@@ -4,6 +4,7 @@ public class Section {
 
     private SectionType type;
     private String mediaKey;
+    private String imageUrl;
     private String iconKey;
     private String name;
     private transient int icon;
@@ -49,8 +50,16 @@ public class Section {
         return "Section{" + "type=" + type + ", name='" + name + '\'' + ", icon=" + icon + ", imageSource=" + imageSource + '}';
     }
 
-    public String getMediaKey() { return mediaKey; }
+    public String getMediaKey() {
+        if (imageUrl != null) {
+            String filename = imageUrl.substring(imageUrl.lastIndexOf('/') + 1);
+            return filename.endsWith(".webp") ? filename.substring(0, filename.length() - 5) : filename;
+        }
+        return mediaKey;
+    }
     public void setMediaKey(String value) { mediaKey = value; }
+    public String getImageUrl() { return imageUrl; }
+    public void setImageUrl(String value) { imageUrl = value; }
 
     public String getIconKey() { return iconKey; }
     public void setIconKey(String value) { iconKey = value; }
