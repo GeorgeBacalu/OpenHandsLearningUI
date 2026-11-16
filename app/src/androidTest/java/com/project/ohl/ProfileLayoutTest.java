@@ -13,14 +13,14 @@ import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.project.ohl.app.ThemePreferences;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
-/** Exercises the real layout without changing a developer's signed-in account. */
 @RunWith(AndroidJUnit4.class)
 public class ProfileLayoutTest {
     @Test public void profileRendersInBothThemesAndWithLargeText() {
@@ -74,7 +74,7 @@ public class ProfileLayoutTest {
             root.draw(new Canvas(bitmap));
             try (var output = new FileOutputStream(new File(target.getExternalFilesDir(null), "profile-preview-" + suffix + ".png"))) {
                 assertTrue(bitmap.compress(Bitmap.CompressFormat.PNG, 100, output));
-            } catch (java.io.IOException error) { throw new AssertionError(error); }
+            } catch (IOException error) { throw new AssertionError(error); }
             finally { bitmap.recycle(); }
         });
     }

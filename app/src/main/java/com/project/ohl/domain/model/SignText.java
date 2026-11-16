@@ -11,10 +11,6 @@ public final class SignText {
 
     private SignText() {}
 
-    public static Map<Integer, String> dictionary() {
-        return DICTIONARY;
-    }
-
     private static Map<Integer, String> createDictionary() {
         var signs = new HashMap<Integer, String>();
         for (char letter = 'A'; letter <= 'Z'; letter++)

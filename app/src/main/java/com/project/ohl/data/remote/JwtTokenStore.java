@@ -1,15 +1,15 @@
 package com.project.ohl.data.remote;
 
 import android.content.Context;
-import android.util.Base64;
-import com.google.gson.JsonParser;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 import android.util.AtomicFile;
+import android.util.Base64;
+import com.google.gson.JsonParser;
 import com.project.ohl.BuildConfig;
-import java.io.IOException;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;

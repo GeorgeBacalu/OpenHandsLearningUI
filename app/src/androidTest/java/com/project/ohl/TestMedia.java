@@ -6,6 +6,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.MediaMetadataRetriever;
 import androidx.test.platform.app.InstrumentationRegistry;
+import com.project.ohl.BuildConfig;
 import com.project.ohl.presentation.MediaResources;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -14,14 +15,30 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
-/** Fetches real S3 fixtures before detached layout checks run on the UI thread. */
 final class TestMedia {
     private static final Map<String, Bitmap> IMAGES = new HashMap<>();
     private static Bitmap videoFrame;
+    private static final Map<String, String> IMAGE_PATHS = Map.ofEntries(
+            Map.entry("membrii_familiei", "categories/persoane/membrii_familiei/main.webp"),
+            Map.entry("acesta_este_colegul_meu", "categories/expresii/acesta_este_colegul_meu/main.webp"),
+            Map.entry("bunic_bunica", "categories/persoane/membrii_familiei/bunic_bunica/main.webp"),
+            Map.entry("ardei", "categories/obiecte/magazin/produse/ardei/main.webp"));
 
     private TestMedia() {}
 
-    static String url(String name) { return MediaResources.imageUrl(name); }
+    static String url(String name) {
+        String image = MediaResources.imageUrl(name);
+        if (image != null) return image;
+        String key = MediaResources.resourceName(name);
+        String path = IMAGE_PATHS.get(key);
+        return path == null ? alphabetPhoto(key) : BuildConfig.MEDIA_BASE_URL + path;
+    }
+
+    static String alphabetPhoto(String name) {
+        return BuildConfig.MEDIA_BASE_URL + "categories/alfabet/" + MediaResources.resourceName(name) + "/main.webp";
+    }
+
+    static String video(String name) { return url(name).replace(".webp", ".mp4"); }
 
     static synchronized void preload() {
         for (String name : new String[]{"video_section", "voice_to_sign_section", "alfabet", "animale",
@@ -43,13 +60,12 @@ final class TestMedia {
             IMAGES.put(url, bitmap);
         }
         if (videoFrame == null) {
-            var metadata = new MediaMetadataRetriever();
-            try {
-                metadata.setDataSource(MediaResources.videoUrl("acesta_este_colegul_meu"), Map.of());
+            try (var metadata = new MediaMetadataRetriever()) {
+                metadata.setDataSource(video("acesta_este_colegul_meu"), Map.of());
                 videoFrame = metadata.getFrameAtTime(1_000_000);
                 if (videoFrame == null) throw new AssertionError("S3 video fixture has no frame");
-            } finally {
-                try { metadata.release(); } catch (IOException error) { throw new AssertionError(error); }
+            } catch (IOException error) {
+                throw new AssertionError("Could not read the S3 video fixture", error);
             }
         }
     }

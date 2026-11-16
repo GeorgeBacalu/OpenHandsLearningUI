@@ -2,70 +2,42 @@ package com.project.ohl;
 
 import com.project.ohl.data.remote.JsonCodec;
 import com.project.ohl.domain.model.Category;
-import com.project.ohl.domain.model.Section;
-import com.project.ohl.domain.model.SectionType;
-import com.project.ohl.domain.model.School;
 import com.project.ohl.domain.model.City;
-import java.util.UUID;
-import java.util.Set;
+import com.project.ohl.domain.model.Role;
+import com.project.ohl.domain.model.School;
 import com.project.ohl.domain.model.User;
+import java.util.Set;
+import java.util.UUID;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 public class JsonCodecTest {
-    @Test public void readsS3MediaUrlsWithoutChangingBundledFallbackIdentity() {
+    @Test public void readsCategoryIdsAndMediaUrlsWithoutObsoleteCardState() {
         var gson = JsonCodec.create();
-        String base = "https://open-hands-learning.s3.us-east-1.amazonaws.com/dev/";
-        var category = gson.fromJson("{\"imageUrl\":\"" + base + "categories/alfabet/a_breve.webp\","
-                + "\"videoUrl\":\"" + base + "categories/alfabet/a_breve.mp4\"}", Category.class);
-        assertEquals("a_breve", category.getMediaKey());
-        assertEquals(base + "categories/alfabet/a_breve.mp4", category.getVideoUrl());
+        String id = "00000000-0000-4000-8000-000000000001";
+        String base = "https://open-hands-learning.s3.us-east-1.amazonaws.com/dev/categories/alfabet/a_breve/";
+        var category = gson.fromJson("{\"id\":\"" + id + "\",\"imageUrl\":\"" + base + "main.webp\","
+                + "\"videoUrl\":\"" + base + "main.mp4\"}", Category.class);
         category.setName("A different translated label");
-        assertEquals("a_breve", category.getMediaKey());
-        category.setImageUrl("https://open-hands-learning.s3.us-east-1.amazonaws.com/dev/categories/alfabet/a.webp");
-        assertFalse(gson.toJson(category).contains("imageSource"));
-        var section = gson.fromJson("{\"type\":\"VIDEO\",\"imageUrl\":\"" + base
-                + "categories/application/video_section.webp\"}", Section.class);
-        assertEquals("video_section", section.getMediaKey());
-        assertEquals(SectionType.VIDEO, section.getType());
+        assertEquals(UUID.fromString(id), category.getId());
+        assertEquals(base + "main.webp", category.getImageUrl());
+        assertEquals(base + "main.mp4", category.getVideoUrl());
+        assertFalse(gson.toJson(category).contains("isExpanded"));
+        assertFalse(gson.toJson(category).contains("mediaKey"));
     }
-
-    @Test public void exchangesStableMediaKeysWithoutDeviceResourceIds() {
-        var gson = JsonCodec.create();
-        var category = gson.fromJson("{\"mediaKey\":\"a\"}", Category.class);
-        category.setImageUrl("https://open-hands-learning.s3.us-east-1.amazonaws.com/dev/categories/alfabet/a.webp");
-        assertEquals("a", category.getMediaKey());
-        assertFalse(gson.toJson(category).contains("imageSource"));
-        assertFalse(gson.toJson(category).contains("imageId"));
-        var section = gson.fromJson("{\"mediaKey\":\"video_section\",\"iconKey\":\"ic_video_section\"}", Section.class);
-        section.setIcon(456);
-        assertFalse(gson.toJson(section).contains("\"icon\":"));
-    }
-
-    @Test public void keepsCatalogIdentityAndMediaIndependentOfDisplayNames() {
-        var category = JsonCodec.create().fromJson("{\"mediaKey\":\"alfabet\",\"name\":\"Alphabet\"}", Category.class);
-        category.setName("Translated alphabet");
-        assertEquals("alfabet", category.getMediaKey());
-        assertFalse(JsonCodec.create().toJson(category).contains("sectionId"));
-        var section = JsonCodec.create().fromJson("{\"type\":\"VIDEO\",\"mediaKey\":\"video_section\",\"iconKey\":\"ic_video_section\"}", Section.class);
-        section.setName("Translated video section");
-        assertEquals(SectionType.VIDEO, section.getType());
-        assertEquals("video_section", section.getMediaKey());
-        assertFalse(JsonCodec.create().toJson(section).contains("\"code\""));
-        assertEquals("ic_video_section", section.getIconKey());
-    }
-
 
     @Test public void exchangesOnlySupportedProfileFields() {
         var gson = JsonCodec.create();
         var id = UUID.fromString("00000000-0000-4000-8000-000000000001");
-        var user = new User(id, "Profile", "profile@example.test", "test-password", "0712345678", id, id);
+        var user = new User(id, "Profile", "profile@example.test", "0712345678", id, Role.USER);
         var value = gson.toJsonTree(user).getAsJsonObject();
-        assertEquals(Set.of("id", "name", "email", "phone", "password", "roleId", "schoolId"), value.keySet());
+        assertEquals(Set.of("id", "name", "email", "phone", "role", "schoolId"), value.keySet());
         var restored = gson.fromJson(value, User.class);
         assertEquals("0712345678", restored.getPhone());
+        assertEquals("USER", value.get("role").getAsString());
+        assertEquals(Role.USER, restored.getRole());
         assertEquals(id, restored.getId());
         assertFalse(restored.toString().contains("test-password"));
     }
@@ -84,8 +56,9 @@ public class JsonCodecTest {
         assertFalse(gson.toJson(user).contains("classroomId"));
     }
 
-    @Test public void userDebugOutputDoesNotExposePasswords() {
+    @Test public void accountJsonDoesNotRetainPasswords() {
         var user = JsonCodec.create().fromJson("{\"password\":\"private-value\"}", User.class);
+        assertFalse(JsonCodec.create().toJson(user).contains("password"));
         assertFalse(user.toString().contains("private-value"));
     }
 }

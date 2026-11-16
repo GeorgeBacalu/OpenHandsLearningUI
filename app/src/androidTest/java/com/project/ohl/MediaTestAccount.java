@@ -8,7 +8,6 @@ import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
-/** Local account fixture for media UI tests, which never authenticate against an API. */
 final class MediaTestAccount implements AutoCloseable {
     private final Object repository = ApplicationGraph.authentication();
     private final Field account;

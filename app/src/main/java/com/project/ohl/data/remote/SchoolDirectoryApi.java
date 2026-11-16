@@ -1,7 +1,7 @@
 package com.project.ohl.data.remote;
 
-import com.project.ohl.domain.model.County;
 import com.project.ohl.domain.model.City;
+import com.project.ohl.domain.model.County;
 import com.project.ohl.domain.model.School;
 import java.util.List;
 import java.util.UUID;

@@ -2,8 +2,6 @@
 <resources>
     <color name="brand_gradient_start">#294DDA</color>
     <color name="brand_gradient_end">#243783</color>
-    <color name="brand_pressed">#1B2B6B</color>
-    <color name="brand_focus">#4564DF</color>
     <color name="brand_accent">#2449CE</color>
     <color name="brand_ripple">#1F2449CE</color>
     <color name="brand_ripple_on_primary">#33FFFFFF</color>

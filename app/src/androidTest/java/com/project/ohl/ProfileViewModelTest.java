@@ -13,11 +13,16 @@ import java.util.function.Consumer;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.*;
+import static java.util.Objects.requireNonNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class)
 public class ProfileViewModelTest {
-    private static final class Repository implements AuthenticationRepository {
+    private static final class TestAuthenticationRepository implements AuthenticationRepository {
         Consumer<Result<User>> profile;
         Consumer<Result<Void>> action;
         int loads, mutations;
@@ -38,7 +43,7 @@ public class ProfileViewModelTest {
 
     @Test public void repeatedLoadsAndSubmissionsDoNotReplaceAnInFlightMutation() {
         var instrumentation = InstrumentationRegistry.getInstrumentation();
-        var repository = new Repository();
+        var repository = new TestAuthenticationRepository();
         var model = new ProfileViewModel(repository);
         var user = new User();
         instrumentation.runOnMainSync(() -> {
@@ -54,14 +59,14 @@ public class ProfileViewModelTest {
             assertEquals(1, repository.loads);
             assertEquals(1, repository.mutations);
             assertFalse(repository.cancelled);
-            assertEquals(ProfileViewModel.Action.PASSWORD, model.state().getValue().pending());
+            assertEquals(ProfileViewModel.Action.PASSWORD, requireNonNull(model.state().getValue()).pending());
             repository.action.accept(Result.failure(new IllegalStateException("offline")));
         });
         instrumentation.waitForIdleSync();
         instrumentation.runOnMainSync(() -> {
-            assertSame(user, model.state().getValue().user());
-            assertNull(model.state().getValue().pending());
-            assertFalse(model.state().getValue().completion().result().isSuccess());
+            assertSame(user, requireNonNull(model.state().getValue()).user());
+            assertNull(requireNonNull(model.state().getValue()).pending());
+            assertFalse(requireNonNull(model.state().getValue()).completion().result().isSuccess());
             model.acknowledgeCompletion();
             model.submit(ProfileViewModel.Action.DELETE, "current", null);
             assertEquals(2, repository.mutations);

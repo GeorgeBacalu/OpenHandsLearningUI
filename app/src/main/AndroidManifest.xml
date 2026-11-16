@@ -4,18 +4,13 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission
-       android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-       android:maxSdkVersion="28" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="32" />
 
     <application
        android:name=".app.OpenHandsLearningApp"
        android:allowBackup="true"
-       android:icon="@mipmap/openhandslearning"
+       android:icon="@drawable/openhandslearning"
        android:label="@string/app_name"
-       android:roundIcon="@mipmap/openhandslearning"
+       android:roundIcon="@drawable/openhandslearning"
        android:supportsRtl="true"
        android:theme="@style/Theme.OpenHandsLearning"
        android:usesCleartextTraffic="false">
@@ -36,16 +31,6 @@
            android:windowSoftInputMode="adjustResize"
            android:exported="false"
            android:label="@string/profile_title" />
-        <activity
-           android:name=".presentation.general.on_boarding.IntroductoryActivity"
-           android:theme="@style/Theme.OpenHandsLearning.Introductory"
-           android:exported="false"
-           android:label="@string/activity_introductory" />
-        <activity
-           android:name=".presentation.video_section.single_category.CategoryActivity"
-           android:theme="@style/Theme.OpenHandsLearning.CatalogMedia"
-           android:exported="false"
-           android:label="@string/activity_category" />
         <activity
            android:name=".presentation.video_section.all_categories.AllCategoriesActivity"
            android:exported="false"

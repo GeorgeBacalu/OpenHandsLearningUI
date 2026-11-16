@@ -5,7 +5,6 @@ import android.util.AttributeSet;
 import androidx.appcompat.widget.AppCompatImageView;
 import com.project.ohl.R;
 
-/** Loads static page artwork from S3 with the same layout attributes as ImageView. */
 public final class S3ImageView extends AppCompatImageView {
     private final String mediaName;
 

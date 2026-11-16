@@ -15,12 +15,5 @@
         <item name="android:textSize">16sp</item>
     </style>
 
-    <style name="Theme.OpenHandsLearning.CatalogMedia" parent="Theme.OpenHandsLearning">
-        <item name="android:windowBackground">#212121</item>
-    </style>
-
-    <style name="Theme.OpenHandsLearning.Introductory" parent="Theme.OpenHandsLearning">
-        <item name="android:windowBackground">@null</item>
-    </style>
 
 </resources>
