@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="ro">
+    <string name="favorites_headline">Semne de revăzut</string>
+    <string name="favorites_subtitle">Toate favoritele tale, într-un singur loc.</string>
+    <string name="favorites_search_hint">Caută în favorite</string>
+    <string name="favorites_open_category">Exersează „%1$s”</string>
+    <string name="favorites_remove_category">Elimină „%1$s” din favorite</string>
+    <string name="favorites_remove_action">Elimină</string>
+    <string name="favorites_loading">Se încarcă favoritele…</string>
+    <string name="favorites_loading_error">Nu am putut încărca favoritele. Verifică conexiunea și încearcă din nou.</string>
+    <string name="favorites_no_results">Nicio potrivire</string>
+    <string name="favorites_no_results_caption">Nu am găsit favorite care încep cu „%1$s”. Încearcă altă căutare.</string>
+    <string name="favorites_clear_search">Șterge căutarea</string>
+    <plurals name="favorites_saved_count">
+        <item quantity="one">%d favorită salvată</item>
+        <item quantity="few">%d favorite salvate</item>
+        <item quantity="other">%d de favorite salvate</item>
+    </plurals>
+    <plurals name="favorites_results_count">
+        <item quantity="one">%d rezultat</item>
+        <item quantity="few">%d rezultate</item>
+        <item quantity="other">%d de rezultate</item>
+    </plurals>
+    <color name="favorites_header_surface">#EEEFFC</color>
+    <color name="favorites_badge_surface">#FCE5EE</color>
+    <color name="favorites_accent">#A92B60</color>
+</resources>

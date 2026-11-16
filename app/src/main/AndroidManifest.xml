@@ -52,6 +52,7 @@
            android:label="@string/activity_all_categories" />
         <activity
            android:name=".presentation.general.favorites.FavoritesActivity"
+           android:theme="@style/Theme.OpenHandsLearning.Home"
            android:exported="false"
            android:label="@string/activity_favorite_categories" />
         <activity

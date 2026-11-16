@@ -4,7 +4,6 @@
     <color name="catalog_card_gradient_end">#EDF1FF</color>
     <color name="catalog_card_border">#DDE4F5</color>
     <color name="catalog_card_text">#203469</color>
-    <color name="catalog_card_accent">@color/brand_accent</color>
     <color name="catalog_card_ripple">@color/brand_ripple</color>
     <style name="Widget.OpenHandsLearning.CatalogCard" parent="Widget.MaterialComponents.CardView">
         <item name="cardBackgroundColor">@color/catalog_card_surface</item>

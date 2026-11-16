@@ -81,10 +81,10 @@ public class CatalogCardLayoutTest {
                     row.addView(card, params);
                 }
             }
-            View favorite = inflater.inflate(R.layout.category_item_expandable, root, false);
+            View favorite = inflater.inflate(R.layout.category_item, root, false);
+            favorite.findViewById(R.id.removeFromFavoriteButton).setVisibility(View.VISIBLE);
             ((TextView) favorite.findViewById(R.id.categoryName)).setText("Expresii");
             ((ImageView) favorite.findViewById(R.id.categoryImage)).setImageResource(R.drawable.expressions_section);
-            favorite.findViewById(R.id.expendedRelativeLayout).setVisibility(View.VISIBLE);
             root.addView(favorite);
             int width = Math.round(360 * density);
             root.measure(View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),
