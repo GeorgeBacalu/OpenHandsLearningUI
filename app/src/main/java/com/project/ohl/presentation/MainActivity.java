@@ -106,8 +106,8 @@ public class MainActivity extends AuthenticatedActivity {
    }
 
    @Override public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-      if (item.getItemId() == R.id.navSettingsActionBar) {
-         if (sessionVerified && UserSession.id() != null) startActivity(new Intent(this, SettingsActivity.class));
+      if (item.getItemId() == R.id.navProfileActionBar) {
+         if (sessionVerified && UserSession.id() != null) startActivity(new Intent(this, ProfileActivity.class));
          return true;
       }
       return super.onOptionsItemSelected(item);

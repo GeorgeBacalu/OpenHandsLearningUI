@@ -8,7 +8,7 @@
     <color name="auth_card_border">#E3E8F1</color>
     <color name="auth_disabled">#E3E8F1</color>
     <color name="auth_button_disabled">#DAE2FA</color>
-    <color name="auth_accent">#113CFC</color>
+    <color name="auth_accent">@color/brand_accent</color>
     <color name="auth_error">#B3261E</color>
     <color name="auth_navigation_bar">#113CFC</color>
     <bool name="auth_light_system_bars">true</bool>

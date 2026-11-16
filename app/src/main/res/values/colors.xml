@@ -1,21 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
     <color name="main_blue">#113CFC</color>
-    <color name="light_blue">#1195FC</color>
     <color name="dark_blue">#193498</color>
     <color name="translucent_dark_blue">#40193498</color>
     <color name="dark">#292929</color>
 
-    <color name="purple">#ba53de</color>
-    <color name="pink">#f469a9</color>
-    <color name="blue">#88bef5</color>
     <color name="transparent">#00000000</color>
 
     <color name="openhandslearning_logo_background">#112A43</color>
@@ -27,7 +18,7 @@
     <color name="catalog_search_border">#D8DDE4</color>
     <color name="catalog_search_text">#20252D</color>
     <color name="catalog_search_hint">#626A76</color>
-    <color name="catalog_search_accent">#56637A</color>
+    <color name="catalog_search_accent">@color/brand_accent</color>
     <color name="category_intro_surface">#EEF3FF</color>
     <color name="category_intro_border">#DCE5F7</color>
     <color name="category_intro_text">#24375B</color>

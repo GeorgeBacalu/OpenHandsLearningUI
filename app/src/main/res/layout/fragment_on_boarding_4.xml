@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/light_blue">
+    android:background="@drawable/brand_gradient_background">
 
     <ImageView android:contentDescription="@null" android:importantForAccessibility="no"
         android:id="@+id/fragmentImage"
@@ -116,16 +116,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:backgroundTint="@color/white"
         android:src="@drawable/ic_arrow"
-        app:backgroundTint="@color/light_blue"
+        app:backgroundTint="@color/white"
         app:borderWidth="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:rippleColor="@color/light_blue"
-        app:tint="@color/light_blue"
+        app:rippleColor="@color/brand_ripple"
+        app:tint="@color/brand_gradient_start"
         app:layout_constraintVertical_bias="1"
         app:layout_constraintHorizontal_bias="1"
         android:layout_margin="16dp"/>

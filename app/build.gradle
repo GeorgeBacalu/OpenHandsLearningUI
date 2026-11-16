@@ -9,7 +9,13 @@ java {
     }
 }
 
-def apiBaseUrl = providers.gradleProperty('apiBaseUrl').orElse('http://10.0.2.2:8080/').get()
+def localConfiguration = new Properties()
+def localConfigurationFile = rootProject.file('local.properties')
+if (localConfigurationFile.exists()) {
+    localConfigurationFile.withInputStream { localConfiguration.load(it) }
+}
+def apiBaseUrl = providers.gradleProperty('apiBaseUrl')
+        .orElse(localConfiguration.getProperty('apiBaseUrl', 'http://10.0.2.2:8080/')).get()
 
 android {
     namespace = 'com.project.ohl'

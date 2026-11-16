@@ -81,6 +81,37 @@ public final class RemoteAuthenticationRepository implements AuthenticationRepos
         };
     }
 
+    @Override public Request<Void> changePassword(String currentPassword, String newPassword) {
+        return accountAction(api.changePassword(new AuthApi.PasswordChange(currentPassword, newPassword)));
+    }
+
+    @Override public Request<Void> deleteAccount(String currentPassword) {
+        return accountAction(api.deleteAccount(new AuthApi.AccountDeletion(currentPassword)));
+    }
+
+    private Request<Void> accountAction(Call<Void> prototype) {
+        return callback -> {
+            var call = prototype.clone();
+            call.enqueue(new Callback<>() {
+                @Override public void onResponse(Call<Void> request, Response<Void> response) {
+                    if (request.isCanceled()) return;
+                    if (response.isSuccessful()) {
+                        account = null;
+                        tokens.clear();
+                        callback.accept(Result.success(null));
+                    } else {
+                        if (response.errorBody() != null) response.errorBody().close();
+                        callback.accept(Result.failure(new AuthenticationException(response.code())));
+                    }
+                }
+                @Override public void onFailure(Call<Void> request, Throwable error) {
+                    if (!request.isCanceled()) callback.accept(Result.failure(error));
+                }
+            });
+            return call::cancel;
+        };
+    }
+
     @Override public Request<Void> logout() {
         return callback -> {
             var call = api.logout();
