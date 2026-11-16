@@ -52,7 +52,7 @@ public class ClassRecyclerViewAdapter extends RecyclerView.Adapter<ClassRecycler
             }
             intent.putExtra(CATEGORY_ID, classObjects.get(position).getId().toString());
             intent.putExtra(CATEGORY_NAME, classObjects.get(position).getName());
-            intent.putExtra(CATEGORY_IMAGE, classObjects.get(position).getImageSource());
+            intent.putExtra(CATEGORY_IMAGE, classObjects.get(position).getImageUrl());
             classContext.startActivity(intent);
         });
     }

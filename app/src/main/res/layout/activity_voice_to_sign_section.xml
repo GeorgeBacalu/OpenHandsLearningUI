@@ -19,25 +19,25 @@
             android:layout_height="wrap_content"
             android:minHeight="280dp">
 
-            <ImageView
+            <com.project.ohl.presentation.S3ImageView
                 android:id="@+id/sectionHeaderImage"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:contentDescription="@string/section_header_image"
                 android:scaleType="centerCrop"
-                android:src="@drawable/voice_to_sign_section_header"
+                app:mediaName="voice_to_sign_section_header"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
-            <ImageView
+            <com.project.ohl.presentation.S3ImageView
                 android:id="@+id/sectionHeaderOverlay"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:contentDescription="@string/section_header_overlay"
                 android:scaleType="fitXY"
-                android:src="@drawable/overlay_background"
+                app:mediaName="overlay_background"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

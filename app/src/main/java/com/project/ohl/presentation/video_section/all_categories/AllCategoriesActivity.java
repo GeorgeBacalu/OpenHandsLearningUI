@@ -53,12 +53,12 @@ public class AllCategoriesActivity extends AuthenticatedActivity {
                   Intent video = new Intent(this, VideoPlayerActivity.class);
                   video.putExtra(CATEGORY_ID, parentId.toString());
                   video.putExtra(CATEGORY_NAME, getIntent().getStringExtra(CATEGORY_NAME));
-                  video.putExtra(CATEGORY_IMAGE, getIntent().getIntExtra(CATEGORY_IMAGE, 0));
+                  video.putExtra(CATEGORY_IMAGE, getIntent().getStringExtra(CATEGORY_IMAGE));
                   startActivity(video);
                   finish();
                   return;
                }
-               MediaResources.bindImages(this, result.value());
+
                categoriesAdapter.setCategories(result.value());
 
             }

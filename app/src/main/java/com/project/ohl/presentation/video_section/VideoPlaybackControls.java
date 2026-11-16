@@ -30,8 +30,6 @@ final class VideoPlaybackControls {
     private boolean completed;
     private boolean playWhenReady;
     private int position;
-    private int fallbackResource;
-    private boolean remote;
     private final Runnable ticker = new Runnable() {
         @Override public void run() {
             render();
@@ -66,11 +64,6 @@ final class VideoPlaybackControls {
             render();
         });
         video.setOnErrorListener((player, what, extra) -> {
-            if (remote && fallbackResource != 0) {
-                remote = false;
-                load(fallbackResource);
-                return true;
-            }
             showError();
             return true;
         });
@@ -118,19 +111,8 @@ final class VideoPlaybackControls {
         loading.setVisibility(View.VISIBLE);
     }
 
-    void load(int resourceId) {
-        if (resourceId == 0) { showError(); return; }
-        video.setVisibility(View.VISIBLE);
-        video.setVideoPath("android.resource://" + video.getContext().getPackageName() + "/" + resourceId);
-    }
-
-    void load(String url, int resourceId) {
-        fallbackResource = resourceId;
-        remote = url != null && url.startsWith("https://");
-        if (!remote) {
-            load(resourceId);
-            return;
-        }
+    void load(String url) {
+        if (url == null || !url.startsWith("https://")) { showError(); return; }
         video.setVisibility(View.VISIBLE);
         video.setVideoPath(url);
     }

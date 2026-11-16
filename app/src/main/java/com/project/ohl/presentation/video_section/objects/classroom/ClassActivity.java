@@ -49,7 +49,7 @@ public class ClassActivity extends AuthenticatedActivity {
 
             } else {
                     List<Category> classCategories = result.value();
-                    MediaResources.bindImages(this, classCategories);
+
                     classAdapter.setClassObjects(classCategories);
 
             }
@@ -63,7 +63,7 @@ public class ClassActivity extends AuthenticatedActivity {
 
             } else {
                         List<Category> filteredClassCategories = result.value();
-                        MediaResources.bindImages(this, filteredClassCategories);
+
                         classAdapter.setClassObjects(filteredClassCategories);
 
             }

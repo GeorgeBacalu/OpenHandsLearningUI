@@ -49,7 +49,7 @@ public class ExpressionsActivity extends AuthenticatedActivity {
 
             } else {
                List<Category> expressions = result.value();
-               MediaResources.bindImages(this, expressions);
+
                adapter.setExpressions(expressions);
 
             }
@@ -63,7 +63,7 @@ public class ExpressionsActivity extends AuthenticatedActivity {
 
             } else {
                   List<Category> filteredExpressions = result.value();
-                  MediaResources.bindImages(this, filteredExpressions);
+
                   adapter.setExpressions(filteredExpressions);
                   adapter.notifyDataSetChanged();
 

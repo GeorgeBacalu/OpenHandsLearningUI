@@ -50,7 +50,7 @@ public class ProductsRecyclerViewAdapter extends RecyclerView.Adapter<ProductsRe
             }
             intent.putExtra(CATEGORY_ID, products.get(position).getId().toString());
             intent.putExtra(CATEGORY_NAME, products.get(position).getName());
-            intent.putExtra(CATEGORY_IMAGE, products.get(position).getImageSource());
+            intent.putExtra(CATEGORY_IMAGE, products.get(position).getImageUrl());
             productsContext.startActivity(intent);
         });
 

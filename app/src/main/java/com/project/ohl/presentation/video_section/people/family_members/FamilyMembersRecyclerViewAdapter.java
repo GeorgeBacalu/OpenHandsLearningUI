@@ -50,7 +50,7 @@ public class FamilyMembersRecyclerViewAdapter extends RecyclerView.Adapter<Famil
             }
             intent.putExtra(CATEGORY_ID, familyMembers.get(position).getId().toString());
             intent.putExtra(CATEGORY_NAME, familyMembers.get(position).getName());
-            intent.putExtra(CATEGORY_IMAGE, familyMembers.get(position).getImageSource());
+            intent.putExtra(CATEGORY_IMAGE, familyMembers.get(position).getImageUrl());
             familyMembersContext.startActivity(intent);
         });
     }

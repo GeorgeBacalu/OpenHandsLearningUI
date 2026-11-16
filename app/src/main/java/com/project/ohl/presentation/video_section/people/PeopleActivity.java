@@ -49,7 +49,7 @@ public class PeopleActivity extends AuthenticatedActivity {
 
             } else {
                List<Category> people = result.value();
-               MediaResources.bindImages(this, people);
+
                peopleAdapter.setPeople(people);
 
             }
@@ -63,7 +63,7 @@ public class PeopleActivity extends AuthenticatedActivity {
 
             } else {
                   List<Category> filteredPeople = result.value();
-                  MediaResources.bindImages(this, filteredPeople);
+
                   peopleAdapter.setPeople(filteredPeople);
 
             }

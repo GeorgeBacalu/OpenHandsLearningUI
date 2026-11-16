@@ -49,7 +49,7 @@ public class FormsOfAddressActivity extends AuthenticatedActivity {
 
             } else {
                List<Category> formsOfAddress = result.value();
-               MediaResources.bindImages(this, formsOfAddress);
+
                formsOfAddressAdapter.setFormsOfAddress(formsOfAddress);
 
             }
@@ -63,7 +63,7 @@ public class FormsOfAddressActivity extends AuthenticatedActivity {
 
             } else {
                   List<Category> filteredFormsOfAddress = result.value();
-                  MediaResources.bindImages(this, filteredFormsOfAddress);
+
                   formsOfAddressAdapter.setFormsOfAddress(filteredFormsOfAddress);
 
             }

@@ -50,7 +50,7 @@ public class OutsideRecyclerViewAdapter extends RecyclerView.Adapter<OutsideRecy
             }
             intent.putExtra(CATEGORY_ID, outsideObjects.get(position).getId().toString());
             intent.putExtra(CATEGORY_NAME, outsideObjects.get(position).getName());
-            intent.putExtra(CATEGORY_IMAGE, outsideObjects.get(position).getImageSource());
+            intent.putExtra(CATEGORY_IMAGE, outsideObjects.get(position).getImageUrl());
             outsideContext.startActivity(intent);
         });
     }

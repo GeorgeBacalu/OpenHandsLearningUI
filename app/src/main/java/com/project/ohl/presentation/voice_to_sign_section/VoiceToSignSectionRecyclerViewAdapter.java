@@ -37,7 +37,7 @@ public class VoiceToSignSectionRecyclerViewAdapter extends RecyclerView.Adapter<
         var pair = textSignPairs.get(position);
         holder.letter.setText(pair.getLetter().toUpperCase(Locale.forLanguageTag("ro-RO")));
         holder.itemView.setContentDescription(voiceToSignContext.getString(R.string.sign_for_letter, pair.getLetter()));
-        MediaResources.loadImage(voiceToSignContext, MediaResources.voiceUrl(pair.getMediaKey()), pair.getImageSource(), holder.signImage);
+        MediaResources.loadImage(voiceToSignContext, MediaResources.voiceUrl(pair.getMediaKey()), holder.signImage);
     }
 
     @Override

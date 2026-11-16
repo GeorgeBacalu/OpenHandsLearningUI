@@ -52,7 +52,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
             }
             intent.putExtra(CATEGORY_ID, homeObjects.get(position).getId().toString());
             intent.putExtra(CATEGORY_NAME, homeObjects.get(position).getName());
-            intent.putExtra(CATEGORY_IMAGE, homeObjects.get(position).getImageSource());
+            intent.putExtra(CATEGORY_IMAGE, homeObjects.get(position).getImageUrl());
             homeContext.startActivity(intent);
         });
     }

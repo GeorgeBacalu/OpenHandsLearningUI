@@ -31,7 +31,7 @@ public class VideoPlayerActivity extends AuthenticatedActivity {
     private UUID authenticatedUserId;
     private VideoPlaybackControls playback;
     private UUID categoryId;
-    private int imageSubject;
+    private String imageSubject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +53,7 @@ public class VideoPlayerActivity extends AuthenticatedActivity {
         try { categoryId = UUID.fromString(intent.getStringExtra(CATEGORY_ID)); }
         catch (IllegalArgumentException invalidId) { finish(); return; }
         categoryName.setText(intent.getStringExtra(CATEGORY_NAME));
-        imageSubject = intent.getIntExtra(CATEGORY_IMAGE, 0);
+        imageSubject = intent.getStringExtra(CATEGORY_IMAGE);
         bindImage(imageSubject);
         findViewById(R.id.video_retry).setOnClickListener(view -> loadCategory());
         loadCategory();
@@ -99,18 +99,15 @@ public class VideoPlayerActivity extends AuthenticatedActivity {
         favoriteButton = findViewById(R.id.favoriteButton);
     }
 
-    private void setData(Category category, int imageSubject) {
+    private void setData(Category category, String initialImageUrl) {
         categoryName.setText(category.getName());
-        String key = category.getMediaKey() == null ? MediaResources.resourceName(category.getName()) : category.getMediaKey();
-        playback.load(category.getVideoUrl(), MediaResources.raw(this, key));
-        int fallback = imageSubject > 0 ? imageSubject : MediaResources.drawable(this, key);
-        ((View) categoryImage.getParent()).setVisibility(category.getImageUrl() != null || fallback > 0 ? View.VISIBLE : View.GONE);
-        MediaResources.loadImage(this, category.getImageUrl(), fallback, categoryImage);
+        playback.load(category.getVideoUrl());
+        bindImage(category.getImageUrl() == null ? initialImageUrl : category.getImageUrl());
     }
 
-    private void bindImage(int resourceId) {
-        ((View) categoryImage.getParent()).setVisibility(resourceId > 0 ? View.VISIBLE : View.GONE);
-        if (resourceId > 0) MediaResources.loadImage(this, resourceId, categoryImage);
+    private void bindImage(String url) {
+        ((View) categoryImage.getParent()).setVisibility(url != null ? View.VISIBLE : View.GONE);
+        MediaResources.loadImage(this, url, categoryImage);
     }
 
     private void handleFavorite(Category category) {

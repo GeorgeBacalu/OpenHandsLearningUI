@@ -50,7 +50,7 @@ public class PronounsRecyclerViewAdapter extends RecyclerView.Adapter<PronounsRe
             }
             intent.putExtra(CATEGORY_ID, pronouns.get(position).getId().toString());
             intent.putExtra(CATEGORY_NAME, pronouns.get(position).getName());
-            intent.putExtra(CATEGORY_IMAGE, pronouns.get(position).getImageSource().intValue());
+            intent.putExtra(CATEGORY_IMAGE, pronouns.get(position).getImageUrl());
             pronounsContext.startActivity(intent);
         });
     }

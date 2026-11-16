@@ -49,7 +49,7 @@ public class ColorsActivity extends AuthenticatedActivity {
 
             } else {
                List<Category> colors = result.value();
-               MediaResources.bindImages(this, colors);
+
                colorsAdapter.setColors(colors);
 
             }
@@ -63,7 +63,7 @@ public class ColorsActivity extends AuthenticatedActivity {
 
             } else {
                   List<Category> filteredColors = result.value();
-                  MediaResources.bindImages(this, filteredColors);
+
                   colorsAdapter.setColors(filteredColors);
 
             }

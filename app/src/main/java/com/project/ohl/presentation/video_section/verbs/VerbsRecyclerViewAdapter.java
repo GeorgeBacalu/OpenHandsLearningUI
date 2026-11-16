@@ -52,7 +52,7 @@ public class VerbsRecyclerViewAdapter extends RecyclerView.Adapter<VerbsRecycler
             }
             intent.putExtra(CATEGORY_ID, verbs.get(position).getId().toString());
             intent.putExtra(CATEGORY_NAME, verbs.get(position).getName());
-            intent.putExtra(CATEGORY_IMAGE, verbs.get(position).getImageSource());
+            intent.putExtra(CATEGORY_IMAGE, verbs.get(position).getImageUrl());
             verbsContext.startActivity(intent);
         });
     }

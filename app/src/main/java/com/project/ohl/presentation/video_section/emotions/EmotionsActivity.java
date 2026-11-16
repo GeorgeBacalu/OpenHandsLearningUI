@@ -49,7 +49,7 @@ public class EmotionsActivity extends AuthenticatedActivity {
 
             } else {
                     List<Category> emotions = result.value();
-                    MediaResources.bindImages(this, emotions);
+
                     emotionsAdapter.setEmotions(emotions);
 
             }
@@ -63,7 +63,7 @@ public class EmotionsActivity extends AuthenticatedActivity {
 
             } else {
                         List<Category> filteredEmotions = result.value();
-                        MediaResources.bindImages(this, filteredEmotions);
+
                         emotionsAdapter.setEmotions(filteredEmotions);
 
             }

@@ -49,7 +49,7 @@ public class ExpressionsRecyclerViewAdapter extends RecyclerView.Adapter<Express
             if (expressions.get(position).getId() == null) throw new NullPointerException("Invalid Selection");
             intent.putExtra(CATEGORY_ID, expressions.get(position).getId().toString());
             intent.putExtra(CATEGORY_NAME, expressions.get(position).getName());
-            intent.putExtra(CATEGORY_IMAGE, expressions.get(position).getImageSource());
+            intent.putExtra(CATEGORY_IMAGE, expressions.get(position).getImageUrl());
             context.startActivity(intent);
         });
     }

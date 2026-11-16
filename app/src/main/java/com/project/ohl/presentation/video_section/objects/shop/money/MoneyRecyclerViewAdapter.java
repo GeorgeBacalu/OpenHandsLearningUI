@@ -52,7 +52,7 @@ public class MoneyRecyclerViewAdapter extends RecyclerView.Adapter<MoneyRecycler
             }
             intent.putExtra(CATEGORY_ID, moneyUnits.get(position).getId().toString());
             intent.putExtra(CATEGORY_NAME, moneyUnits.get(position).getName());
-            intent.putExtra(CATEGORY_IMAGE, moneyUnits.get(position).getImageSource());
+            intent.putExtra(CATEGORY_IMAGE, moneyUnits.get(position).getImageUrl());
             moneyContext.startActivity(intent);
         });
     }

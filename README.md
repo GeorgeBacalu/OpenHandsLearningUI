@@ -130,8 +130,8 @@ navigation entry have been removed.
 The retired letter-sign API and remote CRUD client
 have been removed. A and Ă have distinct media keys, videos, category thumbnails,
 and voice-to-sign images. A uses `a.mp4` (PeSemne) and the original
-photographic hand image, stored once as `a.png`. Ă uses the existing ANIALMG
-demonstration, previously mislabeled as A, packaged as `a_breve.mp4`,
+photographic hand image, served as `a.webp`. Ă uses the existing ANIALMG
+demonstration, previously mislabeled as A, served as `a_breve.mp4`,
 with a photographic still of its full hand. The requested source filename
 `media/alphabet/ă.mp4` is retained; Android resource filenames require
 ASCII names. The resolver preserves this distinction before removing accents.
@@ -142,27 +142,20 @@ Their clips are complete gesture excerpts from the Asociația LSR alphabet lesso
 with original frontal/profile views and audio. Category thumbnails are photographic
 stills; voice results use independent black-and-white illustrations. Unicode composition, case and
 legacy Ş/Ţ spellings preserve these distinct keys instead of falling back to A/I/S/T.
-Category photos and voice illustrations have disjoint resource catalogs.
-`bindImages` resolves category photos only; `bindSigns` resolves `catalog_voice_signs`
-only and never falls back to a photo. Every letter uses `<letter>.png` for its
-video category, `voice_<letter>.png` for voice results, and `<letter>.mp4` for its
-video. Only A and the five diacritic letters received new artwork; the existing
-drawings for the other letters retain their original content.
-See [voice illustration provenance and prompts](media/alphabet/voice-illustrations.md).
+Category photos and voice illustrations use separate S3 paths. Voice lookup
+resolves only `voice/` illustrations and never substitutes a category photo.
+Letter images use `.webp`; the matching demonstrations use `.mp4`. The original
+source filenames and provenance are documented in `media/alphabet/`.
 Unicode letter lookup uses one text-to-media dictionary for case fallback,
 Romanian diacritics, spaces, and empty input.
 
 Favorites are read and changed through the API repository. The obsolete local
 favorites and duplicate catalog in SharedPreferences have been removed. Existing
 recordings in `saved_recordings.db` migrate to Room without deleting their rows;
-the recording filename and filesystem path remain distinct. A shared resource
-resolver normalizes Romanian diacritics and resolves compiled resource IDs through
-`res/values/media_catalog.xml`, without reflective resource lookup. Add each new
-packaged image or video to this catalog; unit tests verify complete coverage,
-including every sign-dictionary image. Bundled image loads include the installed APK
-revision and resource configuration in their Glide cache signature, so local
-updates cannot reuse a thumbnail belonging to a reassigned resource ID. Bitmap artwork uses `drawable-nodpi`, while
-UI icons use vectors. Room queries run off
+the recording filename and filesystem path remain distinct. A shared URL resolver normalizes Romanian diacritics and preserves distinct
+media keys for Romanian letters. `MediaCatalog` maps static artwork to verified
+S3 paths. Category URLs come from the API, and Glide caches downloaded images.
+Native vector controls and logos remain local. Room queries run off
 the main thread and observations are detached when their ViewModel is cleared.
 
 Generated build files and IDE configuration, including `.idea` directories, are
@@ -220,10 +213,9 @@ uses „semn”. API section types and media keys remain stable.
 
 ### Homepage artwork
 
-The main page uses transparent WebP artwork (with unchanged PNG logos) in `app/src/main/res/drawable-nodpi/`:
-`video_section.webp`, `voice_to_sign_section.webp`, and
-`openhandslearning_logo_transparent.png`. The logo is registered in the media
-catalog and referenced by `activity_main.xml`. These assets were edited with the
+The main page loads `video_section.webp` and `voice_to_sign_section.webp` from
+S3. `openhandslearning_logo_transparent.png` remains local and is referenced by
+`activity_main.xml`. These assets were edited with the
 built-in image-generation tool. Final prompts:
 
 **Video:** Remove the white background of this video-section illustration. Produce a clean transparent PNG cutout of ONLY the navy smartphone outline, navy video camera with cyan play button and its white stroke, and the four colorful circular buttons. Remove all pale gray background marks, faint stock-watermark camera outlines/lettering and diagonal hairlines so they do not become visible debris against a colored background. Keep the foreground geometry, arrangement and flat colors identical to the original. Use solid navy fills, no gradients or added texture. The empty phone screen, camera lens hole and home button hole should be transparent. Leave original padding and aspect ratio. Clean smooth antialiased edges, no stray pixels or shadows, no new content.
@@ -267,33 +259,30 @@ The Gradle connected-test task can uninstall the target app during cleanup; use 
 `values/brand_colors.xml` and its night overrides define the shared indigo gradient, interactive accents, focus/pressed states, and ripple colors. Cards, buttons, search, playback, favorites, authentication, and onboarding use this palette. Category artwork keeps its white square surface.
 The API URL can also be stored as `apiBaseUrl` in the untracked `local.properties`; the `-PapiBaseUrl` build property takes precedence.
 
-## S3 media and compressed fallbacks
+## S3-only images and videos
 
-The screen layouts, Romanian text, routing and logos are unchanged. Categories
-and sections read permanent `imageUrl` fields, and category playback reads nullable
-`videoUrl`. Remote images retain the existing ImageView sizing and uncropped
-artwork; bundled resources appear immediately and remain available on errors.
-A failed remote video load falls back to the matching bundled clip.
+The APK contains only the unchanged logo PNGs as raster artwork. All 251 other
+images and 184 videos load from permanent public S3 URLs. UI vector controls,
+fonts and the small Lottie vector animation remain native resources.
 
-All nonlogo raster images are WebP. PNG artwork retains identical decoded RGBA
-pixels; JPEG photos use WebP quality 90 or higher with maximum encoding effort
-and a full-resolution RGB PSNR threshold of 38 dB. Clips, including the former
-`.m4v` files, are H.264 `.mp4` with faststart, original dimensions, frame rate,
-content and audio. Logos remain their original PNG files and are not uploaded.
-Android resource names are preserved, so layouts, the immutable sign dictionary,
-and A/Ă/Â/Î/Ș/Ț distinctions continue to resolve the same media. Historical
-provenance documents describe original source filenames before this conversion.
+Categories and sections use the API's `imageUrl`; category playback uses
+`videoUrl`. Voice signs use the same immutable Unicode dictionary and separate
+`voice/voice_{mediaKey}.webp` illustrations. Static page headers and onboarding
+artwork use `S3ImageView` with the original layout dimensions, padding, scale
+mode and backgrounds. `MediaCatalog` contains object paths only, with no media
+bytes. Navigation carries image URLs rather than Android drawable IDs.
 
-Remote media lives in `open-hands-learning/{dev|prod}/categories/...` and
-`{dev|prod}/voice/...`. Category paths follow the complete parent hierarchy;
-voice illustrations use `voice/voice_{mediaKey}.webp`. Category and section URLs
-come from the API. Voice illustration URLs use `BuildConfig.MEDIA_BASE_URL`,
-which selects `dev/` for debug and `prod/` for release. Override with
-`-PmediaEnvironment=dev` or `prod` when intentionally targeting another environment.
-The API must use the same `MEDIA_ENVIRONMENT` value. No AWS credentials are
-stored in Android.
+Glide keeps its normal memory/disk cache; there are no packaged image or video
+fallbacks. A network connection is needed to fetch uncached media. Playback
+retains loading, retry, pause, seek, replay and restored-position behavior.
 
-The companion API repository contains `infrastructure/migrate_media.py`, the
-public asset manifest, scoped S3 policies and the explicit backup/upload/public
-verification/database-maintenance workflow. The development database exposes
-category image/video URLs and all voice/section asset URLs in `media_assets`.
+`BuildConfig.MEDIA_BASE_URL` selects `dev/` for debug and `prod/` for release;
+use `-PmediaEnvironment=dev` or `prod` when deliberately overriding it. Category
+and section URLs come from the matching API environment. No AWS credentials are
+stored in Android. Logos, layouts, source artwork, clip timing and audio are
+unchanged. Historical media provenance documents refer to original source files,
+which remain available in Git history and the verified S3 manifest.
+
+The companion API repository contains the upload manifest and migration tooling.
+Device checks fetch real public S3 media. Layout checks preload their S3 artwork
+before rendering on the UI thread; the main APK contains no test media fixtures.

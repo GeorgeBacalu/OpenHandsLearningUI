@@ -2,57 +2,47 @@ package com.project.ohl.presentation;
 
 import android.content.Context;
 import android.widget.ImageView;
+import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.signature.ObjectKey;
-import java.io.File;
-import androidx.annotation.ArrayRes;
-import com.project.ohl.R;
+import com.bumptech.glide.request.target.Target;
 import com.project.ohl.BuildConfig;
 import com.project.ohl.domain.model.Category;
-import com.project.ohl.domain.model.TextSignPair;
 import java.text.Normalizer;
-import java.util.List;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
+/** Resolves S3 URLs; Glide retains its normal memory and disk caches. */
 public final class MediaResources {
-    private static final ConcurrentHashMap<Integer, Map<String, Integer>> CATALOGS = new ConcurrentHashMap<>();
-    private static volatile String apkRevision;
     private MediaResources() {}
 
     public static void loadImage(Context context, Category category, ImageView target) {
-        int fallback = category.getImageSource() == null ? 0 : category.getImageSource();
-        loadImage(context, category.getImageUrl(), fallback, target);
+        loadImage(context, category.getImageUrl(), target);
     }
 
-    public static void loadImage(Context context, String url, int fallback, ImageView target) {
-        if (url == null || url.isBlank()) {
-            loadImage(context, fallback, target);
-            return;
+    public static void loadImage(Context context, String url, ImageView target) {
+        // ImageView still controls scaling, background, padding and dimensions.
+        var request = Glide.with(context).asBitmap().load(url).dontTransform().dontAnimate();
+        var layout = target.getLayoutParams();
+        if (layout != null && (layout.width == ViewGroup.LayoutParams.WRAP_CONTENT
+                || layout.height == ViewGroup.LayoutParams.WRAP_CONTENT)) {
+            // Match a local drawable's intrinsic size, including wrap-content page backgrounds.
+            request = request.override(Target.SIZE_ORIGINAL);
         }
-        Glide.with(context).asBitmap().load(url).placeholder(fallback).error(fallback)
-                .dontTransform().into(target);
+        request.into(target);
+    }
+
+    public static String imageUrl(String name) {
+        String key = MediaCatalog.IMAGES.get(resourceName(name));
+        return key == null ? null : BuildConfig.MEDIA_BASE_URL + key;
+    }
+
+    public static String videoUrl(String name) {
+        String key = MediaCatalog.VIDEOS.get(resourceName(name));
+        return key == null ? null : BuildConfig.MEDIA_BASE_URL + key;
     }
 
     public static String voiceUrl(String mediaKey) {
         String name = resourceName(mediaKey);
-        return BuildConfig.MEDIA_BASE_URL + "voice/" + (name.equals("space") ? name : "voice_" + name) + ".webp";
-    }
-
-    public static void loadImage(Context context, int resourceId, ImageView target) {
-        String revision = apkRevision;
-        if (revision == null) {
-            String apk = context.getApplicationInfo().sourceDir;
-            revision = apk + ":" + new File(apk).lastModified();
-            apkRevision = revision;
-        }
-        var configuration = context.getResources().getConfiguration();
-        var signature = new ObjectKey(revision + ":" + configuration.uiMode + ":"
-                + configuration.densityDpi + ":" + configuration.getLocales().toLanguageTags());
-        // ImageView controls sizing: category artwork fills both axes without cropping.
-        Glide.with(context).asBitmap().load(resourceId).signature(signature).dontTransform().into(target);
+        return imageUrl(name.equals("space") ? name : "voice_" + name);
     }
 
     public static String resourceName(String name) {
@@ -70,49 +60,4 @@ public final class MediaResources {
         };
     }
 
-    public static int drawable(Context context, String name) {
-        return catalog(context, R.array.catalog_drawables).getOrDefault(resourceName(name), 0);
-    }
-
-    public static int voiceDrawable(Context context, String name) {
-        return catalog(context, R.array.catalog_voice_signs).getOrDefault(resourceName(name), 0);
-    }
-
-    public static int raw(Context context, String name) {
-        return catalog(context, R.array.catalog_videos).getOrDefault(resourceName(name), 0);
-    }
-
-    private static Map<String, Integer> catalog(Context context, @ArrayRes int catalogId) {
-        return CATALOGS.computeIfAbsent(catalogId, ignored -> {
-            var resources = context.getResources();
-            var entries = resources.obtainTypedArray(catalogId);
-            var catalog = new HashMap<String, Integer>();
-            try {
-                for (int index = 0; index < entries.length(); index++) {
-                    int resourceId = entries.getResourceId(index, 0);
-                    if (resourceId != 0) {
-                        String key = resources.getResourceEntryName(resourceId);
-                        // Illustration filenames are independent of category photos and video keys.
-                        if (catalogId == R.array.catalog_voice_signs && key.startsWith("voice_"))
-                            key = key.substring("voice_".length());
-                        catalog.put(key, resourceId);
-                    }
-                }
-            } finally {
-                entries.recycle();
-            }
-            return Map.copyOf(catalog);
-        });
-    }
-
-    public static void bindSigns(Context context, List<TextSignPair> signs) {
-        for (TextSignPair sign : signs) sign.setImageSource(voiceDrawable(context, sign.getMediaKey()));
-    }
-
-    public static void bindImages(Context context, List<Category> categories) {
-        for (Category category : categories) {
-            String key = resourceName(category.getMediaKey() == null ? category.getName() : category.getMediaKey());
-            category.setImageSource(drawable(context, key));
-        }
-    }
 }

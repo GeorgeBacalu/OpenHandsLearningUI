@@ -49,7 +49,7 @@ public class ProductsActivity extends AuthenticatedActivity {
 
             } else {
                List<Category> products = result.value();
-               MediaResources.bindImages(this, products);
+
                productsAdapter.setProducts(products);
 
             }
@@ -63,7 +63,7 @@ public class ProductsActivity extends AuthenticatedActivity {
 
             } else {
                   List<Category> filteredProducts = result.value();
-                  MediaResources.bindImages(this, filteredProducts);
+
                   productsAdapter.setProducts(filteredProducts);
 
             }

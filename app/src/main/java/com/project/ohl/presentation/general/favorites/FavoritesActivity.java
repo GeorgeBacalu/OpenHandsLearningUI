@@ -79,7 +79,7 @@ public class FavoritesActivity extends AuthenticatedActivity {
     }
 
     private void showFavorites(List<Category> categories, String query) {
-        MediaResources.bindImages(this, categories);
+
         adapter.setCategories(categories);
         int count = categories.size();
         ((TextView) findViewById(R.id.favorites_count)).setText(getResources().getQuantityString(

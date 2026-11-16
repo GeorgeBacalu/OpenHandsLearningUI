@@ -96,8 +96,6 @@ public class MainActivity extends AuthenticatedActivity {
           }
           for (Section section : result.value()) {
               String name = section.getName();
-              section.setIcon(MediaResources.drawable(this, section.getIconKey() == null ? "ic_" + name : section.getIconKey()));
-              section.setImageSource(MediaResources.drawable(this, section.getMediaKey() == null ? name : section.getMediaKey()));
           }
           sectionsAdapter.setSections(result.value());
       });

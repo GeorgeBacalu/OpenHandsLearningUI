@@ -50,7 +50,7 @@ public class  WildAnimalsRecyclerViewAdapter extends RecyclerView.Adapter<WildAn
             }
             intent.putExtra(CATEGORY_ID, wildAnimals.get(position).getId().toString());
             intent.putExtra(CATEGORY_NAME, wildAnimals.get(position).getName());
-            intent.putExtra(CATEGORY_IMAGE, wildAnimals.get(position).getImageSource());
+            intent.putExtra(CATEGORY_IMAGE, wildAnimals.get(position).getImageUrl());
             wildAnimalsContext.startActivity(intent);
         });
     }

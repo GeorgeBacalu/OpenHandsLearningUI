@@ -6,12 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".presentation.general.on_boarding.IntroductoryActivity">
 
-    <ImageView
+    <com.project.ohl.presentation.S3ImageView
         android:id="@+id/backgroundImage"
         android:layout_width="wrap_content"
         android:layout_height="900dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/study_group"
+        app:mediaName="study_group"
         app:layout_constraintVertical_bias="0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,12 +19,12 @@
         app:layout_constraintTop_toTopOf="parent"
         android:contentDescription="@string/background_image" />
 
-    <ImageView
+    <com.project.ohl.presentation.S3ImageView
         android:id="@+id/backgroundOverlay"
         android:layout_width="wrap_content"
         android:layout_height="900dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/overlay_background"
+        app:mediaName="overlay_background"
         app:layout_constraintVertical_bias="0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

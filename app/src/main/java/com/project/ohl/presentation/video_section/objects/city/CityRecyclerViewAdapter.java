@@ -52,7 +52,7 @@ public class CityRecyclerViewAdapter extends RecyclerView.Adapter<CityRecyclerVi
             }
             intent.putExtra(CATEGORY_ID, cityObjects.get(position).getId().toString());
             intent.putExtra(CATEGORY_NAME, cityObjects.get(position).getName());
-            intent.putExtra(CATEGORY_IMAGE, cityObjects.get(position).getImageSource());
+            intent.putExtra(CATEGORY_IMAGE, cityObjects.get(position).getImageUrl());
             cityContext.startActivity(intent);
         });
     }

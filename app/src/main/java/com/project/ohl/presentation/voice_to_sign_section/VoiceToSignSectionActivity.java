@@ -115,7 +115,7 @@ public class VoiceToSignSectionActivity extends AuthenticatedActivity {
             return;
         }
         var signs = SignText.translate(transcript);
-        MediaResources.bindSigns(this, signs);
+
         voiceToSignSectionRecyclerViewAdapter.setTextSignPairs(signs);
         categoryNameCardText.setText(transcript);
         outputContent.setVisibility(signs.isEmpty() ? View.GONE : View.VISIBLE);

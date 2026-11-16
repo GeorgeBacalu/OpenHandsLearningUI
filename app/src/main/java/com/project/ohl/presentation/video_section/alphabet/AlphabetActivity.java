@@ -49,7 +49,7 @@ public class AlphabetActivity extends AuthenticatedActivity {
 
             } else {
                List<Category> letters = result.value();
-               MediaResources.bindImages(this, letters);
+
                alphabetAdapter.setLetters(letters);
 
             }
@@ -63,7 +63,7 @@ public class AlphabetActivity extends AuthenticatedActivity {
 
             } else {
                   List<Category> filteredLetters = result.value();
-                  MediaResources.bindImages(this, filteredLetters);
+
                   alphabetAdapter.setLetters(filteredLetters);
 
             }
