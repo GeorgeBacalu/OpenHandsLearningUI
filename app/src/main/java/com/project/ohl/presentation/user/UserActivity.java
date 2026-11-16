@@ -16,13 +16,13 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.project.ohl.R;
+import com.project.ohl.presentation.MainActivity;
 import com.project.ohl.domain.model.City;
 import com.project.ohl.domain.model.County;
 import com.project.ohl.domain.model.Registration;
 import com.project.ohl.domain.model.School;
 import com.project.ohl.presentation.AuthenticationViewModel;
 import com.project.ohl.presentation.LearningViewModel;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.UUID;
 
@@ -71,7 +71,11 @@ public class UserActivity extends AppCompatActivity {
             if (result == null) return;
             submit.setEnabled(true);
             findViewById(R.id.auth_progress).setVisibility(View.GONE);
-            if (result.isSuccess()) { setResult(RESULT_OK); finish(); }
+            if (result.isSuccess()) {
+                startActivity(new Intent(this, MainActivity.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                finish();
+            }
             else { error.setText(AuthMessages.forError(result.error())); error.setVisibility(View.VISIBLE); }
         });
         findViewById(R.id.open_login).setOnClickListener(view -> {
@@ -85,8 +89,7 @@ public class UserActivity extends AppCompatActivity {
             String number = String.valueOf(phone.getText()).strip();
             if (fullName.isBlank()) { name.setError(getString(R.string.required_field)); return; }
             if (!Patterns.EMAIL_ADDRESS.matcher(address).matches()) { email.setError(getString(R.string.invalid_email)); return; }
-            if (secret.length() < 15) { password.setError(getString(R.string.password_policy)); return; }
-            if (secret.getBytes(StandardCharsets.UTF_8).length > 72) { password.setError(getString(R.string.password_too_long)); return; }
+            if (secret.isBlank()) { password.setError(getString(R.string.required_field)); return; }
             if (!secret.equals(String.valueOf(confirmation.getText()))) { confirmation.setError(getString(R.string.password_mismatch)); return; }
             if (!number.matches("0[0-9]{9}")) { phone.setError(getString(R.string.invalid_phone)); return; }
             if (schoolId == null) { schoolInput.setError(getString(R.string.select_school)); return; }

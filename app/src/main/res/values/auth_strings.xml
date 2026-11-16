@@ -19,12 +19,16 @@
     <string name="invalid_registration">Verifică datele introduse și școala selectată.</string>
     <string name="invalid_email">Introdu o adresă de e-mail validă.</string>
     <string name="required_field">Completează acest câmp.</string>
-    <string name="password_policy">Folosește cel puțin 15 caractere.</string>
-    <string name="password_too_long">Parola este prea lungă. Scurteaz-o.</string>
     <string name="password_mismatch">Parolele nu coincid.</string>
     <string name="invalid_phone">Introdu un număr de telefon de 10 cifre, începând cu 0.</string>
     <string name="select_school">Selectează școala din listă.</string>
     <string name="directory_failed">Lista școlilor nu a putut fi încărcată. Verifică conexiunea și redeschide formularul.</string>
     <string name="login_to_favorite">Autentificare pentru favorite</string>
     <string name="local_network_required">Permite accesul la rețeaua locală din setările telefonului pentru a conecta aplicația.</string>
+    <string name="welcome_user">Bine ai venit, %1$s!</string>
+    <string name="auth_retry">Reîncearcă</string>
+    <string name="auth_login_title">Bine ai revenit!</string>
+    <string name="auth_login_subtitle">Autentifică-te pentru a continua să înveți.</string>
+    <string name="auth_register_title">Creează un cont</string>
+    <string name="auth_register_subtitle">Completează datele de mai jos pentru a începe.</string>
 </resources>

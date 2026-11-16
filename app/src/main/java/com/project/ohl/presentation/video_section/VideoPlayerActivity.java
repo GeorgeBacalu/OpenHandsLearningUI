@@ -10,7 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import com.project.ohl.presentation.AuthenticatedActivity;
 import com.project.ohl.R;
 import com.project.ohl.domain.model.Category;
 import com.project.ohl.presentation.LearningViewModel;
@@ -22,7 +22,7 @@ import java.util.UUID;
 
 import static android.R.id.home;
 
-public class VideoPlayerActivity extends AppCompatActivity {
+public class VideoPlayerActivity extends AuthenticatedActivity {
     public static final String CATEGORY_ID = "categoryId";
     public static final String CATEGORY_NAME = "categoryName";
     public static final String CATEGORY_IMAGE = "categoryImage";

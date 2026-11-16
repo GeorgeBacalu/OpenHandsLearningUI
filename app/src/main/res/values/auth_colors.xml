@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="auth_background">#F5F7FC</color>
+    <color name="auth_surface">#FFFFFF</color>
+    <color name="auth_text">#19243C</color>
+    <color name="auth_muted">#596780</color>
+    <color name="auth_border">#CDD5E3</color>
+    <color name="auth_card_border">#E3E8F1</color>
+    <color name="auth_disabled">#E3E8F1</color>
+    <color name="auth_button_disabled">#DAE2FA</color>
+    <color name="auth_accent">#113CFC</color>
+    <color name="auth_error">#B3261E</color>
+    <color name="auth_navigation_bar">#113CFC</color>
+    <bool name="auth_light_system_bars">true</bool>
+</resources>
