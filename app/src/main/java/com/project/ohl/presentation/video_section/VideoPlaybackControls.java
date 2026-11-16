@@ -11,7 +11,6 @@ import com.google.android.material.button.MaterialButton;
 import com.project.ohl.R;
 import java.util.Locale;
 
-/** Keeps the accessible, persistent playback controls in sync with the video surface. */
 final class VideoPlaybackControls {
     private static final String POSITION = "video.position";
     private static final String PLAYING = "video.playing";
@@ -91,7 +90,6 @@ final class VideoPlaybackControls {
             @Override public void onProgressChanged(SeekBar bar, int value, boolean fromUser) {
                 if (!fromUser || !prepared) return;
                 elapsed.setText(time(value));
-                // Keyboard and accessibility actions do not call the touch callbacks.
                 if (!dragging) seek(value);
             }
             @Override public void onStartTrackingTouch(SeekBar bar) { dragging = true; }

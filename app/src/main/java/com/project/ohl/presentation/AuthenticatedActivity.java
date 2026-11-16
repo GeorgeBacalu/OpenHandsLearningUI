@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import com.project.ohl.presentation.user.LoginActivity;
 
-/** Guards restored navigation and closes protected screens when the API rejects a token. */
 public abstract class AuthenticatedActivity extends AppCompatActivity {
     public static final String AUTHENTICATION_EXPIRED = "com.project.ohl.AUTHENTICATION_EXPIRED";
     private final BroadcastReceiver authenticationExpired = new BroadcastReceiver() {

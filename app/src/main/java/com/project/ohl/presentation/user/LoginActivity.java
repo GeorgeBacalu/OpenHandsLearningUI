@@ -9,8 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.project.ohl.R;
-import com.project.ohl.presentation.MainActivity;
+import com.project.ohl.app.AppViewModels;
 import com.project.ohl.presentation.AuthenticationViewModel;
+import com.project.ohl.presentation.MainActivity;
 import com.project.ohl.presentation.UserSession;
 
 public class LoginActivity extends AppCompatActivity {
@@ -23,19 +24,18 @@ public class LoginActivity extends AppCompatActivity {
         TextInputEditText password = findViewById(R.id.login_password);
         MaterialButton submit = findViewById(R.id.button_login);
         TextView error = findViewById(R.id.auth_error);
-        var authentication = AuthenticationViewModel.of(this);
-        submit.setEnabled(!authentication.isSubmitting());
-        findViewById(R.id.auth_progress).setVisibility(authentication.isSubmitting() ? View.VISIBLE : View.GONE);
-        authentication.observeAuthentication(this, result -> {
-            if (result == null) return;
-            submit.setEnabled(true);
-            findViewById(R.id.auth_progress).setVisibility(View.GONE);
+        var authentication = AppViewModels.get(this, AuthenticationViewModel.class);
+        authentication.state().observe(this, result -> {
+            submit.setEnabled(!result.isLoading());
+            findViewById(R.id.auth_progress).setVisibility(result.isLoading() ? View.VISIBLE : View.GONE);
+            if (result.isLoading()) error.setVisibility(View.GONE);
             if (result.isSuccess()) {
                 startActivity(new Intent(this, MainActivity.class)
                         .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                 finish();
+            } else if (result.error() != null) {
+                error.setText(AuthMessages.forError(result.error())); error.setVisibility(View.VISIBLE);
             }
-            else { error.setText(AuthMessages.forError(result.error())); error.setVisibility(View.VISIBLE); }
         });
         findViewById(R.id.open_registration).setOnClickListener(view -> startActivity(new Intent(this, UserActivity.class)));
         submit.setOnClickListener(view -> {
@@ -46,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
             submit.setEnabled(false);
             error.setVisibility(View.GONE);
             findViewById(R.id.auth_progress).setVisibility(View.VISIBLE);
-            authentication.authenticate(repository -> repository.login(address, secret));
+            authentication.login(address, secret);
         });
     }
 

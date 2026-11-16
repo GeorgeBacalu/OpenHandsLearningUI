@@ -1,5 +1,6 @@
+import groovy.json.JsonOutput
+
 plugins {
-    alias(libs.plugins.room)
     alias(libs.plugins.android.application)
 }
 
@@ -37,7 +38,7 @@ android {
         versionCode = 1
         versionName = '1.0'
         testInstrumentationRunner = 'androidx.test.runner.AndroidJUnitRunner'
-        buildConfigField 'String', 'API_BASE_URL', groovy.json.JsonOutput.toJson(apiBaseUrl)
+        buildConfigField 'String', 'API_BASE_URL', JsonOutput.toJson(apiBaseUrl)
     }
 
     compileOptions {
@@ -51,11 +52,11 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField 'String', 'MEDIA_BASE_URL', groovy.json.JsonOutput.toJson(
+            buildConfigField 'String', 'MEDIA_BASE_URL', JsonOutput.toJson(
                     'https://open-hands-learning.s3.us-east-1.amazonaws.com/' + mediaEnvironment.orElse('dev').get() + '/')
         }
         release {
-            buildConfigField 'String', 'MEDIA_BASE_URL', groovy.json.JsonOutput.toJson(
+            buildConfigField 'String', 'MEDIA_BASE_URL', JsonOutput.toJson(
                     'https://open-hands-learning.s3.us-east-1.amazonaws.com/' + mediaEnvironment.orElse('prod').get() + '/')
         }
     }
@@ -66,13 +67,8 @@ android {
 
 }
 
-room {
-    schemaDirectory "$projectDir/schemas"
-}
-
 dependencies {
-    implementation libs.room.runtime
-    annotationProcessor libs.room.compiler
+    compileOnly libs.jspecify
     coreLibraryDesugaring libs.desugar
     implementation libs.androidx.lifecycle.viewmodel
     implementation libs.androidx.lifecycle.livedata
@@ -82,13 +78,11 @@ dependencies {
     implementation libs.androidx.constraintlayout
     implementation libs.androidx.core
     implementation libs.androidx.fragment
-    implementation libs.androidx.preference
     implementation libs.androidx.recyclerview
     implementation libs.material
     implementation libs.kotlin.stdlib
     implementation libs.glide
     implementation libs.gson
-    implementation libs.lottie
     implementation libs.retrofit
     implementation libs.retrofit.gson
 

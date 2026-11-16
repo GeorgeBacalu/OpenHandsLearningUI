@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-/** Keeps category content clear of the toolbar and system navigation. */
 public final class CategoryPageLayout {
     private CategoryPageLayout() {}
 
@@ -20,7 +19,6 @@ public final class CategoryPageLayout {
         int[] pagePosition = new int[2];
         int[] toolbarPosition = new int[2];
 
-        // Opening a page should show its introduction, without focusing search.
         ((ViewGroup) page).setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
         page.setFocusableInTouchMode(true);
         page.requestFocus();

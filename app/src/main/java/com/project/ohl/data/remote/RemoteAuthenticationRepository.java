@@ -1,5 +1,6 @@
 package com.project.ohl.data.remote;
 
+import androidx.annotation.NonNull;
 import com.project.ohl.domain.model.Registration;
 import com.project.ohl.domain.model.User;
 import com.project.ohl.domain.repository.AuthenticationException;
@@ -37,20 +38,21 @@ public final class RemoteAuthenticationRepository implements AuthenticationRepos
         return callback -> {
             var call = prototype.clone();
             call.enqueue(new Callback<>() {
-                @Override public void onResponse(Call<AuthApi.AuthenticationResponse> request, Response<AuthApi.AuthenticationResponse> response) {
-                    if (request.isCanceled()) return;
-                    var body = response.body();
-                    if (response.isSuccessful() && body != null && body.user() != null
-                            && body.accessToken() != null && !body.accessToken().isBlank() && "Bearer".equals(body.tokenType())) {
-                        tokens.save(body.accessToken());
-                        account = body.user();
-                        callback.accept(Result.success(account));
-                    } else {
-                        if (response.errorBody() != null) response.errorBody().close();
-                        callback.accept(Result.failure(new AuthenticationException(response.code())));
+                @Override public void onResponse(@NonNull Call<AuthApi.AuthenticationResponse> request, @NonNull Response<AuthApi.AuthenticationResponse> response) {
+                    try (var ignored = response.errorBody()) {
+                        if (request.isCanceled()) return;
+                        var body = response.body();
+                        if (response.isSuccessful() && body != null && body.user() != null
+                                && body.accessToken() != null && !body.accessToken().isBlank() && "Bearer".equals(body.tokenType())) {
+                            tokens.save(body.accessToken());
+                            account = body.user();
+                            callback.accept(Result.success(account));
+                        } else {
+                            callback.accept(Result.failure(new AuthenticationException(response.code())));
+                        }
                     }
                 }
-                @Override public void onFailure(Call<AuthApi.AuthenticationResponse> request, Throwable error) {
+                @Override public void onFailure(@NonNull Call<AuthApi.AuthenticationResponse> request, @NonNull Throwable error) {
                     if (!request.isCanceled()) callback.accept(Result.failure(error));
                 }
             });
@@ -62,18 +64,19 @@ public final class RemoteAuthenticationRepository implements AuthenticationRepos
         return callback -> {
             var call = prototype.clone();
             call.enqueue(new Callback<>() {
-                @Override public void onResponse(Call<User> request, Response<User> response) {
-                    if (request.isCanceled()) return;
-                    if (response.isSuccessful() && response.body() != null) {
-                        account = response.body();
-                        callback.accept(Result.success(account));
-                    } else {
-                        if (response.code() == 401) { account = null; tokens.clear(); }
-                        if (response.errorBody() != null) response.errorBody().close();
-                        callback.accept(Result.failure(new AuthenticationException(response.code())));
+                @Override public void onResponse(@NonNull Call<User> request, @NonNull Response<User> response) {
+                    try (var ignored = response.errorBody()) {
+                        if (request.isCanceled()) return;
+                        if (response.isSuccessful() && response.body() != null) {
+                            account = response.body();
+                            callback.accept(Result.success(account));
+                        } else {
+                            if (response.code() == 401) { account = null; tokens.clear(); }
+                            callback.accept(Result.failure(new AuthenticationException(response.code())));
+                        }
                     }
                 }
-                @Override public void onFailure(Call<User> request, Throwable error) {
+                @Override public void onFailure(@NonNull Call<User> request, @NonNull Throwable error) {
                     if (!request.isCanceled()) callback.accept(Result.failure(error));
                 }
             });
@@ -93,18 +96,19 @@ public final class RemoteAuthenticationRepository implements AuthenticationRepos
         return callback -> {
             var call = prototype.clone();
             call.enqueue(new Callback<>() {
-                @Override public void onResponse(Call<Void> request, Response<Void> response) {
-                    if (request.isCanceled()) return;
-                    if (response.isSuccessful()) {
-                        account = null;
-                        tokens.clear();
-                        callback.accept(Result.success(null));
-                    } else {
-                        if (response.errorBody() != null) response.errorBody().close();
-                        callback.accept(Result.failure(new AuthenticationException(response.code())));
+                @Override public void onResponse(@NonNull Call<Void> request, @NonNull Response<Void> response) {
+                    try (var ignored = response.errorBody()) {
+                        if (request.isCanceled()) return;
+                        if (response.isSuccessful()) {
+                            account = null;
+                            tokens.clear();
+                            callback.accept(Result.success(null));
+                        } else {
+                            callback.accept(Result.failure(new AuthenticationException(response.code())));
+                        }
                     }
                 }
-                @Override public void onFailure(Call<Void> request, Throwable error) {
+                @Override public void onFailure(@NonNull Call<Void> request, @NonNull Throwable error) {
                     if (!request.isCanceled()) callback.accept(Result.failure(error));
                 }
             });
@@ -117,12 +121,13 @@ public final class RemoteAuthenticationRepository implements AuthenticationRepos
             var call = api.logout();
             call.enqueue(new Callback<>() {
                 private void clear() { account = null; tokens.clear(); }
-                @Override public void onResponse(Call<Void> request, Response<Void> response) {
-                    clear();
-                    if (response.errorBody() != null) response.errorBody().close();
-                    callback.accept(Result.success(null));
+                @Override public void onResponse(@NonNull Call<Void> request, @NonNull Response<Void> response) {
+                    try (var ignored = response.errorBody()) {
+                        clear();
+                        callback.accept(Result.success(null));
+                    }
                 }
-                @Override public void onFailure(Call<Void> request, Throwable error) {
+                @Override public void onFailure(@NonNull Call<Void> request, @NonNull Throwable error) {
                     clear();
                     if (!request.isCanceled()) callback.accept(Result.success(null));
                 }

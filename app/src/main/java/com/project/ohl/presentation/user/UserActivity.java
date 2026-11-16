@@ -2,46 +2,34 @@ package com.project.ohl.presentation.user;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.os.BundleCompat;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.project.ohl.R;
-import com.project.ohl.presentation.MainActivity;
-import com.project.ohl.domain.model.City;
-import com.project.ohl.domain.model.County;
+import com.project.ohl.app.AppViewModels;
 import com.project.ohl.domain.model.Registration;
-import com.project.ohl.domain.model.School;
 import com.project.ohl.presentation.AuthenticationViewModel;
-import com.project.ohl.presentation.LearningViewModel;
+import com.project.ohl.presentation.MainActivity;
+import com.project.ohl.presentation.SchoolDirectoryViewModel;
 import java.util.List;
 import java.util.UUID;
 
 public class UserActivity extends AppCompatActivity {
-    private final Handler handler = new Handler(Looper.getMainLooper());
     private MaterialAutoCompleteTextView countyInput;
     private MaterialAutoCompleteTextView cityInput;
     private MaterialAutoCompleteTextView schoolInput;
-    private List<County> counties = List.of();
-    private List<City> cities = List.of();
-    private List<School> schools = List.of();
-    private UUID countyId;
-    private UUID cityId;
-    private UUID schoolId;
-    private Runnable citySearch;
-    private Runnable schoolSearch;
+    private SchoolDirectoryViewModel directory;
     private boolean restoring;
     private record DirectoryOption(UUID id, String name) {
-        @Override public String toString() { return name; }
+        @Override public @NonNull String toString() { return name; }
     }
 
     @Override protected void onCreate(Bundle saved) {
@@ -52,11 +40,7 @@ public class UserActivity extends AppCompatActivity {
         countyInput = findViewById(R.id.registration_county);
         cityInput = findViewById(R.id.registration_city);
         schoolInput = findViewById(R.id.registration_school);
-        if (saved != null) {
-            countyId = BundleCompat.getSerializable(saved, "countyId", UUID.class);
-            cityId = BundleCompat.getSerializable(saved, "cityId", UUID.class);
-            schoolId = BundleCompat.getSerializable(saved, "schoolId", UUID.class);
-        }
+        directory = AppViewModels.get(this, SchoolDirectoryViewModel.class);
         TextInputEditText name = findViewById(R.id.form_textFieldName);
         TextInputEditText email = findViewById(R.id.form_textFieldEmail);
         TextInputEditText password = findViewById(R.id.form_textFieldPassword);
@@ -64,19 +48,18 @@ public class UserActivity extends AppCompatActivity {
         TextInputEditText phone = findViewById(R.id.form_textFieldPhone);
         MaterialButton submit = findViewById(R.id.button_saveUser);
         TextView error = findViewById(R.id.auth_error);
-        var authentication = AuthenticationViewModel.of(this);
-        submit.setEnabled(!authentication.isSubmitting());
-        findViewById(R.id.auth_progress).setVisibility(authentication.isSubmitting() ? View.VISIBLE : View.GONE);
-        authentication.observeAuthentication(this, result -> {
-            if (result == null) return;
-            submit.setEnabled(true);
-            findViewById(R.id.auth_progress).setVisibility(View.GONE);
+        var authentication = AppViewModels.get(this, AuthenticationViewModel.class);
+        authentication.state().observe(this, result -> {
+            submit.setEnabled(!result.isLoading());
+            findViewById(R.id.auth_progress).setVisibility(result.isLoading() ? View.VISIBLE : View.GONE);
+            if (result.isLoading()) error.setVisibility(View.GONE);
             if (result.isSuccess()) {
                 startActivity(new Intent(this, MainActivity.class)
                         .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                 finish();
+            } else if (result.error() != null) {
+                error.setText(AuthMessages.forError(result.error())); error.setVisibility(View.VISIBLE);
             }
-            else { error.setText(AuthMessages.forError(result.error())); error.setVisibility(View.VISIBLE); }
         });
         findViewById(R.id.open_login).setOnClickListener(view -> {
             startActivity(new Intent(this, LoginActivity.class)); finish();
@@ -92,71 +75,54 @@ public class UserActivity extends AppCompatActivity {
             if (secret.isBlank()) { password.setError(getString(R.string.required_field)); return; }
             if (!secret.equals(String.valueOf(confirmation.getText()))) { confirmation.setError(getString(R.string.password_mismatch)); return; }
             if (!number.matches("0[0-9]{9}")) { phone.setError(getString(R.string.invalid_phone)); return; }
-            if (schoolId == null) { schoolInput.setError(getString(R.string.select_school)); return; }
-            var registration = new Registration(fullName, address, secret, number, schoolId);
+            if (directory.schoolId() == null) { schoolInput.setError(getString(R.string.select_school)); return; }
+            var registration = new Registration(fullName, address, secret, number, directory.schoolId());
             submit.setEnabled(false);
             error.setVisibility(View.GONE);
             findViewById(R.id.auth_progress).setVisibility(View.VISIBLE);
-            authentication.authenticate(repository -> repository.register(registration));
+            authentication.register(registration);
         });
     }
 
     private void setupDirectory() {
-        cityInput.setEnabled(countyId != null); schoolInput.setEnabled(cityId != null);
-        LearningViewModel.of(this).<List<County>>load(this, "counties", repository -> repository.getCounties(), result -> {
-            if (result.isSuccess() && result.value() != null) {
-                counties = result.value();
-                countyInput.setAdapter(adapter(counties.stream().map(value -> new DirectoryOption(value.getId(), value.getName())).toList()));
-            } else showDirectoryError();
+        cityInput.setEnabled(directory.countyId() != null);
+        schoolInput.setEnabled(directory.cityId() != null);
+        directory.counties().observe(this, state -> {
+            if (state.isSuccess() && state.value() != null) {
+                countyInput.setAdapter(adapter(state.value().stream().map(value -> new DirectoryOption(value.getId(), value.getName())).toList()));
+            } else if (state.error() != null) showDirectoryError();
+        });
+        directory.cities().observe(this, state -> {
+            if (state.isSuccess() && state.value() != null) {
+                cityInput.setAdapter(adapter(state.value().stream().map(value -> new DirectoryOption(value.getId(), value.getName())).toList()));
+                if (cityInput.hasFocus() && directory.cityId() == null && !state.value().isEmpty()) cityInput.showDropDown();
+            } else if (state.error() != null) showDirectoryError();
+        });
+        directory.schools().observe(this, state -> {
+            if (state.isSuccess() && state.value() != null) {
+                schoolInput.setAdapter(adapter(state.value().stream().map(value -> new DirectoryOption(value.getId(), value.getName())).toList()));
+                if (schoolInput.hasFocus() && directory.schoolId() == null && !state.value().isEmpty()) schoolInput.showDropDown();
+            } else if (state.error() != null) showDirectoryError();
         });
         countyInput.setOnItemClickListener((parent, view, position, id) -> {
-            countyId = ((DirectoryOption) parent.getItemAtPosition(position)).id(); cityId = null; schoolId = null;
-            cityInput.setAdapter(adapter(List.of())); schoolInput.setAdapter(adapter(List.of()));
+            directory.selectCounty(((DirectoryOption) parent.getItemAtPosition(position)).id());
             cityInput.setText("", false); schoolInput.setText("", false);
-            cityInput.setEnabled(true); schoolInput.setEnabled(false); loadCities("");
+            cityInput.setEnabled(true); schoolInput.setEnabled(false);
+            directory.searchCities("");
         });
         cityInput.setOnItemClickListener((parent, view, position, id) -> {
-            cityId = ((DirectoryOption) parent.getItemAtPosition(position)).id(); schoolId = null;
-            schoolInput.setAdapter(adapter(List.of()));
-            schoolInput.setText("", false); schoolInput.setEnabled(true); loadSchools("");
+            directory.selectCity(((DirectoryOption) parent.getItemAtPosition(position)).id());
+            schoolInput.setText("", false); schoolInput.setEnabled(true);
+            directory.searchSchools("");
         });
-        schoolInput.setOnItemClickListener((parent, view, position, id) -> schoolId = ((DirectoryOption) parent.getItemAtPosition(position)).id());
+        schoolInput.setOnItemClickListener((parent, view, position, id) ->
+                directory.selectSchool(((DirectoryOption) parent.getItemAtPosition(position)).id()));
         watch(cityInput, () -> {
-            cityId = null; schoolId = null; schoolInput.setText("", false); schoolInput.setEnabled(false);
-            if (citySearch != null) handler.removeCallbacks(citySearch);
-            citySearch = () -> loadCities(cityInput.getText().toString()); handler.postDelayed(citySearch, 300);
+            directory.editCityQuery(cityInput.getText().toString());
+            schoolInput.setText("", false); schoolInput.setEnabled(false);
         });
-        watch(schoolInput, () -> {
-            schoolId = null;
-            if (schoolSearch != null) handler.removeCallbacks(schoolSearch);
-            schoolSearch = () -> loadSchools(schoolInput.getText().toString()); handler.postDelayed(schoolSearch, 300);
-        });
-        if (countyId != null) loadCities("");
-        if (cityId != null) loadSchools("");
-    }
-
-    private void loadCities(String query) {
-        if (countyId == null) return;
-        UUID selected = countyId;
-        LearningViewModel.of(this).<List<City>>load(this, "cities", repository -> repository.getCities(selected, query, 0, 50), result -> {
-            if (!selected.equals(countyId)) return;
-            if (result.isSuccess() && result.value() != null) {
-                cities = result.value(); cityInput.setAdapter(adapter(cities.stream().map(value -> new DirectoryOption(value.getId(), value.getName())).toList()));
-                if (cityInput.hasFocus() && cityId == null) cityInput.showDropDown();
-            } else showDirectoryError();
-        });
-    }
-
-    private void loadSchools(String query) {
-        if (cityId == null) return;
-        UUID selected = cityId;
-        LearningViewModel.of(this).<List<School>>load(this, "schools", repository -> repository.getSchools(selected, query, 0, 50), result -> {
-            if (!selected.equals(cityId)) return;
-            if (result.isSuccess() && result.value() != null) {
-                schools = result.value(); schoolInput.setAdapter(adapter(schools.stream().map(value -> new DirectoryOption(value.getId(), value.getName())).toList()));
-                if (schoolInput.hasFocus() && schoolId == null) schoolInput.showDropDown();
-            } else showDirectoryError();
-        });
+        watch(schoolInput, () -> directory.editSchoolQuery(schoolInput.getText().toString()));
+        directory.load();
     }
 
     private ArrayAdapter<DirectoryOption> adapter(List<DirectoryOption> names) {
@@ -172,18 +138,11 @@ public class UserActivity extends AppCompatActivity {
         input.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence text, int start, int count, int after) {}
             @Override public void onTextChanged(CharSequence text, int start, int before, int count) {}
-            @Override public void afterTextChanged(Editable text) { if (!restoring) changed.run(); }
+            @Override public void afterTextChanged(Editable text) { if (!restoring && !input.isPerformingCompletion()) changed.run(); }
         });
     }
 
-    @Override protected void onDestroy() { handler.removeCallbacksAndMessages(null); super.onDestroy(); }
-    @Override protected void onSaveInstanceState(Bundle state) {
-        super.onSaveInstanceState(state);
-        state.putSerializable("countyId", countyId);
-        state.putSerializable("cityId", cityId);
-        state.putSerializable("schoolId", schoolId);
-    }
-    @Override protected void onRestoreInstanceState(Bundle state) {
+    @Override protected void onRestoreInstanceState(@NonNull Bundle state) {
         restoring = true;
         super.onRestoreInstanceState(state);
         restoring = false;

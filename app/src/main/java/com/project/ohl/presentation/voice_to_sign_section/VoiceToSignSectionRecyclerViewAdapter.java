@@ -10,8 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.project.ohl.R;
-import com.project.ohl.presentation.MediaResources;
 import com.project.ohl.domain.model.TextSignPair;
+import com.project.ohl.presentation.MediaResources;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -35,14 +35,14 @@ public class VoiceToSignSectionRecyclerViewAdapter extends RecyclerView.Adapter<
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if (getItemViewType(position) == WORD_BREAK) return;
         var pair = textSignPairs.get(position);
-        holder.letter.setText(pair.getLetter().toUpperCase(Locale.forLanguageTag("ro-RO")));
-        holder.itemView.setContentDescription(voiceToSignContext.getString(R.string.sign_for_letter, pair.getLetter()));
-        MediaResources.loadImage(voiceToSignContext, MediaResources.voiceUrl(pair.getMediaKey()), holder.signImage);
+        holder.letter.setText(pair.letter().toUpperCase(Locale.forLanguageTag("ro-RO")));
+        holder.itemView.setContentDescription(voiceToSignContext.getString(R.string.sign_for_letter, pair.letter()));
+        MediaResources.loadImage(voiceToSignContext, MediaResources.voiceUrl(pair.mediaKey()), holder.signImage);
     }
 
     @Override
     public int getItemViewType(int position) {
-        return "space".equals(textSignPairs.get(position).getMediaKey()) ? WORD_BREAK : 0;
+        return "space".equals(textSignPairs.get(position).mediaKey()) ? WORD_BREAK : 0;
     }
 
     @Override

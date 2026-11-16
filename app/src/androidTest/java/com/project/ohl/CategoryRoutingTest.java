@@ -9,8 +9,8 @@ import com.project.ohl.domain.model.Category;
 import com.project.ohl.presentation.CategoryNavigation;
 import com.project.ohl.presentation.video_section.all_categories.AllCategoriesActivity;
 import com.project.ohl.presentation.video_section.alphabet.AlphabetActivity;
-import com.project.ohl.presentation.video_section.expressions.ExpressionsActivity;
 import com.project.ohl.presentation.video_section.animals.household.HouseholdAnimalsActivity;
+import com.project.ohl.presentation.video_section.expressions.ExpressionsActivity;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
@@ -23,6 +23,7 @@ import org.junit.runner.RunWith;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
@@ -33,15 +34,14 @@ public class CategoryRoutingTest {
     private static final UUID ALPHABET = UUID.fromString("990e2591-117c-3b04-9146-dbdf0ca772b4");
 
     private Category category(UUID id, String name) {
-        var category = new Category(id, name);
-        return category;
+        return new Category(id, name);
     }
 
     @Test public void expressionsOpenTheirChildCategoriesByParentUuid() {
         Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         UUID id = UUID.fromString("1deb5200-b06d-3977-9426-e2ea373195f9");
         var intent = CategoryNavigation.intent(context, category(id, "Expresii"));
-        assertEquals(ExpressionsActivity.class.getName(), intent.getComponent().getClassName());
+        assertEquals(ExpressionsActivity.class.getName(), requireNonNull(intent.getComponent()).getClassName());
         assertEquals(id.toString(), intent.getStringExtra(CategoryNavigation.PARENT_ID));
         assertFalse(intent.hasExtra("sectionId"));
     }
@@ -52,7 +52,7 @@ public class CategoryRoutingTest {
         var original = CategoryNavigation.intent(context, parent);
         parent.setName("Translated and renamed");
         var renamed = CategoryNavigation.intent(context, parent);
-        assertEquals(AlphabetActivity.class.getName(), original.getComponent().getClassName());
+        assertEquals(AlphabetActivity.class.getName(), requireNonNull(original.getComponent()).getClassName());
         assertEquals(original.getComponent(), renamed.getComponent());
         assertEquals(ALPHABET.toString(), renamed.getStringExtra(CategoryNavigation.PARENT_ID));
         assertFalse(renamed.hasExtra("sectionId"));
@@ -63,11 +63,11 @@ public class CategoryRoutingTest {
         Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         UUID household = UUID.fromString("07fd780a-80ed-38c1-bdc5-5a66803a20f2");
         var nested = CategoryNavigation.intent(context, category(household, "Renamed animals"));
-        assertEquals(HouseholdAnimalsActivity.class.getName(), nested.getComponent().getClassName());
+        assertEquals(HouseholdAnimalsActivity.class.getName(), requireNonNull(nested.getComponent()).getClassName());
         assertEquals(household.toString(), nested.getStringExtra(CategoryNavigation.PARENT_ID));
         UUID createdId = UUID.randomUUID();
         var created = CategoryNavigation.intent(context, category(createdId, "Alfabet"));
-        assertEquals(AllCategoriesActivity.class.getName(), created.getComponent().getClassName());
+        assertEquals(AllCategoriesActivity.class.getName(), requireNonNull(created.getComponent()).getClassName());
         assertEquals(createdId.toString(), created.getStringExtra(CategoryNavigation.PARENT_ID));
     }
 
@@ -83,7 +83,7 @@ public class CategoryRoutingTest {
                         var reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
                         requests.add(reader.readLine());
                         String line;
-                        while ((line = reader.readLine()) != null && !line.isEmpty()) {}
+                        do { line = reader.readLine(); } while (line != null && !line.isEmpty());
                         byte[] body = ("[{\"id\":\"00000000-0000-4000-8000-000000000001\","
                                 + "\"name\":\"A\",\"parentId\":\"" + ALPHABET + "\"}]")
                                 .getBytes(StandardCharsets.UTF_8);
@@ -106,7 +106,7 @@ public class CategoryRoutingTest {
                 parent.setName(label);
                 var response = api.getCategoriesByParentIdAndName(parent.getId(), "").execute();
                 assertTrue(response.isSuccessful());
-                assertEquals(ALPHABET, response.body().get(0).getParentId());
+                assertEquals(ALPHABET, requireNonNull(response.body()).get(0).getParentId());
             }
             responder.join(10000);
             assertFalse(responder.isAlive());

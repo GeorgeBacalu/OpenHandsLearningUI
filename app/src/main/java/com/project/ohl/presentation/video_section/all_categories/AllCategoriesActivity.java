@@ -1,78 +1,22 @@
 package com.project.ohl.presentation.video_section.all_categories;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.Toast;
-import androidx.annotation.NonNull;
-import com.project.ohl.presentation.AuthenticatedActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import com.project.ohl.R;
-import com.project.ohl.presentation.CategoryPageLayout;
-import com.project.ohl.domain.model.Category;
-import com.project.ohl.presentation.CategoryNavigation;
-import com.project.ohl.presentation.LearningViewModel;
-import com.project.ohl.presentation.MediaResources;
+import com.project.ohl.presentation.video_section.CatalogActivity;
 import com.project.ohl.presentation.video_section.VideoPlayerActivity;
 import java.util.UUID;
 
-import java.util.List;
-import java.util.Objects;
-import static com.project.ohl.presentation.video_section.VideoPlayerActivity.CATEGORY_ID;
-import static com.project.ohl.presentation.video_section.VideoPlayerActivity.CATEGORY_IMAGE;
-import static com.project.ohl.presentation.video_section.VideoPlayerActivity.CATEGORY_NAME;
+public class AllCategoriesActivity extends CatalogActivity {
+    @Override protected int contentLayout() { return R.layout.activity_all_categories; }
+    @Override protected int categoryListId() { return R.id.categoriesRecyclerView; }
+    @Override protected boolean opensChildren() { return true; }
+    @Override protected boolean useCategoryTitle() { return true; }
 
-import static android.R.id.home;
-
-public class AllCategoriesActivity extends AuthenticatedActivity {
-   private RecyclerView categoriesRecyclerView;
-   private AllCategoriesRecyclerViewAdapter categoriesAdapter;
-
-   @Override
-   protected void onCreate(Bundle savedInstanceState) {
-      super.onCreate(savedInstanceState);
-      UUID parentId = CategoryNavigation.parentId(this);
-
-      setContentView(R.layout.activity_all_categories);
-      CategoryPageLayout.configure(this);
-      String categoryName = getIntent().getStringExtra(CATEGORY_NAME);
-      if (categoryName != null && !categoryName.isBlank()) setTitle(categoryName);
-      Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-
-      initializeViews();
-
-      categoriesRecyclerView.setAdapter(categoriesAdapter);
-      categoriesRecyclerView.setLayoutManager(new GridLayoutManager(this, getResources().getInteger(R.integer.video_category_columns)));
-      LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndName(parentId, ""), result -> {
-            if (result.error() != null) {
-            Toast.makeText(AllCategoriesActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
-
-            } else {
-               if (result.value().isEmpty()) {
-                  Intent video = new Intent(this, VideoPlayerActivity.class);
-                  video.putExtra(CATEGORY_ID, parentId.toString());
-                  video.putExtra(CATEGORY_NAME, getIntent().getStringExtra(CATEGORY_NAME));
-                  video.putExtra(CATEGORY_IMAGE, getIntent().getStringExtra(CATEGORY_IMAGE));
-                  startActivity(video);
-                  finish();
-                  return;
-               }
-
-               categoriesAdapter.setCategories(result.value());
-
-            }
-        });
-   }
-
-   private void initializeViews() {
-      categoriesRecyclerView = findViewById(R.id.categoriesRecyclerView);
-      categoriesAdapter = new AllCategoriesRecyclerViewAdapter(this);
-   }
-
-   @Override
-   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-      if (item.getItemId() == home) getOnBackPressedDispatcher().onBackPressed();
-      return super.onOptionsItemSelected(item);
-   }
+    @Override protected void onEmptyCatalog(UUID parentId) {
+        startActivity(new Intent(this, VideoPlayerActivity.class)
+                .putExtra(VideoPlayerActivity.CATEGORY_ID, parentId.toString())
+                .putExtra(VideoPlayerActivity.CATEGORY_NAME, getIntent().getStringExtra(VideoPlayerActivity.CATEGORY_NAME))
+                .putExtra(VideoPlayerActivity.CATEGORY_IMAGE, getIntent().getStringExtra(VideoPlayerActivity.CATEGORY_IMAGE)));
+        finish();
+    }
 }

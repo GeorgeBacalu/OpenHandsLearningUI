@@ -1,5 +1,6 @@
 package com.project.ohl.data.remote;
 
+import androidx.annotation.NonNull;
 import java.io.IOException;
 import okhttp3.Interceptor;
 import okhttp3.Response;
@@ -13,7 +14,7 @@ public final class JwtInterceptor implements Interceptor {
         this.authenticationExpired = authenticationExpired;
     }
 
-    @Override public Response intercept(Chain chain) throws IOException {
+    @Override public @NonNull Response intercept(@NonNull Chain chain) throws IOException {
         var request = chain.request();
         if (!tokens.sameOrigin(request.url())) return chain.proceed(request);
         String token = tokens.token();

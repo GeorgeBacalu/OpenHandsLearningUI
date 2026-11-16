@@ -1,86 +1,9 @@
 package com.project.ohl.presentation.video_section.numbers;
 
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Toast;
-import androidx.annotation.NonNull;
-import com.project.ohl.presentation.AuthenticatedActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import com.project.ohl.R;
-import com.project.ohl.presentation.CategoryPageLayout;
-import com.project.ohl.domain.model.Category;
-import com.project.ohl.presentation.CategoryNavigation;
-import com.project.ohl.presentation.LearningViewModel;
-import com.project.ohl.presentation.CategorySearch;
-import com.project.ohl.presentation.MediaResources;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import com.project.ohl.presentation.video_section.CatalogActivity;
 
-import static android.R.id.home;
-
-public class NumbersActivity extends AuthenticatedActivity {
-   private RecyclerView numbersRecyclerView;
-   private NumbersRecyclerViewAdapter numbersAdapter;
-   private EditText searchBarInput;
-   private ImageView searchBarIcon;
-
-   @Override
-   protected void onCreate(Bundle savedInstanceState) {
-      super.onCreate(savedInstanceState);
-
-      UUID parentId = CategoryNavigation.parentId(this);
-      setContentView(R.layout.activity_numbers);
-      CategoryPageLayout.configure(this);
-      Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-
-      initializeViews();
-
-
-      numbersRecyclerView.setAdapter(numbersAdapter);
-      numbersRecyclerView.setLayoutManager(new GridLayoutManager(this, getResources().getInteger(R.integer.video_category_columns)));
-
-      LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndName(parentId, ""), result -> {
-            if (result.error() != null) {
-            Toast.makeText(NumbersActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
-
-            } else {
-               List<Category> numbers = result.value();
-
-               numbersAdapter.setNumbers(numbers);
-
-            }
-        });
-
-      CategorySearch.bind(searchBarInput, searchBarIcon, () -> {
-         String searchBarInputText = searchBarInput.getText().toString().strip();
-         LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndName(parentId, searchBarInputText), result -> {
-            if (result.error() != null) {
-               Toast.makeText(NumbersActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
-
-            } else {
-                  List<Category> filteredNumbers = result.value();
-
-                  numbersAdapter.setNumbers(filteredNumbers);
-
-            }
-        });
-      });
-   }
-
-   private void initializeViews() {
-      numbersRecyclerView = findViewById(R.id.numbersRecyclerView);
-      numbersAdapter = new NumbersRecyclerViewAdapter(this);
-      searchBarInput = findViewById(R.id.searchBarInput);
-      searchBarIcon = findViewById(R.id.searchBarIcon);
-   }
-
-   @Override
-   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-      if (item.getItemId() == home) getOnBackPressedDispatcher().onBackPressed();
-      return super.onOptionsItemSelected(item);
-   }
+public class NumbersActivity extends CatalogActivity {
+    @Override protected int contentLayout() { return R.layout.activity_numbers; }
+    @Override protected int categoryListId() { return R.id.numbersRecyclerView; }
 }

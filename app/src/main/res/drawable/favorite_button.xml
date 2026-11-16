@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ripple xmlns:android="http://schemas.android.com/apk/res/android" android:color="@color/brand_ripple_on_primary">
-    <item android:drawable="@drawable/brand_button_fill" />
-</ripple>
