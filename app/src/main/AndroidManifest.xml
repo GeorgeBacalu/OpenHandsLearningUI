@@ -31,9 +31,11 @@
            android:exported="false"
            android:label="@string/register" />
         <activity
-           android:name=".presentation.SettingsActivity"
+           android:name=".presentation.ProfileActivity"
+           android:theme="@style/Theme.OpenHandsLearning.Authentication"
+           android:windowSoftInputMode="adjustResize"
            android:exported="false"
-           android:label="@string/title_activity_settings" />
+           android:label="@string/profile_title" />
         <activity
            android:name=".presentation.general.on_boarding.IntroductoryActivity"
            android:theme="@style/Theme.OpenHandsLearning.Introductory"

@@ -6,6 +6,8 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.HTTP;
 
 public interface AuthApi {
     record Credentials(String email, String password) {
@@ -18,4 +20,13 @@ public interface AuthApi {
     @POST("/api/auth/register") Call<AuthenticationResponse> register(@Body Registration registration);
     @GET("/api/auth/me") Call<User> current();
     @POST("/api/auth/logout") Call<Void> logout();
+    record PasswordChange(String currentPassword, String newPassword) {
+        @Override public String toString() { return "PasswordChange"; }
+    }
+    record AccountDeletion(String currentPassword) {
+        @Override public String toString() { return "AccountDeletion"; }
+    }
+    @PUT("/api/auth/password") Call<Void> changePassword(@Body PasswordChange change);
+    @HTTP(method = "DELETE", path = "/api/auth/me", hasBody = true)
+    Call<Void> deleteAccount(@Body AccountDeletion deletion);
 }

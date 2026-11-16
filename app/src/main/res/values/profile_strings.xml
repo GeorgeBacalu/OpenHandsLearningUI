@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="ro">
+    <string name="profile_title">Profil</string>
+    <string name="profile_eyebrow">CONTUL TĂU</string>
+    <string name="profile_subtitle">Drumul tău spre comunicarea prin semne.</string>
+    <string name="profile_personal">Date personale</string>
+    <string name="profile_school_title">Școala ta</string>
+    <string name="profile_school_caption">Școală, oraș, județ</string>
+    <string name="profile_school_combination">%1$s, %2$s, %3$s</string>
+    <string name="profile_security">Siguranța contului</string>
+    <string name="profile_change_password">Schimbă parola</string>
+    <string name="profile_password_caption">Actualizează parola contului tău.</string>
+    <string name="profile_delete_account">Șterge contul</string>
+    <string name="profile_delete_caption">Șterge definitiv contul și favoritele.</string>
+    <string name="profile_footer">Învață. Comunică. Conectează-te.</string>
+    <string name="profile_unavailable">Nespecificat</string>
+    <string name="profile_loading_error">Nu am putut încărca profilul. Verifică conexiunea și încearcă din nou.</string>
+    <string name="profile_current_password">Parola curentă</string>
+    <string name="profile_new_password">Parola nouă</string>
+    <string name="profile_password_instructions">Introdu parola curentă și confirmă noua parolă. După salvare, te vei autentifica din nou.</string>
+    <string name="profile_save_password">Salvează parola</string>
+    <string name="profile_password_changed">Parola a fost schimbată. Autentifică-te cu noua parolă.</string>
+    <string name="profile_incorrect_password">Parola curentă este incorectă. Încearcă din nou.</string>
+    <string name="profile_delete_title">Ștergi contul?</string>
+    <string name="profile_delete_confirmation">Contul și toate favoritele tale vor fi șterse definitiv. Această acțiune nu poate fi anulată. Introdu parola curentă pentru a confirma.</string>
+    <string name="profile_delete_action">Șterge definitiv</string>
+    <string name="profile_deleted">Contul tău a fost șters.</string>
+    <string name="profile_cancel">Anulează</string>
+    <string name="profile_back">Înapoi</string>
+</resources>

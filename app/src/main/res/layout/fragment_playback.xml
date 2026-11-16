@@ -59,10 +59,11 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp"
-                    app:backgroundTint="@color/light_blue"
-                    app:rippleColor="@color/light_blue"
-                    app:elevation="0dp"
-                    app:pressedTranslationZ="0dp" />
+                    app:backgroundTint="@color/brand_gradient_start"
+                    app:tint="@color/white"
+                    app:rippleColor="@color/brand_ripple_on_primary"
+                    app:elevation="4dp"
+                    app:pressedTranslationZ="2dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
