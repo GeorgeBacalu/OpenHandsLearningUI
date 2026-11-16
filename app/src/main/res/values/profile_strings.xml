@@ -4,6 +4,9 @@
     <string name="profile_eyebrow">CONTUL TĂU</string>
     <string name="profile_subtitle">Drumul tău spre comunicarea prin semne.</string>
     <string name="profile_personal">Date personale</string>
+    <string name="profile_appearance">Aspect</string>
+    <string name="profile_dark_theme">Temă întunecată</string>
+    <string name="profile_theme_caption">Activează pentru tema întunecată sau dezactivează pentru tema luminoasă. Alegerea ta se salvează automat.</string>
     <string name="profile_school_title">Școala ta</string>
     <string name="profile_school_caption">Școală, oraș, județ</string>
     <string name="profile_school_combination">%1$s, %2$s, %3$s</string>
