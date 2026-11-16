@@ -42,7 +42,7 @@ public class PronounsRecyclerViewAdapter extends RecyclerView.Adapter<PronounsRe
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(pronouns.get(position).getName());
-        MediaResources.loadImage(pronounsContext, pronouns.get(position).getImageSource(), holder.categoryImage);
+        MediaResources.loadImage(pronounsContext, pronouns.get(position), holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(pronounsContext, VideoPlayerActivity.class);
             if (pronouns.get(position).getId() == null) {

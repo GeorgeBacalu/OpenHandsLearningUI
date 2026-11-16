@@ -42,7 +42,7 @@ public class AlphabetRecyclerViewAdapter extends RecyclerView.Adapter<AlphabetRe
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(letters.get(position).getName());
-        MediaResources.loadImage(alphabetContext, letters.get(position).getImageSource(), holder.categoryImage);
+        MediaResources.loadImage(alphabetContext, letters.get(position), holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(alphabetContext, VideoPlayerActivity.class);
             if (letters.get(position).getId() == null) throw new NullPointerException("Invalid Selection");

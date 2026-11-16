@@ -49,7 +49,7 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
         holder.artwork.setCardBackgroundColor(context.getColor(video ? R.color.home_video_art : R.color.home_voice_art));
         holder.sectionCard.setContentDescription(context.getString(R.string.home_section_accessibility,
                 section.getName(), holder.description.getText(), holder.action.getText()));
-        MediaResources.loadImage(context, section.getImageSource(), holder.sectionImage);
+        MediaResources.loadImage(context, section.getImageUrl(), section.getImageSource(), holder.sectionImage);
         holder.sectionCard.setOnClickListener(v -> {
             int current = holder.getBindingAdapterPosition();
             if (current == RecyclerView.NO_POSITION) return;

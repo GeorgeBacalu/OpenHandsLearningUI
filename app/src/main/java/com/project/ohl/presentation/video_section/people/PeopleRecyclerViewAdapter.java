@@ -39,7 +39,7 @@ public class PeopleRecyclerViewAdapter extends RecyclerView.Adapter<PeopleRecycl
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(people.get(position).getName());
-        MediaResources.loadImage(peopleContext, people.get(position).getImageSource(), holder.categoryImage);
+        MediaResources.loadImage(peopleContext, people.get(position), holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             int current = holder.getBindingAdapterPosition();
             if (current == RecyclerView.NO_POSITION) return;

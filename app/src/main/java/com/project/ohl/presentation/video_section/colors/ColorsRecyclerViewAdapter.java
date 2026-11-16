@@ -44,7 +44,7 @@ public class ColorsRecyclerViewAdapter extends RecyclerView.Adapter<ColorsRecycl
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(colors.get(position).getName());
-        MediaResources.loadImage(colorsContext, colors.get(position).getImageSource(), holder.categoryImage);
+        MediaResources.loadImage(colorsContext, colors.get(position), holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(colorsContext, VideoPlayerActivity.class);
             if (colors.get(position).getId() == null) throw new NullPointerException("Invalid Selection");
