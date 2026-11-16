@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/categoryCard"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="15dp"
-    app:cardCornerRadius="10dp"
-    app:cardElevation="10dp">
+    style="@style/Widget.OpenHandsLearning.CatalogCard">
 
     <RelativeLayout
         android:layout_width="180dp"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/catalog_card_background">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/collapsedRelativeLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/light_blue"
             android:padding="10dp">
 
             <ImageView
@@ -36,21 +35,25 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:minHeight="25dp"
+                android:minHeight="48dp"
                 android:gravity="center"
                 app:layout_constraintTop_toBottomOf="@id/categoryImage"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/arrowButton"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:text="@string/placeholder_text"
-                android:textColor="@color/white"
+                android:fontFamily="@font/source_sans_pro_semibold"
+                android:textColor="@color/catalog_card_text"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/arrowButton"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:padding="10dp"
+                android:contentDescription="@string/open_list"
+                android:backgroundTint="@color/catalog_card_accent"
                 app:layout_constraintTop_toTopOf="@id/categoryName"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="@id/categoryName"
@@ -63,22 +66,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/collapsedRelativeLayout"
-            android:background="@color/light_blue"
-            android:paddingBottom="10dp"
+            android:paddingHorizontal="10dp"
+            android:paddingBottom="14dp"
             android:visibility="gone">
 
-            <androidx.appcompat.widget.AppCompatButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/removeFromFavoriteButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:background="@drawable/favorite_button"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                app:cornerRadius="12dp"
+                app:strokeColor="@color/catalog_card_border"
                 android:gravity="center|bottom|top"
                 android:includeFontPadding="false"
                 android:padding="7dp"
                 android:text="@string/remove_from_favorites"
                 android:textAllCaps="false"
-                android:textColor="@color/white"
+                android:textColor="@color/auth_error"
                 android:textSize="15sp" />
 
         </RelativeLayout>
@@ -86,4 +91,4 @@
     </RelativeLayout>
 
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

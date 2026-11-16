@@ -17,6 +17,13 @@ public class User {
    private UUID schoolId;
 
    private UUID roleId;
+   private String schoolName;
+   private String cityName;
+   private String countyName;
+
+   public String getSchoolName() { return schoolName; }
+   public String getCityName() { return cityName; }
+   public String getCountyName() { return countyName; }
 
    public User() {
    }
