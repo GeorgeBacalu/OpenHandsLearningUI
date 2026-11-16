@@ -92,7 +92,7 @@
            android:label="@string/activity_home" />
         <activity
            android:name=".presentation.video_section.VideoPlayerActivity"
-           android:theme="@style/Theme.OpenHandsLearning.CatalogMedia"
+           android:theme="@style/Theme.OpenHandsLearning.VideoPlayer"
            android:exported="false"
            android:label="@string/activity_video_player" />
         <activity
