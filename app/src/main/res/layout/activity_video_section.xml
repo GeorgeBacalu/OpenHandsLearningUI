@@ -4,143 +4,156 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context=".presentation.video_section.VideoSectionActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-5dp">
+        android:layout_marginTop="-35dp">
 
-        <ImageView
-            android:id="@+id/videoSectionHeaderImage"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/videoHeaderSection"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:src="@drawable/video_section_header"
-            android:contentDescription="@string/section_header_image" />
-
-        <ImageView
-            android:id="@+id/videoSectionHeaderOverlay"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:src="@drawable/overlay_background"
-            android:contentDescription="@string/section_header_overlay" />
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="50dp">
+            android:minHeight="280dp">
 
-            <TextView
-                android:id="@+id/videoSectionHeaderTitle"
-                android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/videoSectionHeaderImage"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:contentDescription="@string/section_header_image"
+                android:scaleType="centerCrop"
+                android:src="@drawable/video_section_header"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <ImageView
+                android:id="@+id/videoSectionHeaderOverlay"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:contentDescription="@string/section_header_overlay"
+                android:scaleType="fitXY"
+                android:src="@drawable/overlay_background"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/source_sans_pro_black"
-                android:text="@string/header_title_video_section"
-                android:textColor="@color/white"
-                android:textSize="25sp" />
+                android:layout_marginHorizontal="40dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="24dp"
+                android:orientation="vertical"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintVertical_bias="0">
 
-            <TextView
-                android:id="@+id/videoSectionHeaderSubtitle"
-                android:layout_width="270dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/videoSectionHeaderTitle"
-                android:layout_marginTop="25dp"
-                android:fontFamily="@font/source_sans_pro_regular"
-                android:text="@string/header_subtitle_video_section"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/voice_header_badge"
+                    android:fontFamily="@font/source_sans_pro_semibold"
+                    android:letterSpacing="0.08"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="6dp"
+                    android:text="@string/video_header_eyebrow"
+                    android:textColor="#F0F5FF"
+                    android:textSize="11sp" />
 
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/videoSectionHeaderTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/source_sans_pro_black"
+                    android:lineSpacingExtra="2dp"
+                    android:text="@string/header_title_video_section"
+                    android:textColor="@color/white"
+                    android:textSize="25sp" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/favoriteButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/videoSectionHeaderImage"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/favorite_button"
-            android:padding="15dp"
-            android:text="@string/see_favorites"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
+                <View
+                    android:layout_width="36dp"
+                    android:layout_height="3dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/voice_header_accent"
+                    android:importantForAccessibility="no" />
+
+                <TextView
+                    android:id="@+id/videoSectionHeaderSubtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:fontFamily="@font/source_sans_pro_regular"
+                    android:lineSpacingExtra="3dp"
+                    android:text="@string/header_subtitle_video_section"
+                    android:textColor="#F0F5FF"
+                    android:textSize="17sp" />
+
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="16dp"
+                    android:alpha="0.2"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/video_header_play" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/searchBarContainer"
-            android:layout_width="250dp"
-            android:layout_height="45dp"
-            android:layout_below="@+id/favoriteButton"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
-            app:cardCornerRadius="20dp"
-            app:strokeColor="@color/gray_border"
-            app:strokeWidth="1dp">
+            style="@style/Widget.OpenHandsLearning.CatalogSearch"
+            android:layout_below="@id/videoHeaderSection"
+            android:layout_marginTop="24dp">
 
-            <EditText
-                android:id="@+id/searchBarInput"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:autofillHints="@string/input_placeholder_category"
-                android:background="@color/white"
-                android:hint="@string/input_placeholder_category"
-                android:inputType="text"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
-                android:textSize="16sp" />
+                android:addStatesFromChildren="true"
+                android:gravity="center_vertical"
+                android:minHeight="56dp"
+                android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/searchBarIcon"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_gravity="end"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="7dp"
-                android:contentDescription="@string/search_bar_icon"
-                android:src="@drawable/ic_search" />
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/searchBarInput"
+                    style="@style/Widget.OpenHandsLearning.CatalogSearchInput"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:importantForAutofill="no" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/searchBarIcon"
+                    style="@style/Widget.OpenHandsLearning.CatalogSearchIcon"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginVertical="4dp"
+                    android:layout_marginEnd="4dp" />
+
+            </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/addCategoryButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/searchBarContainer"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
-            android:backgroundTint="@color/light_blue"
-            android:contentDescription="@string/add_new_category"
-            android:src="@drawable/ic_add"
-            app:backgroundTint="@color/white"
-            app:borderWidth="2dp"
-            app:rippleColor="@color/white"
-            app:tint="@color/white" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/mainCategoriesRecyclerView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addCategoryButton"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="4dp"
+            android:clipToPadding="false"
+            android:nestedScrollingEnabled="false"
+            android:layout_below="@id/searchBarContainer"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/homePageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/mainCategoriesRecyclerView"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="10dp"
-            android:backgroundTint="@color/light_blue"
-            android:src="@drawable/ic_home"
-            app:backgroundTint="@color/white"
-            app:borderWidth="2dp"
-            app:rippleColor="@color/white"
-            app:tint="@color/white"
-            android:contentDescription="@string/home_page_button" />
+            android:layout_marginTop="24dp" />
 
     </RelativeLayout>
 

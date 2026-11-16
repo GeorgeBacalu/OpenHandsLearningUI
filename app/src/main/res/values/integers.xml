@@ -1,0 +1,3 @@
+<resources>
+    <integer name="video_category_columns">3</integer>
+</resources>

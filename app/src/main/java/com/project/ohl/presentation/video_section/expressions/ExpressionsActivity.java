@@ -1,7 +1,6 @@
 package com.project.ohl.presentation.video_section.expressions;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -11,12 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.project.ohl.R;
+import com.project.ohl.presentation.CategoryPageLayout;
 import com.project.ohl.domain.model.Category;
 import com.project.ohl.presentation.CategoryNavigation;
 import com.project.ohl.presentation.LearningViewModel;
-import com.project.ohl.presentation.MainActivity;
 import com.project.ohl.presentation.MediaResources;
 import java.util.List;
 import java.util.Locale;
@@ -28,7 +26,6 @@ import static android.R.id.home;
 public class ExpressionsActivity extends AppCompatActivity {
    private RecyclerView recyclerView;
    private ExpressionsRecyclerViewAdapter adapter;
-   private FloatingActionButton homePageButton;
    private EditText searchBar;
    private ImageView searchIcon;
 
@@ -38,16 +35,13 @@ public class ExpressionsActivity extends AppCompatActivity {
       super.onCreate(savedInstanceState);
       UUID parentId = CategoryNavigation.parentId(this);
       setContentView(R.layout.activity_expressions);
+      CategoryPageLayout.configure(this);
       Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
       initializeViews();
 
-      homePageButton.setOnClickListener(v -> {
-         Intent intent = new Intent(ExpressionsActivity.this, MainActivity.class);
-         startActivity(intent);
-      });
 
       recyclerView.setAdapter(adapter);
-      recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+      recyclerView.setLayoutManager(new GridLayoutManager(this, getResources().getInteger(R.integer.video_category_columns)));
 
       LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndName(parentId, ""), result -> {
             if (result.error() != null) {
@@ -82,7 +76,6 @@ public class ExpressionsActivity extends AppCompatActivity {
    private void initializeViews() {
       recyclerView = findViewById(R.id.recycler_view);
       adapter = new ExpressionsRecyclerViewAdapter(this);
-      homePageButton = findViewById(R.id.home_page_button);
       searchBar = findViewById(R.id.search_bar);
       searchIcon = findViewById(R.id.search_icon);
    }

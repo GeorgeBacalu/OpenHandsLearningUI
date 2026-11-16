@@ -1,0 +1,67 @@
+{
+  "mode": "built-in image_gen",
+  "transparent_background": true,
+  "date": "2026-11-14",
+  "illustrations": [
+    {
+      "letter": "A",
+      "file": "app/src/main/res/drawable-nodpi/voice_a.png",
+      "pose_reference": "app/src/main/res/drawable-nodpi/a.png",
+      "style_references": [
+        "app/src/main/res/drawable-nodpi/voice_b.png",
+        "user-supplied WhatsApp Image 2026-11-14 at 16.58.07.jpeg"
+      ],
+      "prompt": "Use case: scientific-educational, precise style-transfer edit.\nAsset: ONE isolated Romanian manual-alphabet hand illustration for letter A. IMAGE 1 is the edit target, an already verified photograph. Images 2 and 3 are STYLE REFERENCES ONLY: match the clean black outline drawings on the white cards, such as B, U, N, Z, I and T. Do not copy those gestures.\nRequired pose: A closed fist with the thumb folded across the top of the curled fingers, exactly as the pink-nailed hand in image 1.\nConvert only the hand and short wrist in IMAGE 1 into simple crisp BLACK OUTLINE line art. Exactly preserve its finger count, thumb/finger bends, relative lengths, overlaps, knuckles, orientation and viewpoint. No mirroring or changing the educational gesture.\nMatch the existing collection: uniform rounded black contour lines, sparse interior finger separation lines, no shading, no hatching, no gray, no skin colors or photographic textures. White hand interior, truly transparent outside background.\nOne whole hand with short wrist, centered on square canvas at about 80% canvas height, all finger tips visible and ample equal margins. Remove background, clothes, face and jewelry. No letters, text, symbols, arrows, logo, border, panels, comparison or grid. A single ready-to-use monochrome hand icon."
+    },
+    {
+      "letter": "Ă",
+      "file": "app/src/main/res/drawable-nodpi/voice_a_breve.png",
+      "pose_reference": "app/src/main/res/drawable-nodpi/a_breve.png",
+      "style_references": [
+        "app/src/main/res/drawable-nodpi/voice_b.png",
+        "user-supplied WhatsApp Image 2026-11-14 at 16.58.07.jpeg"
+      ],
+      "prompt": "Use case: scientific-educational, precise style-transfer edit.\nAsset: ONE isolated Romanian manual-alphabet hand illustration for letter Ă. IMAGE 1 is the edit target, an already verified photograph. Images 2 and 3 are STYLE REFERENCES ONLY: match the clean black outline drawings on the white cards, such as B, U, N, Z, I and T. Do not copy those gestures.\nRequired pose: A closed fist with the thumb fully extended straight upwards, exactly the thumbs-up pose in image 1.\nConvert only the hand and short wrist in IMAGE 1 into simple crisp BLACK OUTLINE line art. Exactly preserve its finger count, thumb/finger bends, relative lengths, overlaps, knuckles, orientation and viewpoint. No mirroring or changing the educational gesture.\nMatch the existing collection: uniform rounded black contour lines, sparse interior finger separation lines, no shading, no hatching, no gray, no skin colors or photographic textures. White hand interior, truly transparent outside background.\nOne whole hand with short wrist, centered on square canvas at about 80% canvas height, all finger tips visible and ample equal margins. Remove background, clothes, face and jewelry. No letters, text, symbols, arrows, logo, border, panels, comparison or grid. A single ready-to-use monochrome hand icon."
+    },
+    {
+      "letter": "Â",
+      "file": "app/src/main/res/drawable-nodpi/voice_a_circumflex.png",
+      "pose_reference": "app/src/main/res/drawable-nodpi/a_circumflex.png",
+      "style_references": [
+        "app/src/main/res/drawable-nodpi/voice_a.png",
+        "user-supplied WhatsApp Image 2026-11-14 at 16.58.07.jpeg"
+      ],
+      "prompt": "Use case: scientific-educational, precise style-transfer edit.\nProduce ONE isolated Romanian manual-alphabet illustration for Â. IMAGE 1 is the edit target, an already verified hand photograph. Image 2 is the matching new line-art style; Image 3 is a STYLE reference to the existing simple black outline drawings on white cards, not a pose reference.\nRequired gesture: Closed fist, thumb raised but with its tip bent forward in a clear hook. It must retain the hooked thumb from image 1, rather than the straight-up thumb for Ă.\nTrace the complete hand and short wrist from photo 1 with anatomical fidelity. Exactly preserve finger count, relative lengths, bends, orientation, which digit is extended, overlaps and camera viewpoint. No mirroring, no invented finger positions. This is educational content and the pose must remain unchanged.\nStyle: clean solid BLACK rounded contour strokes, sparse interior finger separation lines, white hand interior on a genuinely transparent exterior canvas. Match the simple black-and-white hand drawing style of image 2. No photographic texture, no skin tones, shading, gray, hatching or clothing. Keep the entire hand and wrist visible, centered with even margins on a square canvas at about 80% image height.\nRemove face, clothes, background and jewelry. No letter, diacritic, text, arrow, caption, grid, border, logo or decorations. Output a single usable isolated hand illustration."
+    },
+    {
+      "letter": "Î",
+      "file": "app/src/main/res/drawable-nodpi/voice_i_circumflex.png",
+      "pose_reference": "app/src/main/res/drawable-nodpi/i_circumflex.png",
+      "style_references": [
+        "app/src/main/res/drawable-nodpi/voice_a.png",
+        "user-supplied WhatsApp Image 2026-11-14 at 16.58.07.jpeg"
+      ],
+      "prompt": "Use case: scientific-educational, precise style-transfer edit.\nProduce ONE isolated Romanian manual-alphabet illustration for Î. IMAGE 1 is the edit target, an already verified hand photograph. Image 2 is the matching new line-art style; Image 3 is a STYLE reference to the existing simple black outline drawings on white cards, not a pose reference.\nRequired gesture: Trace exactly the fist and bent wrist in image 1, with the LITTLE FINGER extended diagonally upward at the right edge. The other fingers stay closed. Do not substitute an index-finger gesture or thumbs-up.\nTrace the complete hand and short wrist from photo 1 with anatomical fidelity. Exactly preserve finger count, relative lengths, bends, orientation, which digit is extended, overlaps and camera viewpoint. No mirroring, no invented finger positions. This is educational content and the pose must remain unchanged.\nStyle: clean solid BLACK rounded contour strokes, sparse interior finger separation lines, white hand interior on a genuinely transparent exterior canvas. Match the simple black-and-white hand drawing style of image 2. No photographic texture, no skin tones, shading, gray, hatching or clothing. Keep the entire hand and wrist visible, centered with even margins on a square canvas at about 80% image height.\nRemove face, clothes, background and jewelry. No letter, diacritic, text, arrow, caption, grid, border, logo or decorations. Output a single usable isolated hand illustration."
+    },
+    {
+      "letter": "Ș",
+      "file": "app/src/main/res/drawable-nodpi/voice_s_comma.png",
+      "pose_reference": "app/src/main/res/drawable-nodpi/s_comma.png",
+      "style_references": [
+        "app/src/main/res/drawable-nodpi/voice_a.png",
+        "user-supplied WhatsApp Image 2026-11-14 at 16.58.07.jpeg"
+      ],
+      "prompt": "Use case: scientific-educational, precise style-transfer edit.\nProduce ONE isolated Romanian manual-alphabet illustration for Ș. IMAGE 1 is the edit target, an already verified hand photograph. Image 2 is the matching new line-art style; Image 3 is a STYLE reference to the existing simple black outline drawings on white cards, not a pose reference.\nRequired gesture: Trace exactly the fist in image 1, with the LITTLE FINGER extended sideways at the lower right edge and other fingers curled. Preserve the precise finger positions, overlaps and viewpoint.\nTrace the complete hand and short wrist from photo 1 with anatomical fidelity. Exactly preserve finger count, relative lengths, bends, orientation, which digit is extended, overlaps and camera viewpoint. No mirroring, no invented finger positions. This is educational content and the pose must remain unchanged.\nStyle: clean solid BLACK rounded contour strokes, sparse interior finger separation lines, white hand interior on a genuinely transparent exterior canvas. Match the simple black-and-white hand drawing style of image 2. No photographic texture, no skin tones, shading, gray, hatching or clothing. Keep the entire hand and wrist visible, centered with even margins on a square canvas at about 80% image height.\nRemove face, clothes, background and jewelry. No letter, diacritic, text, arrow, caption, grid, border, logo or decorations. Output a single usable isolated hand illustration."
+    },
+    {
+      "letter": "Ț",
+      "file": "app/src/main/res/drawable-nodpi/voice_t_comma.png",
+      "pose_reference": "app/src/main/res/drawable-nodpi/t_comma.png",
+      "style_references": [
+        "app/src/main/res/drawable-nodpi/voice_a.png",
+        "user-supplied WhatsApp Image 2026-11-14 at 16.58.07.jpeg"
+      ],
+      "prompt": "Use case: scientific-educational, precise style-transfer edit.\nProduce ONE isolated Romanian manual-alphabet illustration for Ț. IMAGE 1 is the edit target, an already verified hand photograph. Image 2 is the matching new line-art style; Image 3 is a STYLE reference to the existing simple black outline drawings on white cards, not a pose reference.\nRequired gesture: Trace the exact side-view pose in image 1: curved INDEX FINGER pinching toward the THUMB, with the other three fingers closed. Preserve the actual small opening between the index and thumb and the silhouette; do not substitute another alphabet sign.\nTrace the complete hand and short wrist from photo 1 with anatomical fidelity. Exactly preserve finger count, relative lengths, bends, orientation, which digit is extended, overlaps and camera viewpoint. No mirroring, no invented finger positions. This is educational content and the pose must remain unchanged.\nStyle: clean solid BLACK rounded contour strokes, sparse interior finger separation lines, white hand interior on a genuinely transparent exterior canvas. Match the simple black-and-white hand drawing style of image 2. No photographic texture, no skin tones, shading, gray, hatching or clothing. Keep the entire hand and wrist visible, centered with even margins on a square canvas at about 80% image height.\nRemove face, clothes, background and jewelry. No letter, diacritic, text, arrow, caption, grid, border, logo or decorations. Output a single usable isolated hand illustration."
+    }
+  ]
+}

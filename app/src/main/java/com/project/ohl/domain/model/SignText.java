@@ -18,12 +18,12 @@ public final class SignText {
     private static Map<Integer, String> createDictionary() {
         var signs = new HashMap<Integer, String>();
         for (char letter = 'A'; letter <= 'Z'; letter++)
-            signs.put((int) letter, "dactilema_" + Character.toLowerCase(letter));
-        signs.put((int) 'Ă', "dactilema_a");
-        signs.put((int) 'Â', "dactilema_a");
-        signs.put((int) 'Î', "dactilema_i");
-        signs.put((int) 'Ș', "dactilema_s");
-        signs.put((int) 'Ț', "dactilema_t");
+            signs.put((int) letter, Character.toString(Character.toLowerCase(letter)));
+        signs.put((int) 'Ă', "a_breve");
+        signs.put((int) 'Â', "a_circumflex");
+        signs.put((int) 'Î', "i_circumflex");
+        signs.put((int) 'Ș', "s_comma");
+        signs.put((int) 'Ț', "t_comma");
         signs.put((int) ' ', "space");
         return Map.copyOf(signs);
     }

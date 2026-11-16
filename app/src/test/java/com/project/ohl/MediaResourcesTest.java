@@ -31,24 +31,59 @@ public class MediaResourcesTest {
         factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
         var arrays = factory.newDocumentBuilder().parse(resources.resolve("values/media_catalog.xml").toFile())
                 .getElementsByTagName("array");
-        assertEquals(2, arrays.getLength());
+        assertEquals(3, arrays.getLength());
+        var allDrawables = new HashSet<String>();
+        var catalogs = new java.util.HashMap<String, Set<String>>();
         for (int index = 0; index < arrays.getLength(); index++) {
             var array = arrays.item(index);
-            String kind = array.getAttributes().getNamedItem("name").getNodeValue()
-                    .equals("catalog_drawables") ? "drawable" : "raw";
+            String name = array.getAttributes().getNamedItem("name").getNodeValue();
+            String kind = name.equals("catalog_videos") ? "raw" : "drawable";
             var actual = new HashSet<String>();
             for (var item = array.getFirstChild(); item != null; item = item.getNextSibling()) {
                 if (item.getNodeName().equals("item"))
                     assertTrue(actual.add(item.getTextContent().strip().replace("@" + kind + "/", "")));
             }
-            Set<String> expected;
-            try (var files = Files.walk(resources, 2)) {
-                expected = files.filter(Files::isRegularFile)
-                        .filter(path -> path.getParent().getFileName().toString().split("-")[0].equals(kind))
-                        .map(path -> path.getFileName().toString().split("\\.")[0]).collect(Collectors.toSet());
+            assertTrue(catalogs.put(name, actual) == null);
+            if (kind.equals("drawable")) {
+                for (String image : actual)
+                    assertTrue("Voice and category catalogs must not share " + image, allDrawables.add(image));
+            } else {
+                assertEquals(packagedNames(resources, "raw"), actual);
             }
-            assertEquals(expected, actual);
-            if (kind.equals("drawable")) assertTrue(actual.containsAll(SignText.dictionary().values()));
         }
+        assertEquals(packagedNames(resources, "drawable"), allDrawables);
+        assertEquals(Set.of("catalog_drawables", "catalog_voice_signs", "catalog_videos"), catalogs.keySet());
+        var voiceKeys = catalogs.get("catalog_voice_signs").stream()
+                .map(name -> name.startsWith("voice_") ? name.substring("voice_".length()) : name)
+                .collect(Collectors.toSet());
+        assertEquals(new HashSet<>(SignText.dictionary().values()), voiceKeys);
+        assertEquals(voiceKeys.size(), catalogs.get("catalog_voice_signs").size());
+    }
+
+    private static Set<String> packagedNames(Path resources, String kind) throws Exception {
+        try (var files = Files.walk(resources, 2)) {
+            return files.filter(Files::isRegularFile)
+                    .filter(path -> path.getParent().getFileName().toString().split("-")[0].equals(kind))
+                    .map(path -> path.getFileName().toString().split("\\.")[0]).collect(Collectors.toSet());
+        }
+    }
+
+    @Test public void preservesABreveWhenResolvingAndroidMediaNames() {
+        assertEquals("a", MediaResources.resourceName("a"));
+        assertEquals("a_breve", MediaResources.resourceName("ă"));
+        assertEquals("a_breve", MediaResources.resourceName("A\u0306"));
+        assertEquals("a_breve", MediaResources.resourceName("a_breve"));
+    }
+
+    @Test public void preservesOtherRomanianDactylsBeforeRemovingAccents() {
+        var aliases = java.util.Map.of("â", "a_circumflex", "î", "i_circumflex",
+                "ș", "s_comma", "ş", "s_comma", "ț", "t_comma", "ţ", "t_comma");
+        aliases.forEach((letter, suffix) -> {
+            String key = suffix;
+            assertEquals(key, MediaResources.resourceName(letter));
+            assertEquals(key, MediaResources.resourceName(java.text.Normalizer.normalize(
+                    letter.toUpperCase(Locale.ROOT), java.text.Normalizer.Form.NFD)));
+            assertEquals(key, MediaResources.resourceName(key));
+        });
     }
 }

@@ -38,10 +38,6 @@
            android:exported="false"
            android:label="@string/activity_introductory" />
         <activity
-           android:name=".presentation.general.new_category.NewCategoryActivity"
-           android:exported="false"
-           android:label="@string/activity_new_category" />
-        <activity
            android:name=".presentation.video_section.single_category.CategoryActivity"
            android:theme="@style/Theme.OpenHandsLearning.CatalogMedia"
            android:exported="false"

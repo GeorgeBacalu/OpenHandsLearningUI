@@ -35,7 +35,7 @@
                     android:id="@+id/openhandslearningLogo"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:src="@drawable/openhandslearning_logo"
+                    android:src="@drawable/openhandslearning_logo_transparent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"

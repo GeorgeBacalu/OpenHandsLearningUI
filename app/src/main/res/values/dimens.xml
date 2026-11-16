@@ -1,0 +1,4 @@
+<resources>
+    <dimen name="sign_tile_min_width">70dp</dimen>
+    <dimen name="category_card_image_size">88dp</dimen>
+</resources>
