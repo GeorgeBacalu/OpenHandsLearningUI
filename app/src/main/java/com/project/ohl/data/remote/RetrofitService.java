@@ -1,7 +1,7 @@
 package com.project.ohl.data.remote;
 
-import com.project.ohl.BuildConfig;
 import android.content.Context;
+import com.project.ohl.BuildConfig;
 import java.util.concurrent.TimeUnit;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;

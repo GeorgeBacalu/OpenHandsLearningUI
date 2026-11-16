@@ -15,13 +15,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.project.ohl.R;
+import com.project.ohl.app.AppViewModels;
 import com.project.ohl.domain.model.Category;
 import com.project.ohl.presentation.AuthenticatedActivity;
 import com.project.ohl.presentation.CategorySearch;
-import com.project.ohl.app.AppViewModels;
 import com.project.ohl.presentation.FavoritesViewModel;
-import com.project.ohl.presentation.state.UiState;
 import com.project.ohl.presentation.UserSession;
+import com.project.ohl.presentation.state.UiState;
 import com.project.ohl.presentation.video_section.VideoSectionActivity;
 import com.project.ohl.presentation.video_section.single_category.CategoryRecyclerViewAdapter;
 import java.util.List;
@@ -56,8 +56,9 @@ public class FavoritesActivity extends AuthenticatedActivity {
         model.state().observe(this, this::render);
         model.removalState().observe(this, state -> {
             adapter.setRemovalPending(state.isLoading());
+            var categories = model.state().getValue();
             findViewById(R.id.favorites_progress).setVisibility(state.isLoading()
-                    || model.state().getValue().isLoading() ? View.VISIBLE : View.GONE);
+                    || categories != null && categories.isLoading() ? View.VISIBLE : View.GONE);
             if (state.error() != null) {
                 model.acknowledgeRemovalError();
                 Toast.makeText(this, R.string.request_failed, Toast.LENGTH_LONG).show();

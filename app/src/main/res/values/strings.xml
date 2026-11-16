@@ -1,7 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:locale="ro">
     <string name="app_name">Open Hands Learning</string>
-    <string name="activity_introductory">Bun venit</string>
     <string name="activity_video_section">Secțiune video</string>
     <string name="activity_voice_to_sign_section">Secțiune voce-semn</string>
     <string name="activity_alphabet">Alfabet</string>
@@ -26,7 +25,6 @@
     <string name="activity_pronouns">Pronume</string>
     <string name="activity_video_player">Redare video</string>
     <string name="activity_all_categories">Toate categoriile</string>
-    <string name="activity_category">Detalii categorie</string>
     <string name="activity_favorite_categories">Categorii favorite</string>
     <string name="header_title_video_section">SECȚIUNE VIDEO</string>
     <string name="video_header_eyebrow">ÎNVAȚĂ PRIN VIDEO</string>
@@ -51,16 +49,11 @@
     <string name="see_favorites">Vezi favoritele</string>
     <string name="placeholder_image">Imagine categorie</string>
     <string name="placeholder_text">Numele categoriei</string>
-    <string name="add_to_favorites">Adaugă la favorite</string>
     <string name="remove_from_favorites">Elimină din favorite</string>
     <string name="header_title_favorites">Favorite</string>
     <string name="first_message">Încă nu ai favorite</string>
     <string name="second_message">Salvează semnele care îți plac, apoi revino aici să le exersezi.</string>
     <string name="browse_collections">Explorează categoriile</string>
-    <string name="background_image">Imagine de fundal</string>
-    <string name="background_overlay">Suprapunere de fundal</string>
-    <string name="app_logo">Sigla aplicației</string>
-    <string name="project_name">Open Hands Learning</string>
     <string name="record_voice_message">Înregistrează vocea</string>
     <string name="voice_transcript_label">TRANSCRIERE VOCALĂ</string>
     <string name="voice_signs_heading">Semnele mesajului</string>
@@ -72,19 +65,6 @@
     <string name="remove_favorite">Elimină din favorite</string>
     <string name="activity_expressions">Expresii</string>
     <string name="register">Înregistrare</string>
-    <string name="intro_skip">Omite</string>
-    <string name="intro_fresh">Descoperă</string>
-    <string name="intro_everything">semne</string>
-    <string name="intro_everything_you_will_experience_will_be_absolutely_fresh">Învață să comunici prin limbajul semnelor, pas cu pas.</string>
-    <string name="intro_delivery">videoclipuri</string>
-    <string name="intro_all_you_need_to_do_is_order_your_favorite_food_from_us">Alege o categorie și urmărește semnul în videoclip.</string>
-    <string name="intro_easy">Exersează</string>
-    <string name="intro_payment">oricând</string>
-    <string name="intro_both_credit_card_and_cash_on_delivery_are_available">Transformă vocea în semne și repetă în ritmul tău.</string>
-    <string name="recording_time_zero" translatable="false">00:00</string>
-    <string name="play_recording">Redă înregistrarea</string>
-    <string name="pause_recording">Întrerupe redarea</string>
-    <string name="continue_intro">Continuă</string>
     <string name="speech_prompt">Vorbește acum</string>
     <string name="remove_favorite_confirmation">Elimini „%1$s” din favorite?</string>
     <string name="open_list">Deschide lista</string>

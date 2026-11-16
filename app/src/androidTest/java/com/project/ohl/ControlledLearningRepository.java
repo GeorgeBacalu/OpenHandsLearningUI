@@ -20,11 +20,21 @@ final class ControlledLearningRepository {
         void succeed(Object value) { callback.accept(Result.success(value)); }
     }
     final List<Call> calls = new ArrayList<>();
-    final LearningRepository repository = LearningRepository.class.cast(Proxy.newProxyInstance(
+    final LearningRepository repository = (LearningRepository) Proxy.newProxyInstance(
             LearningRepository.class.getClassLoader(), new Class<?>[]{LearningRepository.class},
-            (proxy, method, args) -> (Request<Object>) callback -> {
-                var call = new Call(method.getName(), args == null ? new Object[0] : args.clone(), callback);
-                calls.add(call);
-                return () -> call.cancelled = true;
-            }));
+            (proxy, method, args) -> {
+                if (method.getDeclaringClass() == Object.class) {
+                    return switch (method.getName()) {
+                        case "equals" -> args != null && args.length == 1 && proxy == args[0];
+                        case "hashCode" -> System.identityHashCode(proxy);
+                        case "toString" -> "ControlledLearningRepository";
+                        default -> throw new UnsupportedOperationException(method.getName());
+                    };
+                }
+                return (Request<Object>) callback -> {
+                    var call = new Call(method.getName(), args == null ? new Object[0] : args.clone(), callback);
+                    calls.add(call);
+                    return () -> call.cancelled = true;
+                };
+            });
 }

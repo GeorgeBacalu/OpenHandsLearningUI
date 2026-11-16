@@ -2,21 +2,21 @@ package com.project.ohl.presentation;
 
 import android.Manifest;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Build;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.annotation.NonNull;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.core.os.LocaleListCompat;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.core.os.LocaleListCompat;
 import androidx.core.view.ViewCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.project.ohl.R;
 import com.project.ohl.app.AppViewModels;
@@ -25,7 +25,6 @@ import com.project.ohl.domain.repository.AuthenticationException;
 import com.project.ohl.presentation.state.UiState;
 
 public class MainActivity extends AuthenticatedActivity {
-    private MainRecyclerViewAdapter sectionsAdapter;
     private SessionViewModel model;
     private boolean sessionVerified;
     private final ActivityResultLauncher<String> localNetworkPermission = registerForActivityResult(
@@ -43,11 +42,7 @@ public class MainActivity extends AuthenticatedActivity {
         showGate(true);
         model = AppViewModels.get(this, SessionViewModel.class);
         model.state().observe(this, this::render);
-        model.sections().observe(this, state -> {
-            if (!sessionVerified) return;
-            if (state.isSuccess() && state.value() != null) sectionsAdapter.setSections(state.value());
-            else if (state.error() != null) Toast.makeText(this, R.string.request_failed, Toast.LENGTH_SHORT).show();
-        });
+
     }
 
     @Override protected boolean validatesAccountOnResume() { return true; }
@@ -84,11 +79,8 @@ public class MainActivity extends AuthenticatedActivity {
         toolbar.setTitleTextAppearance(this, R.style.HomeToolbarTitle);
         setSupportActionBar(toolbar);
         RecyclerView sections = findViewById(R.id.sectionsRecyclerView);
-        sectionsAdapter = new MainRecyclerViewAdapter(this);
-        sections.setAdapter(sectionsAdapter);
+        sections.setAdapter(new MainRecyclerViewAdapter(this));
         sections.setLayoutManager(new LinearLayoutManager(this));
-        var currentSections = model.sections().getValue();
-        if (currentSections != null && currentSections.value() != null) sectionsAdapter.setSections(currentSections.value());
         invalidateOptionsMenu();
     }
 

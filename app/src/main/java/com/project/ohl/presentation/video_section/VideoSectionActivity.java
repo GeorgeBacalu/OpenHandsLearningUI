@@ -1,10 +1,10 @@
 package com.project.ohl.presentation.video_section;
 
-import com.project.ohl.R;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
+import com.project.ohl.R;
 import com.project.ohl.presentation.general.favorites.FavoritesActivity;
 import java.util.UUID;
 

@@ -18,11 +18,13 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
+import com.bumptech.glide.Glide;
 import com.project.ohl.domain.model.Category;
 import com.project.ohl.presentation.video_section.VideoPlayerActivity;
 import com.project.ohl.presentation.video_section.single_category.CategoryRecyclerViewAdapter;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
@@ -30,14 +32,17 @@ import java.util.concurrent.atomic.AtomicReference;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.*;
+import static java.util.Objects.requireNonNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
-/** Checks favorites without reading or changing the signed-in user's saved collection. */
 @RunWith(AndroidJUnit4.class)
 public class FavoritesLayoutTest {
-    private static class RecordingContext extends ContextThemeWrapper {
+    private static class TestNavigationContext extends ContextThemeWrapper {
         Intent opened;
-        RecordingContext(Context base) { super(base, R.style.Theme_OpenHandsLearning_Home); }
+        TestNavigationContext(Context base) { super(base, R.style.Theme_OpenHandsLearning_Home); }
         @Override public void startActivity(Intent intent) { opened = intent; }
     }
 
@@ -65,7 +70,7 @@ public class FavoritesLayoutTest {
                     | (night ? Configuration.UI_MODE_NIGHT_YES : Configuration.UI_MODE_NIGHT_NO);
             config.fontScale = scale;
             config.setLocale(Locale.forLanguageTag("ro"));
-            var context = new RecordingContext(target.createConfigurationContext(config));
+            var context = new TestNavigationContext(target.createConfigurationContext(config));
             assertTrue("Header title has strong contrast", ColorUtils.calculateContrast(context.getColor(R.color.home_text),
                     context.getColor(R.color.favorites_header_surface)) >= 7);
             assertTrue("Header caption remains readable", ColorUtils.calculateContrast(context.getColor(R.color.home_muted),
@@ -120,23 +125,23 @@ public class FavoritesLayoutTest {
                     ImageView image = card.findViewById(R.id.categoryImage);
                     assertEquals("Heart overlays the top of the image", image.getTop(), remove.getTop());
                     assertEquals("Heart overlays the right edge of the image", image.getRight(), remove.getRight());
-                    com.bumptech.glide.Glide.with(context).clear(image);
+                    Glide.with(context).clear(image);
                     image.setImageDrawable(TestMedia.drawable(categories.get(index).getImageUrl()));
                     assertEquals(image.getWidth(), image.getHeight());
                     assertEquals(ImageView.ScaleType.FIT_XY, image.getScaleType());
                     assertEquals(Color.WHITE, ((ColorDrawable) image.getBackground()).getColor());
                 }
-                View firstCard = list.findViewHolderForAdapterPosition(0).itemView;
+                View firstCard = requireNonNull(list.findViewHolderForAdapterPosition(0)).itemView;
                 for (int index = 1; index < 3; index++) {
-                    View card = list.findViewHolderForAdapterPosition(index).itemView;
+                    View card = requireNonNull(list.findViewHolderForAdapterPosition(index)).itemView;
                     assertEquals("Three favorite cards fit on the same row", firstCard.getTop(), card.getTop());
                     assertTrue(card.getLeft() > firstCard.getLeft());
                 }
                 assertTrue("The fourth favorite starts the next row",
-                        list.findViewHolderForAdapterPosition(3).itemView.getTop() > firstCard.getTop());
-                View first = list.findViewHolderForAdapterPosition(0).itemView;
+                        requireNonNull(list.findViewHolderForAdapterPosition(3)).itemView.getTop() > firstCard.getTop());
+                View first = requireNonNull(list.findViewHolderForAdapterPosition(0)).itemView;
                 first.performClick();
-                assertEquals(VideoPlayerActivity.class.getName(), context.opened.getComponent().getClassName());
+                assertEquals(VideoPlayerActivity.class.getName(), requireNonNull(context.opened.getComponent()).getClassName());
                 assertEquals(categories.get(0).getId().toString(), context.opened.getStringExtra(VideoPlayerActivity.CATEGORY_ID));
                 assertNull("Opening a favorite does not remove it", removed.get());
                 first.findViewById(R.id.removeFromFavoriteButton).performClick();
@@ -144,13 +149,13 @@ public class FavoritesLayoutTest {
                 adapter.setRemovalPending(true);
                 removed.set(null);
                 measure(root, width, height);
-                list.findViewHolderForAdapterPosition(0).itemView.findViewById(R.id.removeFromFavoriteButton).performClick();
+                requireNonNull(list.findViewHolderForAdapterPosition(0)).itemView.findViewById(R.id.removeFromFavoriteButton).performClick();
                 assertNull("A pending removal cannot be submitted twice", removed.get());
                 adapter.setRemovalPending(false);
                 measure(root, width, height);
                 for (int index = 0; index < categories.size(); index++) {
-                    ImageView image = list.findViewHolderForAdapterPosition(index).itemView.findViewById(R.id.categoryImage);
-                    com.bumptech.glide.Glide.with(context).clear(image);
+                    ImageView image = requireNonNull(list.findViewHolderForAdapterPosition(index)).itemView.findViewById(R.id.categoryImage);
+                    Glide.with(context).clear(image);
                     image.setImageDrawable(TestMedia.drawable(categories.get(index).getImageUrl()));
                 }
                 measure(root, width, height);
@@ -162,7 +167,7 @@ public class FavoritesLayoutTest {
             root.draw(new Canvas(bitmap));
             try (var output = new FileOutputStream(new File(target.getExternalFilesDir(null), "favorites-" + suffix + ".png"))) {
                 assertTrue(bitmap.compress(Bitmap.CompressFormat.PNG, 100, output));
-            } catch (java.io.IOException error) { throw new AssertionError(error); }
+            } catch (IOException error) { throw new AssertionError(error); }
             finally { bitmap.recycle(); }
         });
     }

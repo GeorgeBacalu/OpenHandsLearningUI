@@ -15,7 +15,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.*;
+import static java.util.Objects.requireNonNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class)
 public class JwtTokenStoreTest {
@@ -32,7 +36,7 @@ public class JwtTokenStoreTest {
     }
 
     @After public void removeIsolatedStorage() {
-        for (File file : directory.listFiles()) assertTrue(file.delete());
+        for (File file : requireNonNull(directory.listFiles())) assertTrue(file.delete());
         assertTrue(directory.delete());
     }
 
@@ -41,7 +45,7 @@ public class JwtTokenStoreTest {
         var store = new JwtTokenStore(context);
         store.save(token);
         assertEquals(token, store.token());
-        String saved = new String(Files.readAllBytes(new File(directory, "jwt").toPath()), StandardCharsets.UTF_8);
+        String saved = Files.readString(new File(directory, "jwt").toPath(), StandardCharsets.UTF_8);
         assertFalse(saved.contains(token));
         assertEquals(token, new JwtTokenStore(context).token());
         store.clear();
@@ -67,7 +71,6 @@ public class JwtTokenStoreTest {
     }
 
     private String token(long expires) {
-        // Storage only reads expiry; server-side signature validation establishes identity.
         String claims = "{\"exp\":" + expires + "}";
         return "header." + Base64.encodeToString(claims.getBytes(StandardCharsets.UTF_8),
                 Base64.URL_SAFE | Base64.NO_WRAP | Base64.NO_PADDING) + ".signature";

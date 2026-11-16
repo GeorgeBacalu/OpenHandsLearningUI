@@ -7,24 +7,28 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.RectF;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.SystemClock;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 import com.google.gson.Gson;
-import com.project.ohl.domain.model.Category;
 import com.project.ohl.data.remote.RetrofitService;
-import com.project.ohl.presentation.UserSession;
+import com.project.ohl.domain.model.Category;
 import com.project.ohl.presentation.CategoryNavigation;
+import com.project.ohl.presentation.MainActivity;
 import com.project.ohl.presentation.MediaResources;
+import com.project.ohl.presentation.UserSession;
 import com.project.ohl.presentation.video_section.VideoSectionActivity;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URI;
@@ -39,10 +43,13 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.BooleanSupplier;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeTrue;
 
-/** Explicit device audit against the running catalog; opt in with -e auditCategoryImages true. */
 @RunWith(AndroidJUnit4.class)
 public class CategoryImageDisplayTest {
     private final Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
@@ -55,8 +62,7 @@ public class CategoryImageDisplayTest {
     @Test public void everyCatalogPageDisplaysCompleteImagesInWhiteSquares() throws Exception {
         assumeTrue("true".equals(InstrumentationRegistry.getArguments().getString("auditCategoryImages")));
         var context = instrumentation.getTargetContext();
-        // Let the launcher restore the saved app locale before auditing activity layouts.
-        instrumentation.startActivitySync(new Intent(context, com.project.ohl.presentation.MainActivity.class)
+        instrumentation.startActivitySync(new Intent(context, MainActivity.class)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
         instrumentation.waitForIdleSync();
         SystemClock.sleep(1000);
@@ -91,7 +97,7 @@ public class CategoryImageDisplayTest {
             int expected = counts.get(page);
             Activity activity = instrumentation.startActivitySync(intents.get(page).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             try {
-                instrumentation.runOnMainSync(() -> activity.getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON));
+                instrumentation.runOnMainSync(() -> activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON));
                 await(() -> {
                     var list = findList(activity.getWindow().getDecorView());
                     return list != null && list.getAdapter() != null && list.getAdapter().getItemCount() == expected
@@ -105,10 +111,11 @@ public class CategoryImageDisplayTest {
                         if (holder == null) return false;
                         ImageView image = holder.itemView.findViewById(R.id.categoryImage);
                         String label = ((TextView) holder.itemView.findViewById(R.id.categoryName)).getText().toString();
-                        return image == null || missing.contains(label) || (image.getWidth() > 0 && image.getDrawable() instanceof android.graphics.drawable.BitmapDrawable);
+                        return image == null || missing.contains(label) || (image.getWidth() > 0 && image.getDrawable() instanceof BitmapDrawable);
                     }, name + ": image " + position + " did not load");
                     instrumentation.runOnMainSync(() -> {
                         var holder = findList(activity.getWindow().getDecorView()).findViewHolderForAdapterPosition(index);
+                        assertNotNull(holder);
                         ImageView image = holder.itemView.findViewById(R.id.categoryImage);
                         String label = ((TextView) holder.itemView.findViewById(R.id.categoryName)).getText().toString();
                         checkedCards++;
@@ -125,7 +132,7 @@ public class CategoryImageDisplayTest {
                     decor.draw(new Canvas(bitmap));
                     try (var stream = new FileOutputStream(new File(output, MediaResources.resourceName(name) + ".png"))) {
                         assertTrue(bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream));
-                    } catch (java.io.IOException error) { throw new AssertionError(error); }
+                    } catch (IOException error) { throw new AssertionError(error); }
                     finally { bitmap.recycle(); }
                 });
                 report.append("PAGE OK: ").append(name).append(" (").append(expected).append(" cards)\n");

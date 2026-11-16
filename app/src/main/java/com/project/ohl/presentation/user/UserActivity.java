@@ -8,15 +8,16 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.project.ohl.R;
 import com.project.ohl.app.AppViewModels;
-import com.project.ohl.presentation.MainActivity;
 import com.project.ohl.domain.model.Registration;
 import com.project.ohl.presentation.AuthenticationViewModel;
+import com.project.ohl.presentation.MainActivity;
 import com.project.ohl.presentation.SchoolDirectoryViewModel;
 import java.util.List;
 import java.util.UUID;
@@ -28,7 +29,7 @@ public class UserActivity extends AppCompatActivity {
     private SchoolDirectoryViewModel directory;
     private boolean restoring;
     private record DirectoryOption(UUID id, String name) {
-        @Override public String toString() { return name; }
+        @Override public @NonNull String toString() { return name; }
     }
 
     @Override protected void onCreate(Bundle saved) {
@@ -141,7 +142,7 @@ public class UserActivity extends AppCompatActivity {
         });
     }
 
-    @Override protected void onRestoreInstanceState(Bundle state) {
+    @Override protected void onRestoreInstanceState(@NonNull Bundle state) {
         restoring = true;
         super.onRestoreInstanceState(state);
         restoring = false;

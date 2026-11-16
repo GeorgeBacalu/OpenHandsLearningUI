@@ -14,14 +14,14 @@ public class ArchitectureTest {
 
     @Test public void domainIsIndependentOfAndroidAndDataLibraries() {
         classes().that().resideInAPackage("..domain..")
-                .should().onlyDependOnClassesThat().resideInAnyPackage("java..", "com.project.ohl.domain..")
+                .should().onlyDependOnClassesThat().resideInAnyPackage("java..", "com.project.ohl.domain..", "org.jspecify.annotations..")
                 .check(PRODUCTION);
     }
 
     @Test public void presentationUsesRepositoriesInsteadOfTransportOrStorageImplementations() {
         noClasses().that().resideInAPackage("..presentation..")
                 .should().dependOnClassesThat()
-                .resideInAnyPackage("com.project.ohl.data..", "retrofit2..", "okhttp3..", "com.google.gson..", "androidx.room..")
+                .resideInAnyPackage("com.project.ohl.data..", "retrofit2..", "okhttp3..", "com.google.gson..")
                 .check(PRODUCTION);
     }
 

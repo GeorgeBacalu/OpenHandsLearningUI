@@ -18,6 +18,7 @@ import java.util.UUID;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -27,20 +28,20 @@ import static org.junit.Assert.assertTrue;
 public class CatalogAdapterTest {
     @Test public void parentCardsBrowseChildrenAndVideoCardsOpenPlayback() {
         InstrumentationRegistry.getInstrumentation().runOnMainSync(() -> {
-            var context = new NavigationContext();
+            var context = new TestNavigationContext();
             var category = new Category(UUID.fromString("990e2591-117c-3b04-9146-dbdf0ca772b4"), "Alfabet");
             var parents = CatalogRecyclerViewAdapter.forCategories(context);
             parents.setCategories(List.of(category));
             var parentList = recycler(context, parents);
             clickFirst(parentList);
-            assertEquals(AlphabetActivity.class.getName(), context.started.getComponent().getClassName());
+            assertEquals(AlphabetActivity.class.getName(), requireNonNull(context.started.getComponent()).getClassName());
             assertEquals(category.getId().toString(), context.started.getStringExtra(CategoryNavigation.PARENT_ID));
 
             var videos = CatalogRecyclerViewAdapter.forVideos(context);
             videos.setCategories(List.of(category));
             var videoList = recycler(context, videos);
             clickFirst(videoList);
-            assertEquals(VideoPlayerActivity.class.getName(), context.started.getComponent().getClassName());
+            assertEquals(VideoPlayerActivity.class.getName(), requireNonNull(context.started.getComponent()).getClassName());
             assertEquals(category.getId().toString(), context.started.getStringExtra(VideoPlayerActivity.CATEGORY_ID));
             assertEquals(category.getName(), context.started.getStringExtra(VideoPlayerActivity.CATEGORY_NAME));
             assertFalse(context.started.hasExtra(CategoryNavigation.PARENT_ID));
@@ -51,14 +52,14 @@ public class CatalogAdapterTest {
 
     @Test public void filteredCardsDisplayAndOpenTheCurrentResults() {
         InstrumentationRegistry.getInstrumentation().runOnMainSync(() -> {
-            var context = new NavigationContext();
+            var context = new TestNavigationContext();
             var adapter = CatalogRecyclerViewAdapter.forVideos(context);
             adapter.setCategories(List.of(new Category(UUID.randomUUID(), "Previous result")));
             var recycler = recycler(context, adapter);
             var current = new Category(UUID.randomUUID(), "Filtered result");
             adapter.setCategories(List.of(current));
             layout(recycler);
-            TextView label = recycler.findViewHolderForAdapterPosition(0).itemView.findViewById(R.id.categoryName);
+            TextView label = requireNonNull(recycler.findViewHolderForAdapterPosition(0)).itemView.findViewById(R.id.categoryName);
             assertEquals(current.getName(), label.getText().toString());
             clickFirst(recycler);
             assertEquals(current.getId().toString(), context.started.getStringExtra(VideoPlayerActivity.CATEGORY_ID));
@@ -69,7 +70,7 @@ public class CatalogAdapterTest {
         });
     }
 
-    private static RecyclerView recycler(NavigationContext context, CatalogRecyclerViewAdapter adapter) {
+    private static RecyclerView recycler(TestNavigationContext context, CatalogRecyclerViewAdapter adapter) {
         var recycler = new RecyclerView(context);
         recycler.setLayoutManager(new LinearLayoutManager(context));
         recycler.setItemAnimator(null);
@@ -90,10 +91,10 @@ public class CatalogAdapterTest {
         assertTrue(holder.itemView.performClick());
     }
 
-    private static final class NavigationContext extends ContextThemeWrapper {
+    private static final class TestNavigationContext extends ContextThemeWrapper {
         private Intent started;
 
-        private NavigationContext() {
+        private TestNavigationContext() {
             super(InstrumentationRegistry.getInstrumentation().getTargetContext(), R.style.Theme_OpenHandsLearning);
         }
 

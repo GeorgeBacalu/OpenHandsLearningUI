@@ -6,13 +6,16 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 import com.project.ohl.domain.model.City;
 import com.project.ohl.presentation.SchoolDirectoryViewModel;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.*;
+import static java.util.Objects.requireNonNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class)
 public class SchoolDirectoryViewModelTest {
@@ -29,7 +32,7 @@ public class SchoolDirectoryViewModelTest {
             assertNull(model.cityId()); assertNull(model.schoolId());
             assertTrue(repository.calls.get(0).cancelled); assertTrue(repository.calls.get(1).cancelled);
             repository.calls.get(0).succeed(List.of(new City()));
-            assertEquals(List.of(), model.cities().getValue().value());
+            assertEquals(List.of(), requireNonNull(model.cities().getValue()).value());
             model.searchCities("new");
             assertEquals(newCounty, repository.calls.get(2).arguments[0]);
             assertEquals("new", repository.calls.get(2).arguments[1]);

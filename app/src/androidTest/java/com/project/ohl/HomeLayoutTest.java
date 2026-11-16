@@ -15,19 +15,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
+import com.bumptech.glide.Glide;
 import com.google.android.material.card.MaterialCardView;
-import com.project.ohl.domain.model.Section;
-import com.project.ohl.domain.model.SectionType;
 import com.project.ohl.presentation.MainRecyclerViewAdapter;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.List;
+import java.io.IOException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
-/** Renders the actual home layout and adapter without loading the user's account. */
 @RunWith(AndroidJUnit4.class)
 public class HomeLayoutTest {
     @Test public void homeKeepsTextAndArtworkVisibleInBothThemesAndWithLargeText() {
@@ -70,9 +70,6 @@ public class HomeLayoutTest {
             var adapter = new MainRecyclerViewAdapter(context);
             sections.setAdapter(adapter);
             String[] artwork = {TestMedia.url("video_section"), TestMedia.url("voice_to_sign_section")};
-            adapter.setSections(List.of(
-                    new Section(SectionType.VIDEO, "Video", 0, artwork[0]),
-                    new Section(SectionType.VOICE_TO_SIGN, "Voce în semne", 0, artwork[1])));
             float density = context.getResources().getDisplayMetrics().density;
             int width = Math.round(widthDp * density), height = Math.round(850 * density);
             root.measure(View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),
@@ -92,8 +89,7 @@ public class HomeLayoutTest {
                 assertTrue("Dark illustrations stay on a light canvas in both themes",
                         ColorUtils.calculateLuminance(imageSurface.getCardBackgroundColor().getDefaultColor()) >= 0.8);
                 ImageView image = card.findViewById(R.id.sectionImage);
-                // Supply the same S3 artwork synchronously for the detached preview.
-                com.bumptech.glide.Glide.with(context).clear(image);
+                Glide.with(context).clear(image);
                 image.setImageDrawable(TestMedia.drawable(artwork[index]));
                 assertEquals(ImageView.ScaleType.FIT_CENTER, image.getScaleType());
             }
@@ -101,7 +97,7 @@ public class HomeLayoutTest {
             root.draw(new Canvas(bitmap));
             try (var output = new FileOutputStream(new File(target.getExternalFilesDir(null), "home-" + suffix + ".png"))) {
                 assertTrue(bitmap.compress(Bitmap.CompressFormat.PNG, 100, output));
-            } catch (java.io.IOException error) { throw new AssertionError(error); }
+            } catch (IOException error) { throw new AssertionError(error); }
             finally { bitmap.recycle(); }
         });
     }

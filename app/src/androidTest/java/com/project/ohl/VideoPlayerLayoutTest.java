@@ -13,12 +13,14 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
-/** Checks player geometry and readability without changing the signed-in account. */
 @RunWith(AndroidJUnit4.class)
 public class VideoPlayerLayoutTest {
     @Test public void playerFitsSmallScreensBothThemesAndLargeText() {
@@ -47,7 +49,6 @@ public class VideoPlayerLayoutTest {
             for (int id : new int[]{R.id.video_play_pause, R.id.video_replay, R.id.video_progress, R.id.favoriteButton})
                 root.findViewById(id).setEnabled(true);
 
-            // Render a real S3 video frame: a detached VideoView has no surface.
             Bitmap frame;
             frame = TestMedia.videoFrame();
             assertNotNull("An S3 video frame is available", frame);
@@ -80,7 +81,7 @@ public class VideoPlayerLayoutTest {
             root.draw(new Canvas(bitmap));
             try (var output = new FileOutputStream(new File(target.getExternalFilesDir(null), "video-player-" + suffix + ".png"))) {
                 assertTrue(bitmap.compress(Bitmap.CompressFormat.PNG, 100, output));
-            } catch (java.io.IOException error) { throw new AssertionError(error); }
+            } catch (IOException error) { throw new AssertionError(error); }
             finally { bitmap.recycle(); frame.recycle(); }
         });
     }

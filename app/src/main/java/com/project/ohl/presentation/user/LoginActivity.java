@@ -10,8 +10,8 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.project.ohl.R;
 import com.project.ohl.app.AppViewModels;
-import com.project.ohl.presentation.MainActivity;
 import com.project.ohl.presentation.AuthenticationViewModel;
+import com.project.ohl.presentation.MainActivity;
 import com.project.ohl.presentation.UserSession;
 
 public class LoginActivity extends AppCompatActivity {

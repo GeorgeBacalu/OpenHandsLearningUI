@@ -1,9 +1,13 @@
 package com.project.ohl;
 
 import android.app.Activity;
+import android.app.Instrumentation;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.view.WindowManager;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.SeekBar;
 import android.widget.VideoView;
@@ -16,6 +20,7 @@ import com.project.ohl.domain.repository.Result;
 import com.project.ohl.presentation.video_section.VideoPlayerActivity;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -24,27 +29,30 @@ import java.util.function.BooleanSupplier;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeTrue;
 
-/** Read-only device audit; opt in with -e auditVideoPlayback true while signed in. */
 @RunWith(AndroidJUnit4.class)
 public class VideoPlayerPlaybackTest {
-    private final android.app.Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
+    private final Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
 
     @Test public void playbackPausesSeeksRestoresAndReplays() throws Exception {
         assumeTrue("true".equals(InstrumentationRegistry.getArguments().getString("auditVideoPlayback")));
         assumeTrue("Sign in before running the playback audit", RetrofitService.tokens().token() != null);
         assertTrue("Saved session is valid", awaitResult(ApplicationGraph.authentication().current()).isSuccess());
-        var catalog = awaitResult(ApplicationGraph.learning().getAllCategories());
+        var catalog = awaitResult(ApplicationGraph.learning().getCategoriesByParentIdAndName(
+                UUID.fromString("1deb5200-b06d-3977-9426-e2ea373195f9"), ""));
         assertTrue("Catalog is available", catalog.isSuccess());
-        var category = catalog.value().stream().filter(value -> "acesta_este_colegul_meu".equals(value.getMediaKey()))
+        var category = catalog.value().stream().filter(value -> TestMedia.url("acesta_este_colegul_meu").equals(value.getImageUrl()))
                 .findFirst().orElseThrow();
         var context = instrumentation.getTargetContext();
         Activity activity = instrumentation.startActivitySync(new Intent(context, VideoPlayerActivity.class)
                 .putExtra(VideoPlayerActivity.CATEGORY_ID, category.getId().toString())
                 .putExtra(VideoPlayerActivity.CATEGORY_NAME, category.getName())
-                .putExtra(VideoPlayerActivity.CATEGORY_IMAGE, com.project.ohl.presentation.MediaResources.imageUrl("acesta_este_colegul_meu"))
+                .putExtra(VideoPlayerActivity.CATEGORY_IMAGE, TestMedia.url("acesta_este_colegul_meu"))
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         try {
             Activity first = activity;
@@ -86,20 +94,19 @@ public class VideoPlayerPlaybackTest {
             var screenshot = instrumentation.getUiAutomation().takeScreenshot();
             assertNotNull(screenshot);
             try (var output = new FileOutputStream(new File(context.getExternalFilesDir(null), "video-player-live.png"))) {
-                assertTrue(screenshot.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, output));
+                assertTrue(screenshot.compress(Bitmap.CompressFormat.PNG, 100, output));
             } finally { screenshot.recycle(); }
         } finally {
             if (activity != null) {
-                Activity opened = activity;
-                instrumentation.runOnMainSync(opened::finish);
+                instrumentation.runOnMainSync(activity::finish);
             }
         }
     }
 
     private void showPlayer(Activity activity) {
         instrumentation.runOnMainSync(() -> {
-            activity.getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-            if (android.os.Build.VERSION.SDK_INT >= 27) {
+            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+            if (Build.VERSION.SDK_INT >= 27) {
                 activity.setShowWhenLocked(true);
                 activity.setTurnScreenOn(true);
             }

@@ -33,7 +33,8 @@ public class ProfileFavoritesTest {
                     for (int i = 0; i < 2; i++) try (var socket = server.accept()) {
                         var reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
                         requests.add(reader.readLine());
-                        while (!reader.readLine().isEmpty()) {}
+                        String header;
+                        do { header = reader.readLine(); } while (header != null && !header.isEmpty());
                         socket.getOutputStream().write(("HTTP/1.1 200 OK\r\nContent-Type: application/json\r\nContent-Length: 2\r\nConnection: close\r\n\r\n[]").getBytes(StandardCharsets.UTF_8));
                     }
                 } catch (Throwable error) { failure.set(error); }
@@ -45,7 +46,7 @@ public class ProfileFavoritesTest {
             UUID first = UUID.randomUUID(), second = UUID.randomUUID();
             for (UUID profile : new UUID[]{first, second}) {
                 var completed = new CountDownLatch(1);
-                repository.getFavoriteCategories(profile).start(result -> {
+                repository.getFavoritesByName(profile, "").start(result -> {
                     if (!result.isSuccess()) failure.set(result.error());
                     completed.countDown();
                 });

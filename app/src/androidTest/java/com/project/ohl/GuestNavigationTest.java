@@ -1,7 +1,9 @@
 package com.project.ohl;
 
+import android.Manifest;
 import android.app.Instrumentation;
 import android.content.Intent;
+import android.os.Build;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 import com.project.ohl.data.remote.RetrofitService;
@@ -11,7 +13,9 @@ import com.project.ohl.presentation.video_section.VideoSectionActivity;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeTrue;
 
 @RunWith(AndroidJUnit4.class)
@@ -25,9 +29,12 @@ public class GuestNavigationTest {
     }
 
     private void verifyGuestRedirect(Class<?> screen) {
-        // Preserve a developer's signed-in account when running on a personal device.
         assumeTrue(RetrofitService.tokens().token() == null);
         Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
+        if (BuildConfig.DEBUG && Build.VERSION.SDK_INT >= 37) {
+            instrumentation.getUiAutomation().grantRuntimePermission(
+                    instrumentation.getTargetContext().getPackageName(), Manifest.permission.ACCESS_LOCAL_NETWORK);
+        }
         var monitor = instrumentation.addMonitor(LoginActivity.class.getName(), null, false);
         try {
             var opened = instrumentation.startActivitySync(new Intent(instrumentation.getTargetContext(), screen)
