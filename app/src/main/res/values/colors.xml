@@ -3,12 +3,9 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="main_blue">#113CFC</color>
-    <color name="home_background">@color/main_blue</color>
-    <color name="section_card_surface">#EDF1FF</color>
-    <color name="section_card_border">#CBD6FA</color>
+    <color name="home_background">#F3F6FC</color>
     <color name="section_card_gradient_end">#E6ECFF</color>
     <color name="dark_blue">#193498</color>
-    <color name="translucent_dark_blue">#40193498</color>
     <color name="dark">#292929</color>
 
     <color name="transparent">#00000000</color>

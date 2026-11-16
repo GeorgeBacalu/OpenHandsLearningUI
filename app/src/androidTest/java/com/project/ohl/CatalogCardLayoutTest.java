@@ -49,7 +49,8 @@ public class CatalogCardLayoutTest {
             var labels = new ArrayList<TextView>();
             var images = new ArrayList<ImageView>();
             var sections = new LinearLayout(context);
-            sections.setBackgroundColor(context.getColor(R.color.main_blue));
+            sections.setOrientation(LinearLayout.VERTICAL);
+            sections.setBackgroundColor(context.getColor(R.color.home_background));
             root.addView(sections);
             String[] sectionNames = {"Video", "Voce în semne"};
             int[] artwork = {R.drawable.video_section, R.drawable.voice_to_sign_section};
@@ -58,7 +59,7 @@ public class CatalogCardLayoutTest {
                 TextView label = card.findViewById(R.id.sectionName);
                 label.setText(sectionNames[index]); labels.add(label);
                 ((ImageView) card.findViewById(R.id.sectionImage)).setImageResource(artwork[index]);
-                var params = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
+                var params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 params.setMargins(padding / 2, padding, padding / 2, padding);
                 sections.addView(card, params);
             }
