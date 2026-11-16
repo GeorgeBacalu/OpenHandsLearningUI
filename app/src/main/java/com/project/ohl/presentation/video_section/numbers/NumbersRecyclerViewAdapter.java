@@ -50,7 +50,7 @@ public class NumbersRecyclerViewAdapter extends RecyclerView.Adapter<NumbersRecy
             }
             intent.putExtra(CATEGORY_ID, numbers.get(position).getId().toString());
             intent.putExtra(CATEGORY_NAME, numbers.get(position).getName());
-            intent.putExtra(CATEGORY_IMAGE, numbers.get(position).getImageSource());
+            intent.putExtra(CATEGORY_IMAGE, numbers.get(position).getImageUrl());
             numbersContext.startActivity(intent);
         });
     }

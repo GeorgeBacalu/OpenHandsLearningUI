@@ -52,7 +52,7 @@ public class HouseholdAnimalsRecyclerViewAdapter extends RecyclerView.Adapter<Ho
             intent.putExtra(CATEGORY_ID, id.toString());
             String name = householdAnimals.get(position).getName();
             intent.putExtra(CATEGORY_NAME, name);
-            Integer imageSource = householdAnimals.get(position).getImageSource();
+            String imageSource = householdAnimals.get(position).getImageUrl();
             intent.putExtra(CATEGORY_IMAGE, imageSource);
             householdAnimalsContext.startActivity(intent);
         });

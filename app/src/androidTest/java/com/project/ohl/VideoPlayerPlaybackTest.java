@@ -44,7 +44,7 @@ public class VideoPlayerPlaybackTest {
         Activity activity = instrumentation.startActivitySync(new Intent(context, VideoPlayerActivity.class)
                 .putExtra(VideoPlayerActivity.CATEGORY_ID, category.getId().toString())
                 .putExtra(VideoPlayerActivity.CATEGORY_NAME, category.getName())
-                .putExtra(VideoPlayerActivity.CATEGORY_IMAGE, R.drawable.acesta_este_colegul_meu)
+                .putExtra(VideoPlayerActivity.CATEGORY_IMAGE, com.project.ohl.presentation.MediaResources.imageUrl("acesta_este_colegul_meu"))
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         try {
             Activity first = activity;

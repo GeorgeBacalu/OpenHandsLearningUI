@@ -50,7 +50,7 @@ public class FormsOfAddressRecyclerViewAdapter extends RecyclerView.Adapter<Form
             }
             intent.putExtra(CATEGORY_ID, formsOfAddress.get(position).getId().toString());
             intent.putExtra(CATEGORY_NAME, formsOfAddress.get(position).getName());
-            intent.putExtra(CATEGORY_IMAGE, formsOfAddress.get(position).getImageSource());
+            intent.putExtra(CATEGORY_IMAGE, formsOfAddress.get(position).getImageUrl());
             formsOfAddressContext.startActivity(intent);
         });
     }

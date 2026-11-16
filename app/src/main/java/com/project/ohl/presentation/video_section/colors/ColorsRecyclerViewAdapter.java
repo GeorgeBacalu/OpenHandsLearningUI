@@ -50,7 +50,7 @@ public class ColorsRecyclerViewAdapter extends RecyclerView.Adapter<ColorsRecycl
             if (colors.get(position).getId() == null) throw new NullPointerException("Invalid Selection");
             intent.putExtra(CATEGORY_ID, colors.get(position).getId().toString());
             intent.putExtra(CATEGORY_NAME, colors.get(position).getName());
-            intent.putExtra(CATEGORY_IMAGE, colors.get(position).getImageSource());
+            intent.putExtra(CATEGORY_IMAGE, colors.get(position).getImageUrl());
             colorsContext.startActivity(intent);
         });
     }

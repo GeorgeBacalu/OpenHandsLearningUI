@@ -49,7 +49,7 @@ public class FamilyMembersActivity extends AuthenticatedActivity {
 
             } else {
                     List<Category> familyMembers = result.value();
-                    MediaResources.bindImages(this, familyMembers);
+
                     familyMembersAdapter.setFamilyMembers(familyMembers);
 
             }
@@ -63,7 +63,7 @@ public class FamilyMembersActivity extends AuthenticatedActivity {
 
             } else {
                         List<Category> filteredFamilyMembers = result.value();
-                        MediaResources.bindImages(this, filteredFamilyMembers);
+
                         familyMembersAdapter.setFamilyMembers(filteredFamilyMembers);
 
             }

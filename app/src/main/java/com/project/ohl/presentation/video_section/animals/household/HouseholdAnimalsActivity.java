@@ -49,7 +49,7 @@ public class HouseholdAnimalsActivity extends AuthenticatedActivity {
 
             } else {
                List<Category> householdAnimals = result.value();
-               MediaResources.bindImages(this, householdAnimals);
+
                householdAnimalsAdapter.setHouseholdAnimals(householdAnimals);
 
             }
@@ -63,7 +63,7 @@ public class HouseholdAnimalsActivity extends AuthenticatedActivity {
 
             } else {
                   List<Category> filteredHouseholdAnimals = result.value();
-                  MediaResources.bindImages(this, filteredHouseholdAnimals);
+
                   householdAnimalsAdapter.setHouseholdAnimals(filteredHouseholdAnimals);
 
             }

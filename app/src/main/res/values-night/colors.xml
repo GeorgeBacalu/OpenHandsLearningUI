@@ -1,6 +1,6 @@
 <resources>
     <color name="home_background">#101827</color>
-    <color name="section_card_gradient_end">@color/catalog_card_gradient_end</color>
+
     <color name="sign_result_surface">#171C2D</color>
     <color name="sign_result_stroke">#303A56</color>
     <color name="sign_result_text">#EFF3FF</color>

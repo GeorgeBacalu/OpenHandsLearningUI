@@ -50,7 +50,7 @@ public class EmotionsRecyclerViewAdapter extends RecyclerView.Adapter<EmotionsRe
             }
             intent.putExtra(CATEGORY_ID, emotions.get(position).getId().toString());
             intent.putExtra(CATEGORY_NAME, emotions.get(position).getName());
-            intent.putExtra(CATEGORY_IMAGE, emotions.get(position).getImageSource());
+            intent.putExtra(CATEGORY_IMAGE, emotions.get(position).getImageUrl());
             emotionsContext.startActivity(intent);
         });
     }

@@ -25,47 +25,36 @@ public class MediaResourcesTest {
         } finally { Locale.setDefault(original); }
     }
 
-    @Test public void mediaCatalogsCoverEveryPackagedImageAndVideo() throws Exception {
+    @Test public void onlyLogosAreBundledAndEverySignHasAnS3Object() throws Exception {
         var resources = Path.of("src/main/res");
+        try (var files = Files.list(resources.resolve("drawable-nodpi"))) {
+            assertEquals(Set.of("openhandslearning_mark.png", "openhandslearning_logo_transparent.png"),
+                    files.map(path -> path.getFileName().toString()).collect(Collectors.toSet()));
+        }
+        try (var files = Files.list(resources.resolve("raw"))) {
+            assertEquals(Set.of("splash.json"), files.map(path -> path.getFileName().toString()).collect(Collectors.toSet()));
+        }
         var factory = DocumentBuilderFactory.newInstance();
         factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
-        var arrays = factory.newDocumentBuilder().parse(resources.resolve("values/media_catalog.xml").toFile())
-                .getElementsByTagName("array");
-        assertEquals(3, arrays.getLength());
-        var allDrawables = new HashSet<String>();
-        var catalogs = new java.util.HashMap<String, Set<String>>();
-        for (int index = 0; index < arrays.getLength(); index++) {
-            var array = arrays.item(index);
-            String name = array.getAttributes().getNamedItem("name").getNodeValue();
-            String kind = name.equals("catalog_videos") ? "raw" : "drawable";
-            var actual = new HashSet<String>();
-            for (var item = array.getFirstChild(); item != null; item = item.getNextSibling()) {
-                if (item.getNodeName().equals("item"))
-                    assertTrue(actual.add(item.getTextContent().strip().replace("@" + kind + "/", "")));
-            }
-            assertTrue(catalogs.put(name, actual) == null);
-            if (kind.equals("drawable")) {
-                for (String image : actual)
-                    assertTrue("Voice and category catalogs must not share " + image, allDrawables.add(image));
-            } else {
-                assertEquals(packagedNames(resources, "raw"), actual);
+        try (var layouts = Files.list(resources.resolve("layout"))) {
+            for (var layout : layouts.toList()) {
+                var views = factory.newDocumentBuilder().parse(layout.toFile())
+                        .getElementsByTagName("com.project.ohl.presentation.S3ImageView");
+                for (int index = 0; index < views.getLength(); index++) {
+                    String name = views.item(index).getAttributes().getNamedItem("app:mediaName").getNodeValue();
+                    assertTrue("Static S3 artwork exists: " + name,
+                            com.project.ohl.presentation.MediaCatalog.IMAGES.containsKey(name));
+                }
             }
         }
-        assertEquals(packagedNames(resources, "drawable"), allDrawables);
-        assertEquals(Set.of("catalog_drawables", "catalog_voice_signs", "catalog_videos"), catalogs.keySet());
-        var voiceKeys = catalogs.get("catalog_voice_signs").stream()
-                .map(name -> name.startsWith("voice_") ? name.substring("voice_".length()) : name)
-                .collect(Collectors.toSet());
-        assertEquals(new HashSet<>(SignText.dictionary().values()), voiceKeys);
-        assertEquals(voiceKeys.size(), catalogs.get("catalog_voice_signs").size());
-    }
-
-    private static Set<String> packagedNames(Path resources, String kind) throws Exception {
-        try (var files = Files.walk(resources, 2)) {
-            return files.filter(Files::isRegularFile)
-                    .filter(path -> path.getParent().getFileName().toString().split("-")[0].equals(kind))
-                    .map(path -> path.getFileName().toString().split("\\.")[0]).collect(Collectors.toSet());
+        assertEquals(251, com.project.ohl.presentation.MediaCatalog.IMAGES.size());
+        assertEquals(184, com.project.ohl.presentation.MediaCatalog.VIDEOS.size());
+        for (String key : SignText.dictionary().values()) {
+            String url = MediaResources.voiceUrl(key);
+            assertTrue(url != null && url.contains("/voice/") && url.endsWith(".webp"));
         }
+        assertTrue(MediaResources.videoUrl("ă").endsWith("/alfabet/a_breve.mp4"));
+        assertTrue(MediaResources.imageUrl("a").endsWith("/alfabet/a.webp"));
     }
 
     @Test public void preservesABreveWhenResolvingAndroidMediaNames() {

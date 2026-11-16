@@ -37,109 +37,57 @@ import static org.junit.Assert.assertTrue;
 @RunWith(AndroidJUnit4.class)
 public class SignMediaTest {
     @Test public void aAndABreveResolveDistinctPlayableVideosAndImages() throws Exception {
-        Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        int aVideo = MediaResources.raw(context, "a");
-        int breveVideo = MediaResources.raw(context, "ă");
-        assertTrue(aVideo != 0 && breveVideo != 0);
-        assertNotEquals(aVideo, breveVideo);
-        assertEquals(R.raw.a_breve, breveVideo);
-        var a = new com.project.ohl.domain.model.Category(java.util.UUID.randomUUID(), "A");
-        var breve = new com.project.ohl.domain.model.Category(java.util.UUID.randomUUID(), "Ă");
-        a.setMediaKey("a");
-        breve.setMediaKey("a_breve");
-        MediaResources.bindImages(context, List.of(a, breve));
-        assertEquals(Integer.valueOf(R.drawable.a), a.getImageSource());
-        assertEquals(Integer.valueOf(R.drawable.a_breve), breve.getImageSource());
-        var signs = SignText.translate("AĂ");
-        MediaResources.bindSigns(context, signs);
-        assertEquals(R.drawable.voice_a, signs.get(0).getImageSource());
-        assertEquals(R.drawable.voice_a_breve, signs.get(1).getImageSource());
-        assertNotEquals(a.getImageSource().intValue(), signs.get(0).getImageSource());
-        assertNotEquals(breve.getImageSource().intValue(), signs.get(1).getImageSource());
-        assertNotEquals(signs.get(0).getImageSource(), signs.get(1).getImageSource());
-        for (int video : new int[]{aVideo, breveVideo}) {
+        assertNotEquals(MediaResources.videoUrl("a"), MediaResources.videoUrl("ă"));
+        assertNotEquals(MediaResources.imageUrl("a"), MediaResources.imageUrl("ă"));
+        assertNotEquals(MediaResources.imageUrl("a"), MediaResources.voiceUrl("a"));
+        assertNotEquals(MediaResources.voiceUrl("a"), MediaResources.voiceUrl("ă"));
+        for (String url : List.of(MediaResources.videoUrl("a"), MediaResources.videoUrl("ă"))) {
             try (var metadata = new android.media.MediaMetadataRetriever()) {
-                metadata.setDataSource(context, android.net.Uri.parse(
-                        "android.resource://" + context.getPackageName() + "/" + video));
+                metadata.setDataSource(url, java.util.Map.of());
                 assertTrue(Long.parseLong(metadata.extractMetadata(
                         android.media.MediaMetadataRetriever.METADATA_KEY_DURATION)) >= 2000);
-                var frame = metadata.getFrameAtTime(1_000_000,
-                        android.media.MediaMetadataRetriever.OPTION_CLOSEST);
+                var frame = metadata.getFrameAtTime(1_000_000, android.media.MediaMetadataRetriever.OPTION_CLOSEST);
                 assertNotNull(frame);
                 frame.recycle();
             }
         }
     }
 
-    @Test public void resolvesEveryDictionaryEntryFromBundledResources() {
+    @Test public void resolvesEveryDictionaryEntryFromS3WithoutBundledMedia() {
         Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        for (String key : SignText.dictionary().values()) assertTrue(MediaResources.voiceDrawable(context, key) != 0);
-        assertEquals(R.drawable.a, context.getResources().getIdentifier("a", "drawable", context.getPackageName()));
-        assertTrue(context.getResources().getIdentifier("a", "raw", context.getPackageName()) != 0);
-        var signs = SignText.translate("aăâbcd efg h iîjklmnopqrsşștţțuvwxyz AĂÂÎȘȚ");
-        MediaResources.bindSigns(context, signs);
-        assertTrue(signs.stream().allMatch(sign -> sign.getImageSource() != 0));
+        for (String key : SignText.dictionary().values()) assertNotNull(MediaResources.voiceUrl(key));
+        assertEquals(0, context.getResources().getIdentifier("a", "drawable", context.getPackageName()));
+        assertEquals(0, context.getResources().getIdentifier("a", "raw", context.getPackageName()));
     }
 
     @Test public void romanianDactylsUseDistinctImagesAndPlayableDemonstrations() throws Exception {
-        Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        var signs = SignText.translate("ÂÎȘȚ");
-        var plain = SignText.translate("AIST");
-        MediaResources.bindSigns(context, signs);
-        MediaResources.bindSigns(context, plain);
-        int[] expectedImages = {R.drawable.voice_a_circumflex, R.drawable.voice_i_circumflex,
-                R.drawable.voice_s_comma, R.drawable.voice_t_comma};
-        int[] categoryPhotos = {R.drawable.a_circumflex, R.drawable.i_circumflex,
-                R.drawable.s_comma, R.drawable.t_comma};
-        var videoIds = new java.util.HashSet<Integer>();
-        for (int index = 0; index < signs.size(); index++) {
-            var sign = signs.get(index);
-            assertEquals(expectedImages[index], sign.getImageSource());
-            assertNotEquals(plain.get(index).getImageSource(), sign.getImageSource());
-            var category = new com.project.ohl.domain.model.Category(java.util.UUID.randomUUID(), sign.getLetter());
-            category.setMediaKey(sign.getMediaKey());
-            MediaResources.bindImages(context, List.of(category));
-            assertEquals(Integer.valueOf(categoryPhotos[index]), category.getImageSource());
-            assertNotEquals(category.getImageSource().intValue(), sign.getImageSource());
-            int video = MediaResources.raw(context, "" + sign.getLetter());
-            assertTrue(video != 0 && videoIds.add(video));
-            assertEquals(video, MediaResources.raw(context, sign.getMediaKey()));
+        var videos = new java.util.HashSet<String>();
+        for (var sign : SignText.translate("ÂÎȘȚ")) {
+            String photo = MediaResources.imageUrl(sign.getMediaKey());
+            String illustration = MediaResources.voiceUrl(sign.getMediaKey());
+            String video = MediaResources.videoUrl(sign.getLetter());
+            assertNotNull(photo);
+            assertNotNull(illustration);
+            assertNotEquals(photo, illustration);
+            assertTrue(videos.add(video));
             try (var metadata = new android.media.MediaMetadataRetriever()) {
-                metadata.setDataSource(context, android.net.Uri.parse(
-                        "android.resource://" + context.getPackageName() + "/" + video));
-                assertTrue(Long.parseLong(metadata.extractMetadata(
-                        android.media.MediaMetadataRetriever.METADATA_KEY_DURATION)) >= 2500);
+                metadata.setDataSource(video, java.util.Map.of());
                 var beginning = metadata.getFrameAtTime(0, android.media.MediaMetadataRetriever.OPTION_CLOSEST);
                 var gesture = metadata.getFrameAtTime(1_000_000, android.media.MediaMetadataRetriever.OPTION_CLOSEST);
                 assertNotNull(beginning);
                 assertNotNull(gesture);
                 assertFalse("The demonstration must contain movement", beginning.sameAs(gesture));
-                beginning.recycle();
-                gesture.recycle();
+                beginning.recycle(); gesture.recycle();
             }
         }
-        assertNotEquals(MediaResources.raw(context, "t"), MediaResources.raw(context, "â"));
+        assertNotEquals(MediaResources.videoUrl("t"), MediaResources.videoUrl("â"));
     }
 
     @Test public void voiceAndCategoryImagesCannotFallBackToEachOther() {
-        Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals(0, MediaResources.drawable(context, "voice_a"));
-        assertEquals(0, MediaResources.voiceDrawable(context, "alfabet"));
-        var categoryImages = new java.util.HashSet<Integer>();
-        var categoryCatalog = context.getResources().obtainTypedArray(R.array.catalog_drawables);
-        var voiceCatalog = context.getResources().obtainTypedArray(R.array.catalog_voice_signs);
-        try {
-            for (int index = 0; index < categoryCatalog.length(); index++)
-                categoryImages.add(categoryCatalog.getResourceId(index, 0));
-            for (int index = 0; index < voiceCatalog.length(); index++) {
-                int illustration = voiceCatalog.getResourceId(index, 0);
-                assertTrue(illustration != 0);
-                assertFalse(categoryImages.contains(illustration));
-            }
-        } finally {
-            categoryCatalog.recycle();
-            voiceCatalog.recycle();
-        }
+        assertNotEquals(MediaResources.imageUrl("a"), MediaResources.voiceUrl("a"));
+        org.junit.Assert.assertNull(MediaResources.voiceUrl("alfabet"));
+        for (String key : SignText.dictionary().values())
+            assertTrue(MediaResources.voiceUrl(key).contains("/voice/"));
     }
 
     @Test public void voiceRecognitionDisplaysDistinctRomanianDactyls() throws Exception {

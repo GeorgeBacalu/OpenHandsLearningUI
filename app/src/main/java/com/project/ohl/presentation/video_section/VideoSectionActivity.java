@@ -46,7 +46,7 @@ public class VideoSectionActivity extends AuthenticatedActivity {
 
             } else {
                List<Category> parentCategories = result.value();
-               MediaResources.bindImages(this, parentCategories);
+
                mainCategoriesAdapter.setMainCategories(parentCategories);
 
             }
@@ -60,7 +60,7 @@ public class VideoSectionActivity extends AuthenticatedActivity {
 
             } else {
                   List<Category> filteredParentCategories = result.value();
-                  MediaResources.bindImages(this, filteredParentCategories);
+
                   mainCategoriesAdapter.setMainCategories(filteredParentCategories);
 
             }

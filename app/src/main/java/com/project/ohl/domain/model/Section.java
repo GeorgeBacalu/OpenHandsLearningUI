@@ -8,13 +8,12 @@ public class Section {
     private String iconKey;
     private String name;
     private transient int icon;
-    private transient int imageSource;
 
-    public Section(SectionType type, String name, int icon, int imageSource) {
+    public Section(SectionType type, String name, int icon, String imageUrl) {
         this.type = type;
         this.name = name;
         this.icon = icon;
-        this.imageSource = imageSource;
+        this.imageUrl = imageUrl;
     }
 
     public SectionType getType() {
@@ -37,17 +36,9 @@ public class Section {
         this.icon = icon;
     }
 
-    public int getImageSource() {
-        return imageSource;
-    }
-
-    public void setImageSource(int imageSource) {
-        this.imageSource = imageSource;
-    }
-
     @Override
     public String toString() {
-        return "Section{" + "type=" + type + ", name='" + name + '\'' + ", icon=" + icon + ", imageSource=" + imageSource + '}';
+        return "Section{" + "type=" + type + ", name='" + name + '\'' + ", icon=" + icon + ", imageUrl=" + imageUrl + '}';
     }
 
     public String getMediaKey() {

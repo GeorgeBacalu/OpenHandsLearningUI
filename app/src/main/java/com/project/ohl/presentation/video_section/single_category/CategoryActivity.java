@@ -43,7 +43,7 @@ public class CategoryActivity extends AuthenticatedActivity {
         if(intent != null) {
             String categoryIdText = intent.getStringExtra(CATEGORY_ID);
             UUID categoryId = categoryIdText == null ? null : UUID.fromString(categoryIdText);
-            int imageSubject = intent.getIntExtra(CATEGORY_IMAGE, -1);
+            String imageSubject = intent.getStringExtra(CATEGORY_IMAGE);
             if(categoryId != null) {
                 favoriteButton.setEnabled(false);
                 LearningViewModel.of(this).<Category>load(this, "category", repository -> repository.getCategoryById(categoryId, authenticatedUserId), result -> {
@@ -62,9 +62,9 @@ public class CategoryActivity extends AuthenticatedActivity {
         favoriteButton = findViewById(R.id.favoriteButton);
     }
 
-    private void setData(Category category, int imageSubject) {
+    private void setData(Category category, String imageSubject) {
         categoryName.setText(category.getName());
-        MediaResources.loadImage(this, category.getImageUrl(), Math.max(0, imageSubject), categoryImage);
+        MediaResources.loadImage(this, category.getImageUrl() == null ? imageSubject : category.getImageUrl(), categoryImage);
     }
 
 

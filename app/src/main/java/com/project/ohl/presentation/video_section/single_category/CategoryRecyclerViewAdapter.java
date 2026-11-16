@@ -51,7 +51,7 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
             context.startActivity(new Intent(context, VideoPlayerActivity.class)
                     .putExtra(VideoPlayerActivity.CATEGORY_ID, selected.getId().toString())
                     .putExtra(VideoPlayerActivity.CATEGORY_NAME, selected.getName())
-                    .putExtra(VideoPlayerActivity.CATEGORY_IMAGE, selected.getImageSource() == null ? 0 : selected.getImageSource().intValue()));
+                    .putExtra(VideoPlayerActivity.CATEGORY_IMAGE, selected.getImageUrl()));
         });
         holder.remove.setOnClickListener(view -> {
             int current = holder.getBindingAdapterPosition();

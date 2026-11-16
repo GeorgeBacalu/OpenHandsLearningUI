@@ -7,11 +7,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/brand_gradient_background">
 
-    <ImageView android:contentDescription="@null" android:importantForAccessibility="no"
+    <com.project.ohl.presentation.S3ImageView android:contentDescription="@null" android:importantForAccessibility="no"
         android:id="@+id/fragmentImage"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:src="@drawable/voice_to_sign_section"
+        app:mediaName="voice_to_sign_section"
         app:layout_constraintVertical_bias=".3"
         app:layout_constraintHorizontal_bias=".3"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -98,10 +98,10 @@
         app:layout_constraintVertical_bias="0"
         app:layout_constraintWidth_percent=".5" />
 
-    <ImageView android:contentDescription="@null" android:importantForAccessibility="no"
+    <com.project.ohl.presentation.S3ImageView android:contentDescription="@null" android:importantForAccessibility="no"
         android:layout_width="50dp"
         android:layout_height="10dp"
-        android:src="@drawable/tab3"
+        app:mediaName="tab3"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintVertical_bias=".6"
         android:layout_marginStart="5dp"
