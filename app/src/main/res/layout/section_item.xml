@@ -2,58 +2,58 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/sectionCard"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="15dp"
+    android:layout_margin="8dp"
     app:cardCornerRadius="10dp"
     app:cardElevation="10dp">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/light_blue"
         android:padding="10dp">
 
         <ImageView
             android:id="@+id/sectionImage"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:contentDescription="@string/placeholder_image"
-            android:src="@mipmap/ic_launcher" />
+            android:scaleType="fitCenter"
+            android:src="@mipmap/ic_launcher"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
+        <ImageView
+            android:id="@+id/sectionIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:contentDescription="@string/placeholder_icon"
+            android:src="@drawable/ic_video_section"
+            app:layout_constraintBottom_toBottomOf="@id/sectionName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/sectionName" />
+
+        <TextView
+            android:id="@+id/sectionName"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/sectionImage"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp">
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:breakStrategy="balanced"
+            android:gravity="center"
+            android:minHeight="48dp"
+            android:text="@string/placeholder_text"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/sectionIcon"
+            app:layout_constraintTop_toBottomOf="@id/sectionImage" />
 
-            <ImageView
-                android:id="@+id/sectionIcon"
-                android:layout_width="23dp"
-                android:layout_height="15dp"
-                android:src="@drawable/ic_video_section"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:contentDescription="@string/placeholder_icon" />
-
-            <TextView
-                android:id="@+id/sectionName"
-                android:layout_width="115dp"
-                android:layout_height="wrap_content"
-                android:text="@string/placeholder_text"
-                android:layout_marginStart="2dp"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/sectionIcon"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

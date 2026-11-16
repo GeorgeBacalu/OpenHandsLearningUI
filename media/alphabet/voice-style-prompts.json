@@ -1,0 +1,74 @@
+{
+  "mode": "built-in image_gen",
+  "date": "2026-11-14",
+  "transparent_background": true,
+  "purpose": "Thicker outlines and consistent framing for A and five Romanian diacritic voice illustrations, preserving the existing gestures.",
+  "illustrations": [
+    {
+      "key": "a",
+      "prompt": "Use case: style-transfer. Asset: one production PNG hand illustration for a Romanian manual-alphabet mobile app. IMAGE 1 is the EDIT TARGET; preserve its exact gesture, viewpoint, orientation, handedness, finger count, bends, and overlaps. IMAGE 2 (the app screenshot) and IMAGE 3 (the existing N drawing) are STYLE AND VISUAL-WEIGHT REFERENCES ONLY; do not copy their hand gestures. Change only the drawing treatment and framing of IMAGE 1 to match the bold black-and-white outlined hands visible in the other app cards, especially N, E, T and P. The current target has thin contours and looks too small. Redraw it with substantially bolder, confident black contour strokes, approximately 24-28 px outer strokes and 16-20 px internal strokes relative to a 1024 px square canvas, rounded ends/joins, consistent with the screenshot. Flat PURE WHITE hand interior, PURE BLACK strokes, genuinely TRANSPARENT exterior. Remove paper texture, gray noise, shading, gradients and faint stray pixels. Include just the complete hand and a short wrist. Scale it to occupy 92-94% of square canvas height, centered optically with approximately 3-4% top and bottom margins. Preserve natural hand proportions. Keep the full outline and every fingertip inside canvas; no cropping. Never reduce the gesture to a generic icon or mitten: keep all pose-defining finger separation lines. No extra fingers. No mirroring. No text, letter, diacritic, arrows, shadow, frame, card or other objects. Output exactly ONE isolated hand, not a comparison or sheet. Pose invariants: Closed fist viewed from the side, thumb folded across the top of curled fingers. Preserve the exact existing thumb and curled finger positions.",
+      "references": [
+        "C:/Projects/Fullstack/LetsLearnTogether/OpenHandsLearningUI/app/src/main/res/drawable-nodpi/voice_a.png",
+        "C:/Users/gbacalu/Downloads/WhatsApp Image 2026-11-14 at 18.01.38.jpeg",
+        "C:/Projects/Fullstack/LetsLearnTogether/OpenHandsLearningUI/app/src/main/res/drawable-nodpi/voice_n.png"
+      ],
+      "generated_file": "C:\\Users\\gbacalu\\.codex\\generated_images\\01a1d994-b787-77c0-bd43-3f3313d910ff\\exec-dcf0f72e-2a69-44f4-a825-5a32e1f72027.png",
+      "destination": "app/src/main/res/drawable-nodpi/voice_a.png"
+    },
+    {
+      "key": "a_breve",
+      "prompt": "Use case: style-transfer. Asset: one production PNG hand illustration for a Romanian manual-alphabet mobile app. IMAGE 1 is the EDIT TARGET; preserve its exact gesture, viewpoint, orientation, handedness, finger count, bends, and overlaps. IMAGE 2 (the app screenshot) and IMAGE 3 (the existing N drawing) are STYLE AND VISUAL-WEIGHT REFERENCES ONLY; do not copy their hand gestures. Change only the drawing treatment and framing of IMAGE 1 to match the bold black-and-white outlined hands visible in the other app cards, especially N, E, T and P. The current target has thin contours and looks too small. Redraw it with substantially bolder, confident black contour strokes, approximately 24-28 px outer strokes and 16-20 px internal strokes relative to a 1024 px square canvas, rounded ends/joins, consistent with the screenshot. Flat PURE WHITE hand interior, PURE BLACK strokes, genuinely TRANSPARENT exterior. Remove paper texture, gray noise, shading, gradients and faint stray pixels. Include just the complete hand and a short wrist. Scale it to occupy 92-94% of square canvas height, centered optically with approximately 3-4% top and bottom margins. Preserve natural hand proportions. Keep the full outline and every fingertip inside canvas; no cropping. Never reduce the gesture to a generic icon or mitten: keep all pose-defining finger separation lines. No extra fingers. No mirroring. No text, letter, diacritic, arrows, shadow, frame, card or other objects. Output exactly ONE isolated hand, not a comparison or sheet. Pose invariants: Thumb extended straight upwards above a closed fist. Preserve the straight thumbs-up pose, all curled finger overlaps, and orientation.",
+      "references": [
+        "C:/Projects/Fullstack/LetsLearnTogether/OpenHandsLearningUI/app/src/main/res/drawable-nodpi/voice_a_breve.png",
+        "C:/Users/gbacalu/Downloads/WhatsApp Image 2026-11-14 at 18.01.38.jpeg",
+        "C:/Projects/Fullstack/LetsLearnTogether/OpenHandsLearningUI/app/src/main/res/drawable-nodpi/voice_n.png"
+      ],
+      "generated_file": "C:\\Users\\gbacalu\\.codex\\generated_images\\01a1d994-b787-77c0-bd43-3f3313d910ff\\exec-e872d1ff-d00f-42fc-b8e6-137f2587df80.png",
+      "destination": "app/src/main/res/drawable-nodpi/voice_a_breve.png"
+    },
+    {
+      "key": "a_circumflex",
+      "prompt": "Use case: style-transfer. Asset: one production PNG hand illustration for a Romanian manual-alphabet mobile app. IMAGE 1 is the EDIT TARGET; preserve its exact gesture, viewpoint, orientation, handedness, finger count, bends, and overlaps. IMAGE 2 (the app screenshot) and IMAGE 3 (the existing N drawing) are STYLE AND VISUAL-WEIGHT REFERENCES ONLY; do not copy their hand gestures. Change only the drawing treatment and framing of IMAGE 1 to match the bold black-and-white outlined hands visible in the other app cards, especially N, E, T and P. The current target has thin contours and looks too small. Redraw it with substantially bolder, confident black contour strokes, approximately 24-28 px outer strokes and 16-20 px internal strokes relative to a 1024 px square canvas, rounded ends/joins, consistent with the screenshot. Flat PURE WHITE hand interior, PURE BLACK strokes, genuinely TRANSPARENT exterior. Remove paper texture, gray noise, shading, gradients and faint stray pixels. Include just the complete hand and a short wrist. Scale it to occupy 92-94% of square canvas height, centered optically with approximately 3-4% top and bottom margins. Preserve natural hand proportions. Keep the full outline and every fingertip inside canvas; no cropping. Never reduce the gesture to a generic icon or mitten: keep all pose-defining finger separation lines. No extra fingers. No mirroring. No text, letter, diacritic, arrows, shadow, frame, card or other objects. Output exactly ONE isolated hand, not a comparison or sheet. Pose invariants: Closed fist with thumb raised and its tip bent forward in a clear hook. Preserve this hooked thumb; do not make it straight.",
+      "references": [
+        "C:/Projects/Fullstack/LetsLearnTogether/OpenHandsLearningUI/app/src/main/res/drawable-nodpi/voice_a_circumflex.png",
+        "C:/Users/gbacalu/Downloads/WhatsApp Image 2026-11-14 at 18.01.38.jpeg",
+        "C:/Projects/Fullstack/LetsLearnTogether/OpenHandsLearningUI/app/src/main/res/drawable-nodpi/voice_n.png"
+      ],
+      "generated_file": "C:\\Users\\gbacalu\\.codex\\generated_images\\01a1d994-b787-77c0-bd43-3f3313d910ff\\exec-05a0c810-82dd-467d-b3ea-f06b0f8015d4.png",
+      "destination": "app/src/main/res/drawable-nodpi/voice_a_circumflex.png"
+    },
+    {
+      "key": "i_circumflex",
+      "prompt": "Use case: style-transfer. Asset: one production PNG hand illustration for a Romanian manual-alphabet mobile app. IMAGE 1 is the EDIT TARGET; preserve its exact gesture, viewpoint, orientation, handedness, finger count, bends, and overlaps. IMAGE 2 (the app screenshot) and IMAGE 3 (the existing N drawing) are STYLE AND VISUAL-WEIGHT REFERENCES ONLY; do not copy their hand gestures. Change only the drawing treatment and framing of IMAGE 1 to match the bold black-and-white outlined hands visible in the other app cards, especially N, E, T and P. The current target has thin contours and looks too small. Redraw it with substantially bolder, confident black contour strokes, approximately 24-28 px outer strokes and 16-20 px internal strokes relative to a 1024 px square canvas, rounded ends/joins, consistent with the screenshot. Flat PURE WHITE hand interior, PURE BLACK strokes, genuinely TRANSPARENT exterior. Remove paper texture, gray noise, shading, gradients and faint stray pixels. Include just the complete hand and a short wrist. Scale it to occupy 92-94% of square canvas height, centered optically with approximately 3-4% top and bottom margins. Preserve natural hand proportions. Keep the full outline and every fingertip inside canvas; no cropping. Never reduce the gesture to a generic icon or mitten: keep all pose-defining finger separation lines. No extra fingers. No mirroring. No text, letter, diacritic, arrows, shadow, frame, card or other objects. Output exactly ONE isolated hand, not a comparison or sheet. Pose invariants: Closed fist with the LITTLE FINGER extended diagonally upward on the right. Other fingers stay curled. Preserve the little finger, not an index finger.",
+      "references": [
+        "C:/Projects/Fullstack/LetsLearnTogether/OpenHandsLearningUI/app/src/main/res/drawable-nodpi/voice_i_circumflex.png",
+        "C:/Users/gbacalu/Downloads/WhatsApp Image 2026-11-14 at 18.01.38.jpeg",
+        "C:/Projects/Fullstack/LetsLearnTogether/OpenHandsLearningUI/app/src/main/res/drawable-nodpi/voice_n.png"
+      ],
+      "generated_file": "C:\\Users\\gbacalu\\.codex\\generated_images\\01a1d994-b787-77c0-bd43-3f3313d910ff\\exec-3015005c-e2e6-43d2-8195-4bece03f4809.png",
+      "destination": "app/src/main/res/drawable-nodpi/voice_i_circumflex.png"
+    },
+    {
+      "key": "s_comma",
+      "prompt": "Use case: style-transfer. Asset: one production PNG hand illustration for a Romanian manual-alphabet mobile app. IMAGE 1 is the EDIT TARGET; preserve its exact gesture, viewpoint, orientation, handedness, finger count, bends, and overlaps. IMAGE 2 (the app screenshot) and IMAGE 3 (the existing N drawing) are STYLE AND VISUAL-WEIGHT REFERENCES ONLY; do not copy their hand gestures. Change only the drawing treatment and framing of IMAGE 1 to match the bold black-and-white outlined hands visible in the other app cards, especially N, E, T and P. The current target has thin contours and looks too small. Redraw it with substantially bolder, confident black contour strokes, approximately 24-28 px outer strokes and 16-20 px internal strokes relative to a 1024 px square canvas, rounded ends/joins, consistent with the screenshot. Flat PURE WHITE hand interior, PURE BLACK strokes, genuinely TRANSPARENT exterior. Remove paper texture, gray noise, shading, gradients and faint stray pixels. Include just the complete hand and a short wrist. Scale it to occupy 92-94% of square canvas height, centered optically with approximately 3-4% top and bottom margins. Preserve natural hand proportions. Keep the full outline and every fingertip inside canvas; no cropping. Never reduce the gesture to a generic icon or mitten: keep all pose-defining finger separation lines. No extra fingers. No mirroring. No text, letter, diacritic, arrows, shadow, frame, card or other objects. Output exactly ONE isolated hand, not a comparison or sheet. Pose invariants: Closed fist with the LITTLE FINGER extending sideways at the lower right. Preserve all fingers, thumb overlap, and the extended little finger.",
+      "references": [
+        "C:/Projects/Fullstack/LetsLearnTogether/OpenHandsLearningUI/app/src/main/res/drawable-nodpi/voice_s_comma.png",
+        "C:/Users/gbacalu/Downloads/WhatsApp Image 2026-11-14 at 18.01.38.jpeg",
+        "C:/Projects/Fullstack/LetsLearnTogether/OpenHandsLearningUI/app/src/main/res/drawable-nodpi/voice_n.png"
+      ],
+      "generated_file": "C:\\Users\\gbacalu\\.codex\\generated_images\\01a1d994-b787-77c0-bd43-3f3313d910ff\\exec-f60f9d95-ff99-4f40-8746-ff7ee12efa69.png",
+      "destination": "app/src/main/res/drawable-nodpi/voice_s_comma.png"
+    },
+    {
+      "key": "t_comma",
+      "prompt": "Use case: style-transfer. Asset: one production PNG hand illustration for a Romanian manual-alphabet mobile app. IMAGE 1 is the EDIT TARGET; preserve its exact gesture, viewpoint, orientation, handedness, finger count, bends, and overlaps. IMAGE 2 (the app screenshot) and IMAGE 3 (the existing N drawing) are STYLE AND VISUAL-WEIGHT REFERENCES ONLY; do not copy their hand gestures. Change only the drawing treatment and framing of IMAGE 1 to match the bold black-and-white outlined hands visible in the other app cards, especially N, E, T and P. The current target has thin contours and looks too small. Redraw it with substantially bolder, confident black contour strokes, approximately 24-28 px outer strokes and 16-20 px internal strokes relative to a 1024 px square canvas, rounded ends/joins, consistent with the screenshot. Flat PURE WHITE hand interior, PURE BLACK strokes, genuinely TRANSPARENT exterior. Remove paper texture, gray noise, shading, gradients and faint stray pixels. Include just the complete hand and a short wrist. Scale it to occupy 92-94% of square canvas height, centered optically with approximately 3-4% top and bottom margins. Preserve natural hand proportions. Keep the full outline and every fingertip inside canvas; no cropping. Never reduce the gesture to a generic icon or mitten: keep all pose-defining finger separation lines. No extra fingers. No mirroring. No text, letter, diacritic, arrows, shadow, frame, card or other objects. Output exactly ONE isolated hand, not a comparison or sheet. Pose invariants: Side view of a closed hand with curved INDEX FINGER approaching the THUMB, making a small open pinch near the top. The other three fingers stay curled.",
+      "references": [
+        "C:/Projects/Fullstack/LetsLearnTogether/OpenHandsLearningUI/app/src/main/res/drawable-nodpi/voice_t_comma.png",
+        "C:/Users/gbacalu/Downloads/WhatsApp Image 2026-11-14 at 18.01.38.jpeg",
+        "C:/Projects/Fullstack/LetsLearnTogether/OpenHandsLearningUI/app/src/main/res/drawable-nodpi/voice_n.png"
+      ],
+      "generated_file": "C:\\Users\\gbacalu\\.codex\\generated_images\\01a1d994-b787-77c0-bd43-3f3313d910ff\\exec-71b8df3b-cd5c-4673-b5ca-f5ef95c85827.png",
+      "destination": "app/src/main/res/drawable-nodpi/voice_t_comma.png"
+    }
+  ]
+}

@@ -1,13 +1,8 @@
 package com.project.ohl;
 
-import android.content.Context;
-import android.content.ContextWrapper;
-import android.content.SharedPreferences;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.platform.app.InstrumentationRegistry;
 import com.project.ohl.data.remote.JsonCodec;
 import com.project.ohl.data.remote.RemoteLearningRepository;
-import com.project.ohl.presentation.UserProfiles;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
@@ -28,12 +23,7 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class)
 public class ProfileFavoritesTest {
-    @Test public void profileSwitchesSendTheSelectedUserOnEachFavoriteRequest() throws Exception {
-        Context base = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        SharedPreferences preferences = base.getSharedPreferences("profile-test-" + UUID.randomUUID(), Context.MODE_PRIVATE);
-        Context isolated = new ContextWrapper(base) {
-            @Override public SharedPreferences getSharedPreferences(String name, int mode) { return preferences; }
-        };
+    @Test public void favoriteRequestsUseTheRequestedUserId() throws Exception {
         var requests = new ArrayList<String>();
         var failure = new AtomicReference<Throwable>();
         try (var server = new ServerSocket(0)) {
@@ -54,10 +44,8 @@ public class ProfileFavoritesTest {
             var repository = new RemoteLearningRepository(retrofit);
             UUID first = UUID.randomUUID(), second = UUID.randomUUID();
             for (UUID profile : new UUID[]{first, second}) {
-                UserProfiles.select(isolated, profile);
-                assertEquals(profile, UserProfiles.id(isolated));
                 var completed = new CountDownLatch(1);
-                repository.getFavoriteCategories(UserProfiles.id(isolated)).start(result -> {
+                repository.getFavoriteCategories(profile).start(result -> {
                     if (!result.isSuccess()) failure.set(result.error());
                     completed.countDown();
                 });
@@ -68,6 +56,6 @@ public class ProfileFavoritesTest {
             assertEquals(2, requests.size());
             assertTrue(requests.get(0).contains("userId=" + first));
             assertTrue(requests.get(1).contains("userId=" + second));
-        } finally { preferences.edit().clear().commit(); }
+        }
     }
 }

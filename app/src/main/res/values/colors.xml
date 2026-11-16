@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
@@ -12,7 +11,6 @@
     <color name="light_blue">#1195FC</color>
     <color name="dark_blue">#193498</color>
     <color name="translucent_dark_blue">#40193498</color>
-    <color name="gray_border">#D3D3D3</color>
     <color name="dark">#292929</color>
 
     <color name="purple">#ba53de</color>
@@ -21,4 +19,16 @@
     <color name="transparent">#00000000</color>
 
     <color name="openhandslearning_logo_background">#112A43</color>
+    <color name="sign_result_surface">#F4F6FC</color>
+    <color name="sign_result_stroke">#E0E6F2</color>
+    <color name="sign_result_text">#16213D</color>
+    <color name="sign_result_muted">#596780</color>
+    <color name="catalog_search_surface">#F3F4F6</color>
+    <color name="catalog_search_border">#D8DDE4</color>
+    <color name="catalog_search_text">#20252D</color>
+    <color name="catalog_search_hint">#626A76</color>
+    <color name="catalog_search_accent">#56637A</color>
+    <color name="category_intro_surface">#EEF3FF</color>
+    <color name="category_intro_border">#DCE5F7</color>
+    <color name="category_intro_text">#24375B</color>
 </resources>

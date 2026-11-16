@@ -10,11 +10,9 @@ appcompat = "1.8.0"
 cardview = "1.0.0"
 constraintlayout = "2.2.2"
 core = "1.19.1"
-drawerlayout = "1.2.0"
 fragment = "1.9.1"
 preference = "1.2.1"
 recyclerview = "1.4.0"
-viewpager2 = "1.1.0"
 material = "1.14.0"
 glide = "5.0.9"
 gson = "2.15.0"
@@ -35,11 +33,9 @@ androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "a
 androidx-cardview = { module = "androidx.cardview:cardview", version.ref = "cardview" }
 androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
 androidx-core = { module = "androidx.core:core", version.ref = "core" }
-androidx-drawerlayout = { module = "androidx.drawerlayout:drawerlayout", version.ref = "drawerlayout" }
 androidx-fragment = { module = "androidx.fragment:fragment", version.ref = "fragment" }
 androidx-preference = { module = "androidx.preference:preference", version.ref = "preference" }
 androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
-androidx-viewpager2 = { module = "androidx.viewpager2:viewpager2", version.ref = "viewpager2" }
 androidx-junit = { module = "androidx.test.ext:junit", version.ref = "androidxJunit" }
 androidx-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
 material = { module = "com.google.android.material:material", version.ref = "material" }

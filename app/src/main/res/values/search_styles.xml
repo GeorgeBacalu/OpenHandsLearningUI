@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Widget.OpenHandsLearning.CatalogSearch" parent="Widget.MaterialComponents.CardView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">24dp</item>
+        <item name="android:layout_marginEnd">24dp</item>
+        <item name="android:addStatesFromChildren">true</item>
+        <item name="cardBackgroundColor">@color/catalog_search_surface</item>
+        <item name="cardCornerRadius">18dp</item>
+        <item name="cardElevation">0dp</item>
+        <item name="strokeColor">@color/catalog_search_outline</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+
+    <style name="Widget.OpenHandsLearning.CatalogSearchInput" parent="Widget.AppCompat.EditText">
+        <item name="android:minHeight">56dp</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:fontFamily">@font/source_sans_pro_regular</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:hint">@string/input_placeholder_category</item>
+        <item name="android:inputType">text</item>
+        <item name="android:paddingStart">18dp</item>
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:paddingTop">14dp</item>
+        <item name="android:paddingBottom">14dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/catalog_search_text</item>
+        <item name="android:textColorHint">@color/catalog_search_hint</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Widget.OpenHandsLearning.CatalogSearchIcon" parent="Widget.AppCompat.ImageButton">
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:contentDescription">@string/search_bar_icon</item>
+        <item name="android:padding">12dp</item>
+        <item name="srcCompat">@drawable/ic_search</item>
+        <item name="tint">@color/catalog_search_accent</item>
+    </style>
+</resources>

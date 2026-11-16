@@ -157,11 +157,6 @@ public final class RemoteLearningRepository implements LearningRepository {
     public Request<Category> getCategoryById(UUID id, UUID userId) { return adapt(categoryApi.getCategoryById(id, userId)); }
 
     @Override
-    public Request<Category> saveCategory(Category category) {
-        return adapt(categoryApi.saveCategory(category));
-    }
-
-    @Override
     public Request<Category> updateCategoryById(Category category, UUID id) {
         return adapt(categoryApi.updateCategoryById(category, id));
     }
