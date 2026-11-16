@@ -1,7 +1,5 @@
 package com.project.ohl.presentation.video_section.animals.household;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -11,12 +9,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.project.ohl.R;
+import com.project.ohl.presentation.CategoryPageLayout;
 import com.project.ohl.domain.model.Category;
 import com.project.ohl.presentation.CategoryNavigation;
 import com.project.ohl.presentation.LearningViewModel;
-import com.project.ohl.presentation.MainActivity;
 import com.project.ohl.presentation.MediaResources;
 import java.util.List;
 import java.util.Locale;
@@ -28,11 +25,8 @@ import static android.R.id.home;
 public class HouseholdAnimalsActivity extends AppCompatActivity {
    private RecyclerView householdAnimalsRecyclerView;
    private HouseholdAnimalsRecyclerViewAdapter householdAnimalsAdapter;
-   private FloatingActionButton toHomePageFabButton;
    private EditText searchBarInput;
    private ImageView searchBarIcon;
-
-   @SuppressLint("NotifyDataSetChanged")
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
@@ -40,17 +34,14 @@ public class HouseholdAnimalsActivity extends AppCompatActivity {
 
       UUID parentId = CategoryNavigation.parentId(this);
       setContentView(R.layout.activity_household_animals);
+      CategoryPageLayout.configure(this);
       Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
       initializeViews();
 
-      toHomePageFabButton.setOnClickListener(v -> {
-         Intent intent = new Intent(HouseholdAnimalsActivity.this, MainActivity.class);
-         startActivity(intent);
-      });
 
       householdAnimalsRecyclerView.setAdapter(householdAnimalsAdapter);
-      householdAnimalsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+      householdAnimalsRecyclerView.setLayoutManager(new GridLayoutManager(this, getResources().getInteger(R.integer.video_category_columns)));
 
       LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndName(parentId, ""), result -> {
             if (result.error() != null) {
@@ -84,7 +75,6 @@ public class HouseholdAnimalsActivity extends AppCompatActivity {
    private void initializeViews() {
       householdAnimalsRecyclerView = findViewById(R.id.householdAnimalsRecyclerView);
       householdAnimalsAdapter = new HouseholdAnimalsRecyclerViewAdapter(this);
-      toHomePageFabButton = findViewById(R.id.toHomePageFabButton);
       searchBarInput = findViewById(R.id.searchBarInput);
       searchBarIcon = findViewById(R.id.searchBarIcon);
    }

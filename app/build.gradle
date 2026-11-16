@@ -39,6 +39,10 @@ android {
         buildConfig = true
     }
 
+    lint {
+        warningsAsErrors = true
+    }
+
 }
 
 room {
@@ -56,11 +60,9 @@ dependencies {
     implementation libs.androidx.cardview
     implementation libs.androidx.constraintlayout
     implementation libs.androidx.core
-    implementation libs.androidx.drawerlayout
     implementation libs.androidx.fragment
     implementation libs.androidx.preference
     implementation libs.androidx.recyclerview
-    implementation libs.androidx.viewpager2
     implementation libs.material
     implementation libs.kotlin.stdlib
     implementation libs.glide

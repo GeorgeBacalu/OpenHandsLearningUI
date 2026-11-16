@@ -7,25 +7,23 @@ import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.project.ohl.R;
 import com.project.ohl.databinding.ActivityVoiceToSignSectionBinding;
 import com.project.ohl.domain.model.SignText;
-import com.project.ohl.presentation.MainActivity;
 import com.project.ohl.presentation.MediaResources;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import static android.R.id.home;
@@ -34,16 +32,11 @@ public class VoiceToSignSectionActivity extends AppCompatActivity {
 
     private ActivityVoiceToSignSectionBinding binding;
     private ActivityResultLauncher<Intent> speechRecognitionLauncher;
-
-    private static int MICROPHONE_PERMISSION_CODE = 200;
+    private ActivityResultLauncher<String> microphonePermissionLauncher;
 
     private RecyclerView voiceToSignRecyclerView;
     private VoiceToSignSectionRecyclerViewAdapter voiceToSignSectionRecyclerViewAdapter;
-    private FloatingActionButton toHomePageFabButton;
-    private FloatingActionButton voiceRecordingButton;
-    private FloatingActionButton voiceStopRecordingButton, voiceReplayRecordingButton;
-    private EditText textInput;
-    private Button confirmButton;
+    private Button voiceRecordingButton;
     private TextView categoryNameCardText;
     private RelativeLayout outputContent;
 
@@ -57,10 +50,16 @@ public class VoiceToSignSectionActivity extends AppCompatActivity {
                     if (result.getResultCode() == RESULT_OK && resultData != null) {
                         ArrayList<String> recognizedText = resultData.getStringArrayListExtra(
                                 RecognizerIntent.EXTRA_RESULTS);
-                        if (recognizedText != null && !recognizedText.isEmpty()) {
-                            textInput.setText(recognizedText.get(0));
+                        if (hasMicrophonePermission() && recognizedText != null && !recognizedText.isEmpty()) {
+                            showTranslation(recognizedText.get(0));
                         }
                     }
+                });
+        microphonePermissionLauncher = registerForActivityResult(
+                new ActivityResultContracts.RequestPermission(),
+                granted -> {
+                    if (granted) startSpeechRecognition();
+                    else clearTranslation();
                 });
         binding = ActivityVoiceToSignSectionBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -69,44 +68,85 @@ public class VoiceToSignSectionActivity extends AppCompatActivity {
 
         initializeViews();
 
-        if (isMicrophonePresent()) {
-            getMicrophonePermission();
-        }
-
-        toHomePageFabButton.setOnClickListener(v -> {
-            Intent intent = new Intent(VoiceToSignSectionActivity.this, MainActivity.class);
-            startActivity(intent);
-        });
-
         voiceRecordingButton.setOnClickListener(v -> {
-            Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-            intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Start Speaking");
-            speechRecognitionLauncher.launch(intent);
+            if (!isMicrophonePresent()) return;
+            if (hasMicrophonePermission()) {
+                startSpeechRecognition();
+            } else {
+                microphonePermissionLauncher.launch(Manifest.permission.RECORD_AUDIO);
+            }
         });
 
         voiceToSignRecyclerView.setAdapter(voiceToSignSectionRecyclerViewAdapter);
-        voiceToSignRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-
-        outputContent.setVisibility(View.GONE);
-        categoryNameCardText.setText("");
-        confirmButton.setOnClickListener(view -> {
-            String input = textInput.getText().toString();
-            var signs = SignText.translate(input);
-            MediaResources.bindSigns(this, signs);
-            voiceToSignSectionRecyclerViewAdapter.setTextSignPairs(signs);
-            categoryNameCardText.setText(input);
-            outputContent.setVisibility(signs.isEmpty() ? View.GONE : View.VISIBLE);
-            textInput.setText("");
+        var grid = new GridLayoutManager(this, 1);
+        grid.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override public int getSpanSize(int position) {
+                return voiceToSignSectionRecyclerViewAdapter.getItemViewType(position)
+                        == VoiceToSignSectionRecyclerViewAdapter.WORD_BREAK ? grid.getSpanCount() : 1;
+            }
         });
+        voiceToSignRecyclerView.setLayoutManager(grid);
+        voiceToSignRecyclerView.addOnLayoutChangeListener((view, left, top, right, bottom,
+                oldLeft, oldTop, oldRight, oldBottom) -> {
+            int width = right - left - view.getPaddingLeft() - view.getPaddingRight();
+            float minWidth = getResources().getDimension(R.dimen.sign_tile_min_width)
+                    * Math.max(1f, getResources().getConfiguration().fontScale);
+            int columns = Math.max(1, (int) (width / minWidth));
+            if (grid.getSpanCount() != columns) grid.setSpanCount(columns);
+        });
+
+        clearTranslation();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!hasMicrophonePermission()) clearTranslation();
+    }
+
+    private boolean hasMicrophonePermission() {
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
+                == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void showTranslation(String transcript) {
+        if (!hasMicrophonePermission() || transcript == null || transcript.isBlank()) {
+            clearTranslation();
+            return;
+        }
+        var signs = SignText.translate(transcript);
+        MediaResources.bindSigns(this, signs);
+        voiceToSignSectionRecyclerViewAdapter.setTextSignPairs(signs);
+        categoryNameCardText.setText(transcript);
+        outputContent.setVisibility(signs.isEmpty() ? View.GONE : View.VISIBLE);
+        if (!signs.isEmpty()) scrollToTranslation();
+    }
+
+    private void scrollToTranslation() {
+        outputContent.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override public void onGlobalLayout() {
+                outputContent.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                if (binding == null || outputContent.getVisibility() != View.VISIBLE) return;
+                var scroll = binding.getRoot();
+                int[] resultPosition = new int[2];
+                int[] scrollPosition = new int[2];
+                outputContent.getLocationOnScreen(resultPosition);
+                scroll.getLocationOnScreen(scrollPosition);
+                int inset = (int) (16 * getResources().getDisplayMetrics().density);
+                scroll.smoothScrollTo(0, scroll.getScrollY() + resultPosition[1] - scrollPosition[1] - inset);
+            }
+        });
+    }
+
+    private void clearTranslation() {
+        categoryNameCardText.setText("");
+        outputContent.setVisibility(View.GONE);
+        voiceToSignSectionRecyclerViewAdapter.setTextSignPairs(List.of());
     }
 
     private void initializeViews() {
         voiceToSignRecyclerView = findViewById(R.id.voiceToSignRecyclerView);
         voiceToSignSectionRecyclerViewAdapter = new VoiceToSignSectionRecyclerViewAdapter(this);
-        toHomePageFabButton = findViewById(R.id.toHomePageFabButton);
-        textInput = findViewById(R.id.textInput);
-        confirmButton = findViewById(R.id.confirmButton);
         voiceRecordingButton = findViewById(R.id.voiceRecordingButton);
         categoryNameCardText = findViewById(R.id.categoryNameCardText);
         outputContent = findViewById(R.id.outputContent);
@@ -119,10 +159,13 @@ public class VoiceToSignSectionActivity extends AppCompatActivity {
         return false;
     }
 
-    private void getMicrophonePermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, MICROPHONE_PERMISSION_CODE);
-        }
+    private void startSpeechRecognition() {
+        clearTranslation();
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ro-RO");
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.speech_prompt));
+        speechRecognitionLauncher.launch(intent);
     }
 
     @Override

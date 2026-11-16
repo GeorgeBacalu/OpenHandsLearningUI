@@ -1,0 +1,14 @@
+<resources>
+    <color name="sign_result_surface">#171C2D</color>
+    <color name="sign_result_stroke">#303A56</color>
+    <color name="sign_result_text">#EFF3FF</color>
+    <color name="sign_result_muted">#ABB7D1</color>
+    <color name="catalog_search_surface">#202329</color>
+    <color name="catalog_search_border">#3C424D</color>
+    <color name="catalog_search_text">#F3F4F6</color>
+    <color name="catalog_search_hint">#B0B7C2</color>
+    <color name="catalog_search_accent">#C4CEDD</color>
+    <color name="category_intro_surface">#1A233A</color>
+    <color name="category_intro_border">#31415F</color>
+    <color name="category_intro_text">#E5ECFF</color>
+</resources>

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.project.ohl.R;
+import com.project.ohl.presentation.CategoryPageLayout;
 import com.project.ohl.domain.model.Category;
 import com.project.ohl.presentation.CategoryNavigation;
 import com.project.ohl.presentation.LearningViewModel;
@@ -34,12 +35,15 @@ public class AllCategoriesActivity extends AppCompatActivity {
       UUID parentId = CategoryNavigation.parentId(this);
 
       setContentView(R.layout.activity_all_categories);
+      CategoryPageLayout.configure(this);
+      String categoryName = getIntent().getStringExtra(CATEGORY_NAME);
+      if (categoryName != null && !categoryName.isBlank()) setTitle(categoryName);
       Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
       initializeViews();
 
       categoriesRecyclerView.setAdapter(categoriesAdapter);
-      categoriesRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+      categoriesRecyclerView.setLayoutManager(new GridLayoutManager(this, getResources().getInteger(R.integer.video_category_columns)));
       LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndName(parentId, ""), result -> {
             if (result.error() != null) {
             Toast.makeText(AllCategoriesActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();

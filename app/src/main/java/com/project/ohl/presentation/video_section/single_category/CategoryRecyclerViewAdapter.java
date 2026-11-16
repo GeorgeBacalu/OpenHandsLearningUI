@@ -17,8 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-import com.bumptech.glide.Glide;
 import com.project.ohl.R;
+import com.project.ohl.presentation.MediaResources;
 import com.project.ohl.domain.model.Category;
 import com.project.ohl.presentation.video_section.VideoPlayerActivity;
 import java.util.ArrayList;
@@ -50,10 +50,10 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
 
     @SuppressLint("NotifyDataSetChanged")
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(categories.get(position).getName());
-        Glide.with(categoryContext).asBitmap().load(categories.get(position).getImageSource()).into(holder.categoryImage);
+        MediaResources.loadImage(categoryContext, categories.get(position).getImageSource(), holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(categoryContext, VideoPlayerActivity.class);
             int current = holder.getBindingAdapterPosition();
@@ -71,12 +71,12 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
             if (onRemove != null) {
                 holder.removeFromFavoriteButton.setOnClickListener(v -> {
                     AlertDialog.Builder builder = new AlertDialog.Builder(categoryContext);
-                    builder.setMessage("Eşti sigur că vrei să elimini " + categories.get(position).getName() + " de la favorite?");
-                    builder.setPositiveButton("DA", (dialog, which) -> {
+                    builder.setMessage(categoryContext.getString(R.string.remove_favorite_confirmation, categories.get(position).getName()));
+                    builder.setPositiveButton(R.string.yes, (dialog, which) -> {
                         int current = holder.getBindingAdapterPosition();
                         if (current != RecyclerView.NO_POSITION) onRemove.accept(categories.get(current));
                     });
-                    builder.setNegativeButton("NU", (dialog, which) -> {
+                    builder.setNegativeButton(R.string.no, (dialog, which) -> {
                     });
                     builder.create().show();
                 });

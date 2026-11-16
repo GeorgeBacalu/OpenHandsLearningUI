@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -21,13 +22,13 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <ImageView
+            <ImageView android:contentDescription="@null"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/ic_launcher"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="7dp"
-                android:layout_marginRight="7dp"
+                android:layout_marginStart="7dp"
+                android:layout_marginEnd="7dp"
                 android:id="@+id/recordingImage"/>
 
             <LinearLayout
@@ -40,7 +41,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
-                    android:text="Audio File_2244322"
+                    tools:text="Audio File_2244322"
                     android:fontFamily="@font/source_sans_pro_regular"
                     android:textStyle="bold"
                     android:id="@+id/fileNameText"/>
@@ -49,7 +50,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
-                    android:text="00:44"
+                    tools:text="00:44"
                     android:fontFamily="@font/source_sans_pro_regular"
                     android:textStyle="bold"
                     android:layout_marginTop="7dp"
@@ -59,7 +60,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/fileTimeAdded"
-                    android:text="22-09-2021"
+                    tools:text="22-09-2021"
                     android:textStyle="bold"
                     android:textSize="12sp"
                     android:fontFamily="@font/source_sans_pro_regular"/>
