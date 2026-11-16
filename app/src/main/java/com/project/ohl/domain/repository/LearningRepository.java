@@ -33,7 +33,6 @@ public interface LearningRepository {
     Request<List<Category>> getAllCategories();
     Request<Category> getCategoryById(UUID id);
     Request<Category> getCategoryById(UUID id, UUID userId);
-    Request<Category> saveCategory(Category category);
     Request<Category> updateCategoryById(Category category, UUID id);
     Request<Void> deleteCategoryById(UUID id);
     Request<List<Category>> getCategoriesByParentIdAndName(UUID parentId, String name);

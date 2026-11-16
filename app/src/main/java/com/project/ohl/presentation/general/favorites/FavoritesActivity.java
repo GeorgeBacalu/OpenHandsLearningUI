@@ -14,11 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.project.ohl.R;
 import com.project.ohl.domain.model.Category;
 import com.project.ohl.presentation.LearningViewModel;
-import com.project.ohl.presentation.MainActivity;
 import com.project.ohl.presentation.MediaResources;
 import com.project.ohl.presentation.UserSession;
 import com.project.ohl.presentation.user.LoginActivity;
@@ -39,7 +37,6 @@ public class FavoritesActivity extends AppCompatActivity {
    private UUID authenticatedUserId;
    private RecyclerView recyclerView;
    private CategoryRecyclerViewAdapter adapter;
-   private FloatingActionButton homePageButton;
    private EditText searchBar;
    private ImageView searchIcon;
 
@@ -57,10 +54,6 @@ public class FavoritesActivity extends AppCompatActivity {
       }
       initializeViews();
 
-      homePageButton.setOnClickListener(v -> {
-         Intent intent = new Intent(FavoritesActivity.this, MainActivity.class);
-         startActivity(intent);
-      });
 
       recyclerView.setAdapter(adapter);
       recyclerView.setLayoutManager(new LinearLayoutManager(FavoritesActivity.this));
@@ -107,7 +100,6 @@ public class FavoritesActivity extends AppCompatActivity {
                if (result.isSuccess()) recreate();
                else Toast.makeText(this, R.string.request_failed, Toast.LENGTH_SHORT).show();
             }));
-      homePageButton = findViewById(R.id.home_page_button);
       searchBar = findViewById(R.id.search_bar);
       searchIcon = findViewById(R.id.search_icon);
    }

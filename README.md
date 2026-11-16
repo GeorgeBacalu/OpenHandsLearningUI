@@ -101,20 +101,51 @@ Category requests use parentId and name only, and category models have no sectio
 The navigation bar shows registration for guests and settings only after
 `/api/auth/me` confirms a server-authenticated account. Login is available from
 the registration form. The side drawer and hamburger button have been removed;
-section cards provide navigation. Profile selection has been removed.
+section cards provide navigation. Dedicated Home shortcut buttons are removed
+throughout the app, including categories and favorites;
+toolbar and system Back navigation remain available. Profile selection has been removed.
+Category/subcategory creation screens, their entry button and Android creation
+client have been removed. Onboarding ends on the main page. The API no longer
+offers `POST /api/categories`; the existing catalog remains available.
 Favorites use the authenticated user's UUID, which the server checks against the
-session. Use these changes with the secured API and V15 schema. Voice to Sign supports typed text and speech
-recognition using an immutable local Unicode-to-media-key dictionary.
+session. Use these changes with the secured API and V15 schema. Voice to Sign
+immediately converts a successful nonblank speech transcript into finger-spelling
+images using the immutable local Unicode-to-media-key dictionary. The result card
+shows the transcript and its signs without manual entry or confirmation. Microphone
+permission is requested only from the recording button; denied permission, cancelled
+recognition and blank results show no signs.
+The results use a vertical grid that adapts to screen width and font size, with
+larger letter cards and full-width word separators. The page scrolls to the result
+automatically; horizontal scrolling and nested scrolling are disabled.
 Letter lookup works without a backend connection; uppercase/lowercase, Romanian
 diacritics, legacy cedilla spellings, Unicode composition, and whitespace are
 normalized consistently. The dictionary is created once and every conversion
 returns fresh display models. The standalone Text to Sign section, screen and
 navigation entry have been removed.
 The retired letter-sign API and remote CRUD client
-have been removed. The retained `dactilema_a` image belongs
-to the matching line-drawing collection; the unrelated photographic `a.png` was
-removed. Unicode letter lookup handles case fallback, Romanian diacritics, spaces,
-and empty input without a second hardcoded sign catalog.
+have been removed. A and Ă have distinct media keys, videos, category thumbnails,
+and voice-to-sign images. A uses `a.mp4` (PeSemne) and the original
+photographic hand image, stored once as `a.png`. Ă uses the existing ANIALMG
+demonstration, previously mislabeled as A, packaged as `a_breve.mp4`,
+with a photographic still of its full hand. The requested source filename
+`media/alphabet/ă.mp4` is retained; Android resource filenames require
+ASCII names. The resolver preserves this distinction before removing accents.
+See [alphabet media provenance](media/alphabet/README.md) for sources and hashes.
+Â, Î, Ș and Ț also use independent `a_circumflex`,
+`i_circumflex`, `s_comma` and `t_comma` media keys.
+Their clips are complete gesture excerpts from the Asociația LSR alphabet lesson,
+with original frontal/profile views and audio. Category thumbnails are photographic
+stills; voice results use independent black-and-white illustrations. Unicode composition, case and
+legacy Ş/Ţ spellings preserve these distinct keys instead of falling back to A/I/S/T.
+Category photos and voice illustrations have disjoint resource catalogs.
+`bindImages` resolves category photos only; `bindSigns` resolves `catalog_voice_signs`
+only and never falls back to a photo. Every letter uses `<letter>.png` for its
+video category, `voice_<letter>.png` for voice results, and `<letter>.mp4` for its
+video. Only A and the five diacritic letters received new artwork; the existing
+drawings for the other letters retain their original content.
+See [voice illustration provenance and prompts](media/alphabet/voice-illustrations.md).
+Unicode letter lookup uses one text-to-media dictionary for case fallback,
+Romanian diacritics, spaces, and empty input.
 
 Favorites are read and changed through the API repository. The obsolete local
 favorites and duplicate catalog in SharedPreferences have been removed. Existing
@@ -180,7 +211,23 @@ uses „semn”. API section types and media keys remain stable.
 
 ## App icon
 
-The launcher and in-app logo use `app/src/main/res/drawable-nodpi/openhandslearning_mark.png`:
+### Homepage artwork
+
+The main page uses transparent PNG artwork in `app/src/main/res/drawable-nodpi/`:
+`video_section.png`, `voice_to_sign_section.png`, and
+`openhandslearning_logo_transparent.png`. The logo is registered in the media
+catalog and referenced by `activity_main.xml`. These assets were edited with the
+built-in image-generation tool. Final prompts:
+
+**Video:** Remove the white background of this video-section illustration. Produce a clean transparent PNG cutout of ONLY the navy smartphone outline, navy video camera with cyan play button and its white stroke, and the four colorful circular buttons. Remove all pale gray background marks, faint stock-watermark camera outlines/lettering and diagonal hairlines so they do not become visible debris against a colored background. Keep the foreground geometry, arrangement and flat colors identical to the original. Use solid navy fills, no gradients or added texture. The empty phone screen, camera lens hole and home button hole should be transparent. Leave original padding and aspect ratio. Clean smooth antialiased edges, no stray pixels or shadows, no new content.
+
+**Voice:** Edit target: supplied voice-to-sign illustration. Remove ONLY its pale white background and export a genuinely transparent RGBA PNG cutout. Retain the existing hand holding the turquoise phone, microphone circle, small phone sound waveform, and large multicolor waveform on the right. Preserve their exact composition, proportions, colors and flat illustration appearance. Do not redesign or add shapes, text, borders or shadows. The phone screen and intentional white microphone symbol must retain their original fills. Empty space around the hand, phone and right waveform must be fully transparent. Preserve any source markings.
+
+**Homepage logo:** Create a clean production-ready transparent version of this exact existing logo. Extract only the coral heart, ivory open hands, and teal open book with ivory pages. Keep their exact shape, proportions, arrangement and square canvas padding. Use smooth solid fills and smooth edges. Completely eliminate the dark navy background, all background remnants, all white fringe/halo, all speckled pixels, and all shadows. Also remove the navy from all interior gaps between fingers, palms, book and heart: those gaps must be fully transparent with clean boundaries. No flecks, no texture, no outline, no glow. All pixels outside these three emblem shapes must have alpha zero. Do not modify the design, do not add anything. This is a transparent UI logo PNG for use on bright blue backgrounds; its edges must be exceptionally clean.
+
+### Launcher artwork
+
+The launcher and introductory/category-screen logos use `app/src/main/res/drawable-nodpi/openhandslearning_mark.png`:
 open palms support a book and heart in ivory, teal and coral on navy. Adaptive
 icons include mask-safe padding; legacy launcher aliases use the same artwork.
 The artwork was made with the built-in image-generation tool.

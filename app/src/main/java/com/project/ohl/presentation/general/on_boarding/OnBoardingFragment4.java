@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.project.ohl.R;
-import com.project.ohl.presentation.general.new_category.NewCategoryActivity;
+import com.project.ohl.presentation.MainActivity;
 
 public class OnBoardingFragment4 extends Fragment {
     @Nullable
@@ -21,8 +21,9 @@ public class OnBoardingFragment4 extends Fragment {
         FloatingActionButton nextPageButton = root.findViewById(R.id.next_page_button);
 
         nextPageButton.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), NewCategoryActivity.class);
+            Intent intent = new Intent(getActivity(), MainActivity.class);
             startActivity(intent);
+            requireActivity().finish();
         });
 
         return root;

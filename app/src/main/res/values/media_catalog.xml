@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="catalog_drawables">
+        <item>@drawable/bunic_bunica</item>
+        <item>@drawable/nas_nasa</item>
+        <item>@drawable/lasa</item>
+        <item>@drawable/pune</item>
+        <item>@drawable/scoate</item>
+        <item>@drawable/strange</item>
+        <item>@drawable/eu</item>
+        <item>@drawable/tu</item>
+        <item>@drawable/el</item>
+        <item>@drawable/ea</item>
+        <item>@drawable/noi</item>
+        <item>@drawable/voi</item>
+        <item>@drawable/ei_ele</item>
         <item>@drawable/acasa</item>
         <item>@drawable/aceasta_este_prietena_mea</item>
         <item>@drawable/acesta_este_colegul_meu</item>
@@ -23,11 +36,9 @@
         <item>@drawable/banca</item>
         <item>@drawable/bancnota</item>
         <item>@drawable/bani</item>
-        <item>@drawable/baseline_menu_black_24</item>
         <item>@drawable/bec</item>
         <item>@drawable/bloc</item>
         <item>@drawable/branza</item>
-        <item>@drawable/bunic</item>
         <item>@drawable/button_design_2</item>
         <item>@drawable/c</item>
         <item>@drawable/caiet</item>
@@ -42,7 +53,6 @@
         <item>@drawable/catedra</item>
         <item>@drawable/ceapa</item>
         <item>@drawable/cinci</item>
-        <item>@drawable/cinci_v2</item>
         <item>@drawable/ciocolata</item>
         <item>@drawable/citi</item>
         <item>@drawable/clasa</item>
@@ -55,39 +65,17 @@
         <item>@drawable/crocodil</item>
         <item>@drawable/culori</item>
         <item>@drawable/cuminte</item>
-        <item>@drawable/curved_background</item>
         <item>@drawable/cutit</item>
         <item>@drawable/d</item>
-        <item>@drawable/dactilema_a</item>
-        <item>@drawable/dactilema_b</item>
-        <item>@drawable/dactilema_c</item>
-        <item>@drawable/dactilema_d</item>
-        <item>@drawable/dactilema_e</item>
-        <item>@drawable/dactilema_f</item>
-        <item>@drawable/dactilema_g</item>
-        <item>@drawable/dactilema_h</item>
-        <item>@drawable/dactilema_i</item>
-        <item>@drawable/dactilema_j</item>
-        <item>@drawable/dactilema_k</item>
-        <item>@drawable/dactilema_l</item>
-        <item>@drawable/dactilema_m</item>
-        <item>@drawable/dactilema_n</item>
-        <item>@drawable/dactilema_o</item>
-        <item>@drawable/dactilema_p</item>
-        <item>@drawable/dactilema_q</item>
-        <item>@drawable/dactilema_r</item>
-        <item>@drawable/dactilema_s</item>
-        <item>@drawable/dactilema_t</item>
-        <item>@drawable/dactilema_u</item>
-        <item>@drawable/dactilema_v</item>
-        <item>@drawable/dactilema_w</item>
-        <item>@drawable/dactilema_x</item>
-        <item>@drawable/dactilema_y</item>
-        <item>@drawable/dactilema_z</item>
+        <item>@drawable/a</item>
+        <item>@drawable/a_breve</item>
+        <item>@drawable/a_circumflex</item>
+        <item>@drawable/i_circumflex</item>
+        <item>@drawable/s_comma</item>
+        <item>@drawable/t_comma</item>
         <item>@drawable/dezamagit</item>
         <item>@drawable/dictionar</item>
         <item>@drawable/doi</item>
-        <item>@drawable/doi_v2</item>
         <item>@drawable/dolar</item>
         <item>@drawable/dulap</item>
         <item>@drawable/e</item>
@@ -95,7 +83,6 @@
         <item>@drawable/emotii</item>
         <item>@drawable/entuziasmat</item>
         <item>@drawable/euro</item>
-        <item>@drawable/expressions_header</item>
         <item>@drawable/expressions_section</item>
         <item>@drawable/f</item>
         <item>@drawable/favorite_button</item>
@@ -113,26 +100,16 @@
         <item>@drawable/gri</item>
         <item>@drawable/h</item>
         <item>@drawable/hai</item>
-        <item>@drawable/homepage_header_background</item>
         <item>@drawable/i</item>
-        <item>@drawable/ic_add</item>
         <item>@drawable/ic_arrow</item>
         <item>@drawable/ic_arrow_down</item>
-        <item>@drawable/ic_arrow_left</item>
-        <item>@drawable/ic_arrow_right</item>
         <item>@drawable/ic_arrow_up</item>
-        <item>@drawable/ic_change_name</item>
-        <item>@drawable/ic_files</item>
-        <item>@drawable/ic_home</item>
+        <item>@drawable/ic_favorites</item>
+        <item>@drawable/ic_microphone</item>
         <item>@drawable/ic_media_pause</item>
         <item>@drawable/ic_media_play</item>
-        <item>@drawable/ic_media_stop</item>
-        <item>@drawable/ic_mic_white</item>
-        <item>@drawable/ic_reset</item>
         <item>@drawable/ic_search</item>
         <item>@drawable/ic_settings</item>
-        <item>@drawable/ic_switch_mode</item>
-        <item>@drawable/ic_user</item>
         <item>@drawable/ic_video_section</item>
         <item>@drawable/ic_voice_to_sign_section</item>
         <item>@drawable/iepure</item>
@@ -140,9 +117,7 @@
         <item>@drawable/indigo</item>
         <item>@drawable/indragostit</item>
         <item>@drawable/indurerat</item>
-        <item>@drawable/input_design</item>
         <item>@drawable/j</item>
-        <item>@drawable/jos</item>
         <item>@drawable/k</item>
         <item>@drawable/l</item>
         <item>@drawable/leagan</item>
@@ -160,39 +135,31 @@
         <item>@drawable/masa</item>
         <item>@drawable/matusa</item>
         <item>@drawable/membrii_familiei</item>
-        <item>@drawable/microphone</item>
         <item>@drawable/moneda</item>
         <item>@drawable/morcov</item>
         <item>@drawable/multumesc</item>
         <item>@drawable/n</item>
-        <item>@drawable/nasa</item>
         <item>@drawable/negru</item>
-        <item>@drawable/nerovs_v2</item>
         <item>@drawable/nervos</item>
         <item>@drawable/no_favorites</item>
         <item>@drawable/noua</item>
-        <item>@drawable/noua_v2</item>
         <item>@drawable/numere</item>
         <item>@drawable/o</item>
         <item>@drawable/oaie</item>
         <item>@drawable/obiecte</item>
         <item>@drawable/openhandslearning_logo</item>
+        <item>@drawable/openhandslearning_logo_transparent</item>
         <item>@drawable/openhandslearning_logo_foreground</item>
         <item>@drawable/openhandslearning_logo_monochrome</item>
         <item>@drawable/openhandslearning_mark</item>
         <item>@drawable/opt</item>
-        <item>@drawable/opt_v2</item>
         <item>@drawable/oras</item>
         <item>@drawable/overlay_background</item>
-        <item>@drawable/overlay_background_v2</item>
         <item>@drawable/p</item>
         <item>@drawable/paine</item>
         <item>@drawable/pat</item>
         <item>@drawable/patru</item>
-        <item>@drawable/patru_v2</item>
         <item>@drawable/persoane</item>
-        <item>@drawable/persoane_v2</item>
-        <item>@drawable/persoane_v3</item>
         <item>@drawable/pisica</item>
         <item>@drawable/pix</item>
         <item>@drawable/poarta</item>
@@ -207,16 +174,11 @@
         <item>@drawable/r</item>
         <item>@drawable/radiera</item>
         <item>@drawable/rata</item>
-        <item>@drawable/record_progress_bar</item>
-        <item>@drawable/record_progress_bar_background</item>
         <item>@drawable/rosu</item>
         <item>@drawable/roz</item>
-        <item>@drawable/ruga</item>
         <item>@drawable/s</item>
         <item>@drawable/sapte</item>
-        <item>@drawable/sapte_v2</item>
         <item>@drawable/sase</item>
-        <item>@drawable/sase_v2</item>
         <item>@drawable/saturat</item>
         <item>@drawable/scaun</item>
         <item>@drawable/scoala</item>
@@ -224,7 +186,6 @@
         <item>@drawable/scuze</item>
         <item>@drawable/se_uita</item>
         <item>@drawable/sora</item>
-        <item>@drawable/space</item>
         <item>@drawable/spital</item>
         <item>@drawable/spune</item>
         <item>@drawable/sta_jos</item>
@@ -247,14 +208,12 @@
         <item>@drawable/trage</item>
         <item>@drawable/tramvai</item>
         <item>@drawable/trei</item>
-        <item>@drawable/trei_v2</item>
         <item>@drawable/trist</item>
         <item>@drawable/turcoaz</item>
         <item>@drawable/u</item>
         <item>@drawable/ulei</item>
         <item>@drawable/unchi</item>
         <item>@drawable/unu</item>
-        <item>@drawable/unu_v2</item>
         <item>@drawable/urs_polar</item>
         <item>@drawable/usa</item>
         <item>@drawable/v</item>
@@ -267,8 +226,14 @@
         <item>@drawable/video_proiector</item>
         <item>@drawable/video_section</item>
         <item>@drawable/video_section_header</item>
+        <item>@drawable/video_header_play</item>
         <item>@drawable/violet</item>
         <item>@drawable/voice_to_sign_section</item>
+        <item>@drawable/voice_record_button_background</item>
+        <item>@drawable/voice_header_badge</item>
+        <item>@drawable/voice_header_accent</item>
+        <item>@drawable/voice_header_wave</item>
+        <item>@drawable/voice_record_mic_badge</item>
         <item>@drawable/voice_to_sign_section_header</item>
         <item>@drawable/vulpe</item>
         <item>@drawable/w</item>
@@ -276,9 +241,41 @@
         <item>@drawable/y</item>
         <item>@drawable/z</item>
         <item>@drawable/zece</item>
-        <item>@drawable/zece_v2</item>
-        <item>@drawable/zero</item>
         <item>@drawable/zimbru</item>
+    </array>
+    <array name="catalog_voice_signs">
+        <item>@drawable/voice_a</item>
+        <item>@drawable/voice_a_breve</item>
+        <item>@drawable/voice_a_circumflex</item>
+        <item>@drawable/voice_b</item>
+        <item>@drawable/voice_c</item>
+        <item>@drawable/voice_d</item>
+        <item>@drawable/voice_e</item>
+        <item>@drawable/voice_f</item>
+        <item>@drawable/voice_g</item>
+        <item>@drawable/voice_h</item>
+        <item>@drawable/voice_i</item>
+        <item>@drawable/voice_i_circumflex</item>
+        <item>@drawable/voice_j</item>
+        <item>@drawable/voice_k</item>
+        <item>@drawable/voice_l</item>
+        <item>@drawable/voice_m</item>
+        <item>@drawable/voice_n</item>
+        <item>@drawable/voice_o</item>
+        <item>@drawable/voice_p</item>
+        <item>@drawable/voice_q</item>
+        <item>@drawable/voice_r</item>
+        <item>@drawable/voice_s</item>
+        <item>@drawable/voice_s_comma</item>
+        <item>@drawable/voice_t</item>
+        <item>@drawable/voice_t_comma</item>
+        <item>@drawable/voice_u</item>
+        <item>@drawable/voice_v</item>
+        <item>@drawable/voice_w</item>
+        <item>@drawable/voice_x</item>
+        <item>@drawable/voice_y</item>
+        <item>@drawable/voice_z</item>
+        <item>@drawable/space</item>
     </array>
     <array name="catalog_videos">
         <item>@raw/aceasta_este_prietena_mea</item>
@@ -320,14 +317,18 @@
         <item>@raw/cocos</item>
         <item>@raw/construi</item>
         <item>@raw/copac</item>
-        <item>@raw/covor</item>
         <item>@raw/creion</item>
         <item>@raw/creta</item>
         <item>@raw/crocodil</item>
         <item>@raw/cuminte</item>
         <item>@raw/cutit</item>
         <item>@raw/d</item>
-        <item>@raw/dactilema_a</item>
+        <item>@raw/a</item>
+        <item>@raw/a_breve</item>
+        <item>@raw/a_circumflex</item>
+        <item>@raw/i_circumflex</item>
+        <item>@raw/s_comma</item>
+        <item>@raw/t_comma</item>
         <item>@raw/dezamagit</item>
         <item>@raw/dictionar</item>
         <item>@raw/doi</item>
@@ -410,7 +411,6 @@
         <item>@raw/roz</item>
         <item>@raw/s</item>
         <item>@raw/sapte</item>
-        <item>@raw/sarpe</item>
         <item>@raw/sase</item>
         <item>@raw/saturat</item>
         <item>@raw/scaun</item>

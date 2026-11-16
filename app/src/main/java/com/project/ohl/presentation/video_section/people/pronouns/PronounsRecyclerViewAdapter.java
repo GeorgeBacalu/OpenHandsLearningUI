@@ -13,12 +13,14 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.project.ohl.R;
+import com.project.ohl.presentation.MediaResources;
 import com.project.ohl.domain.model.Category;
 import com.project.ohl.presentation.video_section.VideoPlayerActivity;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.project.ohl.presentation.video_section.VideoPlayerActivity.CATEGORY_ID;
+import static com.project.ohl.presentation.video_section.VideoPlayerActivity.CATEGORY_IMAGE;
 import static com.project.ohl.presentation.video_section.VideoPlayerActivity.CATEGORY_NAME;
 
 public class PronounsRecyclerViewAdapter extends RecyclerView.Adapter<PronounsRecyclerViewAdapter.ViewHolder> {
@@ -32,7 +34,7 @@ public class PronounsRecyclerViewAdapter extends RecyclerView.Adapter<PronounsRe
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Log.d(TAG, "onCreateViewHolder: Called");
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_item_no_image, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -40,6 +42,7 @@ public class PronounsRecyclerViewAdapter extends RecyclerView.Adapter<PronounsRe
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(pronouns.get(position).getName());
+        MediaResources.loadImage(pronounsContext, pronouns.get(position).getImageSource(), holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(pronounsContext, VideoPlayerActivity.class);
             if (pronouns.get(position).getId() == null) {
@@ -47,6 +50,7 @@ public class PronounsRecyclerViewAdapter extends RecyclerView.Adapter<PronounsRe
             }
             intent.putExtra(CATEGORY_ID, pronouns.get(position).getId().toString());
             intent.putExtra(CATEGORY_NAME, pronouns.get(position).getName());
+            intent.putExtra(CATEGORY_IMAGE, pronouns.get(position).getImageSource().intValue());
             pronounsContext.startActivity(intent);
         });
     }

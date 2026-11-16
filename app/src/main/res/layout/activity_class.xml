@@ -9,116 +9,59 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-20dp"
         android:paddingBottom="10dp">
-
-        <ImageView
-            android:id="@+id/sectionHeaderImage"
-            android:layout_width="match_parent"
-            android:layout_height="320dp"
-            android:src="@drawable/clasa"
-            android:contentDescription="@string/category_header_image" />
-
-        <ImageView
-            android:id="@+id/animalsSectionHeaderOverlay"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:src="@drawable/overlay_background"
-            android:contentDescription="@string/category_header_overlay" />
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="20dp">
-
-
-            <TextView
-                android:id="@+id/animalsSectionHeaderText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:fontFamily="@font/source_sans_pro_black"
-                android:text="@string/header_title_class"
-                android:textColor="@color/white"
-                android:textSize="25sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/animalsSectionHeaderText"
-                android:layout_marginTop="25dp"
-                android:fontFamily="@font/source_sans_pro_regular"
-                android:text="@string/header_subtitle_subcategory"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-
-        </RelativeLayout>
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/searchBar"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_below="@+id/sectionHeaderImage"
-            android:layout_marginHorizontal="80dp"
-            android:layout_marginTop="40dp"
-            app:cardCornerRadius="20dp"
-            app:strokeColor="@color/gray_border"
-            app:strokeWidth="2dp">
+            style="@style/Widget.OpenHandsLearning.CatalogSearch"
+            android:layout_marginTop="24dp">
 
-            <EditText
-                android:id="@+id/searchBarInput"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@color/white"
-                android:hint="@string/input_placeholder_subcategory"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
-                android:textSize="16sp"
-                android:autofillHints="@string/input_placeholder_subcategory"
-                android:inputType="text" />
+                android:addStatesFromChildren="true"
+                android:gravity="center_vertical"
+                android:minHeight="56dp"
+                android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/searchBarIcon"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_gravity="end"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="7dp"
-                android:src="@drawable/ic_search"
-                android:contentDescription="@string/search_bar_icon" />
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/searchBarInput"
+                    style="@style/Widget.OpenHandsLearning.CatalogSearchInput"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:importantForAutofill="no" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/searchBarIcon"
+                    style="@style/Widget.OpenHandsLearning.CatalogSearchIcon"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginVertical="4dp"
+                    android:layout_marginEnd="4dp" />
+
+            </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
 
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/searchBar"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="100dp">
+            android:layout_marginTop="24dp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/classRecyclerView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="4dp"
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="false" />
 
         </RelativeLayout>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/toHomePageFabButton"
-            android:layout_width="wrap_content"
-            android:layout_height="450dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:backgroundTint="@color/light_blue"
-            android:src="@drawable/ic_home"
-            app:backgroundTint="@color/white"
-            app:borderWidth="2dp"
-            app:rippleColor="@color/white"
-            app:tint="@color/white"
-            android:contentDescription="@string/home_page_button" />
 
     </RelativeLayout>
 

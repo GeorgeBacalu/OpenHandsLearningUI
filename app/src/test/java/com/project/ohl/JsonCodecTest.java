@@ -17,9 +17,9 @@ import static org.junit.Assert.assertFalse;
 public class JsonCodecTest {
     @Test public void exchangesStableMediaKeysWithoutDeviceResourceIds() {
         var gson = JsonCodec.create();
-        var category = gson.fromJson("{\"mediaKey\":\"dactilema_a\"}", Category.class);
+        var category = gson.fromJson("{\"mediaKey\":\"a\"}", Category.class);
         category.setImageSource(123);
-        assertEquals("dactilema_a", category.getMediaKey());
+        assertEquals("a", category.getMediaKey());
         assertFalse(gson.toJson(category).contains("imageSource"));
         assertFalse(gson.toJson(category).contains("imageId"));
         var section = gson.fromJson("{\"mediaKey\":\"video_section\",\"iconKey\":\"ic_video_section\"}", Section.class);

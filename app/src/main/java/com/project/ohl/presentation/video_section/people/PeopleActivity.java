@@ -1,6 +1,5 @@
 package com.project.ohl.presentation.video_section.people;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -10,12 +9,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.project.ohl.R;
+import com.project.ohl.presentation.CategoryPageLayout;
 import com.project.ohl.domain.model.Category;
 import com.project.ohl.presentation.CategoryNavigation;
 import com.project.ohl.presentation.LearningViewModel;
-import com.project.ohl.presentation.MainActivity;
 import com.project.ohl.presentation.MediaResources;
 import java.util.List;
 import java.util.Locale;
@@ -27,7 +25,6 @@ import static android.R.id.home;
 public class PeopleActivity extends AppCompatActivity {
    private RecyclerView peopleRecyclerView;
    private PeopleRecyclerViewAdapter peopleAdapter;
-   private FloatingActionButton toHomePageFabButton;
    private EditText searchBarInput;
    private ImageView searchBarIcon;
 
@@ -37,17 +34,14 @@ public class PeopleActivity extends AppCompatActivity {
 
       UUID parentId = CategoryNavigation.parentId(this);
       setContentView(R.layout.activity_people);
+      CategoryPageLayout.configure(this);
       Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
       initializeViews();
 
-      toHomePageFabButton.setOnClickListener(v -> {
-         Intent intent = new Intent(PeopleActivity.this, MainActivity.class);
-         startActivity(intent);
-      });
 
       peopleRecyclerView.setAdapter(peopleAdapter);
-      peopleRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+      peopleRecyclerView.setLayoutManager(new GridLayoutManager(this, getResources().getInteger(R.integer.video_category_columns)));
 
       LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndName(parentId, ""), result -> {
             if (result.error() != null) {
@@ -81,7 +75,6 @@ public class PeopleActivity extends AppCompatActivity {
    private void initializeViews() {
       peopleRecyclerView = findViewById(R.id.peopleRecyclerView);
       peopleAdapter = new PeopleRecyclerViewAdapter(this);
-      toHomePageFabButton = findViewById(R.id.toHomePageFabButton);
       searchBarInput = findViewById(R.id.searchBarInput);
       searchBarIcon = findViewById(R.id.searchBarIcon);
    }
