@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import com.project.ohl.presentation.AuthenticatedActivity;
 import com.project.ohl.R;
 import com.project.ohl.presentation.MediaResources;
 import com.project.ohl.domain.model.Category;
@@ -20,7 +20,7 @@ import java.util.UUID;
 
 import static android.R.id.home;
 
-public class CategoryActivity extends AppCompatActivity {
+public class CategoryActivity extends AuthenticatedActivity {
     public static final String CATEGORY_ID = "categoryId";
     public static final String CATEGORY_NAME = "categoryName";
     public static final String CATEGORY_IMAGE = "categoryImage";

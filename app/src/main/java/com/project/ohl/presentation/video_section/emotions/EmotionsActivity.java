@@ -6,7 +6,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import com.project.ohl.presentation.AuthenticatedActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.project.ohl.R;
@@ -22,7 +22,7 @@ import java.util.UUID;
 
 import static android.R.id.home;
 
-public class EmotionsActivity extends AppCompatActivity {
+public class EmotionsActivity extends AuthenticatedActivity {
     private RecyclerView emotionsRecyclerView;
     private EmotionsRecyclerViewAdapter emotionsAdapter;
     private EditText searchBarInput;

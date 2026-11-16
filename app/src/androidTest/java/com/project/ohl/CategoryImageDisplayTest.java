@@ -18,6 +18,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 import com.google.gson.Gson;
 import com.project.ohl.domain.model.Category;
+import com.project.ohl.data.remote.RetrofitService;
+import com.project.ohl.presentation.UserSession;
 import com.project.ohl.presentation.CategoryNavigation;
 import com.project.ohl.presentation.MediaResources;
 import com.project.ohl.presentation.video_section.VideoSectionActivity;
@@ -58,7 +60,9 @@ public class CategoryImageDisplayTest {
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
         instrumentation.waitForIdleSync();
         SystemClock.sleep(1000);
+        assumeTrue("Sign in before auditing protected catalog pages", UserSession.id() != null);
         var connection = (HttpURLConnection) URI.create(BuildConfig.API_BASE_URL + "api/categories").toURL().openConnection();
+        connection.setRequestProperty("Authorization", "Bearer " + RetrofitService.tokens().token());
         connection.setConnectTimeout(10000);
         connection.setReadTimeout(10000);
         List<Category> catalog;

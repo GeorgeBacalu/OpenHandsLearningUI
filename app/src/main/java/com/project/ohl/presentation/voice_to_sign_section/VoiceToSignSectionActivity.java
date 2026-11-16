@@ -14,7 +14,7 @@ import android.widget.TextView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import com.project.ohl.presentation.AuthenticatedActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,7 +28,7 @@ import java.util.Objects;
 
 import static android.R.id.home;
 
-public class VoiceToSignSectionActivity extends AppCompatActivity {
+public class VoiceToSignSectionActivity extends AuthenticatedActivity {
 
     private ActivityVoiceToSignSectionBinding binding;
     private ActivityResultLauncher<Intent> speechRecognitionLauncher;

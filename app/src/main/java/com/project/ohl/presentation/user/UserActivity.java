@@ -16,6 +16,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.project.ohl.R;
+import com.project.ohl.presentation.MainActivity;
 import com.project.ohl.domain.model.City;
 import com.project.ohl.domain.model.County;
 import com.project.ohl.domain.model.Registration;
@@ -71,7 +72,11 @@ public class UserActivity extends AppCompatActivity {
             if (result == null) return;
             submit.setEnabled(true);
             findViewById(R.id.auth_progress).setVisibility(View.GONE);
-            if (result.isSuccess()) { setResult(RESULT_OK); finish(); }
+            if (result.isSuccess()) {
+                startActivity(new Intent(this, MainActivity.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                finish();
+            }
             else { error.setText(AuthMessages.forError(result.error())); error.setVisibility(View.VISIBLE); }
         });
         findViewById(R.id.open_login).setOnClickListener(view -> {

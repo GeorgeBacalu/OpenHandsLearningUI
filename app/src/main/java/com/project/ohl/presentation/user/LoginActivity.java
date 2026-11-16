@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.project.ohl.R;
+import com.project.ohl.presentation.MainActivity;
 import com.project.ohl.presentation.AuthenticationViewModel;
 import com.project.ohl.presentation.UserSession;
 import java.nio.charset.StandardCharsets;
@@ -30,7 +31,11 @@ public class LoginActivity extends AppCompatActivity {
             if (result == null) return;
             submit.setEnabled(true);
             findViewById(R.id.auth_progress).setVisibility(View.GONE);
-            if (result.isSuccess()) { setResult(RESULT_OK); finish(); }
+            if (result.isSuccess()) {
+                startActivity(new Intent(this, MainActivity.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                finish();
+            }
             else { error.setText(AuthMessages.forError(result.error())); error.setVisibility(View.VISIBLE); }
         });
         findViewById(R.id.open_registration).setOnClickListener(view -> startActivity(new Intent(this, UserActivity.class)));
@@ -49,7 +54,11 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override protected void onResume() {
         super.onResume();
-        if (UserSession.id() != null) { setResult(RESULT_OK); finish(); }
+        if (UserSession.id() != null) {
+            startActivity(new Intent(this, MainActivity.class)
+                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+            finish();
+        }
     }
 
     @Override public boolean onSupportNavigateUp() { finish(); return true; }

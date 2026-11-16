@@ -6,7 +6,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import com.project.ohl.presentation.AuthenticatedActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.project.ohl.R;
@@ -22,7 +22,7 @@ import java.util.UUID;
 
 import static android.R.id.home;
 
-public class FamilyMembersActivity extends AppCompatActivity {
+public class FamilyMembersActivity extends AuthenticatedActivity {
     private RecyclerView familyMembersRecyclerView;
     private FamilyMembersRecyclerViewAdapter familyMembersAdapter;
     private EditText searchBarInput;

@@ -27,4 +27,6 @@
     <string name="directory_failed">Lista școlilor nu a putut fi încărcată. Verifică conexiunea și redeschide formularul.</string>
     <string name="login_to_favorite">Autentificare pentru favorite</string>
     <string name="local_network_required">Permite accesul la rețeaua locală din setările telefonului pentru a conecta aplicația.</string>
+    <string name="welcome_user">Bine ai venit, %1$s!</string>
+    <string name="auth_retry">Reîncearcă</string>
 </resources>

@@ -5,13 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Build;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.os.LocaleListCompat;
 import androidx.appcompat.widget.Toolbar;
@@ -19,42 +19,74 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.project.ohl.R;
 import com.project.ohl.domain.model.Section;
-import com.project.ohl.presentation.user.UserActivity;
+import com.project.ohl.domain.repository.AuthenticationException;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
-   private RecyclerView sectionsRecyclerView;
+public class MainActivity extends AuthenticatedActivity {
    private MainRecyclerViewAdapter sectionsAdapter;
-
    private boolean sessionVerified;
    private final ActivityResultLauncher<String> localNetworkPermission = registerForActivityResult(
            new ActivityResultContracts.RequestPermission(), granted -> {
-               if (granted) { loadSections(); refreshSession(); }
-               else Toast.makeText(this, R.string.local_network_required, Toast.LENGTH_LONG).show();
+               if (granted) refreshSession();
+               else {
+                   Toast.makeText(this, R.string.local_network_required, Toast.LENGTH_LONG).show();
+                   showConnectionError();
+               }
            });
 
-
-   @Override
-   protected void onCreate(Bundle savedInstanceState) {
+   @Override protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("ro-RO"));
-      setContentView(R.layout.activity_main);
+   }
 
-      initializeViews();
+   @Override protected boolean validatesAccountOnResume() { return true; }
 
-      sectionsRecyclerView.setAdapter(sectionsAdapter);
-      sectionsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+   @Override protected void onResume() {
+      super.onResume();
+      sessionVerified = false;
+      setContentView(R.layout.activity_auth_gate);
+      findViewById(R.id.auth_retry).setOnClickListener(view -> verifySession());
+      verifySession();
+   }
 
-      Toolbar toolbar = findViewById(R.id.toolbar);
-      toolbar.setTitleTextAppearance(this, R.style.HomeToolbarTitle);
-      setSupportActionBar(toolbar);
-
-      if (LocalApiAccess.allowed(this)) loadSections();
+   private void verifySession() {
+      findViewById(R.id.auth_gate_error).setVisibility(View.GONE);
+      findViewById(R.id.auth_retry).setVisibility(View.GONE);
+      findViewById(R.id.auth_gate_progress).setVisibility(View.VISIBLE);
+      if (LocalApiAccess.allowed(this)) refreshSession();
       else if (Build.VERSION.SDK_INT >= 37) localNetworkPermission.launch(Manifest.permission.ACCESS_LOCAL_NETWORK);
+   }
+
+   private void refreshSession() {
+      AuthenticationViewModel.of(this).load(this, repository -> repository.current(), result -> {
+          if (result.isSuccess() && result.value() != null) {
+              sessionVerified = true;
+              setContentView(R.layout.activity_main);
+              ((TextView) findViewById(R.id.welcomeMessage)).setText(getString(R.string.welcome_user, result.value().getName()));
+              Toolbar toolbar = findViewById(R.id.toolbar);
+              toolbar.setTitleTextAppearance(this, R.style.HomeToolbarTitle);
+              setSupportActionBar(toolbar);
+              RecyclerView sections = findViewById(R.id.sectionsRecyclerView);
+              sectionsAdapter = new MainRecyclerViewAdapter(this);
+              sections.setAdapter(sectionsAdapter);
+              sections.setLayoutManager(new GridLayoutManager(this, 2));
+              invalidateOptionsMenu();
+              loadSections();
+          } else if (result.error() instanceof AuthenticationException failure && failure.status() == 401) {
+              redirectToLogin();
+          } else showConnectionError();
+      });
+   }
+
+   private void showConnectionError() {
+      findViewById(R.id.auth_gate_progress).setVisibility(View.GONE);
+      findViewById(R.id.auth_gate_error).setVisibility(View.VISIBLE);
+      findViewById(R.id.auth_retry).setVisibility(View.VISIBLE);
    }
 
    private void loadSections() {
       LearningViewModel.of(this).<List<Section>>load(this, "getAllSections", repository -> repository.getAllSections(), result -> {
+          if (!sessionVerified) return;
           if (!result.isSuccess() || result.value() == null) {
               Toast.makeText(this, R.string.request_failed, Toast.LENGTH_SHORT).show();
               return;
@@ -68,59 +100,18 @@ public class MainActivity extends AppCompatActivity {
       });
    }
 
-   private void initializeViews() {
-      sectionsRecyclerView = findViewById(R.id.sectionsRecyclerView);
-      sectionsAdapter = new MainRecyclerViewAdapter(this);
+   @Override public boolean onCreateOptionsMenu(Menu menu) {
+      if (sessionVerified) getMenuInflater().inflate(R.menu.action_bar_menu, menu);
+      return true;
    }
 
-   @Override
-   public boolean onCreateOptionsMenu(Menu menu) {
-      MenuInflater menuInflater = getMenuInflater();
-      menuInflater.inflate(R.menu.action_bar_menu, menu);
-      menu.findItem(R.id.navRegisterActionBar).getActionView().findViewById(R.id.button_register)
-              .setOnClickListener(view -> startActivity(new Intent(this, UserActivity.class)));
-      return super.onCreateOptionsMenu(menu);
-   }
-
-   @Override
-   public boolean onPrepareOptionsMenu(Menu menu) {
-      boolean signedIn = sessionVerified && UserSession.id() != null;
-      menu.findItem(R.id.navRegisterActionBar).setVisible(!signedIn);
-      menu.findItem(R.id.navSettingsActionBar).setVisible(signedIn);
-      return super.onPrepareOptionsMenu(menu);
-   }
-
-   @Override
-   protected void onResume() {
-      super.onResume();
-      sessionVerified = false;
-      invalidateOptionsMenu();
-      if (LocalApiAccess.allowed(this)) refreshSession();
-   }
-
-   private void refreshSession() {
-      AuthenticationViewModel.of(this).load(this, repository -> repository.current(), result -> {
-          sessionVerified = result.isSuccess() && result.value() != null;
-          invalidateOptionsMenu();
-      });
-   }
-
-   @Override
-   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-      if (item.getItemId() == R.id.navRegisterActionBar) {
-         startActivity(new Intent(this, UserActivity.class));
-         return true;
-      }
+   @Override public boolean onOptionsItemSelected(@NonNull MenuItem item) {
       if (item.getItemId() == R.id.navSettingsActionBar) {
-         if (!sessionVerified || UserSession.id() == null) return true;
-         Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
-         startActivity(intent);
+         if (sessionVerified && UserSession.id() != null) startActivity(new Intent(this, SettingsActivity.class));
          return true;
       }
       return super.onOptionsItemSelected(item);
    }
 
-   String getStringResource(int intResource) {
-      return getResources().getString(intResource);
-   }
+   String getStringResource(int intResource) { return getResources().getString(intResource); }
 }

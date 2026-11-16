@@ -11,7 +11,7 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import com.project.ohl.presentation.AuthenticatedActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.project.ohl.R;
@@ -29,7 +29,7 @@ import java.util.UUID;
 
 import static android.R.id.home;
 
-public class FavoritesActivity extends AppCompatActivity {
+public class FavoritesActivity extends AuthenticatedActivity {
    private final ActivityResultLauncher<Intent> login = registerForActivityResult(
          new ActivityResultContracts.StartActivityForResult(), result -> {
             if (UserSession.id() == null) finish(); else recreate();
