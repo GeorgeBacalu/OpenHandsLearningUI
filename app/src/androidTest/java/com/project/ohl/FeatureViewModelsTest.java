@@ -21,11 +21,15 @@ import java.util.function.Consumer;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.*;
+import static java.util.Objects.requireNonNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class)
 public class FeatureViewModelsTest {
-    private static final class Authentication implements AuthenticationRepository {
+    private static final class TestAuthentication implements AuthenticationRepository {
         int requests;
         boolean cancelled;
         Consumer<Result<User>> callback;
@@ -47,16 +51,16 @@ public class FeatureViewModelsTest {
 
     @Test public void authenticationIgnoresDuplicateSubmissionsAndLateResultsAfterClearing() {
         InstrumentationRegistry.getInstrumentation().runOnMainSync(() -> {
-            var repository = new Authentication();
+            var repository = new TestAuthentication();
             var model = new AuthenticationViewModel(repository, Runnable::run);
             model.login("first@example.test", "password");
             model.login("second@example.test", "other password");
             assertEquals(1, repository.requests);
-            assertTrue(model.state().getValue().isLoading());
+            assertTrue(requireNonNull(model.state().getValue()).isLoading());
             clear(model);
             assertTrue(repository.cancelled);
             repository.callback.accept(Result.success(new User()));
-            assertFalse(model.state().getValue().isSuccess());
+            assertFalse(requireNonNull(model.state().getValue()).isSuccess());
         });
     }
 
@@ -76,7 +80,7 @@ public class FeatureViewModelsTest {
             repository.calls.get(1).succeed(saved);
             model.initialize(categoryId, userId);
             assertEquals(2, repository.calls.size());
-            assertTrue(model.state().getValue().value().getFavorite());
+            assertEquals(Boolean.TRUE, requireNonNull(requireNonNull(model.state().getValue()).value()).getFavorite());
             assertFalse(model.changingFavorite());
             clear(model);
         });
@@ -100,23 +104,18 @@ public class FeatureViewModelsTest {
         });
     }
 
-    @Test public void revalidatingASessionCancelsThePreviousSectionRequest() {
+    @Test public void sessionRefreshWaitsForAccountValidation() {
         InstrumentationRegistry.getInstrumentation().runOnMainSync(() -> {
-            var authentication = new Authentication();
-            var learning = new ControlledLearningRepository();
-            var model = new SessionViewModel(authentication, learning.repository, Runnable::run);
+            var authentication = new TestAuthentication();
+            var model = new SessionViewModel(authentication, Runnable::run);
             model.refresh(); model.refresh();
             assertEquals(1, authentication.requests);
-            assertTrue(learning.calls.isEmpty());
             authentication.callback.accept(Result.success(new User()));
-            assertEquals(1, learning.calls.size());
+            assertTrue(requireNonNull(model.state().getValue()).isSuccess());
             model.refresh();
-            assertTrue(learning.calls.get(0).cancelled);
-            learning.calls.get(0).succeed(List.of());
-            assertFalse(model.sections().getValue().isSuccess());
+            assertEquals(2, authentication.requests);
             authentication.callback.accept(Result.failure(new IllegalStateException("offline")));
-            assertNotNull(model.state().getValue().error());
-            assertFalse(model.sections().getValue().isSuccess());
+            assertNotNull(requireNonNull(model.state().getValue()).error());
             clear(model);
         });
     }
@@ -129,7 +128,7 @@ public class FeatureViewModelsTest {
             model.initialize(nextUser);
             assertTrue(repository.calls.get(0).cancelled);
             repository.calls.get(0).succeed(List.of(new Category(UUID.randomUUID(), "Old account")));
-            assertFalse(model.state().getValue().isSuccess());
+            assertFalse(requireNonNull(model.state().getValue()).isSuccess());
             assertEquals("", model.query());
             model.refresh();
             assertEquals(nextUser, repository.calls.get(1).arguments[0]);

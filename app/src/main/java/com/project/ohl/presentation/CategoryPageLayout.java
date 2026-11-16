@@ -19,7 +19,6 @@ public final class CategoryPageLayout {
         int[] pagePosition = new int[2];
         int[] toolbarPosition = new int[2];
 
-        // Opening a page should show its introduction, without focusing search.
         ((ViewGroup) page).setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
         page.setFocusableInTouchMode(true);
         page.requestFocus();

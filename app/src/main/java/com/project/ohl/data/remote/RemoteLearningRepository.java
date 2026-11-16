@@ -1,10 +1,10 @@
 package com.project.ohl.data.remote;
 
-import com.project.ohl.domain.model.County;
-import com.project.ohl.domain.model.City;
+import androidx.annotation.NonNull;
 import com.project.ohl.domain.model.Category;
+import com.project.ohl.domain.model.City;
+import com.project.ohl.domain.model.County;
 import com.project.ohl.domain.model.School;
-import com.project.ohl.domain.model.Section;
 import com.project.ohl.domain.repository.LearningRepository;
 import com.project.ohl.domain.repository.Request;
 import com.project.ohl.domain.repository.Result;
@@ -19,12 +19,10 @@ import retrofit2.Retrofit;
 public final class RemoteLearningRepository implements LearningRepository {
     private final CategoryApi categoryApi;
     private final SchoolDirectoryApi directoryApi;
-    private final SectionApi sectionApi;
 
     public RemoteLearningRepository(Retrofit retrofit) {
         categoryApi = retrofit.create(CategoryApi.class);
         directoryApi = retrofit.create(SchoolDirectoryApi.class);
-        sectionApi = retrofit.create(SectionApi.class);
     }
 
     @Override public Request<List<County>> getCounties() { return adapt(directoryApi.getCounties()); }
@@ -38,16 +36,17 @@ public final class RemoteLearningRepository implements LearningRepository {
     private static <T> Request<T> adapt(Call<T> prototype) {
         return callback -> {
             Call<T> call = prototype.clone();
-            call.enqueue(new Callback<T>() {
-                @Override public void onResponse(Call<T> request, Response<T> response) {
-                    if (request.isCanceled()) return;
-                    if (response.isSuccessful()) callback.accept(Result.success(response.body()));
-                    else {
-                        if (response.errorBody() != null) response.errorBody().close();
-                        callback.accept(Result.failure(new HttpException(response)));
+            call.enqueue(new Callback<>() {
+                @Override public void onResponse(@NonNull Call<T> request, @NonNull Response<T> response) {
+                    try (var ignored = response.errorBody()) {
+                        if (request.isCanceled()) return;
+                        if (response.isSuccessful()) callback.accept(Result.success(response.body()));
+                        else {
+                            callback.accept(Result.failure(new HttpException(response)));
+                        }
                     }
                 }
-                @Override public void onFailure(Call<T> request, Throwable error) {
+                @Override public void onFailure(@NonNull Call<T> request, @NonNull Throwable error) {
                     if (!request.isCanceled()) callback.accept(Result.failure(error));
                 }
             });
@@ -56,31 +55,11 @@ public final class RemoteLearningRepository implements LearningRepository {
     }
 
     @Override
-    public Request<List<Section>> getAllSections() {
-        return adapt(sectionApi.getAllSections());
-    }
-
-    @Override
-    public Request<List<Category>> getAllCategories() {
-        return adapt(categoryApi.getAllCategories());
-    }
-
-    @Override
-    public Request<Category> getCategoryById(UUID id) {
-        return getCategoryById(id, null);
-    }
-
-    @Override
     public Request<Category> getCategoryById(UUID id, UUID userId) { return adapt(categoryApi.getCategoryById(id, userId)); }
 
     @Override
     public Request<List<Category>> getCategoriesByParentIdAndName(UUID parentId, String name) {
         return adapt(categoryApi.getCategoriesByParentIdAndName(parentId, name));
-    }
-
-    @Override
-    public Request<List<Category>> getFavoriteCategories(UUID userId) {
-        return adapt(categoryApi.getFavoriteCategories(userId));
     }
 
     @Override

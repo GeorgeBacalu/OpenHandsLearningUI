@@ -11,17 +11,11 @@ import retrofit2.http.Query;
 
 public interface CategoryApi {
 
-   @GET("/api/categories")
-   Call<List<Category>> getAllCategories();
-
    @GET("/api/categories/{id}")
    Call<Category> getCategoryById(@Path("id") UUID id, @Query("userId") UUID userId);
 
    @GET("/api/categories/filter")
    Call<List<Category>> getCategoriesByParentIdAndName(@Query("parentId") UUID parentId, @Query("name") String name);
-
-   @GET("/api/categories/favorites")
-   Call<List<Category>> getFavoriteCategories(@Query("userId") UUID userId);
 
    @GET("/api/categories/favorites/filter")
    Call<List<Category>> getFavoritesByName(@Query("userId") UUID userId, @Query("name") String name);

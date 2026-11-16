@@ -71,12 +71,8 @@ public final class CategoryNavigation {
     }
 
     public static UUID parentId(Activity activity) {
-        return requiredId(activity.getIntent(), PARENT_ID);
-    }
-
-    private static UUID requiredId(Intent intent, String key) {
-        String value = intent.getStringExtra(key);
-        if (value == null) throw new IllegalArgumentException("Missing " + key);
+        String value = activity.getIntent().getStringExtra(PARENT_ID);
+        if (value == null) throw new IllegalArgumentException("Missing " + PARENT_ID);
         return UUID.fromString(value);
     }
 }

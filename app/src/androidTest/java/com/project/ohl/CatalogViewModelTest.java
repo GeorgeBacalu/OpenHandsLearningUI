@@ -1,5 +1,6 @@
 package com.project.ohl;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LifecycleRegistry;
@@ -16,13 +17,27 @@ import java.util.UUID;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.*;
+import static java.util.Objects.requireNonNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class)
 public class CatalogViewModelTest {
-    private static final class Owner implements LifecycleOwner {
+    @Test public void repositoryProxyKeepsObjectMethodsOutOfTheRequestQueue() {
+        var controlled = new ControlledLearningRepository();
+        var repository = controlled.repository;
+        assertTrue(repository.equals(repository));
+        assertFalse(repository.equals(null));
+        assertFalse(repository.equals(new Object()));
+        assertEquals(System.identityHashCode(repository), repository.hashCode());
+        assertEquals("ControlledLearningRepository", repository.toString());
+        assertTrue(controlled.calls.isEmpty());
+    }
+
+    private static final class TestOwner implements LifecycleOwner {
         final LifecycleRegistry lifecycle = new LifecycleRegistry(this);
-        @Override public Lifecycle getLifecycle() { return lifecycle; }
+        @Override public @NonNull Lifecycle getLifecycle() { return lifecycle; }
     }
 
     @Test public void ignoresAlreadyQueuedResultsFromCancelledSearchesAndAfterClearing() {
@@ -38,12 +53,12 @@ public class CatalogViewModelTest {
             repository.calls.get(1).succeed(List.of(current));
             queued.forEach(Runnable::run); queued.clear();
             assertTrue(repository.calls.get(0).cancelled);
-            assertEquals(List.of(current), model.state().getValue().value());
+            assertEquals(List.of(current), requireNonNull(model.state().getValue()).value());
             store.clear();
             assertTrue(repository.calls.get(1).cancelled);
             repository.calls.get(1).succeed(List.of(new Category(UUID.randomUUID(), "Late")));
             queued.forEach(Runnable::run);
-            assertEquals(List.of(current), model.state().getValue().value());
+            assertEquals(List.of(current), requireNonNull(model.state().getValue()).value());
         });
     }
 
@@ -52,13 +67,13 @@ public class CatalogViewModelTest {
             var repository = new ControlledLearningRepository();
             var model = new CatalogViewModel(repository.repository, new SavedStateHandle(), Runnable::run);
             var parent = UUID.randomUUID();
-            var first = new Owner(); first.lifecycle.setCurrentState(Lifecycle.State.STARTED);
-            var firstResults = new ArrayList<Object>();
+            var first = new TestOwner(); first.lifecycle.setCurrentState(Lifecycle.State.STARTED);
+            var firstResults = new ArrayList<>();
             model.state().observe(first, state -> { if (state.isSuccess()) firstResults.add(state.value()); });
             model.initialize(parent);
             first.lifecycle.setCurrentState(Lifecycle.State.DESTROYED);
-            var recreated = new Owner(); recreated.lifecycle.setCurrentState(Lifecycle.State.STARTED);
-            var recreatedResults = new ArrayList<Object>();
+            var recreated = new TestOwner(); recreated.lifecycle.setCurrentState(Lifecycle.State.STARTED);
+            var recreatedResults = new ArrayList<>();
             model.state().observe(recreated, state -> { if (state.isSuccess()) recreatedResults.add(state.value()); });
             model.initialize(parent);
             assertEquals(1, repository.calls.size());

@@ -8,45 +8,50 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.media.MediaMetadataRetriever;
 import android.speech.RecognizerIntent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.TextView;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 import com.project.ohl.domain.model.SignText;
 import com.project.ohl.presentation.MediaResources;
 import com.project.ohl.presentation.voice_to_sign_section.VoiceToSignSectionActivity;
-import java.util.ArrayList;
-import java.util.List;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class)
 public class SignMediaTest {
     @Test public void aAndABreveResolveDistinctPlayableVideosAndImages() throws Exception {
-        assertNotEquals(MediaResources.videoUrl("a"), MediaResources.videoUrl("ă"));
-        assertNotEquals(MediaResources.imageUrl("a"), MediaResources.imageUrl("ă"));
-        assertNotEquals(MediaResources.imageUrl("a"), MediaResources.voiceUrl("a"));
+        assertNotEquals(TestMedia.video("a"), TestMedia.video("ă"));
+        assertNotEquals(TestMedia.alphabetPhoto("a"), TestMedia.alphabetPhoto("ă"));
+        assertNotEquals(TestMedia.alphabetPhoto("a"), MediaResources.voiceUrl("a"));
         assertNotEquals(MediaResources.voiceUrl("a"), MediaResources.voiceUrl("ă"));
-        for (String url : List.of(MediaResources.videoUrl("a"), MediaResources.videoUrl("ă"))) {
-            try (var metadata = new android.media.MediaMetadataRetriever()) {
-                metadata.setDataSource(url, java.util.Map.of());
-                assertTrue(Long.parseLong(metadata.extractMetadata(
-                        android.media.MediaMetadataRetriever.METADATA_KEY_DURATION)) >= 2000);
-                var frame = metadata.getFrameAtTime(1_000_000, android.media.MediaMetadataRetriever.OPTION_CLOSEST);
+        for (String url : List.of(TestMedia.video("a"), TestMedia.video("ă"))) {
+            try (var metadata = new MediaMetadataRetriever()) {
+                metadata.setDataSource(url, Map.of());
+                assertTrue(Long.parseLong(requireNonNull(metadata.extractMetadata(
+                        MediaMetadataRetriever.METADATA_KEY_DURATION))) >= 2000);
+                var frame = metadata.getFrameAtTime(1_000_000, MediaMetadataRetriever.OPTION_CLOSEST);
                 assertNotNull(frame);
                 frame.recycle();
             }
@@ -55,39 +60,39 @@ public class SignMediaTest {
 
     @Test public void resolvesEveryDictionaryEntryFromS3WithoutBundledMedia() {
         Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        for (String key : SignText.dictionary().values()) assertNotNull(MediaResources.voiceUrl(key));
+        for (var sign : SignText.translate("ABCDEFGHIJKLMNOPQRSTUVWXYZĂÂÎȘȚ ")) assertNotNull(MediaResources.voiceUrl(sign.mediaKey()));
         assertEquals(0, context.getResources().getIdentifier("a", "drawable", context.getPackageName()));
         assertEquals(0, context.getResources().getIdentifier("a", "raw", context.getPackageName()));
     }
 
     @Test public void romanianDactylsUseDistinctImagesAndPlayableDemonstrations() throws Exception {
-        var videos = new java.util.HashSet<String>();
+        var videos = new HashSet<String>();
         for (var sign : SignText.translate("ÂÎȘȚ")) {
-            String photo = MediaResources.imageUrl(sign.getMediaKey());
-            String illustration = MediaResources.voiceUrl(sign.getMediaKey());
-            String video = MediaResources.videoUrl(sign.getLetter());
+            String photo = TestMedia.alphabetPhoto(sign.mediaKey());
+            String illustration = MediaResources.voiceUrl(sign.mediaKey());
+            String video = TestMedia.video(sign.letter());
             assertNotNull(photo);
             assertNotNull(illustration);
             assertNotEquals(photo, illustration);
             assertTrue(videos.add(video));
-            try (var metadata = new android.media.MediaMetadataRetriever()) {
-                metadata.setDataSource(video, java.util.Map.of());
-                var beginning = metadata.getFrameAtTime(0, android.media.MediaMetadataRetriever.OPTION_CLOSEST);
-                var gesture = metadata.getFrameAtTime(1_000_000, android.media.MediaMetadataRetriever.OPTION_CLOSEST);
+            try (var metadata = new MediaMetadataRetriever()) {
+                metadata.setDataSource(video, Map.of());
+                var beginning = metadata.getFrameAtTime(0, MediaMetadataRetriever.OPTION_CLOSEST);
+                var gesture = metadata.getFrameAtTime(1_000_000, MediaMetadataRetriever.OPTION_CLOSEST);
                 assertNotNull(beginning);
                 assertNotNull(gesture);
                 assertFalse("The demonstration must contain movement", beginning.sameAs(gesture));
                 beginning.recycle(); gesture.recycle();
             }
         }
-        assertNotEquals(MediaResources.videoUrl("t"), MediaResources.videoUrl("â"));
+        assertNotEquals(TestMedia.video("t"), TestMedia.video("â"));
     }
 
     @Test public void voiceAndCategoryImagesCannotFallBackToEachOther() {
-        assertNotEquals(MediaResources.imageUrl("a"), MediaResources.voiceUrl("a"));
-        org.junit.Assert.assertNull(MediaResources.voiceUrl("alfabet"));
-        for (String key : SignText.dictionary().values())
-            assertTrue(MediaResources.voiceUrl(key).contains("/voice/"));
+        assertNotEquals(TestMedia.alphabetPhoto("a"), MediaResources.voiceUrl("a"));
+        assertNull(MediaResources.voiceUrl("alfabet"));
+        for (var sign : SignText.translate("ABCDEFGHIJKLMNOPQRSTUVWXYZĂÂÎȘȚ "))
+            assertTrue(MediaResources.voiceUrl(sign.mediaKey()).contains("/voice/"));
     }
 
     @Test public void voiceRecognitionDisplaysDistinctRomanianDactyls() throws Exception {
@@ -111,7 +116,7 @@ public class SignMediaTest {
     }
 
     private void checkRecognitionResult(int resultCode, String transcript, int expectedSigns) throws Exception {
-        try (var account = new MediaTestAccount()) {
+        try (var ignored = new MediaTestAccount()) {
             checkAuthenticatedRecognitionResult(resultCode, transcript, expectedSigns);
         }
     }
@@ -129,7 +134,7 @@ public class SignMediaTest {
         RecyclerView list = activity.findViewById(R.id.voiceToSignRecyclerView);
         var laidOut = new CountDownLatch(expectedSigns > 0 ? 1 : 0);
         ViewTreeObserver.OnGlobalLayoutListener layoutListener = () -> {
-            if (list.getAdapter().getItemCount() == expectedSigns && list.getChildCount() > 0
+            if (requireNonNull(list.getAdapter()).getItemCount() == expectedSigns && list.getChildCount() > 0
                     && list.getWidth() > 0 && list.getHeight() > 0 && !list.isLayoutRequested()) {
                 laidOut.countDown();
             }
@@ -150,10 +155,10 @@ public class SignMediaTest {
             instrumentation.runOnMainSync(() -> {
                 if (expectedSigns > 0) assertEquals(transcript,
                         ((TextView) activity.findViewById(R.id.categoryNameCardText)).getText().toString());
-                assertEquals(expectedSigns, list.getAdapter().getItemCount());
+                assertEquals(expectedSigns, requireNonNull(list.getAdapter()).getItemCount());
                 assertEquals(expectedSigns > 0 ? View.VISIBLE : View.GONE,
                         activity.findViewById(R.id.outputContent).getVisibility());
-                var grid = (GridLayoutManager) list.getLayoutManager();
+                var grid = (GridLayoutManager) requireNonNull(list.getLayoutManager());
                 assertFalse(grid.canScrollHorizontally());
                 assertFalse(list.isNestedScrollingEnabled());
                 if (expectedSigns == 17) {

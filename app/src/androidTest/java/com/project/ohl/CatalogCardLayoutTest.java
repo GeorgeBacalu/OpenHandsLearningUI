@@ -15,13 +15,14 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-/** Verifies the shared card layouts without loading or changing the signed-in account. */
 @RunWith(AndroidJUnit4.class)
 public class CatalogCardLayoutTest {
     @Test public void cardsKeepArtworkSquareAndLongLabelsReadableAcrossThemes() {
@@ -104,7 +105,7 @@ public class CatalogCardLayoutTest {
             root.draw(new Canvas(bitmap));
             try (var stream = new FileOutputStream(new File(target.getExternalFilesDir(null), "catalog-cards-" + suffix + ".png"))) {
                 assertTrue(bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream));
-            } catch (java.io.IOException error) { throw new AssertionError(error); }
+            } catch (IOException error) { throw new AssertionError(error); }
             finally { bitmap.recycle(); }
         });
     }

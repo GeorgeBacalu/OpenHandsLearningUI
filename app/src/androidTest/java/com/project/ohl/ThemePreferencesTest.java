@@ -14,7 +14,6 @@ import static org.junit.Assert.assertEquals;
 public class ThemePreferencesTest {
     @Test public void explicitThemeSurvivesReloadAndDefaultsToSystem() {
         var instrumentation = InstrumentationRegistry.getInstrumentation();
-        // Use the test APK's preferences to preserve the user's appearance setting.
         Context context = instrumentation.getContext();
         instrumentation.runOnMainSync(() -> {
             int originalMode = AppCompatDelegate.getDefaultNightMode();

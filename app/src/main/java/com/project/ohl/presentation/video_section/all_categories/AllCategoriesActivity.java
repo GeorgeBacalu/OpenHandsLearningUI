@@ -1,8 +1,8 @@
 package com.project.ohl.presentation.video_section.all_categories;
 
+import android.content.Intent;
 import com.project.ohl.R;
 import com.project.ohl.presentation.video_section.CatalogActivity;
-import android.content.Intent;
 import com.project.ohl.presentation.video_section.VideoPlayerActivity;
 import java.util.UUID;
 

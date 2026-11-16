@@ -10,10 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.ViewCompat;
 import com.google.android.material.button.MaterialButton;
-import com.project.ohl.presentation.AuthenticatedActivity;
 import com.project.ohl.R;
-import com.project.ohl.domain.model.Category;
 import com.project.ohl.app.AppViewModels;
+import com.project.ohl.domain.model.Category;
+import com.project.ohl.presentation.AuthenticatedActivity;
 import com.project.ohl.presentation.CategoryViewModel;
 import com.project.ohl.presentation.MediaResources;
 import com.project.ohl.presentation.UserSession;
@@ -32,7 +32,6 @@ public class VideoPlayerActivity extends AuthenticatedActivity {
     private UUID authenticatedUserId;
     private CategoryViewModel model;
     private VideoPlaybackControls playback;
-    private UUID categoryId;
     private String imageSubject;
     private String boundVideoUrl;
     private boolean videoBound;
@@ -55,6 +54,7 @@ public class VideoPlayerActivity extends AuthenticatedActivity {
             finish();
             return;
         }
+        UUID categoryId;
         try { categoryId = UUID.fromString(intent.getStringExtra(CATEGORY_ID)); }
         catch (IllegalArgumentException invalidId) { finish(); return; }
         categoryName.setText(intent.getStringExtra(CATEGORY_NAME));
@@ -131,10 +131,10 @@ public class VideoPlayerActivity extends AuthenticatedActivity {
         favoriteButton.setOnClickListener(view -> model.toggleFavorite());
     }
 
-
     private void observeFavorite() {
         model.favoriteState().observe(this, state -> {
-            favoriteButton.setEnabled(!state.isLoading() && model.state().getValue().value() != null);
+            var category = model.state().getValue();
+            favoriteButton.setEnabled(!state.isLoading() && category != null && category.value() != null);
             if (state.error() != null) {
                 model.acknowledgeFavoriteError();
                 Toast.makeText(this, R.string.request_failed, Toast.LENGTH_SHORT).show();
