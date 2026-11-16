@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="ro">
+    <string name="video_player_title">Învață un semn</string>
+    <string name="video_player_eyebrow">LIMBAJUL SEMNELOR</string>
+    <string name="video_player_subtitle">Privește mișcarea, apoi încearcă și tu.</string>
+    <string name="video_player_play">Redă</string>
+    <string name="video_player_pause">Pauză</string>
+    <string name="video_player_replay">Reia</string>
+    <string name="video_player_seek">Poziția în videoclip</string>
+    <string name="video_player_loading">Se încarcă videoclipul</string>
+    <string name="video_player_error">Videoclipul nu a putut fi încărcat.</string>
+    <string name="video_player_zero_time">0:00</string>
+    <string name="video_player_practice_title">Exersează în ritmul tău</string>
+    <string name="video_player_practice_caption">Urmărește poziția mâinilor și repetă semnul. Poți relua videoclipul ori de câte ori ai nevoie.</string>
+    <color name="video_stage">#0B1020</color>
+    <color name="video_loading_track">#40506B</color>
+    <style name="Theme.OpenHandsLearning.VideoPlayer" parent="Theme.OpenHandsLearning.Authentication">
+        <item name="android:navigationBarColor">@color/auth_background</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">@bool/auth_light_system_bars</item>
+    </style>
+    <style name="VideoPlayerTime" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/auth_muted</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
+        <item name="android:fontFeatureSettings">tnum</item>
+    </style>
+</resources>

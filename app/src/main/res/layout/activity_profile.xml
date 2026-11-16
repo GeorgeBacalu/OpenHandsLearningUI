@@ -44,6 +44,24 @@
                         android:layout_marginTop="6dp" android:text="@string/profile_subtitle" android:gravity="center"
                         android:textColor="#E2EAFF" android:textSize="15sp" />
                 </LinearLayout>
+                <TextView android:id="@+id/profile_appearance_heading" style="@style/ProfileSection"
+                    android:text="@string/profile_appearance" />
+                <com.google.android.material.card.MaterialCardView style="@style/ProfileCard">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="vertical" android:padding="20dp">
+                        <com.google.android.material.switchmaterial.SwitchMaterial
+                            android:id="@+id/profile_dark_theme"
+                            style="@style/Widget.MaterialComponents.CompoundButton.Switch"
+                            android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:minHeight="48dp" android:saveEnabled="false"
+                            android:text="@string/profile_dark_theme" android:textColor="@color/auth_text"
+                            android:textSize="17sp" android:fontFamily="@font/source_sans_pro_semibold"
+                            android:paddingEnd="4dp" android:paddingStart="0dp"
+                            app:showText="false" app:switchPadding="16dp" app:useMaterialThemeColors="true" />
+                        <TextView style="@style/ProfileLabel" android:layout_marginTop="4dp"
+                            android:text="@string/profile_theme_caption" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
                 <TextView android:id="@+id/profile_personal_heading" style="@style/ProfileSection" android:text="@string/profile_personal" />
                 <com.google.android.material.card.MaterialCardView style="@style/ProfileCard">
                     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"

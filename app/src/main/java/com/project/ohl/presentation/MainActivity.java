@@ -15,7 +15,8 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.os.LocaleListCompat;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import com.project.ohl.R;
 import com.project.ohl.domain.model.Section;
@@ -63,13 +64,15 @@ public class MainActivity extends AuthenticatedActivity {
               sessionVerified = true;
               setContentView(R.layout.activity_main);
               ((TextView) findViewById(R.id.welcomeMessage)).setText(getString(R.string.welcome_user, result.value().getName()));
+              ViewCompat.setAccessibilityHeading(findViewById(R.id.home_headline), true);
+              ViewCompat.setAccessibilityHeading(findViewById(R.id.home_explore_heading), true);
               Toolbar toolbar = findViewById(R.id.toolbar);
               toolbar.setTitleTextAppearance(this, R.style.HomeToolbarTitle);
               setSupportActionBar(toolbar);
               RecyclerView sections = findViewById(R.id.sectionsRecyclerView);
               sectionsAdapter = new MainRecyclerViewAdapter(this);
               sections.setAdapter(sectionsAdapter);
-              sections.setLayoutManager(new GridLayoutManager(this, 2));
+              sections.setLayoutManager(new LinearLayoutManager(this));
               invalidateOptionsMenu();
               loadSections();
           } else if (result.error() instanceof AuthenticationException failure && failure.status() == 401) {

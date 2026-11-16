@@ -54,15 +54,13 @@
     <string name="add_to_favorites">Adaugă la favorite</string>
     <string name="remove_from_favorites">Elimină din favorite</string>
     <string name="header_title_favorites">Favorite</string>
-    <string name="no_favorites_image">Nicio categorie favorită</string>
-    <string name="first_message">Nu ai încă nicio categorie adăugată la favorite.</string>
-    <string name="second_message">Explorează categoriile disponibile și adaugă-le pe cele preferate la favorite.</string>
+    <string name="first_message">Încă nu ai favorite</string>
+    <string name="second_message">Salvează semnele care îți plac, apoi revino aici să le exersezi.</string>
     <string name="browse_collections">Explorează categoriile</string>
     <string name="background_image">Imagine de fundal</string>
     <string name="background_overlay">Suprapunere de fundal</string>
     <string name="app_logo">Sigla aplicației</string>
     <string name="project_name">Open Hands Learning</string>
-    <string name="project_description">Învățăm să comunicăm dincolo de cuvinte.</string>
     <string name="record_voice_message">Înregistrează vocea</string>
     <string name="voice_transcript_label">TRANSCRIERE VOCALĂ</string>
     <string name="voice_signs_heading">Semnele mesajului</string>
@@ -89,7 +87,5 @@
     <string name="continue_intro">Continuă</string>
     <string name="speech_prompt">Vorbește acum</string>
     <string name="remove_favorite_confirmation">Elimini „%1$s” din favorite?</string>
-    <string name="yes">Da</string>
-    <string name="no">Nu</string>
     <string name="open_list">Deschide lista</string>
 </resources>
