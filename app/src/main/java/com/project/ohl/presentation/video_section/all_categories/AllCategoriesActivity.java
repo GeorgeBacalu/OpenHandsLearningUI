@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import com.project.ohl.presentation.AuthenticatedActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.project.ohl.R;
@@ -25,7 +25,7 @@ import static com.project.ohl.presentation.video_section.VideoPlayerActivity.CAT
 
 import static android.R.id.home;
 
-public class AllCategoriesActivity extends AppCompatActivity {
+public class AllCategoriesActivity extends AuthenticatedActivity {
    private RecyclerView categoriesRecyclerView;
    private AllCategoriesRecyclerViewAdapter categoriesAdapter;
 

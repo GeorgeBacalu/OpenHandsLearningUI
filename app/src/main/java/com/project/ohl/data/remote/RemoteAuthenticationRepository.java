@@ -13,18 +13,50 @@ import retrofit2.Retrofit;
 
 public final class RemoteAuthenticationRepository implements AuthenticationRepository {
     private final AuthApi api;
-    private final SessionCookieJar cookies;
+    private final JwtTokenStore tokens;
     private volatile User account;
 
-    public RemoteAuthenticationRepository(Retrofit retrofit, SessionCookieJar cookies) {
+    public RemoteAuthenticationRepository(Retrofit retrofit, JwtTokenStore tokens) {
         api = retrofit.create(AuthApi.class);
-        this.cookies = cookies;
+        this.tokens = tokens;
     }
 
-    @Override public User account() { return cookies.hasSession() ? account : null; }
-    @Override public Request<User> login(String email, String password) { return authenticate(api.login(new AuthApi.Credentials(email, password))); }
-    @Override public Request<User> register(Registration registration) { return authenticate(api.register(registration)); }
-    @Override public Request<User> current() { return authenticate(api.current()); }
+    @Override public User account() { return tokens.token() != null ? account : null; }
+    @Override public Request<User> login(String email, String password) { return establish(api.login(new AuthApi.Credentials(email, password))); }
+    @Override public Request<User> register(Registration registration) { return establish(api.register(registration)); }
+    @Override public Request<User> current() {
+        if (tokens.token() == null) return callback -> {
+            account = null;
+            callback.accept(Result.failure(new AuthenticationException(401)));
+            return () -> {};
+        };
+        return authenticate(api.current());
+    }
+
+    private Request<User> establish(Call<AuthApi.AuthenticationResponse> prototype) {
+        return callback -> {
+            var call = prototype.clone();
+            call.enqueue(new Callback<>() {
+                @Override public void onResponse(Call<AuthApi.AuthenticationResponse> request, Response<AuthApi.AuthenticationResponse> response) {
+                    if (request.isCanceled()) return;
+                    var body = response.body();
+                    if (response.isSuccessful() && body != null && body.user() != null
+                            && body.accessToken() != null && !body.accessToken().isBlank() && "Bearer".equals(body.tokenType())) {
+                        tokens.save(body.accessToken());
+                        account = body.user();
+                        callback.accept(Result.success(account));
+                    } else {
+                        if (response.errorBody() != null) response.errorBody().close();
+                        callback.accept(Result.failure(new AuthenticationException(response.code())));
+                    }
+                }
+                @Override public void onFailure(Call<AuthApi.AuthenticationResponse> request, Throwable error) {
+                    if (!request.isCanceled()) callback.accept(Result.failure(error));
+                }
+            });
+            return call::cancel;
+        };
+    }
 
     private Request<User> authenticate(Call<User> prototype) {
         return callback -> {
@@ -36,7 +68,7 @@ public final class RemoteAuthenticationRepository implements AuthenticationRepos
                         account = response.body();
                         callback.accept(Result.success(account));
                     } else {
-                        if (response.code() == 401) { account = null; cookies.clear(); }
+                        if (response.code() == 401) { account = null; tokens.clear(); }
                         if (response.errorBody() != null) response.errorBody().close();
                         callback.accept(Result.failure(new AuthenticationException(response.code())));
                     }
@@ -53,7 +85,7 @@ public final class RemoteAuthenticationRepository implements AuthenticationRepos
         return callback -> {
             var call = api.logout();
             call.enqueue(new Callback<>() {
-                private void clear() { account = null; cookies.clear(); }
+                private void clear() { account = null; tokens.clear(); }
                 @Override public void onResponse(Call<Void> request, Response<Void> response) {
                     clear();
                     if (response.errorBody() != null) response.errorBody().close();
@@ -64,7 +96,7 @@ public final class RemoteAuthenticationRepository implements AuthenticationRepos
                     if (!request.isCanceled()) callback.accept(Result.success(null));
                 }
             });
-            return () -> { call.cancel(); account = null; cookies.clear(); };
+            return () -> { call.cancel(); account = null; tokens.clear(); };
         };
     }
 }

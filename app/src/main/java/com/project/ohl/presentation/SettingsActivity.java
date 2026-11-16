@@ -7,7 +7,7 @@ import android.widget.Toast;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
+import com.project.ohl.presentation.AuthenticatedActivity;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.Preference;
 import java.util.Objects;
@@ -17,7 +17,7 @@ import com.project.ohl.domain.repository.AuthenticationException;
 
 import static android.R.id.home;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends AuthenticatedActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +38,7 @@ public class SettingsActivity extends AppCompatActivity {
             logout.setOnPreferenceClickListener(preference -> {
                 preference.setEnabled(false);
                 AuthenticationViewModel.of(requireActivity()).load(requireActivity(), repository -> repository.logout(), result -> {
-                    startActivity(new Intent(requireContext(), MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                    startActivity(new Intent(requireContext(), LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                     requireActivity().finish();
                 });
                 return true;
