@@ -23,9 +23,11 @@
             android:enabled="false" android:exported="false">
             <meta-data android:name="autoStoreLocales" android:value="true" />
         </service>
-        <activity android:name=".presentation.user.LoginActivity" android:exported="false" android:label="@string/login" />
+        <activity android:name=".presentation.user.LoginActivity" android:theme="@style/Theme.OpenHandsLearning.Authentication" android:windowSoftInputMode="adjustResize" android:exported="false" android:label="@string/login" />
         <activity
            android:name=".presentation.user.UserActivity"
+           android:theme="@style/Theme.OpenHandsLearning.Authentication"
+           android:windowSoftInputMode="adjustResize"
            android:exported="false"
            android:label="@string/register" />
         <activity

@@ -15,7 +15,7 @@ public final class ApplicationGraph {
     private static final class Holder {
         private static final LearningRepository LEARNING = new RemoteLearningRepository(RetrofitService.getRetrofit());
         private static final AuthenticationRepository AUTHENTICATION = new RemoteAuthenticationRepository(
-                RetrofitService.getRetrofit(), RetrofitService.cookies());
+                RetrofitService.getRetrofit(), RetrofitService.tokens());
     }
     public static RecordingsRepository recordings(Context context) {
         return new RoomRecordingsRepository(

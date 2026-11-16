@@ -163,6 +163,12 @@ public class SignMediaTest {
     }
 
     private void checkRecognitionResult(int resultCode, String transcript, int expectedSigns) throws Exception {
+        try (var account = new MediaTestAccount()) {
+            checkAuthenticatedRecognitionResult(resultCode, transcript, expectedSigns);
+        }
+    }
+
+    private void checkAuthenticatedRecognitionResult(int resultCode, String transcript, int expectedSigns) throws Exception {
         var instrumentation = InstrumentationRegistry.getInstrumentation();
         instrumentation.getUiAutomation().grantRuntimePermission(
                 instrumentation.getTargetContext().getPackageName(), Manifest.permission.RECORD_AUDIO);

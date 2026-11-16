@@ -11,8 +11,11 @@ public interface AuthApi {
     record Credentials(String email, String password) {
         @Override public String toString() { return "Credentials[email=" + email + "]"; }
     }
-    @POST("/api/auth/login") Call<User> login(@Body Credentials credentials);
-    @POST("/api/auth/register") Call<User> register(@Body Registration registration);
+    record AuthenticationResponse(String accessToken, String tokenType, long expiresIn, User user) {
+        @Override public String toString() { return "AuthenticationResponse"; }
+    }
+    @POST("/api/auth/login") Call<AuthenticationResponse> login(@Body Credentials credentials);
+    @POST("/api/auth/register") Call<AuthenticationResponse> register(@Body Registration registration);
     @GET("/api/auth/me") Call<User> current();
     @POST("/api/auth/logout") Call<Void> logout();
 }

@@ -98,17 +98,17 @@ type without section UUIDs. Section titles can change without changing routing.
 screen with search; existing expression media and favorites remain available.
 Category requests use parentId and name only, and category models have no sectionId.
 
-The navigation bar shows registration for guests and settings only after
-`/api/auth/me` confirms a server-authenticated account. Login is available from
-the registration form. The side drawer and hamburger button have been removed;
-section cards provide navigation. Dedicated Home shortcut buttons are removed
-throughout the app, including categories and favorites;
-toolbar and system Back navigation remain available. Profile selection has been removed.
-Category/subcategory creation screens, their entry button and Android creation
-client have been removed. Onboarding ends on the main page. The API no longer
-offers `POST /api/categories`; the existing catalog remains available.
-Favorites use the authenticated user's UUID, which the server checks against the
-session. Use these changes with the secured API and V15 schema. Voice to Sign
+The main page is accessible only after `/api/auth/me` validates the JWT and
+returns the current account. Guests go to login; successful login or registration
+opens the main page with “Bine ai venit, {nume}!”. Its toolbar exposes settings.
+Section cards provide navigation, and toolbar/system Back remain available in
+categories and favorites. Protected activities also guard restored navigation.
+Logout clears the task history and opens login. Connection failures leave the
+main content hidden with a retry action.
+
+The side drawer, profile selection and category/subcategory creation screens
+have been removed. Favorites use the authenticated user's UUID; the API validates
+ownership. Use these changes with the JWT API and V16 schema. Voice to Sign
 immediately converts a successful nonblank speech transcript into finger-spelling
 images using the immutable local Unicode-to-media-key dictionary. The result card
 shows the transcript and its signs without manual entry or confirmation. Microphone
@@ -183,23 +183,25 @@ Directory imports run explicitly on the backend.
 
 ## Authentication
 
-Registration requires name, email, a password of at least 15 characters, phone,
+Registration requires name, email, a password, phone,
 and a school from the directory. The API normalizes emails, assigns the USER role,
-hashes passwords with BCrypt, and starts a session. Existing BCrypt accounts can
+hashes passwords securely, and issues a JWT. Existing accounts can
 log in with their current password. Password confirmation is checked on the phone.
 
-The app sends session cookies and fetches a fresh CSRF token before mutations.
-The session cookie is encrypted with AES-GCM using Android Keystore and stored
-outside Android backups. Passwords are not persisted. App startup validates the
-stored session with `/api/auth/me`; 401 responses clear the cookie. Settings
-validates the session again and offers logout, which revokes the server session
-and clears the local cookie. Expired sessions require login again.
+The app sends JWTs in `Authorization: Bearer <token>` headers. Login and
+registration return the token together with the authenticated account. JWTs are
+encrypted with AES-GCM using Android Keystore and stored outside Android backups;
+passwords are never persisted. Existing session-cookie storage is discarded.
+Startup validates the stored token with `/api/auth/me` before showing any main
+content. A 401 clears the token, and expired tokens require login again.
+Settings validates the account and offers logout, which revokes the JWT on the
+server and clears it locally. Tokens expire 30 minutes after issue; restarting
+the single-instance API also invalidates them.
 
 Release builds require an HTTPS API URL and reject cleartext connections. Debug
 builds request Android 17 local-network permission for private API addresses and
-allow HTTP for local emulator or phone previews; use test credentials on
-that connection. The local HTTP API also requires `SESSION_COOKIE_SECURE=false`.
-Production keeps secure cookies enabled and terminates HTTPS at the API or proxy.
+allow HTTP for local emulator or phone previews; use test credentials on that
+connection. Authentication uses no session cookie or CSRF handshake.
 
 Favorites remain user/category pairs, but selecting or supplying a UUID never
 authenticates a user or authorizes access to another account's favorites.
