@@ -38,7 +38,7 @@ public class AllCategoriesRecyclerViewAdapter extends RecyclerView.Adapter<AllCa
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(categories.get(position).getName());
-        MediaResources.loadImage(categoriesContext, categories.get(position).getImageSource(), holder.categoryImage);
+        MediaResources.loadImage(categoriesContext, categories.get(position), holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             int current = holder.getBindingAdapterPosition();
             if (current == RecyclerView.NO_POSITION) return;

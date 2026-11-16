@@ -49,7 +49,7 @@ public class ShopActivity extends AuthenticatedActivity {
 
             } else {
                     List<Category> shopCategories = result.value();
-                    MediaResources.bindImages(this, shopCategories);
+
                     shopAdapter.setShopObjects(shopCategories);
 
             }
@@ -63,7 +63,7 @@ public class ShopActivity extends AuthenticatedActivity {
 
             } else {
                         List<Category> filteredShopCategories = result.value();
-                        MediaResources.bindImages(this, filteredShopCategories);
+
                         shopAdapter.setShopObjects(filteredShopCategories);
 
             }

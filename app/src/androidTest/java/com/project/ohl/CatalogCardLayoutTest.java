@@ -31,6 +31,7 @@ public class CatalogCardLayoutTest {
     }
 
     private void render(boolean night, float fontScale, String suffix) {
+        TestMedia.preload();
         var instrumentation = InstrumentationRegistry.getInstrumentation();
         instrumentation.runOnMainSync(() -> {
             var target = instrumentation.getTargetContext();
@@ -53,19 +54,19 @@ public class CatalogCardLayoutTest {
             sections.setBackgroundColor(context.getColor(R.color.home_background));
             root.addView(sections);
             String[] sectionNames = {"Video", "Voce în semne"};
-            int[] artwork = {R.drawable.video_section, R.drawable.voice_to_sign_section};
+            String[] artwork = {TestMedia.url("video_section"), TestMedia.url("voice_to_sign_section")};
             for (int index = 0; index < sectionNames.length; index++) {
                 View card = inflater.inflate(R.layout.section_item, sections, false);
                 TextView label = card.findViewById(R.id.sectionName);
                 label.setText(sectionNames[index]); labels.add(label);
-                ((ImageView) card.findViewById(R.id.sectionImage)).setImageResource(artwork[index]);
+                ((ImageView) card.findViewById(R.id.sectionImage)).setImageDrawable(TestMedia.drawable(artwork[index]));
                 var params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 params.setMargins(padding / 2, padding, padding / 2, padding);
                 sections.addView(card, params);
             }
             String[] names = {"Alfabet", "Animale", "Formule de adresare", "Membrii familiei", "Emoții", "Expresii"};
-            int[] photos = {R.drawable.alfabet, R.drawable.animale, R.drawable.formule_de_adresare,
-                    R.drawable.membrii_familiei, R.drawable.emotii, R.drawable.expressions_section};
+            String[] photos = {TestMedia.url("alfabet"), TestMedia.url("animale"), TestMedia.url("formule_de_adresare"),
+                    TestMedia.url("membrii_familiei"), TestMedia.url("emotii"), TestMedia.url("expressions_section")};
             for (int rowIndex = 0; rowIndex < 2; rowIndex++) {
                 var row = new LinearLayout(context);
                 root.addView(row);
@@ -75,7 +76,7 @@ public class CatalogCardLayoutTest {
                     TextView label = card.findViewById(R.id.categoryName);
                     label.setText(names[index]); labels.add(label);
                     ImageView image = card.findViewById(R.id.categoryImage);
-                    image.setImageResource(photos[index]); images.add(image);
+                    image.setImageDrawable(TestMedia.drawable(photos[index])); images.add(image);
                     var params = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
                     params.setMargins(padding / 3, padding, padding / 3, padding);
                     row.addView(card, params);
@@ -84,7 +85,7 @@ public class CatalogCardLayoutTest {
             View favorite = inflater.inflate(R.layout.category_item, root, false);
             favorite.findViewById(R.id.removeFromFavoriteButton).setVisibility(View.VISIBLE);
             ((TextView) favorite.findViewById(R.id.categoryName)).setText("Expresii");
-            ((ImageView) favorite.findViewById(R.id.categoryImage)).setImageResource(R.drawable.expressions_section);
+            ((ImageView) favorite.findViewById(R.id.categoryImage)).setImageDrawable(TestMedia.drawable(TestMedia.url("expressions_section")));
             root.addView(favorite);
             int width = Math.round(360 * density);
             root.measure(View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),

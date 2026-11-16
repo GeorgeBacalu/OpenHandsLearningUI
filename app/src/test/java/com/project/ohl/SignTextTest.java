@@ -53,8 +53,8 @@ public class SignTextTest {
 
     @Test public void conversionResultsDoNotShareMutableDisplayModels() {
         var first = SignText.translate("a");
-        first.get(0).setImageSource(42);
-        assertEquals(0, SignText.translate("a").get(0).getImageSource());
+        first.clear();
+        assertEquals("a", SignText.translate("a").get(0).getMediaKey());
     }
 
     @Test public void distinguishesAAndABreveInBothCasesAndUnicodeForms() {

@@ -49,7 +49,7 @@ public class CityActivity extends AuthenticatedActivity {
 
             } else {
                List<Category> cityCategories = result.value();
-               MediaResources.bindImages(this, cityCategories);
+
                cityAdapter.setCityObjects(cityCategories);
 
             }
@@ -63,7 +63,7 @@ public class CityActivity extends AuthenticatedActivity {
 
             } else {
                   List<Category> filteredCityCategories = result.value();
-                  MediaResources.bindImages(this, filteredCityCategories);
+
                   cityAdapter.setCityObjects(filteredCityCategories);
 
             }

@@ -15,10 +15,27 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 public class JsonCodecTest {
+    @Test public void readsS3MediaUrlsWithoutChangingBundledFallbackIdentity() {
+        var gson = JsonCodec.create();
+        String base = "https://open-hands-learning.s3.us-east-1.amazonaws.com/dev/";
+        var category = gson.fromJson("{\"imageUrl\":\"" + base + "categories/alfabet/a_breve.webp\","
+                + "\"videoUrl\":\"" + base + "categories/alfabet/a_breve.mp4\"}", Category.class);
+        assertEquals("a_breve", category.getMediaKey());
+        assertEquals(base + "categories/alfabet/a_breve.mp4", category.getVideoUrl());
+        category.setName("A different translated label");
+        assertEquals("a_breve", category.getMediaKey());
+        category.setImageUrl("https://open-hands-learning.s3.us-east-1.amazonaws.com/dev/categories/alfabet/a.webp");
+        assertFalse(gson.toJson(category).contains("imageSource"));
+        var section = gson.fromJson("{\"type\":\"VIDEO\",\"imageUrl\":\"" + base
+                + "categories/application/video_section.webp\"}", Section.class);
+        assertEquals("video_section", section.getMediaKey());
+        assertEquals(SectionType.VIDEO, section.getType());
+    }
+
     @Test public void exchangesStableMediaKeysWithoutDeviceResourceIds() {
         var gson = JsonCodec.create();
         var category = gson.fromJson("{\"mediaKey\":\"a\"}", Category.class);
-        category.setImageSource(123);
+        category.setImageUrl("https://open-hands-learning.s3.us-east-1.amazonaws.com/dev/categories/alfabet/a.webp");
         assertEquals("a", category.getMediaKey());
         assertFalse(gson.toJson(category).contains("imageSource"));
         assertFalse(gson.toJson(category).contains("imageId"));

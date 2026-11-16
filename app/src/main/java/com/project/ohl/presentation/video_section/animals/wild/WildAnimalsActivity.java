@@ -49,7 +49,7 @@ public class WildAnimalsActivity extends AuthenticatedActivity {
 
             } else {
                List<Category> wildAnimals = result.value();
-               MediaResources.bindImages(this, wildAnimals);
+
                wildAnimalsAdapter.setWildAnimals(wildAnimals);
 
             }
@@ -63,7 +63,7 @@ public class WildAnimalsActivity extends AuthenticatedActivity {
 
             } else {
                   List<Category> filteredWildAnimals = result.value();
-                  MediaResources.bindImages(this, filteredWildAnimals);
+
                   wildAnimalsAdapter.setWildAnimals(filteredWildAnimals);
 
             }

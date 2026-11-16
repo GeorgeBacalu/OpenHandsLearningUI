@@ -49,7 +49,7 @@ public class VerbsActivity extends AuthenticatedActivity {
 
             } else {
                     List<Category> verbs = result.value();
-                    MediaResources.bindImages(this, verbs);
+
                     verbsAdapter.setVerbs(verbs);
 
             }
@@ -63,7 +63,7 @@ public class VerbsActivity extends AuthenticatedActivity {
 
             } else {
                         List<Category> filteredVerbs = result.value();
-                        MediaResources.bindImages(this, filteredVerbs);
+
                         verbsAdapter.setVerbs(filteredVerbs);
 
             }

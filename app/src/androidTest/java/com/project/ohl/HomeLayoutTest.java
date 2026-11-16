@@ -38,6 +38,7 @@ public class HomeLayoutTest {
     }
 
     private void render(boolean night, float scale, int widthDp, String suffix) {
+        TestMedia.preload();
         var instrumentation = InstrumentationRegistry.getInstrumentation();
         instrumentation.runOnMainSync(() -> {
             var target = instrumentation.getTargetContext();
@@ -68,10 +69,10 @@ public class HomeLayoutTest {
             sections.setLayoutManager(new LinearLayoutManager(context));
             var adapter = new MainRecyclerViewAdapter(context);
             sections.setAdapter(adapter);
-            int[] artwork = {R.drawable.video_section, R.drawable.voice_to_sign_section};
+            String[] artwork = {TestMedia.url("video_section"), TestMedia.url("voice_to_sign_section")};
             adapter.setSections(List.of(
-                    new Section(SectionType.VIDEO, "Video", R.drawable.ic_video_section, artwork[0]),
-                    new Section(SectionType.VOICE_TO_SIGN, "Voce în semne", R.drawable.ic_voice_to_sign_section, artwork[1])));
+                    new Section(SectionType.VIDEO, "Video", 0, artwork[0]),
+                    new Section(SectionType.VOICE_TO_SIGN, "Voce în semne", 0, artwork[1])));
             float density = context.getResources().getDisplayMetrics().density;
             int width = Math.round(widthDp * density), height = Math.round(850 * density);
             root.measure(View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),
@@ -91,9 +92,9 @@ public class HomeLayoutTest {
                 assertTrue("Dark illustrations stay on a light canvas in both themes",
                         ColorUtils.calculateLuminance(imageSurface.getCardBackgroundColor().getDefaultColor()) >= 0.8);
                 ImageView image = card.findViewById(R.id.sectionImage);
-                // Supply the same local image synchronously for the detached preview.
+                // Supply the same S3 artwork synchronously for the detached preview.
                 com.bumptech.glide.Glide.with(context).clear(image);
-                image.setImageResource(artwork[index]);
+                image.setImageDrawable(TestMedia.drawable(artwork[index]));
                 assertEquals(ImageView.ScaleType.FIT_CENTER, image.getScaleType());
             }
             var bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);

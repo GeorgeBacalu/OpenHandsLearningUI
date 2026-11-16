@@ -44,7 +44,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(homeObjects.get(position).getName());
-        MediaResources.loadImage(homeContext, homeObjects.get(position).getImageSource(), holder.categoryImage);
+        MediaResources.loadImage(homeContext, homeObjects.get(position), holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(homeContext, VideoPlayerActivity.class);
             if (homeObjects.get(position).getId() == null) {
@@ -52,7 +52,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
             }
             intent.putExtra(CATEGORY_ID, homeObjects.get(position).getId().toString());
             intent.putExtra(CATEGORY_NAME, homeObjects.get(position).getName());
-            intent.putExtra(CATEGORY_IMAGE, homeObjects.get(position).getImageSource());
+            intent.putExtra(CATEGORY_IMAGE, homeObjects.get(position).getImageUrl());
             homeContext.startActivity(intent);
         });
     }

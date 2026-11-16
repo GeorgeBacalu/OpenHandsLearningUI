@@ -49,7 +49,7 @@ public class PronounsActivity extends AuthenticatedActivity {
 
             } else {
                     List<Category> pronouns = result.value();
-                    MediaResources.bindImages(this, pronouns);
+
                     pronounsAdapter.setPronouns(pronouns);
 
             }
@@ -63,7 +63,7 @@ public class PronounsActivity extends AuthenticatedActivity {
 
             } else {
                         List<Category> filteredPronouns = result.value();
-                        MediaResources.bindImages(this, filteredPronouns);
+
                         pronounsAdapter.setPronouns(filteredPronouns);
 
             }

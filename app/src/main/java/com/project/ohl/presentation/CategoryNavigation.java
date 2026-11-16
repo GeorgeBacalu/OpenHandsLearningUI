@@ -67,7 +67,7 @@ public final class CategoryNavigation {
         return new Intent(context, screen(category.getId()))
                 .putExtra(PARENT_ID, category.getId().toString())
                 .putExtra(CATEGORY_NAME, category.getName())
-                .putExtra(CATEGORY_IMAGE, category.getImageSource() == null ? 0 : category.getImageSource().intValue());
+                .putExtra(CATEGORY_IMAGE, category.getImageUrl());
     }
 
     public static UUID parentId(Activity activity) {

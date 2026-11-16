@@ -42,7 +42,7 @@ public class  WildAnimalsRecyclerViewAdapter extends RecyclerView.Adapter<WildAn
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(wildAnimals.get(position).getName());
-        MediaResources.loadImage(wildAnimalsContext, wildAnimals.get(position).getImageSource(), holder.categoryImage);
+        MediaResources.loadImage(wildAnimalsContext, wildAnimals.get(position), holder.categoryImage);
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(wildAnimalsContext, VideoPlayerActivity.class);
             if (wildAnimals.get(position).getId() == null) {
@@ -50,7 +50,7 @@ public class  WildAnimalsRecyclerViewAdapter extends RecyclerView.Adapter<WildAn
             }
             intent.putExtra(CATEGORY_ID, wildAnimals.get(position).getId().toString());
             intent.putExtra(CATEGORY_NAME, wildAnimals.get(position).getName());
-            intent.putExtra(CATEGORY_IMAGE, wildAnimals.get(position).getImageSource());
+            intent.putExtra(CATEGORY_IMAGE, wildAnimals.get(position).getImageUrl());
             wildAnimalsContext.startActivity(intent);
         });
     }

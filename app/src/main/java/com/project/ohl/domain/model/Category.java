@@ -6,10 +6,11 @@ public class Category {
 
     private UUID id;
     private String mediaKey;
+    private String imageUrl;
+    private String videoUrl;
 
     private String name;
 
-    private transient Integer imageSource;
 
     private Boolean isExpanded = false;
 
@@ -24,20 +25,20 @@ public class Category {
         this.isExpanded = false;
     }
 
-    public Category(UUID id, String name, int imageSource) {
+    public Category(UUID id, String name, String imageUrl) {
         this.id = id;
         this.name = name;
-        this.imageSource = imageSource;
+        this.imageUrl = imageUrl;
         this.isExpanded = false;
     }
 
     public Category() {
     }
 
-    public Category(UUID id, String name, Integer imageSource, Boolean isExpanded, Boolean isFavorite, UUID parentId) {
+    public Category(UUID id, String name, String imageUrl, Boolean isExpanded, Boolean isFavorite, UUID parentId) {
         this.id = id;
         this.name = name;
-        this.imageSource = imageSource;
+        this.imageUrl = imageUrl;
         this.isExpanded = isExpanded;
         this.isFavorite = isFavorite;
         this.parentId = parentId;
@@ -83,27 +84,28 @@ public class Category {
         this.parentId = parentId;
     }
 
-    public Integer getImageSource() {
-        return imageSource;
-    }
-
-    public void setImageSource(Integer imageSource) {
-        this.imageSource = imageSource;
-    }
-
     @Override
     public String toString() {
         return "CategoryDto{" +
              "id=" + id +
              ", name='" + name + '\'' +
-             ", imageSource=" + imageSource +
              ", isExpanded=" + isExpanded +
              ", isFavorite=" + isFavorite +
              ", parentId=" + parentId +
              '}';
     }
 
-    public String getMediaKey() { return mediaKey; }
+    public String getMediaKey() {
+        if (imageUrl != null) {
+            String filename = imageUrl.substring(imageUrl.lastIndexOf('/') + 1);
+            return filename.endsWith(".webp") ? filename.substring(0, filename.length() - 5) : filename;
+        }
+        return mediaKey;
+    }
     public void setMediaKey(String value) { mediaKey = value; }
+    public String getImageUrl() { return imageUrl; }
+    public void setImageUrl(String value) { imageUrl = value; }
+    public String getVideoUrl() { return videoUrl; }
+    public void setVideoUrl(String value) { videoUrl = value; }
 
 }

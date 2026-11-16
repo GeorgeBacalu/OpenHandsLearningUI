@@ -42,14 +42,14 @@ public class ExpressionsRecyclerViewAdapter extends RecyclerView.Adapter<Express
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: Called");
         holder.categoryName.setText(expressions.get(position).getName());
-        MediaResources.loadImage(context, expressions.get(position).getImageSource(), holder.categoryImage);
+        MediaResources.loadImage(context, expressions.get(position), holder.categoryImage);
 
         holder.categoryCard.setOnClickListener(v -> {
             Intent intent = new Intent(context, VideoPlayerActivity.class);
             if (expressions.get(position).getId() == null) throw new NullPointerException("Invalid Selection");
             intent.putExtra(CATEGORY_ID, expressions.get(position).getId().toString());
             intent.putExtra(CATEGORY_NAME, expressions.get(position).getName());
-            intent.putExtra(CATEGORY_IMAGE, expressions.get(position).getImageSource());
+            intent.putExtra(CATEGORY_IMAGE, expressions.get(position).getImageUrl());
             context.startActivity(intent);
         });
     }

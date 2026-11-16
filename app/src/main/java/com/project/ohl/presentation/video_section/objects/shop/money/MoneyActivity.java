@@ -49,7 +49,7 @@ public class MoneyActivity extends AuthenticatedActivity {
 
             } else {
                     List<Category> moneyCategories = result.value();
-                    MediaResources.bindImages(this, moneyCategories);
+
                     moneyAdapter.setMoneyUnits(moneyCategories);
 
             }
@@ -63,7 +63,7 @@ public class MoneyActivity extends AuthenticatedActivity {
 
             } else {
                         List<Category> filteredMoneyCategories = result.value();
-                        MediaResources.bindImages(this, filteredMoneyCategories);
+
                         moneyAdapter.setMoneyUnits(filteredMoneyCategories);
 
             }

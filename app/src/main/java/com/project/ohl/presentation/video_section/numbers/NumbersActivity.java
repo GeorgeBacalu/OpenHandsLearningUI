@@ -49,7 +49,7 @@ public class NumbersActivity extends AuthenticatedActivity {
 
             } else {
                List<Category> numbers = result.value();
-               MediaResources.bindImages(this, numbers);
+
                numbersAdapter.setNumbers(numbers);
 
             }
@@ -63,7 +63,7 @@ public class NumbersActivity extends AuthenticatedActivity {
 
             } else {
                   List<Category> filteredNumbers = result.value();
-                  MediaResources.bindImages(this, filteredNumbers);
+
                   numbersAdapter.setNumbers(filteredNumbers);
 
             }
