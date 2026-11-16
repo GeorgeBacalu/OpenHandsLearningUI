@@ -12,7 +12,8 @@ import com.project.ohl.presentation.AuthenticatedActivity;
 import com.project.ohl.R;
 import com.project.ohl.presentation.MediaResources;
 import com.project.ohl.domain.model.Category;
-import com.project.ohl.presentation.LearningViewModel;
+import com.project.ohl.app.AppViewModels;
+import com.project.ohl.presentation.CategoryViewModel;
 import com.project.ohl.presentation.UserSession;
 import com.project.ohl.presentation.user.LoginActivity;
 import java.util.Objects;
@@ -29,11 +30,13 @@ public class CategoryActivity extends AuthenticatedActivity {
     private ImageView categoryImage;
     private Button favoriteButton;
     private UUID authenticatedUserId;
+    private CategoryViewModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         authenticatedUserId = UserSession.id();
+        model = AppViewModels.get(this, CategoryViewModel.class);
         setContentView(R.layout.activity_category);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
@@ -45,13 +48,15 @@ public class CategoryActivity extends AuthenticatedActivity {
             UUID categoryId = categoryIdText == null ? null : UUID.fromString(categoryIdText);
             String imageSubject = intent.getStringExtra(CATEGORY_IMAGE);
             if(categoryId != null) {
-                favoriteButton.setEnabled(false);
-                LearningViewModel.of(this).<Category>load(this, "category", repository -> repository.getCategoryById(categoryId, authenticatedUserId), result -> {
-                    if (result.isSuccess() && result.value() != null) {
-                        setData(result.value(), imageSubject);
-                        handleAddToFavorite(result.value());
-                    } else Toast.makeText(this, R.string.request_failed, Toast.LENGTH_SHORT).show();
+                model.state().observe(this, state -> {
+                    if (state.isLoading()) favoriteButton.setEnabled(false);
+                    else if (state.isSuccess() && state.value() != null) {
+                        setData(state.value(), imageSubject);
+                        handleAddToFavorite(state.value());
+                    } else if (state.error() != null) Toast.makeText(this, R.string.request_failed, Toast.LENGTH_SHORT).show();
                 });
+                observeFavorite();
+                model.initialize(categoryId, authenticatedUserId);
             }
         }
     }
@@ -76,16 +81,18 @@ public class CategoryActivity extends AuthenticatedActivity {
             return;
         }
         boolean favorite = Boolean.TRUE.equals(category.getFavorite());
-        favoriteButton.setEnabled(true);
+        favoriteButton.setEnabled(!model.changingFavorite());
         favoriteButton.setText(favorite ? R.string.remove_favorite : R.string.add_favorite);
-        favoriteButton.setOnClickListener(view -> {
-            favoriteButton.setEnabled(false);
-            LearningViewModel.of(this).<Category>load(this, "favorite", repository -> favorite
-                    ? repository.deleteFavorite(UserSession.id(), category.getId()) : repository.saveFavorite(UserSession.id(), category.getId()), result -> {
-                favoriteButton.setEnabled(true);
-                if (result.isSuccess() && result.value() != null) handleAddToFavorite(result.value());
-                else Toast.makeText(this, R.string.request_failed, Toast.LENGTH_SHORT).show();
-            });
+        favoriteButton.setOnClickListener(view -> model.toggleFavorite());
+    }
+
+    private void observeFavorite() {
+        model.favoriteState().observe(this, state -> {
+            favoriteButton.setEnabled(!state.isLoading() && model.state().getValue().value() != null);
+            if (state.error() != null) {
+                model.acknowledgeFavoriteError();
+                Toast.makeText(this, R.string.request_failed, Toast.LENGTH_SHORT).show();
+            }
         });
     }
 

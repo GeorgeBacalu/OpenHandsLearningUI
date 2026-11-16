@@ -3,7 +3,6 @@ package com.project.ohl.presentation;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import com.project.ohl.app.ApplicationGraph;
 import com.project.ohl.domain.model.User;
 import com.project.ohl.domain.repository.Request;
 import com.project.ohl.domain.repository.Result;
@@ -17,7 +16,6 @@ public final class ProfileViewModel extends ViewModel {
     private final AuthenticationRepository repository;
     private Request.Cancellation request;
 
-    public ProfileViewModel() { this(ApplicationGraph.authentication()); }
     public ProfileViewModel(AuthenticationRepository repository) { this.repository = repository; }
 
     public LiveData<State> state() { return state; }

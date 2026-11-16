@@ -13,7 +13,8 @@ import com.google.android.material.button.MaterialButton;
 import com.project.ohl.presentation.AuthenticatedActivity;
 import com.project.ohl.R;
 import com.project.ohl.domain.model.Category;
-import com.project.ohl.presentation.LearningViewModel;
+import com.project.ohl.app.AppViewModels;
+import com.project.ohl.presentation.CategoryViewModel;
 import com.project.ohl.presentation.MediaResources;
 import com.project.ohl.presentation.UserSession;
 import com.project.ohl.presentation.user.LoginActivity;
@@ -29,14 +30,18 @@ public class VideoPlayerActivity extends AuthenticatedActivity {
     private ImageView categoryImage;
     private MaterialButton favoriteButton;
     private UUID authenticatedUserId;
+    private CategoryViewModel model;
     private VideoPlaybackControls playback;
     private UUID categoryId;
     private String imageSubject;
+    private String boundVideoUrl;
+    private boolean videoBound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         authenticatedUserId = UserSession.id();
+        model = AppViewModels.get(this, CategoryViewModel.class);
         setContentView(R.layout.activity_video_player);
         initializeViews();
         findViewById(R.id.video_player_card).setClipToOutline(true);
@@ -56,20 +61,18 @@ public class VideoPlayerActivity extends AuthenticatedActivity {
         imageSubject = intent.getStringExtra(CATEGORY_IMAGE);
         bindImage(imageSubject);
         findViewById(R.id.video_retry).setOnClickListener(view -> loadCategory());
-        loadCategory();
+        model.state().observe(this, state -> {
+            if (state.isLoading()) { playback.showLoading(); favoriteButton.setEnabled(false); }
+            else if (state.isSuccess() && state.value() != null) {
+                setData(state.value(), imageSubject);
+                handleFavorite(state.value());
+            } else if (state.error() != null) playback.showError();
+        });
+        observeFavorite();
+        model.initialize(categoryId, authenticatedUserId);
     }
 
-    private void loadCategory() {
-        playback.showLoading();
-        favoriteButton.setEnabled(false);
-        LearningViewModel.of(this).<Category>load(this, "category",
-                repository -> repository.getCategoryById(categoryId, authenticatedUserId), result -> {
-            if (result.isSuccess() && result.value() != null) {
-                setData(result.value(), imageSubject);
-                handleFavorite(result.value());
-            } else playback.showError();
-        });
-    }
+    private void loadCategory() { videoBound = false; model.reload(); }
 
     @Override protected void onStart() {
         super.onStart();
@@ -101,7 +104,11 @@ public class VideoPlayerActivity extends AuthenticatedActivity {
 
     private void setData(Category category, String initialImageUrl) {
         categoryName.setText(category.getName());
-        playback.load(category.getVideoUrl());
+        if (!videoBound || !Objects.equals(boundVideoUrl, category.getVideoUrl())) {
+            videoBound = true;
+            boundVideoUrl = category.getVideoUrl();
+            playback.load(boundVideoUrl);
+        }
         bindImage(category.getImageUrl() == null ? initialImageUrl : category.getImageUrl());
     }
 
@@ -118,20 +125,22 @@ public class VideoPlayerActivity extends AuthenticatedActivity {
             return;
         }
         boolean favorite = Boolean.TRUE.equals(category.getFavorite());
-        favoriteButton.setEnabled(true);
+        favoriteButton.setEnabled(!model.changingFavorite());
         favoriteButton.setText(favorite ? R.string.remove_favorite : R.string.add_favorite);
         favoriteButton.setIconResource(favorite ? R.drawable.ic_favorite_filled : R.drawable.ic_favorites);
-        favoriteButton.setOnClickListener(view -> {
-            favoriteButton.setEnabled(false);
-            LearningViewModel.of(this).<Category>load(this, "favorite", repository -> favorite
-                    ? repository.deleteFavorite(UserSession.id(), category.getId()) : repository.saveFavorite(UserSession.id(), category.getId()), result -> {
-                favoriteButton.setEnabled(true);
-                if (result.isSuccess() && result.value() != null) handleFavorite(result.value());
-                else Toast.makeText(this, R.string.request_failed, Toast.LENGTH_SHORT).show();
-            });
-        });
+        favoriteButton.setOnClickListener(view -> model.toggleFavorite());
     }
 
+
+    private void observeFavorite() {
+        model.favoriteState().observe(this, state -> {
+            favoriteButton.setEnabled(!state.isLoading() && model.state().getValue().value() != null);
+            if (state.error() != null) {
+                model.acknowledgeFavoriteError();
+                Toast.makeText(this, R.string.request_failed, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     @Override protected void onResume() {
         super.onResume();

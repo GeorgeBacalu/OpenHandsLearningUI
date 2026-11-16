@@ -25,6 +25,16 @@ public class ArchitectureTest {
                 .check(PRODUCTION);
     }
 
+    @Test public void viewModelsReceiveDependenciesAndDoNotRetainUiOwners() {
+        noClasses().that().haveSimpleNameEndingWith("ViewModel")
+                .should().dependOnClassesThat()
+                .resideInAnyPackage("com.project.ohl.app..", "android.app..", "android.content..", "android.view..", "android.widget..")
+                .check(PRODUCTION);
+        noClasses().that().haveSimpleNameEndingWith("ViewModel")
+                .should().dependOnClassesThat().haveSimpleName("LifecycleOwner")
+                .check(PRODUCTION);
+    }
+
     @Test public void dataDoesNotDependOnPresentationOrCompositionRoot() {
         noClasses().that().resideInAPackage("com.project.ohl.data..")
                 .should().dependOnClassesThat().resideInAnyPackage("..presentation..", "com.project.ohl.app..")

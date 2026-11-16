@@ -6,7 +6,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.ViewModelProvider;
+import com.project.ohl.app.AppViewModels;
 import androidx.core.view.ViewCompat;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.switchmaterial.SwitchMaterial;
@@ -33,7 +33,7 @@ public class ProfileActivity extends AuthenticatedActivity {
         themeSwitch.setOnCheckedChangeListener((button, checked) -> ThemePreferences.setDarkTheme(this, checked));
         Toolbar toolbar = findViewById(R.id.profile_toolbar);
         toolbar.setNavigationOnClickListener(view -> getOnBackPressedDispatcher().onBackPressed());
-        model = new ViewModelProvider(this).get(ProfileViewModel.class);
+        model = AppViewModels.get(this, ProfileViewModel.class);
         findViewById(R.id.profile_retry).setOnClickListener(view -> model.load());
         findViewById(R.id.profile_change_password).setOnClickListener(view -> showAccountDialog(false));
         findViewById(R.id.profile_delete_account).setOnClickListener(view -> showAccountDialog(true));
