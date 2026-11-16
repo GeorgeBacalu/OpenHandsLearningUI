@@ -62,7 +62,6 @@
     <string name="background_overlay">Suprapunere de fundal</string>
     <string name="app_logo">Sigla aplicației</string>
     <string name="project_name">Open Hands Learning</string>
-    <string name="project_description">Învățăm să comunicăm dincolo de cuvinte.</string>
     <string name="record_voice_message">Înregistrează vocea</string>
     <string name="voice_transcript_label">TRANSCRIERE VOCALĂ</string>
     <string name="voice_signs_heading">Semnele mesajului</string>
