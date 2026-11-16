@@ -9,9 +9,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.core.view.ViewCompat;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.project.ohl.R;
+import com.project.ohl.app.ThemePreferences;
 import com.project.ohl.domain.model.User;
 import com.project.ohl.domain.repository.AuthenticationException;
 import java.util.Locale;
@@ -24,8 +26,11 @@ public class ProfileActivity extends AuthenticatedActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         for (int id : new int[]{R.id.profile_display_name, R.id.profile_personal_heading,
-                R.id.profile_school_heading, R.id.profile_security_heading})
+                R.id.profile_school_heading, R.id.profile_security_heading, R.id.profile_appearance_heading})
             ViewCompat.setAccessibilityHeading(findViewById(id), true);
+        SwitchMaterial themeSwitch = findViewById(R.id.profile_dark_theme);
+        themeSwitch.setChecked(ThemePreferences.isDarkTheme(this));
+        themeSwitch.setOnCheckedChangeListener((button, checked) -> ThemePreferences.setDarkTheme(this, checked));
         Toolbar toolbar = findViewById(R.id.profile_toolbar);
         toolbar.setNavigationOnClickListener(view -> getOnBackPressedDispatcher().onBackPressed());
         model = new ViewModelProvider(this).get(ProfileViewModel.class);

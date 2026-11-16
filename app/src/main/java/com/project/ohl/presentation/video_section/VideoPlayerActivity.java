@@ -2,14 +2,14 @@ package com.project.ohl.presentation.video_section;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.Button;
+import android.view.View;
 import android.widget.ImageView;
-import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.VideoView;
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.ViewCompat;
+import com.google.android.material.button.MaterialButton;
 import com.project.ohl.presentation.AuthenticatedActivity;
 import com.project.ohl.R;
 import com.project.ohl.domain.model.Category;
@@ -20,8 +20,6 @@ import com.project.ohl.presentation.user.LoginActivity;
 import java.util.Objects;
 import java.util.UUID;
 
-import static android.R.id.home;
-
 public class VideoPlayerActivity extends AuthenticatedActivity {
     public static final String CATEGORY_ID = "categoryId";
     public static final String CATEGORY_NAME = "categoryName";
@@ -29,72 +27,88 @@ public class VideoPlayerActivity extends AuthenticatedActivity {
 
     private TextView categoryName;
     private ImageView categoryImage;
-    private Button favoriteButton;
+    private MaterialButton favoriteButton;
     private UUID authenticatedUserId;
-    private VideoView videoView;
+    private VideoPlaybackControls playback;
+    private UUID categoryId;
+    private int imageSubject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         authenticatedUserId = UserSession.id();
         setContentView(R.layout.activity_video_player);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         initializeViews();
+        findViewById(R.id.video_player_card).setClipToOutline(true);
+        playback = new VideoPlaybackControls(findViewById(android.R.id.content), savedInstanceState);
+        Toolbar toolbar = findViewById(R.id.video_toolbar);
+        toolbar.setNavigationOnClickListener(view -> getOnBackPressedDispatcher().onBackPressed());
+        ViewCompat.setAccessibilityHeading(categoryName, true);
 
         Intent intent = getIntent();
-        if(intent != null) {
-            String categoryIdText = intent.getStringExtra(CATEGORY_ID);
-            UUID categoryId = categoryIdText == null ? null : UUID.fromString(categoryIdText);
-            int imageSubject = intent.getIntExtra(CATEGORY_IMAGE, -1);
-
-            if(categoryId != null) {
-                favoriteButton.setEnabled(false);
-                LearningViewModel.of(this).<Category>load(this, "category", repository -> repository.getCategoryById(categoryId, authenticatedUserId), result -> {
-                    if (result.isSuccess() && result.value() != null) {
-                        setData(result.value(), imageSubject);
-                        handleFavorite(result.value());
-                    } else Toast.makeText(this, R.string.request_failed, Toast.LENGTH_SHORT).show();
-                });
-            }
-        }
-
-        if (intent == null || intent.getStringExtra(CATEGORY_NAME) == null) {
+        if (intent == null || intent.getStringExtra(CATEGORY_NAME) == null || intent.getStringExtra(CATEGORY_ID) == null) {
             finish();
             return;
         }
-        MediaController mediaController = new MediaController(this);
-        mediaController.setAnchorView(videoView);
-        videoView.setMediaController(mediaController);
+        try { categoryId = UUID.fromString(intent.getStringExtra(CATEGORY_ID)); }
+        catch (IllegalArgumentException invalidId) { finish(); return; }
+        categoryName.setText(intent.getStringExtra(CATEGORY_NAME));
+        imageSubject = intent.getIntExtra(CATEGORY_IMAGE, 0);
+        bindImage(imageSubject);
+        findViewById(R.id.video_retry).setOnClickListener(view -> loadCategory());
+        loadCategory();
+    }
+
+    private void loadCategory() {
+        playback.showLoading();
+        favoriteButton.setEnabled(false);
+        LearningViewModel.of(this).<Category>load(this, "category",
+                repository -> repository.getCategoryById(categoryId, authenticatedUserId), result -> {
+            if (result.isSuccess() && result.value() != null) {
+                setData(result.value(), imageSubject);
+                handleFavorite(result.value());
+            } else playback.showError();
+        });
+    }
+
+    @Override protected void onStart() {
+        super.onStart();
+        playback.startTracking();
     }
 
     @Override
     protected void onStop() {
-        videoView.pause();
+        playback.pause();
         super.onStop();
     }
 
     @Override
     protected void onDestroy() {
-        videoView.stopPlayback();
+        playback.release();
         super.onDestroy();
+    }
+
+    @Override protected void onSaveInstanceState(@NonNull Bundle state) {
+        playback.saveState(state);
+        super.onSaveInstanceState(state);
     }
 
     private void initializeViews() {
         categoryName = findViewById(R.id.categoryName);
         categoryImage = findViewById(R.id.categoryImage);
         favoriteButton = findViewById(R.id.favoriteButton);
-        videoView = findViewById(R.id.videoView);
     }
 
     private void setData(Category category, int imageSubject) {
         categoryName.setText(category.getName());
         String key = category.getMediaKey() == null ? MediaResources.resourceName(category.getName()) : category.getMediaKey();
-        int video = MediaResources.raw(this, key);
-        if (video != 0) {
-            videoView.setVideoPath("android.resource://" + getPackageName() + "/" + video);
-            videoView.start();
-        } else Toast.makeText(this, R.string.request_failed, Toast.LENGTH_SHORT).show();
-        MediaResources.loadImage(this, imageSubject, categoryImage);
+        playback.load(MediaResources.raw(this, key));
+        bindImage(imageSubject > 0 ? imageSubject : MediaResources.drawable(this, key));
+    }
+
+    private void bindImage(int resourceId) {
+        ((View) categoryImage.getParent()).setVisibility(resourceId > 0 ? View.VISIBLE : View.GONE);
+        if (resourceId > 0) MediaResources.loadImage(this, resourceId, categoryImage);
     }
 
     private void handleFavorite(Category category) {
@@ -107,6 +121,7 @@ public class VideoPlayerActivity extends AuthenticatedActivity {
         boolean favorite = Boolean.TRUE.equals(category.getFavorite());
         favoriteButton.setEnabled(true);
         favoriteButton.setText(favorite ? R.string.remove_favorite : R.string.add_favorite);
+        favoriteButton.setIconResource(favorite ? R.drawable.ic_favorite_filled : R.drawable.ic_favorites);
         favoriteButton.setOnClickListener(view -> {
             favoriteButton.setEnabled(false);
             LearningViewModel.of(this).<Category>load(this, "favorite", repository -> favorite
@@ -122,11 +137,5 @@ public class VideoPlayerActivity extends AuthenticatedActivity {
     @Override protected void onResume() {
         super.onResume();
         if (!Objects.equals(authenticatedUserId, UserSession.id())) recreate();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == home) getOnBackPressedDispatcher().onBackPressed();
-        return super.onOptionsItemSelected(item);
     }
 }

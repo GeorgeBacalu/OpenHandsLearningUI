@@ -47,6 +47,19 @@
             android:textColor="@color/catalog_card_text"
             android:textSize="14sp" />
 
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/removeFromFavoriteButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:padding="12dp"
+            android:visibility="gone"
+            android:background="@drawable/favorites_remove_background"
+            android:contentDescription="@string/remove_from_favorites"
+            app:srcCompat="@drawable/ic_favorite_filled"
+            app:tint="@color/favorites_accent"
+            app:layout_constraintTop_toTopOf="@id/categoryImage"
+            app:layout_constraintEnd_toEndOf="@id/categoryImage" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

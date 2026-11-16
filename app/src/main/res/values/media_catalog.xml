@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="catalog_drawables">
+        <item>@drawable/favorites_remove_background</item>
+        <item>@drawable/favorites_header_background</item>
+        <item>@drawable/favorites_heart_background</item>
+        <item>@drawable/home_welcome_background</item>
+        <item>@drawable/ic_video_replay</item>
+        <item>@drawable/ic_favorite_filled</item>
         <item>@drawable/brand_button_fill</item>
         <item>@drawable/brand_gradient_background</item>
         <item>@drawable/catalog_card_background</item>
