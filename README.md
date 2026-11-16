@@ -183,9 +183,9 @@ Directory imports run explicitly on the backend.
 
 ## Authentication
 
-Registration requires name, email, a password of at least 15 characters, phone,
+Registration requires name, email, a password, phone,
 and a school from the directory. The API normalizes emails, assigns the USER role,
-hashes passwords with BCrypt, and issues a JWT. Existing BCrypt accounts can
+hashes passwords securely, and issues a JWT. Existing accounts can
 log in with their current password. Password confirmation is checked on the phone.
 
 The app sends JWTs in `Authorization: Bearer <token>` headers. Login and

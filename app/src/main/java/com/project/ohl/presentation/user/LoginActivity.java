@@ -12,7 +12,6 @@ import com.project.ohl.R;
 import com.project.ohl.presentation.MainActivity;
 import com.project.ohl.presentation.AuthenticationViewModel;
 import com.project.ohl.presentation.UserSession;
-import java.nio.charset.StandardCharsets;
 
 public class LoginActivity extends AppCompatActivity {
     @Override protected void onCreate(Bundle saved) {
@@ -44,7 +43,6 @@ public class LoginActivity extends AppCompatActivity {
             String secret = String.valueOf(password.getText());
             if (!Patterns.EMAIL_ADDRESS.matcher(address).matches()) { email.setError(getString(R.string.invalid_email)); return; }
             if (secret.isEmpty()) { password.setError(getString(R.string.required_field)); return; }
-            if (secret.getBytes(StandardCharsets.UTF_8).length > 72) { password.setError(getString(R.string.password_too_long)); return; }
             submit.setEnabled(false);
             error.setVisibility(View.GONE);
             findViewById(R.id.auth_progress).setVisibility(View.VISIBLE);
