@@ -14,9 +14,9 @@ import com.project.ohl.presentation.CategoryPageLayout;
 import com.project.ohl.domain.model.Category;
 import com.project.ohl.presentation.CategoryNavigation;
 import com.project.ohl.presentation.LearningViewModel;
+import com.project.ohl.presentation.CategorySearch;
 import com.project.ohl.presentation.MediaResources;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -55,8 +55,8 @@ public class ProductsActivity extends AuthenticatedActivity {
             }
         });
 
-      searchBarIcon.setOnClickListener(v -> {
-         String searchBarInputText = searchBarInput.getText().toString().toLowerCase(Locale.ROOT);
+      CategorySearch.bind(searchBarInput, searchBarIcon, () -> {
+         String searchBarInputText = searchBarInput.getText().toString().strip();
          LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndName(parentId, searchBarInputText), result -> {
             if (result.error() != null) {
                Toast.makeText(ProductsActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
@@ -64,7 +64,6 @@ public class ProductsActivity extends AuthenticatedActivity {
             } else {
                   List<Category> filteredProducts = result.value();
                   MediaResources.bindImages(this, filteredProducts);
-                  searchBarInput.setText("");
                   productsAdapter.setProducts(filteredProducts);
 
             }

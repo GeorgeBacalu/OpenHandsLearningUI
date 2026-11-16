@@ -14,10 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.project.ohl.R;
 import com.project.ohl.domain.model.Category;
 import com.project.ohl.presentation.LearningViewModel;
+import com.project.ohl.presentation.CategorySearch;
 import com.project.ohl.presentation.MediaResources;
 import com.project.ohl.presentation.general.favorites.FavoritesActivity;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
 import static android.R.id.home;
@@ -52,8 +52,8 @@ public class VideoSectionActivity extends AuthenticatedActivity {
             }
         });
 
-      searchBarIcon.setOnClickListener(v -> {
-         String searchBarInputText = searchBarInput.getText().toString().toLowerCase(Locale.ROOT);
+      CategorySearch.bind(searchBarInput, searchBarIcon, () -> {
+         String searchBarInputText = searchBarInput.getText().toString().strip();
          LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndName(null, searchBarInputText), result -> {
             if (result.error() != null) {
                Toast.makeText(VideoSectionActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
@@ -61,7 +61,6 @@ public class VideoSectionActivity extends AuthenticatedActivity {
             } else {
                   List<Category> filteredParentCategories = result.value();
                   MediaResources.bindImages(this, filteredParentCategories);
-                  searchBarInput.setText("");
                   mainCategoriesAdapter.setMainCategories(filteredParentCategories);
 
             }

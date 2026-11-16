@@ -15,9 +15,9 @@ import com.project.ohl.presentation.CategoryPageLayout;
 import com.project.ohl.domain.model.Category;
 import com.project.ohl.presentation.CategoryNavigation;
 import com.project.ohl.presentation.LearningViewModel;
+import com.project.ohl.presentation.CategorySearch;
 import com.project.ohl.presentation.MediaResources;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -55,8 +55,8 @@ public class ExpressionsActivity extends AuthenticatedActivity {
             }
         });
 
-      searchIcon.setOnClickListener(v -> {
-         String searchBarText = searchBar.getText().toString().toLowerCase(Locale.ROOT);
+      CategorySearch.bind(searchBar, searchIcon, () -> {
+         String searchBarText = searchBar.getText().toString().strip();
          LearningViewModel.of(this).<List<Category>>load(this, "categories", repository -> repository.getCategoriesByParentIdAndName(parentId, searchBarText), result -> {
             if (result.error() != null) {
                Toast.makeText(ExpressionsActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
@@ -64,7 +64,6 @@ public class ExpressionsActivity extends AuthenticatedActivity {
             } else {
                   List<Category> filteredExpressions = result.value();
                   MediaResources.bindImages(this, filteredExpressions);
-                  searchBar.setText("");
                   adapter.setExpressions(filteredExpressions);
                   adapter.notifyDataSetChanged();
 

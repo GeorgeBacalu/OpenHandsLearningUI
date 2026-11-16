@@ -17,13 +17,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.project.ohl.R;
 import com.project.ohl.domain.model.Category;
 import com.project.ohl.presentation.LearningViewModel;
+import com.project.ohl.presentation.CategorySearch;
 import com.project.ohl.presentation.MediaResources;
 import com.project.ohl.presentation.UserSession;
 import com.project.ohl.presentation.user.LoginActivity;
 import com.project.ohl.presentation.video_section.VideoSectionActivity;
 import com.project.ohl.presentation.video_section.single_category.CategoryRecyclerViewAdapter;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -75,8 +75,8 @@ public class FavoritesActivity extends AuthenticatedActivity {
             }
         });
 
-      searchIcon.setOnClickListener(v -> {
-         String searchBarInputText = searchBar.getText().toString().toLowerCase(Locale.ROOT);
+      CategorySearch.bind(searchBar, searchIcon, () -> {
+         String searchBarInputText = searchBar.getText().toString().strip();
          LearningViewModel.of(this).<List<Category>>load(this, "favorites", repository -> repository.getFavoritesByName(UserSession.id(), searchBarInputText), result -> {
             if (result.error() != null) {
                Toast.makeText(FavoritesActivity.this, "Ceva nu a mers bine! Încearcă din nou!", Toast.LENGTH_SHORT).show();
@@ -84,7 +84,6 @@ public class FavoritesActivity extends AuthenticatedActivity {
             } else {
                   List<Category> filteredFavoriteCategories = result.value();
                   MediaResources.bindImages(this, filteredFavoriteCategories);
-                  searchBar.setText("");
                   adapter.setCategories(filteredFavoriteCategories);
                   adapter.notifyDataSetChanged();
 
