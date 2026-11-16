@@ -15,7 +15,6 @@ import com.project.ohl.R;
 import com.project.ohl.domain.model.Category;
 import com.project.ohl.presentation.LearningViewModel;
 import com.project.ohl.presentation.CategorySearch;
-import com.project.ohl.presentation.MediaResources;
 import com.project.ohl.presentation.general.favorites.FavoritesActivity;
 import java.util.List;
 import java.util.Objects;
@@ -24,7 +23,7 @@ import static android.R.id.home;
 
 public class VideoSectionActivity extends AuthenticatedActivity {
    private RecyclerView mainCategoriesRecyclerView;
-   private VideoSectionRecyclerViewAdapter mainCategoriesAdapter;
+   private CatalogRecyclerViewAdapter mainCategoriesAdapter;
    private EditText searchBarInput;
    private ImageView searchBarIcon;
 
@@ -47,7 +46,7 @@ public class VideoSectionActivity extends AuthenticatedActivity {
             } else {
                List<Category> parentCategories = result.value();
 
-               mainCategoriesAdapter.setMainCategories(parentCategories);
+               mainCategoriesAdapter.setCategories(parentCategories);
 
             }
         });
@@ -61,7 +60,7 @@ public class VideoSectionActivity extends AuthenticatedActivity {
             } else {
                   List<Category> filteredParentCategories = result.value();
 
-                  mainCategoriesAdapter.setMainCategories(filteredParentCategories);
+                  mainCategoriesAdapter.setCategories(filteredParentCategories);
 
             }
         });
@@ -70,7 +69,7 @@ public class VideoSectionActivity extends AuthenticatedActivity {
 
    private void initializeViews() {
       mainCategoriesRecyclerView = findViewById(R.id.mainCategoriesRecyclerView);
-      mainCategoriesAdapter = new VideoSectionRecyclerViewAdapter(this);
+      mainCategoriesAdapter = CatalogRecyclerViewAdapter.forCategories(this);
       searchBarInput = findViewById(R.id.searchBarInput);
       searchBarIcon = findViewById(R.id.searchBarIcon);
    }

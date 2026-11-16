@@ -9,7 +9,6 @@ import com.project.ohl.domain.repository.Request;
 import com.project.ohl.domain.repository.Result;
 import com.project.ohl.domain.repository.AuthenticationRepository;
 
-/** Keeps profile loading and account mutations alive across configuration changes. */
 public final class ProfileViewModel extends ViewModel {
     public enum Action { PASSWORD, DELETE, LOGOUT }
     public record Completion(Action action, Result<Void> result) {}

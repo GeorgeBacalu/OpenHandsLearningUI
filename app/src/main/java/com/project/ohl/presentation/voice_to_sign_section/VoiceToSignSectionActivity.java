@@ -21,7 +21,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.project.ohl.R;
 import com.project.ohl.databinding.ActivityVoiceToSignSectionBinding;
 import com.project.ohl.domain.model.SignText;
-import com.project.ohl.presentation.MediaResources;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -153,10 +152,7 @@ public class VoiceToSignSectionActivity extends AuthenticatedActivity {
     }
 
     private boolean isMicrophonePresent() {
-        if (this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_MICROPHONE)) {
-            return true;
-        }
-        return false;
+        return getPackageManager().hasSystemFeature(PackageManager.FEATURE_MICROPHONE);
     }
 
     private void startSpeechRecognition() {

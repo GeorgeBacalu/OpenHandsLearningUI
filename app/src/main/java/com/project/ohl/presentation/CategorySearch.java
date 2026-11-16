@@ -5,7 +5,6 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 
-/** Uses the same search action for the toolbar icon and the keyboard. */
 public final class CategorySearch {
     private CategorySearch() {}
 

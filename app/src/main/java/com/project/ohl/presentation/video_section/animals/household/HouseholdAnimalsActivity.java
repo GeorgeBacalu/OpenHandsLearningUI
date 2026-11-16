@@ -10,12 +10,12 @@ import com.project.ohl.presentation.AuthenticatedActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.project.ohl.R;
+import com.project.ohl.presentation.video_section.CatalogRecyclerViewAdapter;
 import com.project.ohl.presentation.CategoryPageLayout;
 import com.project.ohl.domain.model.Category;
 import com.project.ohl.presentation.CategoryNavigation;
 import com.project.ohl.presentation.LearningViewModel;
 import com.project.ohl.presentation.CategorySearch;
-import com.project.ohl.presentation.MediaResources;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -24,7 +24,7 @@ import static android.R.id.home;
 
 public class HouseholdAnimalsActivity extends AuthenticatedActivity {
    private RecyclerView householdAnimalsRecyclerView;
-   private HouseholdAnimalsRecyclerViewAdapter householdAnimalsAdapter;
+   private CatalogRecyclerViewAdapter householdAnimalsAdapter;
    private EditText searchBarInput;
    private ImageView searchBarIcon;
 
@@ -50,7 +50,7 @@ public class HouseholdAnimalsActivity extends AuthenticatedActivity {
             } else {
                List<Category> householdAnimals = result.value();
 
-               householdAnimalsAdapter.setHouseholdAnimals(householdAnimals);
+               householdAnimalsAdapter.setCategories(householdAnimals);
 
             }
         });
@@ -64,7 +64,7 @@ public class HouseholdAnimalsActivity extends AuthenticatedActivity {
             } else {
                   List<Category> filteredHouseholdAnimals = result.value();
 
-                  householdAnimalsAdapter.setHouseholdAnimals(filteredHouseholdAnimals);
+                  householdAnimalsAdapter.setCategories(filteredHouseholdAnimals);
 
             }
         });
@@ -73,7 +73,7 @@ public class HouseholdAnimalsActivity extends AuthenticatedActivity {
 
    private void initializeViews() {
       householdAnimalsRecyclerView = findViewById(R.id.householdAnimalsRecyclerView);
-      householdAnimalsAdapter = new HouseholdAnimalsRecyclerViewAdapter(this);
+      householdAnimalsAdapter = CatalogRecyclerViewAdapter.forVideos(this);
       searchBarInput = findViewById(R.id.searchBarInput);
       searchBarIcon = findViewById(R.id.searchBarIcon);
    }

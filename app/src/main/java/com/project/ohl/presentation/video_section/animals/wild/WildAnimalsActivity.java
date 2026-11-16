@@ -10,12 +10,12 @@ import com.project.ohl.presentation.AuthenticatedActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.project.ohl.R;
+import com.project.ohl.presentation.video_section.CatalogRecyclerViewAdapter;
 import com.project.ohl.presentation.CategoryPageLayout;
 import com.project.ohl.domain.model.Category;
 import com.project.ohl.presentation.CategoryNavigation;
 import com.project.ohl.presentation.LearningViewModel;
 import com.project.ohl.presentation.CategorySearch;
-import com.project.ohl.presentation.MediaResources;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -24,7 +24,7 @@ import static android.R.id.home;
 
 public class WildAnimalsActivity extends AuthenticatedActivity {
    private RecyclerView wildAnimalsRecyclerView;
-   private WildAnimalsRecyclerViewAdapter wildAnimalsAdapter;
+   private CatalogRecyclerViewAdapter wildAnimalsAdapter;
    private EditText searchBarInput;
    private ImageView searchBarIcon;
 
@@ -50,7 +50,7 @@ public class WildAnimalsActivity extends AuthenticatedActivity {
             } else {
                List<Category> wildAnimals = result.value();
 
-               wildAnimalsAdapter.setWildAnimals(wildAnimals);
+               wildAnimalsAdapter.setCategories(wildAnimals);
 
             }
         });
@@ -64,7 +64,7 @@ public class WildAnimalsActivity extends AuthenticatedActivity {
             } else {
                   List<Category> filteredWildAnimals = result.value();
 
-                  wildAnimalsAdapter.setWildAnimals(filteredWildAnimals);
+                  wildAnimalsAdapter.setCategories(filteredWildAnimals);
 
             }
         });
@@ -73,7 +73,7 @@ public class WildAnimalsActivity extends AuthenticatedActivity {
 
    private void initializeViews() {
       wildAnimalsRecyclerView = findViewById(R.id.wildAnimalsRecyclerView);
-      wildAnimalsAdapter = new WildAnimalsRecyclerViewAdapter(this);
+      wildAnimalsAdapter = CatalogRecyclerViewAdapter.forVideos(this);
       searchBarInput = findViewById(R.id.searchBarInput);
       searchBarIcon = findViewById(R.id.searchBarIcon);
    }

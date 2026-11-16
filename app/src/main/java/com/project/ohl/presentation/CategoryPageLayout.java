@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-/** Keeps category content clear of the toolbar and system navigation. */
 public final class CategoryPageLayout {
     private CategoryPageLayout() {}
 

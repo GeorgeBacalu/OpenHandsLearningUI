@@ -11,12 +11,12 @@ import com.project.ohl.presentation.AuthenticatedActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.project.ohl.R;
+import com.project.ohl.presentation.video_section.CatalogRecyclerViewAdapter;
 import com.project.ohl.presentation.CategoryPageLayout;
 import com.project.ohl.domain.model.Category;
 import com.project.ohl.presentation.CategoryNavigation;
 import com.project.ohl.presentation.LearningViewModel;
 import com.project.ohl.presentation.CategorySearch;
-import com.project.ohl.presentation.MediaResources;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -25,7 +25,7 @@ import static android.R.id.home;
 
 public class ExpressionsActivity extends AuthenticatedActivity {
    private RecyclerView recyclerView;
-   private ExpressionsRecyclerViewAdapter adapter;
+   private CatalogRecyclerViewAdapter adapter;
    private EditText searchBar;
    private ImageView searchIcon;
 
@@ -50,7 +50,7 @@ public class ExpressionsActivity extends AuthenticatedActivity {
             } else {
                List<Category> expressions = result.value();
 
-               adapter.setExpressions(expressions);
+               adapter.setCategories(expressions);
 
             }
         });
@@ -64,7 +64,7 @@ public class ExpressionsActivity extends AuthenticatedActivity {
             } else {
                   List<Category> filteredExpressions = result.value();
 
-                  adapter.setExpressions(filteredExpressions);
+                  adapter.setCategories(filteredExpressions);
                   adapter.notifyDataSetChanged();
 
             }
@@ -74,7 +74,7 @@ public class ExpressionsActivity extends AuthenticatedActivity {
 
    private void initializeViews() {
       recyclerView = findViewById(R.id.recycler_view);
-      adapter = new ExpressionsRecyclerViewAdapter(this);
+      adapter = CatalogRecyclerViewAdapter.forVideos(this);
       searchBar = findViewById(R.id.search_bar);
       searchIcon = findViewById(R.id.search_icon);
    }

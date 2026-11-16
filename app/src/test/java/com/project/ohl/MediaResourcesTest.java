@@ -4,7 +4,6 @@ import com.project.ohl.presentation.MediaResources;
 import com.project.ohl.domain.model.SignText;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 import java.util.stream.Collectors;
