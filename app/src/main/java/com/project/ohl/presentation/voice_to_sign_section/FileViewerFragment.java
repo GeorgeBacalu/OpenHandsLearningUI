@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
+import com.project.ohl.app.AppViewModels;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.project.ohl.databinding.FragmentFileViewerBinding;
 import com.project.ohl.presentation.RecordingsViewModel;
@@ -40,7 +40,7 @@ public class FileViewerFragment extends Fragment {
 
         fileViewerAdapter = new FileViewerAdapter(requireActivity(), new ArrayList<>());
         binding.recordingsRecyclerView.setAdapter(fileViewerAdapter);
-        new ViewModelProvider(this).get(RecordingsViewModel.class)
+        AppViewModels.get(this, RecordingsViewModel.class)
                 .recordings().observe(getViewLifecycleOwner(), items -> fileViewerAdapter.setRecordings(items));
     }
 
