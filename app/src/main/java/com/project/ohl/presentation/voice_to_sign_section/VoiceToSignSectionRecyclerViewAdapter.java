@@ -16,27 +16,36 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class VoiceToSignSectionRecyclerViewAdapter extends RecyclerView.Adapter<VoiceToSignSectionRecyclerViewAdapter.ViewHolder> {
+public class VoiceToSignSectionRecyclerViewAdapter
+        extends RecyclerView.Adapter<VoiceToSignSectionRecyclerViewAdapter.ViewHolder> {
     static final int WORD_BREAK = 1;
     private List<TextSignPair> textSignPairs = new ArrayList<>();
     private final Context voiceToSignContext;
 
-    public VoiceToSignSectionRecyclerViewAdapter(Context voiceToSignContext) { this.voiceToSignContext = voiceToSignContext; }
+    public VoiceToSignSectionRecyclerViewAdapter(Context voiceToSignContext) {
+        this.voiceToSignContext = voiceToSignContext;
+    }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         int layout = viewType == WORD_BREAK ? R.layout.sign_word_break : R.layout.text_to_sign_matching_items;
+
         View view = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
+
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if (getItemViewType(position) == WORD_BREAK) return;
+
         var pair = textSignPairs.get(position);
+
         holder.letter.setText(pair.letter().toUpperCase(Locale.forLanguageTag("ro-RO")));
+
         holder.itemView.setContentDescription(voiceToSignContext.getString(R.string.sign_for_letter, pair.letter()));
+
         MediaResources.loadImage(voiceToSignContext, MediaResources.voiceUrl(pair.mediaKey()), holder.signImage);
     }
 
@@ -53,6 +62,7 @@ public class VoiceToSignSectionRecyclerViewAdapter extends RecyclerView.Adapter<
     @SuppressLint("NotifyDataSetChanged")
     public void setTextSignPairs(List<TextSignPair> textSignPairs) {
         this.textSignPairs = textSignPairs;
+
         notifyDataSetChanged();
     }
 
@@ -64,6 +74,7 @@ public class VoiceToSignSectionRecyclerViewAdapter extends RecyclerView.Adapter<
             super(itemView);
 
             signImage = itemView.findViewById(R.id.signImage);
+
             letter = itemView.findViewById(R.id.letter);
         }
     }

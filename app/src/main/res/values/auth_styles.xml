@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <resources>
-    <style name="Theme.OpenHandsLearning.Authentication" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
+    <style
+        name="Theme.OpenHandsLearning.Authentication"
+        parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/auth_accent</item>
         <item name="colorPrimaryVariant">@color/main_blue</item>
         <item name="colorSecondary">@color/auth_accent</item>
@@ -18,7 +22,9 @@
         <item name="android:navigationBarColor">@color/auth_navigation_bar</item>
     </style>
 
-    <style name="AuthTitle" parent="Widget.AppCompat.TextView">
+    <style
+        name="AuthTitle"
+        parent="Widget.AppCompat.TextView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:fontFamily">@font/source_sans_pro_bold</item>
@@ -26,7 +32,9 @@
         <item name="android:textColor">@color/auth_text</item>
     </style>
 
-    <style name="AuthSubtitle" parent="Widget.AppCompat.TextView">
+    <style
+        name="AuthSubtitle"
+        parent="Widget.AppCompat.TextView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">6dp</item>
@@ -35,7 +43,9 @@
         <item name="android:textColor">@color/auth_muted</item>
     </style>
 
-    <style name="AuthInput" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+    <style
+        name="AuthInput"
+        parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginBottom">14dp</item>
@@ -52,7 +62,9 @@
         <item name="endIconTint">@color/auth_muted</item>
     </style>
 
-    <style name="AuthDropdown" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+    <style
+        name="AuthDropdown"
+        parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginBottom">14dp</item>
@@ -69,7 +81,9 @@
         <item name="endIconTint">@color/auth_muted</item>
     </style>
 
-    <style name="AuthEditText" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">
+    <style
+        name="AuthEditText"
+        parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:minHeight">58dp</item>
@@ -80,7 +94,9 @@
         <item name="android:imeOptions">actionNext</item>
     </style>
 
-    <style name="AuthPrimaryButton" parent="Widget.MaterialComponents.Button">
+    <style
+        name="AuthPrimaryButton"
+        parent="Widget.MaterialComponents.Button">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">8dp</item>
@@ -98,7 +114,9 @@
         <item name="android:stateListAnimator">@null</item>
     </style>
 
-    <style name="AuthLinkButton" parent="Widget.MaterialComponents.Button.TextButton">
+    <style
+        name="AuthLinkButton"
+        parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">12dp</item>
@@ -110,4 +128,5 @@
         <item name="android:textColor">@color/auth_accent</item>
         <item name="cornerRadius">12dp</item>
     </style>
+
 </resources>

@@ -15,20 +15,34 @@ public final class RetrofitService {
 
     public static synchronized void initialize(Context context, Runnable authenticationExpired) {
         if (instance != null) return;
+
         tokens = new JwtTokenStore(context.getApplicationContext());
         // The free pilot backend may need more than two minutes to wake from idle.
-        var client = new OkHttpClient.Builder().connectTimeout(10, TimeUnit.SECONDS)
-                .readTimeout(BuildConfig.DEBUG ? 20 : 180, TimeUnit.SECONDS)
-                .callTimeout(BuildConfig.DEBUG ? 30 : 210, TimeUnit.SECONDS).build();
-        instance = new Retrofit.Builder()
-                .baseUrl(BuildConfig.API_BASE_URL)
-                .client(client.newBuilder().addInterceptor(new JwtInterceptor(tokens, authenticationExpired)).build())
-                .addConverterFactory(GsonConverterFactory.create(JsonCodec.create())).build();
+        var client =
+                new OkHttpClient.Builder()
+                        .connectTimeout(10, TimeUnit.SECONDS)
+                        .readTimeout(BuildConfig.DEBUG ? 20 : 180, TimeUnit.SECONDS)
+                        .callTimeout(BuildConfig.DEBUG ? 30 : 210, TimeUnit.SECONDS)
+                        .build();
+
+        instance =
+                new Retrofit.Builder()
+                        .baseUrl(BuildConfig.API_BASE_URL)
+                        .client(
+                                client.newBuilder()
+                                        .addInterceptor(new JwtInterceptor(tokens, authenticationExpired))
+                                        .build())
+                        .addConverterFactory(GsonConverterFactory.create(JsonCodec.create()))
+                        .build();
     }
 
     public static Retrofit getRetrofit() {
         if (instance == null) throw new IllegalStateException("Application graph is not initialized");
+
         return instance;
     }
-    public static JwtTokenStore tokens() { return tokens; }
+
+    public static JwtTokenStore tokens() {
+        return tokens;
+    }
 }

@@ -14,15 +14,22 @@ public final class SessionViewModel extends ViewModel {
 
     public SessionViewModel(AuthenticationRepository authentication, Executor mainThread) {
         this.authentication = authentication;
+
         account = new AsyncRequest<>(mainThread);
     }
 
-    public LiveData<UiState<User>> state() { return account.state(); }
+    public LiveData<UiState<User>> state() {
+        return account.state();
+    }
 
     public void refresh() {
         if (account.current().isLoading()) return;
+
         account.start(authentication.current());
     }
 
-    @Override protected void onCleared() { account.close(); }
+    @Override
+    protected void onCleared() {
+        account.close();
+    }
 }

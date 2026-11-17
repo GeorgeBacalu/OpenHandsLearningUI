@@ -19,16 +19,22 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class)
 public class ViewModelFactoryTest {
-    @Test public void registrationRecreationRetainsInjectedViewModelsAndDirectorySelection() {
+    @Test
+    public void registrationRecreationRetainsInjectedViewModelsAndDirectorySelection() {
         var directory = new AtomicReference<SchoolDirectoryViewModel>();
         var authentication = new AtomicReference<AuthenticationViewModel>();
         var catalog = new AtomicReference<CatalogViewModel>();
+
         UUID selectedCounty = UUID.randomUUID();
+
         try (var scenario = ActivityScenario.launch(UserActivity.class)) {
             scenario.onActivity(activity -> {
                 directory.set(AppViewModels.get(activity, SchoolDirectoryViewModel.class));
+
                 authentication.set(AppViewModels.get(activity, AuthenticationViewModel.class));
+
                 catalog.set(AppViewModels.get(activity, CatalogViewModel.class));
+
                 directory.get().selectCounty(selectedCounty);
             });
             scenario.recreate();
@@ -37,7 +43,9 @@ public class ViewModelFactoryTest {
                 assertSame(authentication.get(), AppViewModels.get(activity, AuthenticationViewModel.class));
                 assertSame(catalog.get(), AppViewModels.get(activity, CatalogViewModel.class));
                 assertEquals(selectedCounty, directory.get().countyId());
+
                 View cities = activity.findViewById(R.id.registration_city);
+
                 assertTrue(cities.isEnabled());
             });
         }

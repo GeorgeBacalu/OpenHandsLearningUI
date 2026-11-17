@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <resources>
-    <style name="ProfileCard" parent="Widget.MaterialComponents.CardView">
+
+    <style
+        name="ProfileCard"
+        parent="Widget.MaterialComponents.CardView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">12dp</item>
@@ -10,7 +14,10 @@
         <item name="strokeWidth">1dp</item>
         <item name="strokeColor">@color/auth_card_border</item>
     </style>
-    <style name="ProfileSection" parent="Widget.AppCompat.TextView">
+
+    <style
+        name="ProfileSection"
+        parent="Widget.AppCompat.TextView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">28dp</item>
@@ -18,13 +25,19 @@
         <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
         <item name="android:textSize">19sp</item>
     </style>
-    <style name="ProfileLabel" parent="Widget.AppCompat.TextView">
+
+    <style
+        name="ProfileLabel"
+        parent="Widget.AppCompat.TextView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/auth_muted</item>
         <item name="android:textSize">14sp</item>
     </style>
-    <style name="ProfileValue" parent="Widget.AppCompat.TextView">
+
+    <style
+        name="ProfileValue"
+        parent="Widget.AppCompat.TextView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">4dp</item>
@@ -33,7 +46,10 @@
         <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
         <item name="android:textIsSelectable">true</item>
     </style>
-    <style name="ProfileAction" parent="Widget.MaterialComponents.Button.TextButton.Icon">
+
+    <style
+        name="ProfileAction"
+        parent="Widget.MaterialComponents.Button.TextButton.Icon">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:minHeight">56dp</item>
@@ -49,6 +65,7 @@
         <item name="android:insetTop">0dp</item>
         <item name="android:insetBottom">0dp</item>
     </style>
+
     <style name="ProfileDivider">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
@@ -56,4 +73,5 @@
         <item name="android:layout_marginBottom">18dp</item>
         <item name="android:background">@color/auth_card_border</item>
     </style>
+
 </resources>

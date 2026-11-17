@@ -8,11 +8,18 @@ import com.project.ohl.domain.repository.LearningRepository;
 
 public final class ApplicationGraph {
     private ApplicationGraph() {}
+
     private static final class Holder {
         private static final LearningRepository LEARNING = new RemoteLearningRepository(RetrofitService.getRetrofit());
-        private static final AuthenticationRepository AUTHENTICATION = new RemoteAuthenticationRepository(
-                RetrofitService.getRetrofit(), RetrofitService.tokens());
+        private static final AuthenticationRepository AUTHENTICATION =
+                new RemoteAuthenticationRepository(RetrofitService.getRetrofit(), RetrofitService.tokens());
     }
-    public static LearningRepository learning() { return Holder.LEARNING; }
-    public static AuthenticationRepository authentication() { return Holder.AUTHENTICATION; }
+
+    public static LearningRepository learning() {
+        return Holder.LEARNING;
+    }
+
+    public static AuthenticationRepository authentication() {
+        return Holder.AUTHENTICATION;
+    }
 }

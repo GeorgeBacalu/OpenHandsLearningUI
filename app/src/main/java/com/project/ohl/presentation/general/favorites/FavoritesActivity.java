@@ -35,52 +35,94 @@ public class FavoritesActivity extends AuthenticatedActivity {
     private EditText searchBar;
     private AlertDialog removeDialog;
 
-    @Override protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         authenticatedUserId = UserSession.id();
+
         setContentView(R.layout.activity_favorites);
+
         model = AppViewModels.get(this, FavoritesViewModel.class);
+
         model.initialize(authenticatedUserId);
+
         Toolbar toolbar = findViewById(R.id.favorites_toolbar);
+
         toolbar.setNavigationOnClickListener(view -> getOnBackPressedDispatcher().onBackPressed());
+
         ViewCompat.setAccessibilityHeading(findViewById(R.id.favorite_header), true);
         ViewCompat.setAccessibilityHeading(findViewById(R.id.firstMessage), true);
+
         searchBar = findViewById(R.id.search_bar);
+
         searchBar.setText(model.query());
+
         RecyclerView list = findViewById(R.id.recycler_view);
+
         adapter = new CategoryRecyclerViewAdapter(this, this::confirmRemoval);
+
         list.setAdapter(adapter);
         list.setLayoutManager(new GridLayoutManager(this, getResources().getInteger(R.integer.video_category_columns)));
+
         CategorySearch.bind(searchBar, findViewById(R.id.search_icon), this::loadFavorites);
+
         findViewById(R.id.favorites_retry).setOnClickListener(view -> loadFavorites());
+
         model.state().observe(this, this::render);
-        model.removalState().observe(this, state -> {
-            adapter.setRemovalPending(state.isLoading());
-            var categories = model.state().getValue();
-            findViewById(R.id.favorites_progress).setVisibility(state.isLoading()
-                    || categories != null && categories.isLoading() ? View.VISIBLE : View.GONE);
-            if (state.error() != null) {
-                model.acknowledgeRemovalError();
-                Toast.makeText(this, R.string.request_failed, Toast.LENGTH_LONG).show();
-            }
-        });
+
+        model.removalState()
+                .observe(
+                        this,
+                        state -> {
+                            adapter.setRemovalPending(state.isLoading());
+
+                            var categories = model.state().getValue();
+
+                            findViewById(R.id.favorites_progress)
+                                    .setVisibility(
+                                            state.isLoading() || categories != null && categories.isLoading()
+                                                    ? View.VISIBLE
+                                                    : View.GONE);
+
+                            if (state.error() != null) {
+                                model.acknowledgeRemovalError();
+
+                                Toast.makeText(this, R.string.request_failed, Toast.LENGTH_LONG).show();
+                            }
+                        });
     }
 
-    @Override protected void onResume() {
+    @Override
+    protected void onResume() {
         super.onResume();
+
         if (isFinishing() || authenticatedUserId == null) return;
-        if (!Objects.equals(authenticatedUserId, UserSession.id())) { recreate(); return; }
+
+        if (!Objects.equals(authenticatedUserId, UserSession.id())) {
+            recreate();
+
+            return;
+        }
+
         model.refresh();
     }
 
-    private void loadFavorites() { model.search(searchBar.getText().toString()); }
+    private void loadFavorites() {
+        model.search(searchBar.getText().toString());
+    }
 
     private void render(UiState<List<Category>> state) {
         if (state.status() == UiState.Status.IDLE) return;
+
         findViewById(R.id.favorites_progress).setVisibility(state.isLoading() ? View.VISIBLE : View.GONE);
+
         findViewById(R.id.favorites_error).setVisibility(state.error() != null ? View.VISIBLE : View.GONE);
+
         findViewById(R.id.favorites_empty).setVisibility(View.GONE);
+
         findViewById(R.id.recycler_view).setVisibility(View.GONE);
+
         if (state.isLoading()) {
             ((TextView) findViewById(R.id.favorites_count)).setText(R.string.favorites_loading);
         } else if (state.isSuccess() && state.value() != null) {
@@ -91,39 +133,69 @@ public class FavoritesActivity extends AuthenticatedActivity {
     private void showFavorites(List<Category> categories, String query) {
 
         adapter.setCategories(categories);
+
         int count = categories.size();
-        ((TextView) findViewById(R.id.favorites_count)).setText(getResources().getQuantityString(
-                query.isEmpty() ? R.plurals.favorites_saved_count : R.plurals.favorites_results_count, count, count));
+
+        ((TextView) findViewById(R.id.favorites_count))
+                .setText(
+                        getResources()
+                                .getQuantityString(
+                                        query.isEmpty()
+                                                ? R.plurals.favorites_saved_count
+                                                : R.plurals.favorites_results_count,
+                                        count,
+                                        count));
+
         findViewById(R.id.recycler_view).setVisibility(count == 0 ? View.GONE : View.VISIBLE);
+
         findViewById(R.id.favorites_empty).setVisibility(count == 0 ? View.VISIBLE : View.GONE);
+
         if (count != 0) return;
+
         boolean searching = !query.isEmpty();
-        ((TextView) findViewById(R.id.firstMessage)).setText(searching ? R.string.favorites_no_results : R.string.first_message);
-        ((TextView) findViewById(R.id.secondMessage)).setText(searching
-                ? getString(R.string.favorites_no_results_caption, query) : getString(R.string.second_message));
-        ((ImageView) findViewById(R.id.noFavoritesImage)).setImageResource(searching ? R.drawable.ic_search : R.drawable.ic_favorite_filled);
+
+        ((TextView) findViewById(R.id.firstMessage))
+                .setText(searching ? R.string.favorites_no_results : R.string.first_message);
+
+        ((TextView) findViewById(R.id.secondMessage))
+                .setText(
+                        searching
+                                ? getString(R.string.favorites_no_results_caption, query)
+                                : getString(R.string.second_message));
+
+        ((ImageView) findViewById(R.id.noFavoritesImage))
+                .setImageResource(searching ? R.drawable.ic_search : R.drawable.ic_favorite_filled);
+
         MaterialButton action = findViewById(R.id.browseCollectionsButton);
+
         action.setText(searching ? R.string.favorites_clear_search : R.string.browse_collections);
         action.setOnClickListener(view -> {
             if (searching) {
                 searchBar.setText("");
+
                 loadFavorites();
             } else startActivity(new Intent(this, VideoSectionActivity.class));
         });
     }
 
     private void confirmRemoval(Category category) {
-        removeDialog = new MaterialAlertDialogBuilder(this)
-                .setMessage(getString(R.string.remove_favorite_confirmation, category.getName()))
-                .setNegativeButton(R.string.profile_cancel, null)
-                .setPositiveButton(R.string.favorites_remove_action, (dialog, which) -> removeFavorite(category))
-                .show();
+        removeDialog =
+                new MaterialAlertDialogBuilder(this)
+                        .setMessage(getString(R.string.remove_favorite_confirmation, category.getName()))
+                        .setNegativeButton(R.string.profile_cancel, null)
+                        .setPositiveButton(
+                                R.string.favorites_remove_action, (dialog, which) -> removeFavorite(category))
+                        .show();
     }
 
-    private void removeFavorite(Category category) { model.remove(category.getId()); }
+    private void removeFavorite(Category category) {
+        model.remove(category.getId());
+    }
 
-    @Override protected void onDestroy() {
+    @Override
+    protected void onDestroy() {
         if (removeDialog != null) removeDialog.dismiss();
+
         super.onDestroy();
     }
 }

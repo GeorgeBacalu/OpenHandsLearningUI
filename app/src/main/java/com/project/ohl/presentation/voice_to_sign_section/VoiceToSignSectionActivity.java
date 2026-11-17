@@ -42,25 +42,34 @@ public class VoiceToSignSectionActivity extends AuthenticatedActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        speechRecognitionLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    Intent resultData = result.getData();
-                    if (result.getResultCode() == RESULT_OK && resultData != null) {
-                        ArrayList<String> recognizedText = resultData.getStringArrayListExtra(
-                                RecognizerIntent.EXTRA_RESULTS);
-                        if (hasMicrophonePermission() && recognizedText != null && !recognizedText.isEmpty()) {
-                            showTranslation(recognizedText.get(0));
-                        }
-                    }
-                });
-        microphonePermissionLauncher = registerForActivityResult(
-                new ActivityResultContracts.RequestPermission(),
-                granted -> {
-                    if (granted) startSpeechRecognition();
-                    else clearTranslation();
-                });
+
+        speechRecognitionLauncher =
+                registerForActivityResult(
+                        new ActivityResultContracts.StartActivityForResult(),
+                        result -> {
+                            Intent resultData = result.getData();
+
+                            if (result.getResultCode() == RESULT_OK && resultData != null) {
+                                ArrayList<String> recognizedText =
+                                        resultData.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+
+                                if (hasMicrophonePermission() && recognizedText != null && !recognizedText.isEmpty()) {
+                                    showTranslation(recognizedText.get(0));
+                                }
+                            }
+                        });
+
+        microphonePermissionLauncher =
+                registerForActivityResult(
+                        new ActivityResultContracts.RequestPermission(),
+                        granted -> {
+                            if (granted) startSpeechRecognition();
+
+                            else clearTranslation();
+                        });
+
         binding = ActivityVoiceToSignSectionBinding.inflate(getLayoutInflater());
+
         setContentView(binding.getRoot());
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -69,6 +78,7 @@ public class VoiceToSignSectionActivity extends AuthenticatedActivity {
 
         voiceRecordingButton.setOnClickListener(v -> {
             if (!isMicrophonePresent()) return;
+
             if (hasMicrophonePermission()) {
                 startSpeechRecognition();
             } else {
@@ -77,22 +87,33 @@ public class VoiceToSignSectionActivity extends AuthenticatedActivity {
         });
 
         voiceToSignRecyclerView.setAdapter(voiceToSignSectionRecyclerViewAdapter);
+
         var grid = new GridLayoutManager(this, 1);
-        grid.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override public int getSpanSize(int position) {
-                return voiceToSignSectionRecyclerViewAdapter.getItemViewType(position)
-                        == VoiceToSignSectionRecyclerViewAdapter.WORD_BREAK ? grid.getSpanCount() : 1;
-            }
-        });
+
+        grid.setSpanSizeLookup(
+                new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        return voiceToSignSectionRecyclerViewAdapter.getItemViewType(position)
+                                        == VoiceToSignSectionRecyclerViewAdapter.WORD_BREAK
+                                ? grid.getSpanCount()
+                                : 1;
+                    }
+                });
+
         voiceToSignRecyclerView.setLayoutManager(grid);
-        voiceToSignRecyclerView.addOnLayoutChangeListener((view, left, top, right, bottom,
-                oldLeft, oldTop, oldRight, oldBottom) -> {
-            int width = right - left - view.getPaddingLeft() - view.getPaddingRight();
-            float minWidth = getResources().getDimension(R.dimen.sign_tile_min_width)
-                    * Math.max(1f, getResources().getConfiguration().fontScale);
-            int columns = Math.max(1, (int) (width / minWidth));
-            if (grid.getSpanCount() != columns) grid.setSpanCount(columns);
-        });
+        voiceToSignRecyclerView.addOnLayoutChangeListener(
+                (view, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
+                    int width = right - left - view.getPaddingLeft() - view.getPaddingRight();
+
+                    float minWidth =
+                            getResources().getDimension(R.dimen.sign_tile_min_width)
+                                    * Math.max(1f, getResources().getConfiguration().fontScale);
+
+                    int columns = Math.max(1, (int) (width / minWidth));
+
+                    if (grid.getSpanCount() != columns) grid.setSpanCount(columns);
+                });
 
         clearTranslation();
     }
@@ -100,6 +121,7 @@ public class VoiceToSignSectionActivity extends AuthenticatedActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
         if (!hasMicrophonePermission()) clearTranslation();
     }
 
@@ -111,43 +133,66 @@ public class VoiceToSignSectionActivity extends AuthenticatedActivity {
     private void showTranslation(String transcript) {
         if (!hasMicrophonePermission() || transcript == null || transcript.isBlank()) {
             clearTranslation();
+
             return;
         }
+
         var signs = SignText.translate(transcript);
 
         voiceToSignSectionRecyclerViewAdapter.setTextSignPairs(signs);
+
         categoryNameCardText.setText(transcript);
+
         outputContent.setVisibility(signs.isEmpty() ? View.GONE : View.VISIBLE);
+
         if (!signs.isEmpty()) scrollToTranslation();
     }
 
     private void scrollToTranslation() {
-        outputContent.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override public void onGlobalLayout() {
-                outputContent.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                if (binding == null || outputContent.getVisibility() != View.VISIBLE) return;
-                var scroll = binding.getRoot();
-                int[] resultPosition = new int[2];
-                int[] scrollPosition = new int[2];
-                outputContent.getLocationOnScreen(resultPosition);
-                scroll.getLocationOnScreen(scrollPosition);
-                int inset = (int) (16 * getResources().getDisplayMetrics().density);
-                scroll.smoothScrollTo(0, scroll.getScrollY() + resultPosition[1] - scrollPosition[1] - inset);
-            }
-        });
+        outputContent
+                .getViewTreeObserver()
+                .addOnGlobalLayoutListener(
+                        new ViewTreeObserver.OnGlobalLayoutListener() {
+                            @Override
+                            public void onGlobalLayout() {
+                                outputContent.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+
+                                if (binding == null || outputContent.getVisibility() != View.VISIBLE) return;
+
+                                var scroll = binding.getRoot();
+
+                                int[] resultPosition = new int[2];
+                                int[] scrollPosition = new int[2];
+
+                                outputContent.getLocationOnScreen(resultPosition);
+
+                                scroll.getLocationOnScreen(scrollPosition);
+
+                                int inset = (int) (16 * getResources().getDisplayMetrics().density);
+
+                                scroll.smoothScrollTo(
+                                        0, scroll.getScrollY() + resultPosition[1] - scrollPosition[1] - inset);
+                            }
+                        });
     }
 
     private void clearTranslation() {
         categoryNameCardText.setText("");
+
         outputContent.setVisibility(View.GONE);
+
         voiceToSignSectionRecyclerViewAdapter.setTextSignPairs(List.of());
     }
 
     private void initializeViews() {
         voiceToSignRecyclerView = findViewById(R.id.voiceToSignRecyclerView);
+
         voiceToSignSectionRecyclerViewAdapter = new VoiceToSignSectionRecyclerViewAdapter(this);
+
         voiceRecordingButton = findViewById(R.id.voiceRecordingButton);
+
         categoryNameCardText = findViewById(R.id.categoryNameCardText);
+
         outputContent = findViewById(R.id.outputContent);
     }
 
@@ -157,22 +202,27 @@ public class VoiceToSignSectionActivity extends AuthenticatedActivity {
 
     private void startSpeechRecognition() {
         clearTranslation();
+
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ro-RO");
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.speech_prompt));
+
         speechRecognitionLauncher.launch(intent);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == home) getOnBackPressedDispatcher().onBackPressed();
+
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
         binding = null;
     }
 }

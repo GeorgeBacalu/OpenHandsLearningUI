@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <resources>
+
     <declare-styleable name="S3ImageView">
-        <attr name="mediaName" format="string" />
+
+        <attr
+            name="mediaName"
+            format="string" />
+
     </declare-styleable>
+
 </resources>

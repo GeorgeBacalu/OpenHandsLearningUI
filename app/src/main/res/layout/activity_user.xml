@@ -1,83 +1,199 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:fillViewport="true" android:fitsSystemWindows="true">
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:orientation="vertical" android:padding="24dp" >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
         <include layout="@layout/auth_brand" />
+
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent" android:layout_height="wrap_content"
-            app:cardBackgroundColor="@color/auth_surface" app:cardCornerRadius="20dp"
-            app:cardElevation="0dp" app:strokeWidth="1dp" app:strokeColor="@color/auth_card_border">
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:orientation="vertical" android:padding="22dp">
-                <TextView style="@style/AuthTitle" android:text="@string/auth_register_title" />
-                <TextView style="@style/AuthSubtitle" android:text="@string/auth_register_subtitle" />
-                <com.google.android.material.textfield.TextInputLayout style="@style/AuthInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/auth_surface"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/auth_card_border">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="22dp">
+
+                <TextView
+                    style="@style/AuthTitle"
+                    android:text="@string/auth_register_title" />
+
+                <TextView
+                    style="@style/AuthSubtitle"
+                    android:text="@string/auth_register_subtitle" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/AuthInput"
                     android:hint="@string/account_name">
-                    <com.google.android.material.textfield.TextInputEditText android:id="@+id/form_textFieldName"
-                        style="@style/AuthEditText" android:inputType="textPersonName" android:autofillHints="personName" />
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/form_textFieldName"
+                        style="@style/AuthEditText"
+                        android:inputType="textPersonName"
+                        android:autofillHints="personName" />
+
                 </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout style="@style/AuthInput"
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/AuthInput"
                     android:hint="@string/account_email">
-                    <com.google.android.material.textfield.TextInputEditText android:id="@+id/form_textFieldEmail"
-                        style="@style/AuthEditText" android:inputType="textEmailAddress" android:autofillHints="emailAddress" />
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/form_textFieldEmail"
+                        style="@style/AuthEditText"
+                        android:inputType="textEmailAddress"
+                        android:autofillHints="emailAddress" />
+
                 </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout style="@style/AuthInput"
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/AuthInput"
                     android:hint="@string/account_phone">
-                    <com.google.android.material.textfield.TextInputEditText android:id="@+id/form_textFieldPhone"
-                        style="@style/AuthEditText" android:inputType="phone" android:autofillHints="phone" />
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/form_textFieldPhone"
+                        style="@style/AuthEditText"
+                        android:inputType="phone"
+                        android:autofillHints="phone" />
+
                 </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout style="@style/AuthInput"
-                    android:hint="@string/account_password" app:endIconMode="password_toggle">
-                    <com.google.android.material.textfield.TextInputEditText android:id="@+id/form_textFieldPassword"
-                        style="@style/AuthEditText" android:inputType="textPassword" android:autofillHints="newPassword" android:saveEnabled="false" android:imeOptions="actionDone" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/AuthInput"
+                    android:hint="@string/account_password"
+                    app:endIconMode="password_toggle">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/form_textFieldPassword"
+                        style="@style/AuthEditText"
+                        android:inputType="textPassword"
+                        android:autofillHints="newPassword"
+                        android:saveEnabled="false"
+                        android:imeOptions="actionDone" />
+
                 </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout style="@style/AuthInput"
-                    android:hint="@string/confirm_password" app:endIconMode="password_toggle">
-                    <com.google.android.material.textfield.TextInputEditText android:id="@+id/password_confirmation"
-                        style="@style/AuthEditText" android:inputType="textPassword" android:autofillHints="newPassword" android:saveEnabled="false" android:imeOptions="actionDone" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/AuthInput"
+                    android:hint="@string/confirm_password"
+                    app:endIconMode="password_toggle">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/password_confirmation"
+                        style="@style/AuthEditText"
+                        android:inputType="textPassword"
+                        android:autofillHints="newPassword"
+                        android:saveEnabled="false"
+                        android:imeOptions="actionDone" />
+
                 </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout style="@style/AuthDropdown"
-                    android:hint="@string/county" app:endIconContentDescription="@string/open_list">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/AuthDropdown"
+                    android:hint="@string/county"
+                    app:endIconContentDescription="@string/open_list">
+
                     <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                        android:id="@+id/registration_county" android:layout_width="match_parent"
-                        android:layout_height="wrap_content" android:minHeight="58dp"
-                        android:textSize="16sp" android:textColor="@color/auth_text"
-                        android:paddingStart="16dp" android:paddingEnd="16dp"
-                        android:inputType="none" android:completionThreshold="0" />
+                        android:id="@+id/registration_county"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="58dp"
+                        android:textSize="16sp"
+                        android:textColor="@color/auth_text"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:inputType="none"
+                        android:completionThreshold="0" />
+
                 </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout style="@style/AuthDropdown"
-                    android:hint="@string/city" app:endIconContentDescription="@string/open_list">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/AuthDropdown"
+                    android:hint="@string/city"
+                    app:endIconContentDescription="@string/open_list">
+
                     <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                        android:id="@+id/registration_city" android:layout_width="match_parent"
-                        android:layout_height="wrap_content" android:minHeight="58dp"
-                        android:textSize="16sp" android:textColor="@color/auth_text"
-                        android:paddingStart="16dp" android:paddingEnd="16dp"
-                        android:inputType="textCapWords" android:completionThreshold="0" />
+                        android:id="@+id/registration_city"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="58dp"
+                        android:textSize="16sp"
+                        android:textColor="@color/auth_text"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:inputType="textCapWords"
+                        android:completionThreshold="0" />
+
                 </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout style="@style/AuthDropdown"
-                    android:hint="@string/school" app:endIconContentDescription="@string/open_list">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/AuthDropdown"
+                    android:hint="@string/school"
+                    app:endIconContentDescription="@string/open_list">
+
                     <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                        android:id="@+id/registration_school" android:layout_width="match_parent"
-                        android:layout_height="wrap_content" android:minHeight="58dp"
-                        android:textSize="16sp" android:textColor="@color/auth_text"
-                        android:paddingStart="16dp" android:paddingEnd="16dp"
-                        android:inputType="textCapWords" android:completionThreshold="0" />
+                        android:id="@+id/registration_school"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="58dp"
+                        android:textSize="16sp"
+                        android:textColor="@color/auth_text"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:inputType="textCapWords"
+                        android:completionThreshold="0" />
+
                 </com.google.android.material.textfield.TextInputLayout>
-                <TextView android:id="@+id/auth_error" android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:accessibilityLiveRegion="polite"
-                    android:textColor="?attr/colorError" android:visibility="gone" android:padding="8dp" />
-                <ProgressBar android:id="@+id/auth_progress" android:layout_width="28dp"
-                    android:layout_height="28dp" android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="8dp" android:indeterminateTint="@color/main_blue"
+
+                <TextView
+                    android:id="@+id/auth_error"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:accessibilityLiveRegion="polite"
+                    android:textColor="?attr/colorError"
+                    android:visibility="gone"
+                    android:padding="8dp" />
+
+                <ProgressBar
+                    android:id="@+id/auth_progress"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="8dp"
+                    android:indeterminateTint="@color/main_blue"
                     android:visibility="gone" />
-                <com.google.android.material.button.MaterialButton android:id="@+id/button_saveUser"
-                    style="@style/AuthPrimaryButton" android:text="@string/register" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_saveUser"
+                    style="@style/AuthPrimaryButton"
+                    android:text="@string/register" />
+
             </LinearLayout>
+
         </com.google.android.material.card.MaterialCardView>
-        <com.google.android.material.button.MaterialButton android:id="@+id/open_login"
-            style="@style/AuthLinkButton" android:text="@string/already_registered" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/open_login"
+            style="@style/AuthLinkButton"
+            android:text="@string/already_registered" />
+
     </LinearLayout>
+
 </ScrollView>

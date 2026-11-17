@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<inset xmlns:android="http://schemas.android.com/apk/res/android"
+
+<inset
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:inset="4dp">
+
     <bitmap
         android:src="@drawable/openhandslearning_mark"
         android:gravity="fill"
         android:filter="true"
         android:antialias="true" />
+
 </inset>

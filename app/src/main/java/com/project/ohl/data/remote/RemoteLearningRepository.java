@@ -22,40 +22,58 @@ public final class RemoteLearningRepository implements LearningRepository {
 
     public RemoteLearningRepository(Retrofit retrofit) {
         categoryApi = retrofit.create(CategoryApi.class);
+
         directoryApi = retrofit.create(SchoolDirectoryApi.class);
     }
 
-    @Override public Request<List<County>> getCounties() { return adapt(directoryApi.getCounties()); }
-    @Override public Request<List<City>> getCities(UUID countyId, String name, int offset, int limit) {
+    @Override
+    public Request<List<County>> getCounties() {
+        return adapt(directoryApi.getCounties());
+    }
+
+    @Override
+    public Request<List<City>> getCities(UUID countyId, String name, int offset, int limit) {
         return adapt(directoryApi.getCities(countyId, name, offset, limit));
     }
-    @Override public Request<List<School>> getSchools(UUID cityId, String name, int offset, int limit) {
+
+    @Override
+    public Request<List<School>> getSchools(UUID cityId, String name, int offset, int limit) {
         return adapt(directoryApi.getSchools(cityId, name, offset, limit));
     }
 
     private static <T> Request<T> adapt(Call<T> prototype) {
         return callback -> {
             Call<T> call = prototype.clone();
-            call.enqueue(new Callback<>() {
-                @Override public void onResponse(@NonNull Call<T> request, @NonNull Response<T> response) {
-                    try (var ignored = response.errorBody()) {
-                        if (request.isCanceled()) return;
-                        if (response.isSuccessful()) callback.accept(Result.success(response.body()));
-                        else {
-                            callback.accept(Result.failure(new HttpException(response)));
+
+            call.enqueue(
+                    new Callback<>() {
+                        @Override
+                        public void onResponse(@NonNull Call<T> request, @NonNull Response<T> response) {
+                            try (var ignored = response.errorBody()) {
+                                if (request.isCanceled()) return;
+
+                                if (response.isSuccessful()) callback.accept(Result.success(response.body()));
+
+                                else {
+                                    callback.accept(Result.failure(new HttpException(response)));
+                                }
+                            }
                         }
-                    }
-                }
-                @Override public void onFailure(@NonNull Call<T> request, @NonNull Throwable error) {
-                    if (!request.isCanceled()) callback.accept(Result.failure(error));
-                }
-            });
+
+                        @Override
+                        public void onFailure(@NonNull Call<T> request, @NonNull Throwable error) {
+                            if (!request.isCanceled()) callback.accept(Result.failure(error));
+                        }
+                    });
+
             return call::cancel;
         };
     }
 
     @Override
-    public Request<Category> getCategoryById(UUID id, UUID userId) { return adapt(categoryApi.getCategoryById(id, userId)); }
+    public Request<Category> getCategoryById(UUID id, UUID userId) {
+        return adapt(categoryApi.getCategoryById(id, userId));
+    }
 
     @Override
     public Request<List<Category>> getCategoriesByParentIdAndName(UUID parentId, String name) {

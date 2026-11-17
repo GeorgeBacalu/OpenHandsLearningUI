@@ -1,120 +1,321 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:orientation="vertical" android:fitsSystemWindows="true">
-    <androidx.appcompat.widget.Toolbar android:id="@+id/profile_toolbar"
-        android:layout_width="match_parent" android:layout_height="?attr/actionBarSize"
-        app:title="@string/profile_title" app:titleTextColor="@color/auth_text"
-        app:navigationIcon="@drawable/ic_profile_back" app:navigationContentDescription="@string/profile_back" />
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/profile_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:title="@string/profile_title"
+        app:titleTextColor="@color/auth_text"
+        app:navigationIcon="@drawable/ic_profile_back"
+        app:navigationContentDescription="@string/profile_back" />
+
     <com.google.android.material.progressindicator.LinearProgressIndicator
-        android:id="@+id/profile_progress" android:layout_width="match_parent"
-        android:layout_height="4dp" android:indeterminate="true" android:visibility="gone"
+        android:id="@+id/profile_progress"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:indeterminate="true"
+        android:visibility="gone"
         app:indicatorColor="@color/auth_accent" />
-    <ScrollView android:layout_width="match_parent" android:layout_height="0dp"
-        android:layout_weight="1" android:fillViewport="true" android:clipToPadding="false">
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:orientation="vertical" android:paddingStart="24dp" android:paddingEnd="24dp"
-            android:paddingTop="12dp" android:paddingBottom="32dp">
-            <LinearLayout android:id="@+id/profile_load_error" android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:orientation="vertical" android:visibility="gone"
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:clipToPadding="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="32dp">
+
+            <LinearLayout
+                android:id="@+id/profile_load_error"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
                 android:paddingTop="48dp">
-                <TextView style="@style/AuthSubtitle" android:text="@string/profile_loading_error"
+
+                <TextView
+                    style="@style/AuthSubtitle"
+                    android:text="@string/profile_loading_error"
                     android:accessibilityLiveRegion="polite" />
-                <com.google.android.material.button.MaterialButton android:id="@+id/profile_retry"
-                    style="@style/AuthPrimaryButton" android:text="@string/auth_retry" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/profile_retry"
+                    style="@style/AuthPrimaryButton"
+                    android:text="@string/auth_retry" />
+
             </LinearLayout>
-            <LinearLayout android:id="@+id/profile_content" android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:orientation="vertical" android:visibility="gone">
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:orientation="vertical" android:gravity="center_horizontal" android:padding="24dp"
+
+            <LinearLayout
+                android:id="@+id/profile_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    android:padding="24dp"
                     android:background="@drawable/profile_header_background">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:text="@string/profile_eyebrow" android:textColor="#DCE6FF"
-                        android:textSize="12sp" android:letterSpacing="0.16" android:fontFamily="@font/source_sans_pro_semibold" />
-                    <TextView android:id="@+id/profile_initials" android:layout_width="76dp"
-                        android:layout_height="76dp" android:layout_marginTop="20dp" android:gravity="center"
-                        android:background="@drawable/profile_avatar_background" android:textColor="@color/white"
-                        android:textSize="28sp" android:fontFamily="@font/source_sans_pro_bold"
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/profile_eyebrow"
+                        android:textColor="#DCE6FF"
+                        android:textSize="12sp"
+                        android:letterSpacing="0.16"
+                        android:fontFamily="@font/source_sans_pro_semibold" />
+
+                    <TextView
+                        android:id="@+id/profile_initials"
+                        android:layout_width="76dp"
+                        android:layout_height="76dp"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center"
+                        android:background="@drawable/profile_avatar_background"
+                        android:textColor="@color/white"
+                        android:textSize="28sp"
+                        android:fontFamily="@font/source_sans_pro_bold"
                         android:importantForAccessibility="no" />
-                    <TextView android:id="@+id/profile_display_name" android:layout_width="match_parent"
-                        android:layout_height="wrap_content" android:layout_marginTop="14dp" android:gravity="center"
-                        android:textColor="@color/white" android:textSize="26sp" android:fontFamily="@font/source_sans_pro_bold" />
-                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp" android:text="@string/profile_subtitle" android:gravity="center"
-                        android:textColor="#E2EAFF" android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/profile_display_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        android:textSize="26sp"
+                        android:fontFamily="@font/source_sans_pro_bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="@string/profile_subtitle"
+                        android:gravity="center"
+                        android:textColor="#E2EAFF"
+                        android:textSize="15sp" />
+
                 </LinearLayout>
-                <TextView android:id="@+id/profile_appearance_heading" style="@style/ProfileSection"
+
+                <TextView
+                    android:id="@+id/profile_appearance_heading"
+                    style="@style/ProfileSection"
                     android:text="@string/profile_appearance" />
+
                 <com.google.android.material.card.MaterialCardView style="@style/ProfileCard">
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:orientation="vertical" android:padding="20dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="20dp">
+
                         <com.google.android.material.switchmaterial.SwitchMaterial
                             android:id="@+id/profile_dark_theme"
                             style="@style/Widget.MaterialComponents.CompoundButton.Switch"
-                            android:layout_width="match_parent" android:layout_height="wrap_content"
-                            android:minHeight="48dp" android:saveEnabled="false"
-                            android:text="@string/profile_dark_theme" android:textColor="@color/auth_text"
-                            android:textSize="17sp" android:fontFamily="@font/source_sans_pro_semibold"
-                            android:paddingEnd="4dp" android:paddingStart="0dp"
-                            app:showText="false" app:switchPadding="16dp" app:useMaterialThemeColors="true" />
-                        <TextView style="@style/ProfileLabel" android:layout_marginTop="4dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="48dp"
+                            android:saveEnabled="false"
+                            android:text="@string/profile_dark_theme"
+                            android:textColor="@color/auth_text"
+                            android:textSize="17sp"
+                            android:fontFamily="@font/source_sans_pro_semibold"
+                            android:paddingEnd="4dp"
+                            android:paddingStart="0dp"
+                            app:showText="false"
+                            app:switchPadding="16dp"
+                            app:useMaterialThemeColors="true" />
+
+                        <TextView
+                            style="@style/ProfileLabel"
+                            android:layout_marginTop="4dp"
                             android:text="@string/profile_theme_caption" />
+
                     </LinearLayout>
+
                 </com.google.android.material.card.MaterialCardView>
-                <TextView android:id="@+id/profile_personal_heading" style="@style/ProfileSection" android:text="@string/profile_personal" />
+
+                <TextView
+                    android:id="@+id/profile_personal_heading"
+                    style="@style/ProfileSection"
+                    android:text="@string/profile_personal" />
+
                 <com.google.android.material.card.MaterialCardView style="@style/ProfileCard">
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:orientation="vertical" android:padding="20dp">
-                        <TextView style="@style/ProfileLabel" android:text="@string/account_name" />
-                        <TextView android:id="@+id/profile_name" style="@style/ProfileValue" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="20dp">
+
+                        <TextView
+                            style="@style/ProfileLabel"
+                            android:text="@string/account_name" />
+
+                        <TextView
+                            android:id="@+id/profile_name"
+                            style="@style/ProfileValue" />
+
                         <View style="@style/ProfileDivider" />
-                        <TextView style="@style/ProfileLabel" android:text="@string/account_email" />
-                        <TextView android:id="@+id/profile_email" style="@style/ProfileValue" />
+
+                        <TextView
+                            style="@style/ProfileLabel"
+                            android:text="@string/account_email" />
+
+                        <TextView
+                            android:id="@+id/profile_email"
+                            style="@style/ProfileValue" />
+
                         <View style="@style/ProfileDivider" />
-                        <TextView style="@style/ProfileLabel" android:text="@string/account_phone" />
-                        <TextView android:id="@+id/profile_phone" style="@style/ProfileValue" />
+
+                        <TextView
+                            style="@style/ProfileLabel"
+                            android:text="@string/account_phone" />
+
+                        <TextView
+                            android:id="@+id/profile_phone"
+                            style="@style/ProfileValue" />
+
                     </LinearLayout>
+
                 </com.google.android.material.card.MaterialCardView>
-                <TextView android:id="@+id/profile_school_heading" style="@style/ProfileSection" android:text="@string/profile_school_title" />
+
+                <TextView
+                    android:id="@+id/profile_school_heading"
+                    style="@style/ProfileSection"
+                    android:text="@string/profile_school_title" />
+
                 <com.google.android.material.card.MaterialCardView style="@style/ProfileCard">
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:orientation="horizontal" android:padding="20dp" android:gravity="center_vertical">
-                        <ImageView android:layout_width="28dp" android:layout_height="28dp"
-                            android:layout_marginEnd="16dp" android:src="@drawable/ic_profile_school"
-                            app:tint="@color/auth_accent" android:contentDescription="@null" />
-                        <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="20dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:layout_marginEnd="16dp"
+                            android:src="@drawable/ic_profile_school"
+                            app:tint="@color/auth_accent"
+                            android:contentDescription="@null" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
                             android:orientation="vertical">
-                            <TextView style="@style/ProfileLabel" android:text="@string/profile_school_caption" />
-                            <TextView android:id="@+id/profile_school" style="@style/ProfileValue" android:lineSpacingExtra="3dp" />
+
+                            <TextView
+                                style="@style/ProfileLabel"
+                                android:text="@string/profile_school_caption" />
+
+                            <TextView
+                                android:id="@+id/profile_school"
+                                style="@style/ProfileValue"
+                                android:lineSpacingExtra="3dp" />
+
                         </LinearLayout>
+
                     </LinearLayout>
+
                 </com.google.android.material.card.MaterialCardView>
-                <TextView android:id="@+id/profile_security_heading" style="@style/ProfileSection" android:text="@string/profile_security" />
+
+                <TextView
+                    android:id="@+id/profile_security_heading"
+                    style="@style/ProfileSection"
+                    android:text="@string/profile_security" />
+
                 <com.google.android.material.card.MaterialCardView style="@style/ProfileCard">
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:orientation="vertical" android:padding="12dp">
-                        <com.google.android.material.button.MaterialButton android:id="@+id/profile_change_password"
-                            style="@style/ProfileAction" android:text="@string/profile_change_password"
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/profile_change_password"
+                            style="@style/ProfileAction"
+                            android:text="@string/profile_change_password"
                             app:icon="@drawable/ic_profile_lock" />
-                        <TextView style="@style/ProfileLabel" android:paddingStart="16dp" android:paddingEnd="16dp"
+
+                        <TextView
+                            style="@style/ProfileLabel"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
                             android:text="@string/profile_password_caption" />
-                        <View style="@style/ProfileDivider" android:layout_marginStart="8dp" android:layout_marginEnd="8dp" />
-                        <com.google.android.material.button.MaterialButton android:id="@+id/profile_delete_account"
-                            style="@style/ProfileAction" android:text="@string/profile_delete_account"
-                            android:textColor="@color/auth_error" app:iconTint="@color/auth_error"
+
+                        <View
+                            style="@style/ProfileDivider"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/profile_delete_account"
+                            style="@style/ProfileAction"
+                            android:text="@string/profile_delete_account"
+                            android:textColor="@color/auth_error"
+                            app:iconTint="@color/auth_error"
                             app:icon="@drawable/ic_profile_delete" />
-                        <TextView style="@style/ProfileLabel" android:paddingStart="16dp" android:paddingEnd="16dp"
-                            android:paddingBottom="12dp" android:text="@string/profile_delete_caption" />
+
+                        <TextView
+                            style="@style/ProfileLabel"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:paddingBottom="12dp"
+                            android:text="@string/profile_delete_caption" />
+
                     </LinearLayout>
+
                 </com.google.android.material.card.MaterialCardView>
-                <com.google.android.material.button.MaterialButton android:id="@+id/profile_logout"
-                    style="@style/ProfileAction" android:layout_marginTop="28dp" android:gravity="center"
-                    android:text="@string/logout" app:icon="@drawable/ic_profile_logout" app:iconGravity="textStart"
-                    app:strokeWidth="1dp" app:strokeColor="@color/auth_border" app:cornerRadius="16dp" />
-                <TextView style="@style/ProfileLabel" android:layout_marginTop="20dp" android:gravity="center"
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/profile_logout"
+                    style="@style/ProfileAction"
+                    android:layout_marginTop="28dp"
+                    android:gravity="center"
+                    android:text="@string/logout"
+                    app:icon="@drawable/ic_profile_logout"
+                    app:iconGravity="textStart"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@color/auth_border"
+                    app:cornerRadius="16dp" />
+
+                <TextView
+                    style="@style/ProfileLabel"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
                     android:text="@string/profile_footer" />
+
             </LinearLayout>
+
         </LinearLayout>
+
     </ScrollView>
+
 </LinearLayout>

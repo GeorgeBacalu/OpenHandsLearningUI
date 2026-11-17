@@ -14,7 +14,9 @@ public final class S3ImageView extends AppCompatImageView {
 
     public S3ImageView(Context context, AttributeSet attributes) {
         super(context, attributes);
+
         var values = context.obtainStyledAttributes(attributes, R.styleable.S3ImageView);
+
         try {
             mediaName = values.getString(R.styleable.S3ImageView_mediaName);
         } finally {
@@ -22,8 +24,10 @@ public final class S3ImageView extends AppCompatImageView {
         }
     }
 
-    @Override protected void onAttachedToWindow() {
+    @Override
+    protected void onAttachedToWindow() {
         super.onAttachedToWindow();
+
         if (!isInEditMode() && mediaName != null) {
             MediaResources.loadImage(getContext(), MediaResources.imageUrl(mediaName), this);
         }

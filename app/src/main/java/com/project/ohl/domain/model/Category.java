@@ -26,8 +26,7 @@ public class Category {
         this.imageUrl = imageUrl;
     }
 
-    public Category() {
-    }
+    public Category() {}
 
     public UUID getId() {
         return id;
@@ -55,15 +54,24 @@ public class Category {
 
     @Override
     public @NonNull String toString() {
-        return "CategoryDto{" +
-             "id=" + id +
-             ", name='" + name + '\'' +
-             ", isFavorite=" + isFavorite +
-             ", parentId=" + parentId +
-             '}';
+        return "CategoryDto{"
+                + "id="
+                + id
+                + ", name='"
+                + name
+                + '\''
+                + ", isFavorite="
+                + isFavorite
+                + ", parentId="
+                + parentId
+                + '}';
     }
 
-    public String getImageUrl() { return imageUrl; }
-    public String getVideoUrl() { return videoUrl; }
+    public String getImageUrl() {
+        return imageUrl;
+    }
 
+    public String getVideoUrl() {
+        return videoUrl;
+    }
 }

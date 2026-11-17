@@ -23,15 +23,22 @@ import java.util.concurrent.TimeUnit;
 
 public final class AppViewModels {
     private AppViewModels() {}
-    private static final ScheduledExecutorService SEARCH_TIMER = Executors.newSingleThreadScheduledExecutor(action -> {
-        var thread = new Thread(action, "directory-search");
-        thread.setDaemon(true);
-        return thread;
-    });
-    private static final DelayScheduler SEARCH_DELAY = action -> {
-        var pending = SEARCH_TIMER.schedule(action, 300, TimeUnit.MILLISECONDS);
-        return () -> pending.cancel(false);
-    };
+
+    private static final ScheduledExecutorService SEARCH_TIMER =
+            Executors.newSingleThreadScheduledExecutor(action -> {
+                var thread = new Thread(action, "directory-search");
+
+                thread.setDaemon(true);
+
+                return thread;
+            });
+
+    private static final DelayScheduler SEARCH_DELAY =
+            action -> {
+                var pending = SEARCH_TIMER.schedule(action, 300, TimeUnit.MILLISECONDS);
+
+                return () -> pending.cancel(false);
+            };
 
     public static <T extends ViewModel> T get(FragmentActivity owner, Class<T> type) {
         return new ViewModelProvider(owner, factory(owner)).get(type);
@@ -39,21 +46,51 @@ public final class AppViewModels {
 
     private static ViewModelProvider.Factory factory(Context context) {
         Context application = context.getApplicationContext();
+
         var mainThread = ContextCompat.getMainExecutor(application);
+
         return new ViewModelProvider.Factory() {
-            @NonNull @Override public <T extends ViewModel> T create(@NonNull Class<T> type, @NonNull CreationExtras extras) {
+            @NonNull
+            @Override
+            public <T extends ViewModel> T create(@NonNull Class<T> type, @NonNull CreationExtras extras) {
                 ViewModel model;
-                if (type == CatalogViewModel.class) model = new CatalogViewModel(ApplicationGraph.learning(),
-                        SavedStateHandleSupport.createSavedStateHandle(extras), mainThread);
-                else if (type == FavoritesViewModel.class) model = new FavoritesViewModel(ApplicationGraph.learning(),
-                        SavedStateHandleSupport.createSavedStateHandle(extras), mainThread);
-                else if (type == SchoolDirectoryViewModel.class) model = new SchoolDirectoryViewModel(ApplicationGraph.learning(),
-                        SavedStateHandleSupport.createSavedStateHandle(extras), mainThread, SEARCH_DELAY);
-                else if (type == CategoryViewModel.class) model = new CategoryViewModel(ApplicationGraph.learning(), mainThread);
-                else if (type == SessionViewModel.class) model = new SessionViewModel(ApplicationGraph.authentication(), mainThread);
-                else if (type == AuthenticationViewModel.class) model = new AuthenticationViewModel(ApplicationGraph.authentication(), mainThread);
-                else if (type == ProfileViewModel.class) model = new ProfileViewModel(ApplicationGraph.authentication());
+
+                if (type == CatalogViewModel.class)
+                    model =
+                            new CatalogViewModel(
+                                    ApplicationGraph.learning(),
+                                    SavedStateHandleSupport.createSavedStateHandle(extras),
+                                    mainThread);
+
+                else if (type == FavoritesViewModel.class)
+                    model =
+                            new FavoritesViewModel(
+                                    ApplicationGraph.learning(),
+                                    SavedStateHandleSupport.createSavedStateHandle(extras),
+                                    mainThread);
+
+                else if (type == SchoolDirectoryViewModel.class)
+                    model =
+                            new SchoolDirectoryViewModel(
+                                    ApplicationGraph.learning(),
+                                    SavedStateHandleSupport.createSavedStateHandle(extras),
+                                    mainThread,
+                                    SEARCH_DELAY);
+
+                else if (type == CategoryViewModel.class)
+                    model = new CategoryViewModel(ApplicationGraph.learning(), mainThread);
+
+                else if (type == SessionViewModel.class)
+                    model = new SessionViewModel(ApplicationGraph.authentication(), mainThread);
+
+                else if (type == AuthenticationViewModel.class)
+                    model = new AuthenticationViewModel(ApplicationGraph.authentication(), mainThread);
+
+                else if (type == ProfileViewModel.class)
+                    model = new ProfileViewModel(ApplicationGraph.authentication());
+
                 else throw new IllegalArgumentException("Unsupported ViewModel: " + type.getName());
+
                 return Objects.requireNonNull(type.cast(model));
             }
         };

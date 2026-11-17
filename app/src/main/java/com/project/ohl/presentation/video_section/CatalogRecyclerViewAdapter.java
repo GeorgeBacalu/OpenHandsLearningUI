@@ -32,10 +32,13 @@ public final class CatalogRecyclerViewAdapter extends RecyclerView.Adapter<Catal
     }
 
     public static CatalogRecyclerViewAdapter forVideos(Context context) {
-        return new CatalogRecyclerViewAdapter(context, category -> new Intent(context, VideoPlayerActivity.class)
-                .putExtra(VideoPlayerActivity.CATEGORY_ID, category.getId().toString())
-                .putExtra(VideoPlayerActivity.CATEGORY_NAME, category.getName())
-                .putExtra(VideoPlayerActivity.CATEGORY_IMAGE, category.getImageUrl()));
+        return new CatalogRecyclerViewAdapter(
+                context,
+                category ->
+                        new Intent(context, VideoPlayerActivity.class)
+                                .putExtra(VideoPlayerActivity.CATEGORY_ID, category.getId().toString())
+                                .putExtra(VideoPlayerActivity.CATEGORY_NAME, category.getName())
+                                .putExtra(VideoPlayerActivity.CATEGORY_IMAGE, category.getImageUrl()));
     }
 
     @NonNull
@@ -47,10 +50,14 @@ public final class CatalogRecyclerViewAdapter extends RecyclerView.Adapter<Catal
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Category category = categories.get(position);
+
         holder.name.setText(category.getName());
+
         MediaResources.loadImage(context, category, holder.image);
+
         holder.itemView.setOnClickListener(view -> {
             int current = holder.getBindingAdapterPosition();
+
             if (current != RecyclerView.NO_POSITION) {
                 context.startActivity(destination.apply(categories.get(current)));
             }
@@ -65,6 +72,7 @@ public final class CatalogRecyclerViewAdapter extends RecyclerView.Adapter<Catal
     @SuppressLint("NotifyDataSetChanged")
     public void setCategories(List<Category> categories) {
         this.categories = categories;
+
         notifyDataSetChanged();
     }
 
@@ -74,7 +82,9 @@ public final class CatalogRecyclerViewAdapter extends RecyclerView.Adapter<Catal
 
         private ViewHolder(View itemView) {
             super(itemView);
+
             image = itemView.findViewById(R.id.categoryImage);
+
             name = itemView.findViewById(R.id.categoryName);
         }
     }

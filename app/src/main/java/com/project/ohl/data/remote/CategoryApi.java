@@ -11,18 +11,18 @@ import retrofit2.http.Query;
 
 public interface CategoryApi {
 
-   @GET("/api/categories/{id}")
-   Call<Category> getCategoryById(@Path("id") UUID id, @Query("userId") UUID userId);
+    @GET("/api/categories/{id}")
+    Call<Category> getCategoryById(@Path("id") UUID id, @Query("userId") UUID userId);
 
-   @GET("/api/categories/filter")
-   Call<List<Category>> getCategoriesByParentIdAndName(@Query("parentId") UUID parentId, @Query("name") String name);
+    @GET("/api/categories/filter")
+    Call<List<Category>> getCategoriesByParentIdAndName(@Query("parentId") UUID parentId, @Query("name") String name);
 
-   @GET("/api/categories/favorites/filter")
-   Call<List<Category>> getFavoritesByName(@Query("userId") UUID userId, @Query("name") String name);
+    @GET("/api/categories/favorites/filter")
+    Call<List<Category>> getFavoritesByName(@Query("userId") UUID userId, @Query("name") String name);
 
-   @PATCH("/api/categories/favorites/save")
-   Call<Category> saveFavorite(@Query("userId") UUID userId, @Query("categoryId") UUID categoryId);
+    @PATCH("/api/categories/favorites/save")
+    Call<Category> saveFavorite(@Query("userId") UUID userId, @Query("categoryId") UUID categoryId);
 
-   @PATCH("/api/categories/favorites/delete")
-   Call<Category> deleteFavorite(@Query("userId") UUID userId, @Query("categoryId") UUID categoryId);
+    @PATCH("/api/categories/favorites/delete")
+    Call<Category> deleteFavorite(@Query("userId") UUID userId, @Query("categoryId") UUID categoryId);
 }

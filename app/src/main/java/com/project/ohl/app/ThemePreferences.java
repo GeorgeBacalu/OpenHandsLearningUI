@@ -11,8 +11,10 @@ public final class ThemePreferences {
     private ThemePreferences() {}
 
     public static void applySavedTheme(Context context) {
-        int mode = context.getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE)
-                .getInt(NIGHT_MODE, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+        int mode =
+                context.getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE)
+                        .getInt(NIGHT_MODE, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+
         AppCompatDelegate.setDefaultNightMode(mode);
     }
 
@@ -23,8 +25,9 @@ public final class ThemePreferences {
 
     public static void setDarkTheme(Context context, boolean dark) {
         int mode = dark ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO;
-        context.getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE).edit()
-                .putInt(NIGHT_MODE, mode).apply();
+
+        context.getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE).edit().putInt(NIGHT_MODE, mode).apply();
+
         AppCompatDelegate.setDefaultNightMode(mode);
     }
 }

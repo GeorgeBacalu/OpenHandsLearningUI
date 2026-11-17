@@ -12,22 +12,48 @@ import retrofit2.http.PUT;
 
 public interface AuthApi {
     record Credentials(String email, String password) {
-        @Override public @NonNull String toString() { return "Credentials[email=" + email + "]"; }
+        @Override
+        public @NonNull String toString() {
+            return "Credentials[email=" + email + "]";
+        }
     }
+
     record AuthenticationResponse(String accessToken, String tokenType, long expiresIn, User user) {
-        @Override public @NonNull String toString() { return "AuthenticationResponse"; }
+        @Override
+        public @NonNull String toString() {
+            return "AuthenticationResponse";
+        }
     }
-    @POST("/api/auth/login") Call<AuthenticationResponse> login(@Body Credentials credentials);
-    @POST("/api/auth/register") Call<AuthenticationResponse> register(@Body Registration registration);
-    @GET("/api/auth/me") Call<User> current();
-    @POST("/api/auth/logout") Call<Void> logout();
+
+    @POST("/api/auth/login")
+    Call<AuthenticationResponse> login(@Body Credentials credentials);
+
+    @POST("/api/auth/register")
+    Call<AuthenticationResponse> register(@Body Registration registration);
+
+    @GET("/api/auth/me")
+    Call<User> current();
+
+    @POST("/api/auth/logout")
+    Call<Void> logout();
+
     record PasswordChange(String currentPassword, String newPassword) {
-        @Override public @NonNull String toString() { return "PasswordChange"; }
+        @Override
+        public @NonNull String toString() {
+            return "PasswordChange";
+        }
     }
+
     record AccountDeletion(String currentPassword) {
-        @Override public @NonNull String toString() { return "AccountDeletion"; }
+        @Override
+        public @NonNull String toString() {
+            return "AccountDeletion";
+        }
     }
-    @PUT("/api/auth/password") Call<Void> changePassword(@Body PasswordChange change);
+
+    @PUT("/api/auth/password")
+    Call<Void> changePassword(@Body PasswordChange change);
+
     @HTTP(method = "DELETE", path = "/api/auth/me", hasBody = true)
     Call<Void> deleteAccount(@Body AccountDeletion deletion);
 }

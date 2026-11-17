@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <resources>
     <color name="white">#FFFFFFFF</color>
-
     <color name="main_blue">#113CFC</color>
     <color name="home_background">#F3F6FC</color>
-
     <color name="dark_blue">#193498</color>
-
     <color name="transparent">#00000000</color>
-
     <color name="openhandslearning_logo_background">#112A43</color>
     <color name="sign_result_surface">#F4F6FC</color>
     <color name="sign_result_stroke">#E0E6F2</color>

@@ -37,21 +37,30 @@ public class CategoryRoutingTest {
         return new Category(id, name);
     }
 
-    @Test public void expressionsOpenTheirChildCategoriesByParentUuid() {
+    @Test
+    public void expressionsOpenTheirChildCategoriesByParentUuid() {
         Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+
         UUID id = UUID.fromString("1deb5200-b06d-3977-9426-e2ea373195f9");
+
         var intent = CategoryNavigation.intent(context, category(id, "Expresii"));
+
         assertEquals(ExpressionsActivity.class.getName(), requireNonNull(intent.getComponent()).getClassName());
         assertEquals(id.toString(), intent.getStringExtra(CategoryNavigation.PARENT_ID));
         assertFalse(intent.hasExtra("sectionId"));
     }
 
-    @Test public void renamedParentsKeepTheirDedicatedScreenAndSelectedUuid() {
+    @Test
+    public void renamedParentsKeepTheirDedicatedScreenAndSelectedUuid() {
         Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+
         var parent = category(ALPHABET, "Alfabet");
         var original = CategoryNavigation.intent(context, parent);
+
         parent.setName("Translated and renamed");
+
         var renamed = CategoryNavigation.intent(context, parent);
+
         assertEquals(AlphabetActivity.class.getName(), requireNonNull(original.getComponent()).getClassName());
         assertEquals(original.getComponent(), renamed.getComponent());
         assertEquals(ALPHABET.toString(), renamed.getStringExtra(CategoryNavigation.PARENT_ID));
@@ -59,56 +68,97 @@ public class CategoryRoutingTest {
         assertFalse(renamed.hasExtra("parentCode"));
     }
 
-    @Test public void nestedAndNewCategoriesUseTheirOwnIds() {
+    @Test
+    public void nestedAndNewCategoriesUseTheirOwnIds() {
         Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+
         UUID household = UUID.fromString("07fd780a-80ed-38c1-bdc5-5a66803a20f2");
+
         var nested = CategoryNavigation.intent(context, category(household, "Renamed animals"));
+
         assertEquals(HouseholdAnimalsActivity.class.getName(), requireNonNull(nested.getComponent()).getClassName());
         assertEquals(household.toString(), nested.getStringExtra(CategoryNavigation.PARENT_ID));
+
         UUID createdId = UUID.randomUUID();
+
         var created = CategoryNavigation.intent(context, category(createdId, "Alfabet"));
+
         assertEquals(AllCategoriesActivity.class.getName(), requireNonNull(created.getComponent()).getClassName());
         assertEquals(createdId.toString(), created.getStringExtra(CategoryNavigation.PARENT_ID));
     }
 
-    @Test public void directChildRequestsUseTheSameUuidAfterRenaming() throws Exception {
+    @Test
+    public void directChildRequestsUseTheSameUuidAfterRenaming() throws Exception {
         var failure = new AtomicReference<Throwable>();
         var requests = new ArrayList<String>();
+
         try (var server = new ServerSocket(0)) {
             server.setSoTimeout(10000);
-            var responder = new Thread(() -> {
-                try {
-                    for (int i = 0; i < 2; i++) try (var socket = server.accept()) {
-                        socket.setSoTimeout(10000);
-                        var reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
-                        requests.add(reader.readLine());
-                        String line;
-                        do { line = reader.readLine(); } while (line != null && !line.isEmpty());
-                        byte[] body = ("[{\"id\":\"00000000-0000-4000-8000-000000000001\","
-                                + "\"name\":\"A\",\"parentId\":\"" + ALPHABET + "\"}]")
-                                .getBytes(StandardCharsets.UTF_8);
-                        var output = socket.getOutputStream();
-                        output.write(("HTTP/1.1 200 OK\r\nContent-Type: application/json\r\nContent-Length: "
-                                + body.length + "\r\nConnection: close\r\n\r\n").getBytes(StandardCharsets.UTF_8));
-                        output.write(body);
-                        output.flush();
-                    }
-                } catch (Throwable exception) {
-                    failure.set(exception);
-                }
-            });
+
+            var responder =
+                    new Thread(() -> {
+                        try {
+                            for (int i = 0; i < 2; i++)
+                                try (var socket = server.accept()) {
+                                    socket.setSoTimeout(10000);
+
+                                    var reader =
+                                            new BufferedReader(
+                                                    new InputStreamReader(
+                                                            socket.getInputStream(), StandardCharsets.UTF_8));
+
+                                    requests.add(reader.readLine());
+
+                                    String line;
+
+                                    do {
+                                        line = reader.readLine();
+                                    } while (line != null && !line.isEmpty());
+
+                                    byte[] body =
+                                            ("[{\"id\":\"00000000-0000-4000-8000-000000000001\","
+                                                            + "\"name\":\"A\",\"parentId\":\""
+                                                            + ALPHABET
+                                                            + "\"}]")
+                                                    .getBytes(StandardCharsets.UTF_8);
+
+                                    var output = socket.getOutputStream();
+
+                                    output.write(
+                                            ("HTTP/1.1 200 OK\r\nContent-Type: application/json\r\nContent-Length: "
+                                                            + body.length
+                                                            + "\r\nConnection: close\r\n\r\n")
+                                                    .getBytes(StandardCharsets.UTF_8));
+                                    output.write(body);
+                                    output.flush();
+                                }
+                        } catch (Throwable exception) {
+                            failure.set(exception);
+                        }
+                    });
+
             responder.setDaemon(true);
             responder.start();
-            var api = new Retrofit.Builder().baseUrl("http://127.0.0.1:" + server.getLocalPort() + "/")
-                    .addConverterFactory(GsonConverterFactory.create(JsonCodec.create())).build().create(CategoryApi.class);
+
+            var api =
+                    new Retrofit.Builder()
+                            .baseUrl("http://127.0.0.1:" + server.getLocalPort() + "/")
+                            .addConverterFactory(GsonConverterFactory.create(JsonCodec.create()))
+                            .build()
+                            .create(CategoryApi.class);
             var parent = category(ALPHABET, "Alfabet");
-            for (String label : new String[]{"Alfabet", "Translated parent"}) {
+
+            for (String label : new String[] {"Alfabet", "Translated parent"}) {
                 parent.setName(label);
+
                 var response = api.getCategoriesByParentIdAndName(parent.getId(), "").execute();
+
                 assertTrue(response.isSuccessful());
                 assertEquals(ALPHABET, requireNonNull(response.body()).get(0).getParentId());
             }
+
             responder.join(10000);
+
             assertFalse(responder.isAlive());
             assertNull(failure.get());
             assertEquals(2, requests.size());
