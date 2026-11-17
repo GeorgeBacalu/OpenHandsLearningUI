@@ -17,7 +17,7 @@ public class JsonCodecTest {
     @Test public void readsCategoryIdsAndMediaUrlsWithoutObsoleteCardState() {
         var gson = JsonCodec.create();
         String id = "00000000-0000-4000-8000-000000000001";
-        String base = "https://open-hands-learning.s3.us-east-1.amazonaws.com/dev/categories/alfabet/a_breve/";
+        String base = "https://open-hands-learning.s3.us-east-1.amazonaws.com/categories/alfabet/a_breve/";
         var category = gson.fromJson("{\"id\":\"" + id + "\",\"imageUrl\":\"" + base + "main.webp\","
                 + "\"videoUrl\":\"" + base + "main.mp4\"}", Category.class);
         category.setName("A different translated label");
