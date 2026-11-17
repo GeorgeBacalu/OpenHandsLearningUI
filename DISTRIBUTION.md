@@ -6,7 +6,7 @@ budget. Google Play registration was not completed.
 ## Hosted services
 
 - API: https://openhandslearning-api.onrender.com/
-- Media: https://br-red-base-b9fi1yrl.storage.c-7.eu-central-1.aws.neon.tech/openhandslearning-media/
+- Media: https://br-red-base-b9fi1yrl.storage.c-7.eu-central-1.aws.neon.tech/open-hands-learning/
 - PostgreSQL and media run in the app's separate Neon Free project; the API uses
   Render Free compute. The production catalog contains 207 categories and the
   public school directory. Local user accounts were not copied.
