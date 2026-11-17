@@ -8,3 +8,9 @@ build/
 .cxx
 local.properties
 github.properties
+
+# Distribution signing material stays local. Back it up separately.
+signing.properties
+*.jks
+*.keystore
+*.p12

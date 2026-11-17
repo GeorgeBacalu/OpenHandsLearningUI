@@ -1,0 +1,5 @@
+# Copy to signing.properties (ignored by Git). Use forward slashes for Windows paths.
+storeFile=signing/openhandslearning-release.jks
+storePassword=
+keyAlias=openhandslearning
+keyPassword=

@@ -17,6 +17,59 @@ if (localConfigurationFile.exists()) {
 }
 def apiBaseUrl = providers.gradleProperty('apiBaseUrl')
         .orElse(localConfiguration.getProperty('apiBaseUrl', 'http://10.0.2.2:8080/')).get()
+def releaseApiBaseUrl = providers.gradleProperty('releaseApiBaseUrl')
+        .orElse(providers.environmentVariable('OHL_RELEASE_API_BASE_URL'))
+        .orElse(localConfiguration.getProperty('releaseApiBaseUrl', '')).get()
+def releaseMediaBaseUrl = providers.gradleProperty('releaseMediaBaseUrl')
+        .orElse(providers.environmentVariable('OHL_RELEASE_MEDIA_BASE_URL'))
+        .orElse(localConfiguration.getProperty('releaseMediaBaseUrl', '')).get()
+
+def releaseSigning = new Properties()
+def releaseSigningFile = rootProject.file('signing.properties')
+if (releaseSigningFile.exists()) {
+    releaseSigningFile.withInputStream { releaseSigning.load(it) }
+}
+def signingValues = [
+        storeFile: providers.environmentVariable('OHL_KEYSTORE_FILE').orElse(releaseSigning.getProperty('storeFile', '')).get(),
+        storePassword: providers.environmentVariable('OHL_KEYSTORE_PASSWORD').orElse(releaseSigning.getProperty('storePassword', '')).get(),
+        keyAlias: providers.environmentVariable('OHL_KEY_ALIAS').orElse(releaseSigning.getProperty('keyAlias', '')).get(),
+        keyPassword: providers.environmentVariable('OHL_KEY_PASSWORD').orElse(releaseSigning.getProperty('keyPassword', '')).get()
+]
+def missingSigningValues = signingValues.findAll { key, value -> value.isBlank() }.keySet().toList()
+def releaseKeyStore = signingValues.storeFile.isBlank() ? null : rootProject.file(signingValues.storeFile)
+
+def verifyReleaseConfiguration = tasks.register('verifyReleaseConfiguration') {
+    group = 'verification'
+    description = 'Checks the HTTPS backend and signing configuration before distributing an APK or app bundle.'
+    inputs.property('releaseApiBaseUrl', releaseApiBaseUrl)
+    inputs.property('releaseMediaBaseUrl', releaseMediaBaseUrl)
+    inputs.property('missingSigningValues', missingSigningValues)
+    inputs.property('keyStoreExists', releaseKeyStore != null && releaseKeyStore.isFile())
+    inputs.property('mediaEnvironment', providers.gradleProperty('mediaEnvironment').orElse('prod'))
+    doLast {
+        for (String setting : ['releaseApiBaseUrl', 'releaseMediaBaseUrl']) {
+            def endpoint
+            try {
+                endpoint = new URI(inputs.properties[setting])
+            } catch (URISyntaxException ignored) {
+                throw new GradleException(setting + ' must be a valid HTTPS URL ending in /.')
+            }
+            def host = endpoint.host?.toLowerCase(Locale.ROOT)
+            if (endpoint.scheme != 'https' || !host || !host.contains('.') ||
+                    host == 'localhost' || host.endsWith('.localhost') || host.endsWith('.local') ||
+                    host ==~ /[0-9.]+/ || endpoint.userInfo != null || endpoint.query != null ||
+                    endpoint.fragment != null || !endpoint.path.endsWith('/')) {
+                throw new GradleException('Set ' + setting + ' to the deployed HTTPS URL ending in /. Local development URLs cannot be distributed.')
+            }
+        }
+        if (inputs.properties.mediaEnvironment != 'prod') {
+            throw new GradleException('Distributed releases must use mediaEnvironment=prod.')
+        }
+        if (!inputs.properties.missingSigningValues.isEmpty() || !inputs.properties.keyStoreExists) {
+            throw new GradleException('Configure your release keystore in signing.properties or OHL_KEYSTORE_* / OHL_KEY_* environment variables. See DISTRIBUTION.md.')
+        }
+    }
+}
 def mediaEnvironment = providers.gradleProperty('mediaEnvironment')
 if (mediaEnvironment.isPresent() && !(mediaEnvironment.get() in ['dev', 'prod'])) {
     throw new GradleException('mediaEnvironment must be dev or prod')
@@ -56,15 +109,33 @@ android {
                     'https://open-hands-learning.s3.us-east-1.amazonaws.com/' + mediaEnvironment.orElse('dev').get() + '/')
         }
         release {
-            buildConfigField 'String', 'MEDIA_BASE_URL', JsonOutput.toJson(
-                    'https://open-hands-learning.s3.us-east-1.amazonaws.com/' + mediaEnvironment.orElse('prod').get() + '/')
+            buildConfigField 'String', 'API_BASE_URL', JsonOutput.toJson(releaseApiBaseUrl)
+            buildConfigField 'String', 'MEDIA_BASE_URL', JsonOutput.toJson(releaseMediaBaseUrl)
         }
+    }
+
+    if (missingSigningValues.isEmpty()) {
+        signingConfigs {
+            distribution {
+                storeFile = releaseKeyStore
+                storePassword = signingValues.storePassword
+                keyAlias = signingValues.keyAlias
+                keyPassword = signingValues.keyPassword
+            }
+        }
+        buildTypes.release.signingConfig = signingConfigs.distribution
     }
 
     lint {
         warningsAsErrors = true
     }
 
+}
+
+tasks.configureEach {
+    if (name == 'preReleaseBuild') {
+        dependsOn verifyReleaseConfiguration
+    }
 }
 
 dependencies {
