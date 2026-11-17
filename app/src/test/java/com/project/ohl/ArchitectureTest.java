@@ -9,35 +9,65 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 
 public class ArchitectureTest {
-    private static final JavaClasses PRODUCTION = new ClassFileImporter()
-            .withImportOption(ImportOption.Predefined.DO_NOT_INCLUDE_TESTS).importPackages("com.project.ohl");
+    private static final JavaClasses PRODUCTION =
+            new ClassFileImporter()
+                    .withImportOption(ImportOption.Predefined.DO_NOT_INCLUDE_TESTS)
+                    .importPackages("com.project.ohl");
 
-    @Test public void domainIsIndependentOfAndroidAndDataLibraries() {
-        classes().that().resideInAPackage("..domain..")
-                .should().onlyDependOnClassesThat().resideInAnyPackage("java..", "com.project.ohl.domain..", "org.jspecify.annotations..")
+    @Test
+    public void domainIsIndependentOfAndroidAndDataLibraries() {
+        classes()
+                .that()
+                .resideInAPackage("..domain..")
+                .should()
+                .onlyDependOnClassesThat()
+                .resideInAnyPackage("java..", "com.project.ohl.domain..", "org.jspecify.annotations..")
                 .check(PRODUCTION);
     }
 
-    @Test public void presentationUsesRepositoriesInsteadOfTransportOrStorageImplementations() {
-        noClasses().that().resideInAPackage("..presentation..")
-                .should().dependOnClassesThat()
+    @Test
+    public void presentationUsesRepositoriesInsteadOfTransportOrStorageImplementations() {
+        noClasses()
+                .that()
+                .resideInAPackage("..presentation..")
+                .should()
+                .dependOnClassesThat()
                 .resideInAnyPackage("com.project.ohl.data..", "retrofit2..", "okhttp3..", "com.google.gson..")
                 .check(PRODUCTION);
     }
 
-    @Test public void viewModelsReceiveDependenciesAndDoNotRetainUiOwners() {
-        noClasses().that().haveSimpleNameEndingWith("ViewModel")
-                .should().dependOnClassesThat()
-                .resideInAnyPackage("com.project.ohl.app..", "android.app..", "android.content..", "android.view..", "android.widget..")
+    @Test
+    public void viewModelsReceiveDependenciesAndDoNotRetainUiOwners() {
+        noClasses()
+                .that()
+                .haveSimpleNameEndingWith("ViewModel")
+                .should()
+                .dependOnClassesThat()
+                .resideInAnyPackage(
+                        "com.project.ohl.app..",
+                        "android.app..",
+                        "android.content..",
+                        "android.view..",
+                        "android.widget..")
                 .check(PRODUCTION);
-        noClasses().that().haveSimpleNameEndingWith("ViewModel")
-                .should().dependOnClassesThat().haveSimpleName("LifecycleOwner")
+
+        noClasses()
+                .that()
+                .haveSimpleNameEndingWith("ViewModel")
+                .should()
+                .dependOnClassesThat()
+                .haveSimpleName("LifecycleOwner")
                 .check(PRODUCTION);
     }
 
-    @Test public void dataDoesNotDependOnPresentationOrCompositionRoot() {
-        noClasses().that().resideInAPackage("com.project.ohl.data..")
-                .should().dependOnClassesThat().resideInAnyPackage("..presentation..", "com.project.ohl.app..")
+    @Test
+    public void dataDoesNotDependOnPresentationOrCompositionRoot() {
+        noClasses()
+                .that()
+                .resideInAPackage("com.project.ohl.data..")
+                .should()
+                .dependOnClassesThat()
+                .resideInAnyPackage("..presentation..", "com.project.ohl.app..")
                 .check(PRODUCTION);
     }
 }

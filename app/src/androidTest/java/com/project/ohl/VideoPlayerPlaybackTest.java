@@ -39,63 +39,117 @@ import static org.junit.Assume.assumeTrue;
 public class VideoPlayerPlaybackTest {
     private final Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
 
-    @Test public void playbackPausesSeeksRestoresAndReplays() throws Exception {
+    @Test
+    public void playbackPausesSeeksRestoresAndReplays() throws Exception {
         assumeTrue("true".equals(InstrumentationRegistry.getArguments().getString("auditVideoPlayback")));
         assumeTrue("Sign in before running the playback audit", RetrofitService.tokens().token() != null);
         assertTrue("Saved session is valid", awaitResult(ApplicationGraph.authentication().current()).isSuccess());
-        var catalog = awaitResult(ApplicationGraph.learning().getCategoriesByParentIdAndName(
-                UUID.fromString("1deb5200-b06d-3977-9426-e2ea373195f9"), ""));
+
+        var catalog =
+                awaitResult(
+                        ApplicationGraph.learning()
+                                .getCategoriesByParentIdAndName(
+                                        UUID.fromString("1deb5200-b06d-3977-9426-e2ea373195f9"), ""));
+
         assertTrue("Catalog is available", catalog.isSuccess());
-        var category = catalog.value().stream().filter(value -> TestMedia.url("acesta_este_colegul_meu").equals(value.getImageUrl()))
-                .findFirst().orElseThrow();
+
+        var category =
+                catalog.value().stream()
+                        .filter(value -> TestMedia.url("acesta_este_colegul_meu").equals(value.getImageUrl()))
+                        .findFirst()
+                        .orElseThrow();
         var context = instrumentation.getTargetContext();
-        Activity activity = instrumentation.startActivitySync(new Intent(context, VideoPlayerActivity.class)
-                .putExtra(VideoPlayerActivity.CATEGORY_ID, category.getId().toString())
-                .putExtra(VideoPlayerActivity.CATEGORY_NAME, category.getName())
-                .putExtra(VideoPlayerActivity.CATEGORY_IMAGE, TestMedia.url("acesta_este_colegul_meu"))
-                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+
+        Activity activity =
+                instrumentation.startActivitySync(
+                        new Intent(context, VideoPlayerActivity.class)
+                                .putExtra(VideoPlayerActivity.CATEGORY_ID, category.getId().toString())
+                                .putExtra(VideoPlayerActivity.CATEGORY_NAME, category.getName())
+                                .putExtra(VideoPlayerActivity.CATEGORY_IMAGE, TestMedia.url("acesta_este_colegul_meu"))
+                                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+
         try {
             Activity first = activity;
+
             showPlayer(first);
             await(() -> first.findViewById(R.id.video_play_pause).isEnabled());
+
             instrumentation.runOnMainSync(() -> {
                 VideoView video = first.findViewById(R.id.videoView);
+
                 if (video.isPlaying()) first.findViewById(R.id.video_play_pause).performClick();
+
                 assertFalse("Pause stops playback", video.isPlaying());
             });
+
             var targetPosition = new int[1];
+
             instrumentation.runOnMainSync(() -> {
                 SeekBar progress = first.findViewById(R.id.video_progress);
+
                 targetPosition[0] = progress.getMax() / 2;
+
                 var arguments = new Bundle();
+
                 arguments.putFloat(AccessibilityNodeInfo.ACTION_ARGUMENT_PROGRESS_VALUE, targetPosition[0]);
-                assertTrue("Playback can be scrubbed with accessibility actions", progress.performAccessibilityAction(
-                        AccessibilityNodeInfo.AccessibilityAction.ACTION_SET_PROGRESS.getId(), arguments));
+
+                assertTrue(
+                        "Playback can be scrubbed with accessibility actions",
+                        progress.performAccessibilityAction(
+                                AccessibilityNodeInfo.AccessibilityAction.ACTION_SET_PROGRESS.getId(), arguments));
             });
-            await(() -> Math.abs(((VideoView) first.findViewById(R.id.videoView)).getCurrentPosition() - targetPosition[0]) < 800);
+
+            await(() ->
+                    Math.abs(((VideoView) first.findViewById(R.id.videoView)).getCurrentPosition() - targetPosition[0])
+                            < 800);
+
             var monitor = instrumentation.addMonitor(VideoPlayerActivity.class.getName(), null, false);
+
             try {
                 instrumentation.runOnMainSync(first::recreate);
+
                 activity = instrumentation.waitForMonitorWithTimeout(monitor, 10000);
+
                 assertNotNull("Player is recreated", activity);
-            } finally { instrumentation.removeMonitor(monitor); }
+            } finally {
+                instrumentation.removeMonitor(monitor);
+            }
+
             Activity restored = activity;
+
             showPlayer(restored);
             await(() -> restored.findViewById(R.id.video_play_pause).isEnabled());
-            await(() -> Math.abs(((VideoView) restored.findViewById(R.id.videoView)).getCurrentPosition() - targetPosition[0]) < 800);
+            await(() ->
+                    Math.abs(
+                                    ((VideoView) restored.findViewById(R.id.videoView)).getCurrentPosition()
+                                            - targetPosition[0])
+                            < 800);
+
             instrumentation.runOnMainSync(() -> {
-                assertFalse("Recreation preserves paused playback", ((VideoView) restored.findViewById(R.id.videoView)).isPlaying());
+                assertFalse(
+                        "Recreation preserves paused playback",
+                        ((VideoView) restored.findViewById(R.id.videoView)).isPlaying());
+
                 restored.findViewById(R.id.video_replay).performClick();
             });
-            await(() -> ((VideoView) restored.findViewById(R.id.videoView)).isPlaying()
-                    && ((VideoView) restored.findViewById(R.id.videoView)).getCurrentPosition() < 1500);
+
+            await(() ->
+                    ((VideoView) restored.findViewById(R.id.videoView)).isPlaying()
+                            && ((VideoView) restored.findViewById(R.id.videoView)).getCurrentPosition() < 1500);
             await(() -> ((VideoView) restored.findViewById(R.id.videoView)).getCurrentPosition() >= 600);
+
             instrumentation.runOnMainSync(() -> restored.findViewById(R.id.video_play_pause).performClick());
+
             var screenshot = instrumentation.getUiAutomation().takeScreenshot();
+
             assertNotNull(screenshot);
-            try (var output = new FileOutputStream(new File(context.getExternalFilesDir(null), "video-player-live.png"))) {
+
+            try (var output =
+                    new FileOutputStream(new File(context.getExternalFilesDir(null), "video-player-live.png"))) {
                 assertTrue(screenshot.compress(Bitmap.CompressFormat.PNG, 100, output));
-            } finally { screenshot.recycle(); }
+            } finally {
+                screenshot.recycle();
+            }
         } finally {
             if (activity != null) {
                 instrumentation.runOnMainSync(activity::finish);
@@ -106,6 +160,7 @@ public class VideoPlayerPlaybackTest {
     private void showPlayer(Activity activity) {
         instrumentation.runOnMainSync(() -> {
             activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
             if (Build.VERSION.SDK_INT >= 27) {
                 activity.setShowWhenLocked(true);
                 activity.setTurnScreenOn(true);
@@ -116,20 +171,35 @@ public class VideoPlayerPlaybackTest {
     private <T> Result<T> awaitResult(Request<T> request) throws InterruptedException {
         var result = new AtomicReference<Result<T>>();
         var completed = new CountDownLatch(1);
-        var cancellation = request.start(value -> { result.set(value); completed.countDown(); });
-        try { assertTrue("API read completed", completed.await(15, TimeUnit.SECONDS)); }
-        finally { cancellation.cancel(); }
+        var cancellation =
+                request.start(value -> {
+                    result.set(value);
+
+                    completed.countDown();
+                });
+
+        try {
+            assertTrue("API read completed", completed.await(15, TimeUnit.SECONDS));
+        } finally {
+            cancellation.cancel();
+        }
+
         return result.get();
     }
 
     private void await(BooleanSupplier condition) {
         long deadline = SystemClock.uptimeMillis() + 10000;
+
         while (SystemClock.uptimeMillis() < deadline) {
             var ready = new AtomicBoolean();
+
             instrumentation.runOnMainSync(() -> ready.set(condition.getAsBoolean()));
+
             if (ready.get()) return;
+
             SystemClock.sleep(100);
         }
+
         fail("Player did not reach the expected state");
     }
 }

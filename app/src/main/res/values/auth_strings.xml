@@ -1,5 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="ro">
+
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:locale="ro">
     <string name="login">Autentificare</string>
     <string name="logout">Deconectare</string>
     <string name="account_name">Nume</string>

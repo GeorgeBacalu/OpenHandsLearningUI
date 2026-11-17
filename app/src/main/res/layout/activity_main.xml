@@ -1,56 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:orientation="vertical" android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
     tools:context=".presentation.MainActivity">
 
-    <androidx.appcompat.widget.Toolbar android:id="@+id/toolbar"
-        android:layout_width="match_parent" android:layout_height="?attr/actionBarSize"
-        app:contentInsetStart="20dp" app:title="@string/app_name"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:contentInsetStart="20dp"
+        app:title="@string/app_name"
         app:titleTextColor="@color/home_text" />
 
-    <androidx.core.widget.NestedScrollView android:id="@+id/homeScrollView"
-        android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"
-        android:fillViewport="true" android:clipToPadding="false">
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:orientation="vertical" android:paddingHorizontal="20dp"
-            android:paddingTop="12dp" android:paddingBottom="32dp">
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/homeScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:clipToPadding="false">
 
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:orientation="vertical" android:padding="24dp" android:background="@drawable/home_welcome_background">
-                <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content">
-                    <TextView android:id="@+id/welcomeMessage" android:layout_width="0dp"
-                        android:layout_height="wrap_content" android:layout_marginEnd="16dp"
-                        android:textColor="@color/home_welcome_muted" android:textSize="17sp"
-                        android:fontFamily="@font/source_sans_pro_semibold" tools:text="Bine ai venit, Ana!"
-                        app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toStartOf="@id/openhandslearningLogo"
-                        app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" />
-                    <ImageView android:id="@+id/openhandslearningLogo"
-                        android:layout_width="48dp" android:layout_height="48dp"
-                        android:background="@drawable/profile_avatar_background" android:padding="2dp"
-                        android:src="@drawable/openhandslearning_logo_transparent" android:contentDescription="@null"
-                        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="32dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="24dp"
+                android:background="@drawable/home_welcome_background">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/welcomeMessage"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:textColor="@color/home_welcome_muted"
+                        android:textSize="17sp"
+                        android:fontFamily="@font/source_sans_pro_semibold"
+                        tools:text="Bine ai venit, Ana!"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/openhandslearningLogo"
+                        app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/openhandslearningLogo"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/profile_avatar_background"
+                        android:padding="2dp"
+                        android:src="@drawable/openhandslearning_logo_transparent"
+                        android:contentDescription="@null"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
-                <TextView android:id="@+id/home_headline" android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:layout_marginTop="12dp"
-                    android:text="@string/home_headline" android:textColor="@color/white" android:textSize="30sp"
-                    android:fontFamily="@font/source_sans_pro_bold" android:lineSpacingExtra="2dp" />
+
+                <TextView
+                    android:id="@+id/home_headline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/home_headline"
+                    android:textColor="@color/white"
+                    android:textSize="30sp"
+                    android:fontFamily="@font/source_sans_pro_bold"
+                    android:lineSpacingExtra="2dp" />
+
             </LinearLayout>
 
-            <TextView android:id="@+id/home_explore_heading" android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:layout_marginTop="28dp"
-                android:text="@string/home_explore" android:textColor="@color/home_text" android:textSize="22sp"
+            <TextView
+                android:id="@+id/home_explore_heading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:text="@string/home_explore"
+                android:textColor="@color/home_text"
+                android:textSize="22sp"
                 android:fontFamily="@font/source_sans_pro_bold" />
-            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:layout_marginTop="6dp" android:layout_marginBottom="8dp"
-                android:text="@string/home_explore_caption" android:textColor="@color/home_muted" android:textSize="16sp" />
 
-            <androidx.recyclerview.widget.RecyclerView android:id="@+id/sectionsRecyclerView"
-                android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false" android:clipToPadding="false" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/home_explore_caption"
+                android:textColor="@color/home_muted"
+                android:textSize="16sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/sectionsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:clipToPadding="false" />
+
         </LinearLayout>
+
     </androidx.core.widget.NestedScrollView>
+
 </LinearLayout>

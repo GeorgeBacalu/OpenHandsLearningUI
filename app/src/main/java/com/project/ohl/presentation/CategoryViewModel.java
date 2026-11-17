@@ -19,19 +19,33 @@ public final class CategoryViewModel extends ViewModel {
 
     public CategoryViewModel(LearningRepository repository, Executor mainThread) {
         this.repository = repository;
+
         category = new AsyncRequest<>(mainThread);
+
         favorite = new AsyncRequest<>(mainThread);
     }
 
-    public LiveData<UiState<Category>> state() { return category.state(); }
-    public LiveData<UiState<Category>> favoriteState() { return favorite.state(); }
-    public boolean changingFavorite() { return favorite.current().isLoading(); }
+    public LiveData<UiState<Category>> state() {
+        return category.state();
+    }
+
+    public LiveData<UiState<Category>> favoriteState() {
+        return favorite.state();
+    }
+
+    public boolean changingFavorite() {
+        return favorite.current().isLoading();
+    }
 
     public void initialize(UUID selectedCategory, UUID selectedUser) {
         if (Objects.equals(categoryId, selectedCategory) && Objects.equals(userId, selectedUser)) return;
+
         categoryId = selectedCategory;
+
         userId = selectedUser;
+
         favorite.reset();
+
         reload();
     }
 
@@ -41,13 +55,26 @@ public final class CategoryViewModel extends ViewModel {
 
     public void toggleFavorite() {
         Category current = category.current().value();
+
         if (userId == null || current == null || changingFavorite()) return;
-        favorite.start(Boolean.TRUE.equals(current.getFavorite())
-                ? repository.deleteFavorite(userId, categoryId) : repository.saveFavorite(userId, categoryId), result -> {
-            if (result.isSuccess() && result.value() != null) category.replace(result.value());
-        });
+
+        favorite.start(
+                Boolean.TRUE.equals(current.getFavorite())
+                        ? repository.deleteFavorite(userId, categoryId)
+                        : repository.saveFavorite(userId, categoryId),
+                result -> {
+                    if (result.isSuccess() && result.value() != null) category.replace(result.value());
+                });
     }
 
-    public void acknowledgeFavoriteError() { if (favorite.current().error() != null) favorite.reset(); }
-    @Override protected void onCleared() { category.close(); favorite.close(); }
+    public void acknowledgeFavoriteError() {
+        if (favorite.current().error() != null) favorite.reset();
+    }
+
+    @Override
+    protected void onCleared() {
+        category.close();
+
+        favorite.close();
+    }
 }

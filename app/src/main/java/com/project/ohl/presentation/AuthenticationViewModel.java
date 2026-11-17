@@ -15,15 +15,24 @@ public final class AuthenticationViewModel extends ViewModel {
 
     public AuthenticationViewModel(AuthenticationRepository repository, Executor mainThread) {
         this.repository = repository;
+
         authentication = new AsyncRequest<>(mainThread);
     }
 
-    public LiveData<UiState<User>> state() { return authentication.state(); }
+    public LiveData<UiState<User>> state() {
+        return authentication.state();
+    }
+
     public void login(String email, String password) {
         if (!authentication.current().isLoading()) authentication.start(repository.login(email, password));
     }
+
     public void register(Registration registration) {
         if (!authentication.current().isLoading()) authentication.start(repository.register(registration));
     }
-    @Override protected void onCleared() { authentication.close(); }
+
+    @Override
+    protected void onCleared() {
+        authentication.close();
+    }
 }

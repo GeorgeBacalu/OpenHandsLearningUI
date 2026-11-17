@@ -39,81 +39,130 @@ public class VideoPlayerActivity extends AuthenticatedActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         authenticatedUserId = UserSession.id();
+
         model = AppViewModels.get(this, CategoryViewModel.class);
+
         setContentView(R.layout.activity_video_player);
         initializeViews();
+
         findViewById(R.id.video_player_card).setClipToOutline(true);
+
         playback = new VideoPlaybackControls(findViewById(android.R.id.content), savedInstanceState);
+
         Toolbar toolbar = findViewById(R.id.video_toolbar);
+
         toolbar.setNavigationOnClickListener(view -> getOnBackPressedDispatcher().onBackPressed());
+
         ViewCompat.setAccessibilityHeading(categoryName, true);
 
         Intent intent = getIntent();
-        if (intent == null || intent.getStringExtra(CATEGORY_NAME) == null || intent.getStringExtra(CATEGORY_ID) == null) {
+
+        if (intent == null
+                || intent.getStringExtra(CATEGORY_NAME) == null
+                || intent.getStringExtra(CATEGORY_ID) == null) {
             finish();
+
             return;
         }
+
         UUID categoryId;
-        try { categoryId = UUID.fromString(intent.getStringExtra(CATEGORY_ID)); }
-        catch (IllegalArgumentException invalidId) { finish(); return; }
+
+        try {
+            categoryId = UUID.fromString(intent.getStringExtra(CATEGORY_ID));
+        } catch (IllegalArgumentException invalidId) {
+            finish();
+
+            return;
+        }
+
         categoryName.setText(intent.getStringExtra(CATEGORY_NAME));
+
         imageSubject = intent.getStringExtra(CATEGORY_IMAGE);
+
         bindImage(imageSubject);
+
         findViewById(R.id.video_retry).setOnClickListener(view -> loadCategory());
-        model.state().observe(this, state -> {
-            if (state.isLoading()) { playback.showLoading(); favoriteButton.setEnabled(false); }
-            else if (state.isSuccess() && state.value() != null) {
-                setData(state.value(), imageSubject);
-                handleFavorite(state.value());
-            } else if (state.error() != null) playback.showError();
-        });
+
+        model.state()
+                .observe(
+                        this,
+                        state -> {
+                            if (state.isLoading()) {
+                                playback.showLoading();
+
+                                favoriteButton.setEnabled(false);
+                            } else if (state.isSuccess() && state.value() != null) {
+                                setData(state.value(), imageSubject);
+                                handleFavorite(state.value());
+                            } else if (state.error() != null) playback.showError();
+                        });
+
         observeFavorite();
+
         model.initialize(categoryId, authenticatedUserId);
     }
 
-    private void loadCategory() { videoBound = false; model.reload(); }
+    private void loadCategory() {
+        videoBound = false;
 
-    @Override protected void onStart() {
+        model.reload();
+    }
+
+    @Override
+    protected void onStart() {
         super.onStart();
+
         playback.startTracking();
     }
 
     @Override
     protected void onStop() {
         playback.pause();
+
         super.onStop();
     }
 
     @Override
     protected void onDestroy() {
         playback.release();
+
         super.onDestroy();
     }
 
-    @Override protected void onSaveInstanceState(@NonNull Bundle state) {
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle state) {
         playback.saveState(state);
+
         super.onSaveInstanceState(state);
     }
 
     private void initializeViews() {
         categoryName = findViewById(R.id.categoryName);
+
         categoryImage = findViewById(R.id.categoryImage);
+
         favoriteButton = findViewById(R.id.favoriteButton);
     }
 
     private void setData(Category category, String initialImageUrl) {
         categoryName.setText(category.getName());
+
         if (!videoBound || !Objects.equals(boundVideoUrl, category.getVideoUrl())) {
             videoBound = true;
+
             boundVideoUrl = category.getVideoUrl();
+
             playback.load(boundVideoUrl);
         }
+
         bindImage(category.getImageUrl() == null ? initialImageUrl : category.getImageUrl());
     }
 
     private void bindImage(String url) {
         ((View) categoryImage.getParent()).setVisibility(url != null ? View.VISIBLE : View.GONE);
+
         MediaResources.loadImage(this, url, categoryImage);
     }
 
@@ -122,9 +171,12 @@ public class VideoPlayerActivity extends AuthenticatedActivity {
             favoriteButton.setEnabled(true);
             favoriteButton.setText(R.string.login_to_favorite);
             favoriteButton.setOnClickListener(view -> startActivity(new Intent(this, LoginActivity.class)));
+
             return;
         }
+
         boolean favorite = Boolean.TRUE.equals(category.getFavorite());
+
         favoriteButton.setEnabled(!model.changingFavorite());
         favoriteButton.setText(favorite ? R.string.remove_favorite : R.string.add_favorite);
         favoriteButton.setIconResource(favorite ? R.drawable.ic_favorite_filled : R.drawable.ic_favorites);
@@ -132,18 +184,27 @@ public class VideoPlayerActivity extends AuthenticatedActivity {
     }
 
     private void observeFavorite() {
-        model.favoriteState().observe(this, state -> {
-            var category = model.state().getValue();
-            favoriteButton.setEnabled(!state.isLoading() && category != null && category.value() != null);
-            if (state.error() != null) {
-                model.acknowledgeFavoriteError();
-                Toast.makeText(this, R.string.request_failed, Toast.LENGTH_SHORT).show();
-            }
-        });
+        model.favoriteState()
+                .observe(
+                        this,
+                        state -> {
+                            var category = model.state().getValue();
+
+                            favoriteButton.setEnabled(
+                                    !state.isLoading() && category != null && category.value() != null);
+
+                            if (state.error() != null) {
+                                model.acknowledgeFavoriteError();
+
+                                Toast.makeText(this, R.string.request_failed, Toast.LENGTH_SHORT).show();
+                            }
+                        });
     }
 
-    @Override protected void onResume() {
+    @Override
+    protected void onResume() {
         super.onResume();
+
         if (!Objects.equals(authenticatedUserId, UserSession.id())) recreate();
     }
 }

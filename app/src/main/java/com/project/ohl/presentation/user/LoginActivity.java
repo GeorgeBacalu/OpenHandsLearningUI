@@ -15,49 +15,94 @@ import com.project.ohl.presentation.MainActivity;
 import com.project.ohl.presentation.UserSession;
 
 public class LoginActivity extends AppCompatActivity {
-    @Override protected void onCreate(Bundle saved) {
+    @Override
+    protected void onCreate(Bundle saved) {
         super.onCreate(saved);
+
         setContentView(R.layout.activity_login);
         setTitle(R.string.login);
+
         if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         TextInputEditText email = findViewById(R.id.login_email);
         TextInputEditText password = findViewById(R.id.login_password);
+
         MaterialButton submit = findViewById(R.id.button_login);
+
         TextView error = findViewById(R.id.auth_error);
+
         var authentication = AppViewModels.get(this, AuthenticationViewModel.class);
-        authentication.state().observe(this, result -> {
-            submit.setEnabled(!result.isLoading());
-            findViewById(R.id.auth_progress).setVisibility(result.isLoading() ? View.VISIBLE : View.GONE);
-            if (result.isLoading()) error.setVisibility(View.GONE);
-            if (result.isSuccess()) {
-                startActivity(new Intent(this, MainActivity.class)
-                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
-                finish();
-            } else if (result.error() != null) {
-                error.setText(AuthMessages.forError(result.error())); error.setVisibility(View.VISIBLE);
-            }
-        });
-        findViewById(R.id.open_registration).setOnClickListener(view -> startActivity(new Intent(this, UserActivity.class)));
+
+        authentication
+                .state()
+                .observe(
+                        this,
+                        result -> {
+                            submit.setEnabled(!result.isLoading());
+
+                            findViewById(R.id.auth_progress)
+                                    .setVisibility(result.isLoading() ? View.VISIBLE : View.GONE);
+
+                            if (result.isLoading()) error.setVisibility(View.GONE);
+
+                            if (result.isSuccess()) {
+                                startActivity(
+                                        new Intent(this, MainActivity.class)
+                                                .addFlags(
+                                                        Intent.FLAG_ACTIVITY_NEW_TASK
+                                                                | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                                finish();
+                            } else if (result.error() != null) {
+                                error.setText(AuthMessages.forError(result.error()));
+                                error.setVisibility(View.VISIBLE);
+                            }
+                        });
+
+        findViewById(R.id.open_registration)
+                .setOnClickListener(view -> startActivity(new Intent(this, UserActivity.class)));
+
         submit.setOnClickListener(view -> {
             String address = String.valueOf(email.getText()).strip();
             String secret = String.valueOf(password.getText());
-            if (!Patterns.EMAIL_ADDRESS.matcher(address).matches()) { email.setError(getString(R.string.invalid_email)); return; }
-            if (secret.isEmpty()) { password.setError(getString(R.string.required_field)); return; }
+
+            if (!Patterns.EMAIL_ADDRESS.matcher(address).matches()) {
+                email.setError(getString(R.string.invalid_email));
+
+                return;
+            }
+
+            if (secret.isEmpty()) {
+                password.setError(getString(R.string.required_field));
+
+                return;
+            }
+
             submit.setEnabled(false);
+
             error.setVisibility(View.GONE);
+
             findViewById(R.id.auth_progress).setVisibility(View.VISIBLE);
+
             authentication.login(address, secret);
         });
     }
 
-    @Override protected void onResume() {
+    @Override
+    protected void onResume() {
         super.onResume();
+
         if (UserSession.id() != null) {
-            startActivity(new Intent(this, MainActivity.class)
-                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+            startActivity(
+                    new Intent(this, MainActivity.class)
+                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
             finish();
         }
     }
 
-    @Override public boolean onSupportNavigateUp() { finish(); return true; }
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+
+        return true;
+    }
 }

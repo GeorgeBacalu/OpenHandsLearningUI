@@ -17,17 +17,32 @@ public final class DebouncedAction implements AutoCloseable {
 
     public void submit(Runnable action) {
         if (closed) return;
+
         cancel();
+
         long requested = generation;
-        pending = scheduler.schedule(() -> mainThread.execute(() -> {
-            if (!closed && generation == requested) action.run();
-        }));
+
+        pending =
+                scheduler.schedule(() ->
+                        mainThread.execute(() -> {
+                            if (!closed && generation == requested) action.run();
+                        }));
     }
 
     public void cancel() {
         generation++;
-        if (pending != null) { pending.cancel(); pending = null; }
+
+        if (pending != null) {
+            pending.cancel();
+
+            pending = null;
+        }
     }
 
-    @Override public void close() { closed = true; cancel(); }
+    @Override
+    public void close() {
+        closed = true;
+
+        cancel();
+    }
 }

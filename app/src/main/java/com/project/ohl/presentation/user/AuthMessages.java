@@ -5,6 +5,7 @@ import com.project.ohl.domain.repository.AuthenticationException;
 
 final class AuthMessages {
     private AuthMessages() {}
+
     static int forError(Throwable error) {
         if (error instanceof AuthenticationException failure) {
             return switch (failure.status()) {
@@ -15,6 +16,7 @@ final class AuthMessages {
                 default -> R.string.request_failed;
             };
         }
+
         return R.string.request_failed;
     }
 }

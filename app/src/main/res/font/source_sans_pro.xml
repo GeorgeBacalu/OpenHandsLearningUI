@@ -1,36 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <font-family xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <font
         app:font="@font/source_sans_pro_regular"
         app:fontStyle="normal"
-        app:fontWeight="400"/>
+        app:fontWeight="400" />
+
     <font
         app:font="@font/source_sans_pro_regular_italic"
         app:fontStyle="italic"
-        app:fontWeight="400"/>
+        app:fontWeight="400" />
+
     <font
         app:font="@font/source_sans_pro_semibold"
         app:fontStyle="normal"
-        app:fontWeight="500"/>
+        app:fontWeight="500" />
+
     <font
         app:font="@font/source_sans_pro_semibold_italic"
         app:fontStyle="italic"
-        app:fontWeight="500"/>
+        app:fontWeight="500" />
+
     <font
         app:font="@font/source_sans_pro_bold"
         app:fontStyle="normal"
-        app:fontWeight="700"/>
+        app:fontWeight="700" />
+
     <font
         app:font="@font/source_sans_pro_bold_italic"
         app:fontStyle="italic"
-        app:fontWeight="700"/>
+        app:fontWeight="700" />
+
     <font
         app:font="@font/source_sans_pro_black"
         app:fontStyle="normal"
-        app:fontWeight="900"/>
+        app:fontWeight="900" />
+
     <font
         app:font="@font/source_sans_pro_black_italic"
         app:fontStyle="italic"
-        app:fontWeight="900"/>
+        app:fontWeight="900" />
 
 </font-family>

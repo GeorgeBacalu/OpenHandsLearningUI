@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <resources>
     <color name="home_surface">#1E2D45</color>
     <color name="home_text">#F4F7FF</color>

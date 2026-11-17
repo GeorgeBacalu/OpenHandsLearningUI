@@ -16,22 +16,31 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
 public class CategorySearchTest {
-    @Test public void iconAndKeyboardSubmitTheVisibleQueryAndAllowClearingIt() {
+    @Test
+    public void iconAndKeyboardSubmitTheVisibleQueryAndAllowClearingIt() {
         var instrumentation = InstrumentationRegistry.getInstrumentation();
+
         instrumentation.runOnMainSync(() -> {
-            var context = new ContextThemeWrapper(instrumentation.getTargetContext(),
-                    R.style.Theme_OpenHandsLearning_Authentication);
+            var context =
+                    new ContextThemeWrapper(
+                            instrumentation.getTargetContext(), R.style.Theme_OpenHandsLearning_Authentication);
             var input = new EditText(context);
             var icon = new View(context);
             var queries = new ArrayList<String>();
+
             CategorySearch.bind(input, icon, () -> queries.add(input.getText().toString()));
+
             input.setText("Ar");
+
             icon.performClick();
+
             assertEquals("The submitted query stays visible", "Ar", input.getText().toString());
             assertEquals(EditorInfo.IME_ACTION_SEARCH, input.getImeOptions());
+
             input.onEditorAction(EditorInfo.IME_ACTION_SEARCH);
             input.setText("");
             input.onEditorAction(EditorInfo.IME_ACTION_SEARCH);
+
             assertEquals(List.of("Ar", "Ar", ""), queries);
         });
     }

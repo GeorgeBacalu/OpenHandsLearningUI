@@ -42,19 +42,28 @@ import static org.junit.Assert.assertTrue;
 public class FavoritesLayoutTest {
     private static class TestNavigationContext extends ContextThemeWrapper {
         Intent opened;
-        TestNavigationContext(Context base) { super(base, R.style.Theme_OpenHandsLearning_Home); }
-        @Override public void startActivity(Intent intent) { opened = intent; }
+
+        TestNavigationContext(Context base) {
+            super(base, R.style.Theme_OpenHandsLearning_Home);
+        }
+
+        @Override
+        public void startActivity(Intent intent) {
+            opened = intent;
+        }
     }
 
-    @Test public void cardsStayReadableAndActionsTargetTheChosenCategory() {
+    @Test
+    public void cardsStayReadableAndActionsTargetTheChosenCategory() {
         render(false, 1f, "saved", "day");
         render(true, 1f, "saved", "night");
         render(false, 1.6f, "saved", "large-text-day");
         render(true, 1.6f, "saved", "large-text-night");
     }
 
-    @Test public void emptyCollectionAndEmptySearchHaveDistinctReadableStates() {
-        for (boolean night : new boolean[]{false, true}) {
+    @Test
+    public void emptyCollectionAndEmptySearchHaveDistinctReadableStates() {
+        for (boolean night : new boolean[] {false, true}) {
             render(night, 1f, "empty", "empty-" + (night ? "night" : "day"));
             render(night, 1f, "search", "search-" + (night ? "night" : "day"));
         }
@@ -62,125 +71,240 @@ public class FavoritesLayoutTest {
 
     private void render(boolean night, float scale, String state, String suffix) {
         TestMedia.preload();
+
         var instrumentation = InstrumentationRegistry.getInstrumentation();
+
         instrumentation.runOnMainSync(() -> {
             var target = instrumentation.getTargetContext();
             var config = new Configuration(target.getResources().getConfiguration());
-            config.uiMode = (config.uiMode & ~Configuration.UI_MODE_NIGHT_MASK)
-                    | (night ? Configuration.UI_MODE_NIGHT_YES : Configuration.UI_MODE_NIGHT_NO);
+
+            config.uiMode =
+                    (config.uiMode & ~Configuration.UI_MODE_NIGHT_MASK)
+                            | (night ? Configuration.UI_MODE_NIGHT_YES : Configuration.UI_MODE_NIGHT_NO);
+
             config.fontScale = scale;
+
             config.setLocale(Locale.forLanguageTag("ro"));
+
             var context = new TestNavigationContext(target.createConfigurationContext(config));
-            assertTrue("Header title has strong contrast", ColorUtils.calculateContrast(context.getColor(R.color.home_text),
-                    context.getColor(R.color.favorites_header_surface)) >= 7);
-            assertTrue("Header caption remains readable", ColorUtils.calculateContrast(context.getColor(R.color.home_muted),
-                    context.getColor(R.color.favorites_header_surface)) >= 4.5);
-            assertTrue("Favorite heart stays visible", ColorUtils.calculateContrast(context.getColor(R.color.favorites_accent),
-                    context.getColor(R.color.catalog_card_surface)) >= 4.5);
+
+            assertTrue(
+                    "Header title has strong contrast",
+                    ColorUtils.calculateContrast(
+                                    context.getColor(R.color.home_text),
+                                    context.getColor(R.color.favorites_header_surface))
+                            >= 7);
+            assertTrue(
+                    "Header caption remains readable",
+                    ColorUtils.calculateContrast(
+                                    context.getColor(R.color.home_muted),
+                                    context.getColor(R.color.favorites_header_surface))
+                            >= 4.5);
+            assertTrue(
+                    "Favorite heart stays visible",
+                    ColorUtils.calculateContrast(
+                                    context.getColor(R.color.favorites_accent),
+                                    context.getColor(R.color.catalog_card_surface))
+                            >= 4.5);
+
             View root = LayoutInflater.from(context).inflate(R.layout.activity_favorites, null);
+
             root.setBackgroundColor(context.getColor(R.color.home_background));
+
             RecyclerView list = root.findViewById(R.id.recycler_view);
-            var grid = new GridLayoutManager(context, context.getResources().getInteger(R.integer.video_category_columns));
+
+            var grid =
+                    new GridLayoutManager(context, context.getResources().getInteger(R.integer.video_category_columns));
+
             list.setLayoutManager(grid);
+
             assertEquals("Favorites use the same three-column grid as video categories", 3, grid.getSpanCount());
+
             list.setItemAnimator(null);
+
             var removed = new AtomicReference<Category>();
             var adapter = new CategoryRecyclerViewAdapter(context, removed::set);
+
             list.setAdapter(adapter);
-            var categories = List.of(
-                    new Category(UUID.randomUUID(), "Acesta este colegul meu", TestMedia.url("acesta_este_colegul_meu")),
-                    new Category(UUID.randomUUID(), "Bunic / Bunică", TestMedia.url("bunic_bunica")),
-                    new Category(UUID.randomUUID(), "Formule de adresare", TestMedia.url("formule_de_adresare")),
-                    new Category(UUID.randomUUID(), "Alfabet", TestMedia.url("alfabet")),
-                    new Category(UUID.randomUUID(), "Emoții", TestMedia.url("emotii")),
-                    new Category(UUID.randomUUID(), "Expresii", TestMedia.url("expressions_section")));
+
+            var categories =
+                    List.of(
+                            new Category(
+                                    UUID.randomUUID(),
+                                    "Acesta este colegul meu",
+                                    TestMedia.url("acesta_este_colegul_meu")),
+                            new Category(UUID.randomUUID(), "Bunic / Bunică", TestMedia.url("bunic_bunica")),
+                            new Category(
+                                    UUID.randomUUID(), "Formule de adresare", TestMedia.url("formule_de_adresare")),
+                            new Category(UUID.randomUUID(), "Alfabet", TestMedia.url("alfabet")),
+                            new Category(UUID.randomUUID(), "Emoții", TestMedia.url("emotii")),
+                            new Category(UUID.randomUUID(), "Expresii", TestMedia.url("expressions_section")));
+
             boolean saved = state.equals("saved"), searching = state.equals("search");
+
             adapter.setCategories(saved ? categories : List.of());
-            ((TextView) root.findViewById(R.id.favorites_count)).setText(context.getResources().getQuantityString(
-                    searching ? R.plurals.favorites_results_count : R.plurals.favorites_saved_count,
-                    saved ? categories.size() : 0, saved ? categories.size() : 0));
+
+            ((TextView) root.findViewById(R.id.favorites_count))
+                    .setText(
+                            context.getResources()
+                                    .getQuantityString(
+                                            searching
+                                                    ? R.plurals.favorites_results_count
+                                                    : R.plurals.favorites_saved_count,
+                                            saved ? categories.size() : 0,
+                                            saved ? categories.size() : 0));
+
             list.setVisibility(saved ? View.VISIBLE : View.GONE);
+
             root.findViewById(R.id.favorites_empty).setVisibility(saved ? View.GONE : View.VISIBLE);
+
             if (searching) {
                 ((EditText) root.findViewById(R.id.search_bar)).setText("zz");
+
                 ((TextView) root.findViewById(R.id.firstMessage)).setText(R.string.favorites_no_results);
-                ((TextView) root.findViewById(R.id.secondMessage)).setText(context.getString(R.string.favorites_no_results_caption, "zz"));
+
+                ((TextView) root.findViewById(R.id.secondMessage))
+                        .setText(context.getString(R.string.favorites_no_results_caption, "zz"));
+
                 ((TextView) root.findViewById(R.id.browseCollectionsButton)).setText(R.string.favorites_clear_search);
+
                 ((ImageView) root.findViewById(R.id.noFavoritesImage)).setImageResource(R.drawable.ic_search);
             }
+
             float density = context.getResources().getDisplayMetrics().density;
+
             int width = Math.round((scale > 1 ? 320 : 360) * density), height = Math.round(900 * density);
+
             measure(root, width, height);
             readable(root.findViewById(R.id.favorite_header));
             assertTrue(root.findViewById(R.id.search_icon).getHeight() >= 48 * density);
+
             if (saved) {
                 for (int index = 0; index < categories.size(); index++) {
                     var holder = list.findViewHolderForAdapterPosition(index);
+
                     assertNotNull(holder);
+
                     View card = holder.itemView;
+
                     readable(card.findViewById(R.id.categoryName));
+
                     View remove = card.findViewById(R.id.removeFromFavoriteButton);
-                    assertTrue("Heart has an accessible touch target", remove.getWidth() >= 48 * density && remove.getHeight() >= 48 * density);
+
+                    assertTrue(
+                            "Heart has an accessible touch target",
+                            remove.getWidth() >= 48 * density && remove.getHeight() >= 48 * density);
                     assertTrue(remove.getContentDescription().toString().contains(categories.get(index).getName()));
+
                     ImageView image = card.findViewById(R.id.categoryImage);
+
                     assertEquals("Heart overlays the top of the image", image.getTop(), remove.getTop());
                     assertEquals("Heart overlays the right edge of the image", image.getRight(), remove.getRight());
+
                     Glide.with(context).clear(image);
+
                     image.setImageDrawable(TestMedia.drawable(categories.get(index).getImageUrl()));
+
                     assertEquals(image.getWidth(), image.getHeight());
                     assertEquals(ImageView.ScaleType.FIT_XY, image.getScaleType());
                     assertEquals(Color.WHITE, ((ColorDrawable) image.getBackground()).getColor());
                 }
+
                 View firstCard = requireNonNull(list.findViewHolderForAdapterPosition(0)).itemView;
+
                 for (int index = 1; index < 3; index++) {
                     View card = requireNonNull(list.findViewHolderForAdapterPosition(index)).itemView;
+
                     assertEquals("Three favorite cards fit on the same row", firstCard.getTop(), card.getTop());
                     assertTrue(card.getLeft() > firstCard.getLeft());
                 }
-                assertTrue("The fourth favorite starts the next row",
-                        requireNonNull(list.findViewHolderForAdapterPosition(3)).itemView.getTop() > firstCard.getTop());
+
+                assertTrue(
+                        "The fourth favorite starts the next row",
+                        requireNonNull(list.findViewHolderForAdapterPosition(3)).itemView.getTop()
+                                > firstCard.getTop());
+
                 View first = requireNonNull(list.findViewHolderForAdapterPosition(0)).itemView;
+
                 first.performClick();
-                assertEquals(VideoPlayerActivity.class.getName(), requireNonNull(context.opened.getComponent()).getClassName());
-                assertEquals(categories.get(0).getId().toString(), context.opened.getStringExtra(VideoPlayerActivity.CATEGORY_ID));
+
+                assertEquals(
+                        VideoPlayerActivity.class.getName(),
+                        requireNonNull(context.opened.getComponent()).getClassName());
+                assertEquals(
+                        categories.get(0).getId().toString(),
+                        context.opened.getStringExtra(VideoPlayerActivity.CATEGORY_ID));
                 assertNull("Opening a favorite does not remove it", removed.get());
+
                 first.findViewById(R.id.removeFromFavoriteButton).performClick();
+
                 assertEquals(categories.get(0).getId(), removed.get().getId());
+
                 adapter.setRemovalPending(true);
+
                 removed.set(null);
+
                 measure(root, width, height);
-                requireNonNull(list.findViewHolderForAdapterPosition(0)).itemView.findViewById(R.id.removeFromFavoriteButton).performClick();
+
+                requireNonNull(list.findViewHolderForAdapterPosition(0))
+                        .itemView
+                        .findViewById(R.id.removeFromFavoriteButton)
+                        .performClick();
+
                 assertNull("A pending removal cannot be submitted twice", removed.get());
+
                 adapter.setRemovalPending(false);
+
                 measure(root, width, height);
+
                 for (int index = 0; index < categories.size(); index++) {
-                    ImageView image = requireNonNull(list.findViewHolderForAdapterPosition(index)).itemView.findViewById(R.id.categoryImage);
+                    ImageView image =
+                            requireNonNull(list.findViewHolderForAdapterPosition(index))
+                                    .itemView
+                                    .findViewById(R.id.categoryImage);
+
                     Glide.with(context).clear(image);
+
                     image.setImageDrawable(TestMedia.drawable(categories.get(index).getImageUrl()));
                 }
+
                 measure(root, width, height);
             } else {
-                for (int id : new int[]{R.id.firstMessage, R.id.secondMessage, R.id.browseCollectionsButton}) readable(root.findViewById(id));
+                for (int id : new int[] {R.id.firstMessage, R.id.secondMessage, R.id.browseCollectionsButton})
+                    readable(root.findViewById(id));
+
                 assertTrue(root.findViewById(R.id.browseCollectionsButton).getHeight() >= 48 * density);
             }
+
             var bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+
             root.draw(new Canvas(bitmap));
-            try (var output = new FileOutputStream(new File(target.getExternalFilesDir(null), "favorites-" + suffix + ".png"))) {
+
+            try (var output =
+                    new FileOutputStream(new File(target.getExternalFilesDir(null), "favorites-" + suffix + ".png"))) {
                 assertTrue(bitmap.compress(Bitmap.CompressFormat.PNG, 100, output));
-            } catch (IOException error) { throw new AssertionError(error); }
-            finally { bitmap.recycle(); }
+            } catch (IOException error) {
+                throw new AssertionError(error);
+            } finally {
+                bitmap.recycle();
+            }
         });
     }
 
     private void measure(View root, int width, int height) {
-        root.measure(View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY), View.MeasureSpec.makeMeasureSpec(height, View.MeasureSpec.EXACTLY));
+        root.measure(
+                View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),
+                View.MeasureSpec.makeMeasureSpec(height, View.MeasureSpec.EXACTLY));
         root.layout(0, 0, width, height);
     }
 
     private void readable(TextView text) {
         assertNotNull(text.getLayout());
-        assertTrue("Favorite labels are not clipped", text.getLayout().getHeight() <= text.getHeight()
-                - text.getCompoundPaddingTop() - text.getCompoundPaddingBottom());
+        assertTrue(
+                "Favorite labels are not clipped",
+                text.getLayout().getHeight()
+                        <= text.getHeight() - text.getCompoundPaddingTop() - text.getCompoundPaddingBottom());
+
         for (int line = 0; line < text.getLineCount(); line++) assertEquals(0, text.getLayout().getEllipsisCount(line));
     }
 }

@@ -14,27 +14,45 @@ final class ControlledLearningRepository {
         final Object[] arguments;
         final Consumer<Result<Object>> callback;
         boolean cancelled;
+
         Call(String method, Object[] arguments, Consumer<Result<Object>> callback) {
-            this.method = method; this.arguments = arguments; this.callback = callback;
+            this.method = method;
+            this.arguments = arguments;
+            this.callback = callback;
         }
-        void succeed(Object value) { callback.accept(Result.success(value)); }
+
+        void succeed(Object value) {
+            callback.accept(Result.success(value));
+        }
     }
+
     final List<Call> calls = new ArrayList<>();
-    final LearningRepository repository = (LearningRepository) Proxy.newProxyInstance(
-            LearningRepository.class.getClassLoader(), new Class<?>[]{LearningRepository.class},
-            (proxy, method, args) -> {
-                if (method.getDeclaringClass() == Object.class) {
-                    return switch (method.getName()) {
-                        case "equals" -> args != null && args.length == 1 && proxy == args[0];
-                        case "hashCode" -> System.identityHashCode(proxy);
-                        case "toString" -> "ControlledLearningRepository";
-                        default -> throw new UnsupportedOperationException(method.getName());
-                    };
-                }
-                return (Request<Object>) callback -> {
-                    var call = new Call(method.getName(), args == null ? new Object[0] : args.clone(), callback);
-                    calls.add(call);
-                    return () -> call.cancelled = true;
-                };
-            });
+    final LearningRepository repository =
+            (LearningRepository)
+                    Proxy.newProxyInstance(
+                            LearningRepository.class.getClassLoader(),
+                            new Class<?>[] {LearningRepository.class},
+                            (proxy, method, args) -> {
+                                if (method.getDeclaringClass() == Object.class) {
+                                    return switch (method.getName()) {
+                                        case "equals" -> args != null && args.length == 1 && proxy == args[0];
+                                        case "hashCode" -> System.identityHashCode(proxy);
+                                        case "toString" -> "ControlledLearningRepository";
+                                        default -> throw new UnsupportedOperationException(method.getName());
+                                    };
+                                }
+
+                                return (Request<Object>)
+                                        callback -> {
+                                            var call =
+                                                    new Call(
+                                                            method.getName(),
+                                                            args == null ? new Object[0] : args.clone(),
+                                                            callback);
+
+                                            calls.add(call);
+
+                                            return () -> call.cancelled = true;
+                                        };
+                            });
 }

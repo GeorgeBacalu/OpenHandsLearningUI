@@ -6,10 +6,16 @@ import com.project.ohl.data.remote.RetrofitService;
 import com.project.ohl.presentation.AuthenticatedActivity;
 
 public final class OpenHandsLearningApp extends Application {
-    @Override public void onCreate() {
+    @Override
+    public void onCreate() {
         super.onCreate();
+
         ThemePreferences.applySavedTheme(this);
-        RetrofitService.initialize(this, () -> sendBroadcast(new Intent(AuthenticatedActivity.AUTHENTICATION_EXPIRED)
-                .setPackage(getPackageName())));
+
+        RetrofitService.initialize(
+                this,
+                () ->
+                        sendBroadcast(
+                                new Intent(AuthenticatedActivity.AUTHENTICATION_EXPIRED).setPackage(getPackageName())));
     }
 }
