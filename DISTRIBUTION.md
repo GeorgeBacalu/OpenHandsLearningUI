@@ -6,7 +6,7 @@ budget. Google Play registration was not completed.
 ## Hosted services
 
 - API: https://openhandslearning-api.onrender.com/
-- Media: https://br-red-base-b9fi1yrl.storage.c-7.eu-central-1.aws.neon.tech/openhandslearning-media/prod/
+- Media: https://br-red-base-b9fi1yrl.storage.c-7.eu-central-1.aws.neon.tech/openhandslearning-media/
 - PostgreSQL and media run in the app's separate Neon Free project; the API uses
   Render Free compute. The production catalog contains 207 categories and the
   public school directory. Local user accounts were not copied.
@@ -34,7 +34,9 @@ trailing `/`, or set `OHL_RELEASE_API_BASE_URL` in the build environment. Releas
 configuration is separate from the existing development `apiBaseUrl`.
 Set `releaseMediaBaseUrl` (or `OHL_RELEASE_MEDIA_BASE_URL`) to the media URL above,
 also with a trailing `/`. Both release URLs are configured in this workspace's
-ignored `local.properties`. Development URLs and media settings are separate.
+ignored `local.properties`. Development URLs and media settings are separate. Debug media uses the AWS
+bucket root (`categories/` and `voice/`), without an environment prefix. The
+obsolete `mediaEnvironment` Gradle option has been removed.
 
 ```powershell
 .\gradlew.bat :app:verifyReleaseConfiguration

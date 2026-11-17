@@ -45,7 +45,6 @@ def verifyReleaseConfiguration = tasks.register('verifyReleaseConfiguration') {
     inputs.property('releaseMediaBaseUrl', releaseMediaBaseUrl)
     inputs.property('missingSigningValues', missingSigningValues)
     inputs.property('keyStoreExists', releaseKeyStore != null && releaseKeyStore.isFile())
-    inputs.property('mediaEnvironment', providers.gradleProperty('mediaEnvironment').orElse('prod'))
     doLast {
         for (String setting : ['releaseApiBaseUrl', 'releaseMediaBaseUrl']) {
             def endpoint
@@ -62,19 +61,11 @@ def verifyReleaseConfiguration = tasks.register('verifyReleaseConfiguration') {
                 throw new GradleException('Set ' + setting + ' to the deployed HTTPS URL ending in /. Local development URLs cannot be distributed.')
             }
         }
-        if (inputs.properties.mediaEnvironment != 'prod') {
-            throw new GradleException('Distributed releases must use mediaEnvironment=prod.')
-        }
         if (!inputs.properties.missingSigningValues.isEmpty() || !inputs.properties.keyStoreExists) {
             throw new GradleException('Configure your release keystore in signing.properties or OHL_KEYSTORE_* / OHL_KEY_* environment variables. See DISTRIBUTION.md.')
         }
     }
 }
-def mediaEnvironment = providers.gradleProperty('mediaEnvironment')
-if (mediaEnvironment.isPresent() && !(mediaEnvironment.get() in ['dev', 'prod'])) {
-    throw new GradleException('mediaEnvironment must be dev or prod')
-}
-
 android {
     namespace = 'com.project.ohl'
     compileSdk {
@@ -88,8 +79,8 @@ android {
         applicationId = 'com.project.ohl'
         minSdk = libs.versions.minSdk.get().toInteger()
         targetSdk = libs.versions.compileSdk.get().toInteger()
-        versionCode = 1
-        versionName = '1.0'
+        versionCode = 2
+        versionName = '1.0.1'
         testInstrumentationRunner = 'androidx.test.runner.AndroidJUnitRunner'
         buildConfigField 'String', 'API_BASE_URL', JsonOutput.toJson(apiBaseUrl)
     }
@@ -106,7 +97,7 @@ android {
     buildTypes {
         debug {
             buildConfigField 'String', 'MEDIA_BASE_URL', JsonOutput.toJson(
-                    'https://open-hands-learning.s3.us-east-1.amazonaws.com/' + mediaEnvironment.orElse('dev').get() + '/')
+                    'https://open-hands-learning.s3.us-east-1.amazonaws.com/')
         }
         release {
             buildConfigField 'String', 'API_BASE_URL', JsonOutput.toJson(releaseApiBaseUrl)
